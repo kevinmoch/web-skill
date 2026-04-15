@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "architecture": "Trinity Architecture",
+    "values": "Core Value",
+    "standards": "Web Standardization",
+    "security": "Security Defense"
+  },
+  "panel": {
+    "skillDefinition": "Skill Definition",
+    "trinityArchitecture": "Trinity Architecture",
+    "coreValue": "Core Value",
+    "webStandardization": "Web Standardization",
+    "securityDefense": "Security Defense"
+  },
+  "hero": {
+    "titleLine1": "Running in the browser",
+    "titleAccent": "Agent Skill",
+    "description": "Together with WebMCP and Generative UI, forms a LLM-centered trinity web AI architecture enabling a full in-browser intent-to-execute loop.",
+    "tags": ["Draft Proposal", "Frontend-Native"]
+  },
+  "meta": {
+    "title": "WebSkill — Agent Skills in Browser"
+  },
+  "trinity": {
+    "heading": "Web AI Triangle Architecture",
+    "items": [
+      {
+        "icon": "BrainCircuit",
+        "title": "LLM",
+        "desc": "Performs semantic reasoning and orchestration, acting as a routing engine that parses user intent and retrieves matching WebSkill documents from the frontend skill library."
+      },
+      {
+        "icon": "Code2",
+        "title": "WebSkill",
+        "desc": "Bridges LLM, task execution and UI. Exposes instructions and dependent tools on demand, and strictly defines parameter schemas required."
+      },
+      {
+        "icon": "LayoutTemplate",
+        "title": "Generative UI",
+        "desc": "Intercepts streaming JSON outputs from the LLM based on schema and renders standard web controls (inputs, selects) to ensure accurate parameter collection."
+      },
+      {
+        "icon": "Wrench",
+        "title": "WebMCP",
+        "desc": "A Model Context Protocol (MCP) tailored for frontend web apps. Operates on current page DOM nodes or sends requests carrying the user's session state."
+      }
+    ],
+    "nodeLabels": {
+      "webskill": "Declarative Skill",
+      "generative": "Generative UI",
+      "webmcp": "Frontend Execution"
+    }
+  },
+  "values": {
+    "heading": "Core Values and Enterprise Scenarios",
+    "items": [
+      {
+        "icon": "Zap",
+        "title": "Mitigate context explosion",
+        "desc": "WebSkill dynamically loads only the tools required for a matched intent, drastically reducing token usage and improving intent recognition in complex enterprise scenarios."
+      },
+      {
+        "icon": "Network",
+        "title": "Frontend-native closed loop",
+        "desc": "Skill documents live in the browser and tools run client-side, inheriting cookies, localStorage and session state for zero sync cost task execution."
+      },
+      {
+        "icon": "RefreshCw",
+        "title": "Agile iteration and self-evolution",
+        "desc": "Skills are lightweight declarative documents editable in visual editors without backend deployment. Agents can observe repeated user flows and solidify them into new WebSkills."
+      }
+    ]
+  },
+  "standards": {
+    "heading": "OPFS-based WebSkill Standardization",
+    "paragraph": "Origin Private File System (OPFS) lets webpages read/write files in an isolated private directory visible only to the current origin.",
+    "list": [
+      "Strict same-origin isolation to prevent cross-origin access to enterprise skill definitions.",
+      "Local AES-256-GCM encryption for sensitive business data.",
+      "Structured bindings: separate uiSchema from mcpBindings to clarify displayed forms and tooling.",
+      "Built-in deep defense: enforce domain allowlists when binding low-level tools to lock data flow."
+    ]
+  },
+  "security": {
+    "heading": "Security Defense",
+    "intro": "WebSkill security model",
+    "items": [
+      {
+        "icon": "Lock",
+        "title": "Code-level hard boundaries and execution constraints",
+        "desc": "Implement absolute permission blocking in the WebMCP SDK with strict domain whitelists to limit outgoing network requests."
+      },
+      {
+        "icon": "ShieldAlert",
+        "title": "Human-in-the-loop confirmations",
+        "desc": "For sensitive DOM operations, local file reads or cross-origin calls, require an unskippable native authorization dialog via Generative UI."
+      },
+      {
+        "icon": "FileJson",
+        "title": "Content boundary marking",
+        "desc": "Wrap untrusted webpage data with explicit delimiters before sending to the LLM to help models distinguish trusted WebSkill instructions from untrusted DOM text."
+      }
+    ]
+  },
+  "footer": {
+    "author": "Chunhui Mo",
+    "company": "Huawei",
+    "date": "April 2026",
+    "github": "Github"
+  }
+}

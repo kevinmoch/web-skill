@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "architecture": "三位一体架构",
+    "values": "核心价值",
+    "standards": "Web 标准化提议",
+    "security": "安全防御边界"
+  },
+  "panel": {
+    "skillDefinition": "Skill Definition",
+    "trinityArchitecture": "Trinity Architecture",
+    "coreValue": "Core Value",
+    "webStandardization": "Web Standardization",
+    "securityDefense": "Security Defense"
+  },
+  "hero": {
+    "titleLine1": "运行在浏览器的",
+    "titleAccent": "Agent Skill 技能",
+    "description": "与 WebMCP 和 Generative UI 共同构成以大语言模型 (LLM) 为中心的三位一体 Web AI 架构。在浏览器内实现从“意图识别”到“任务执行”的完整闭环。",
+    "tags": ["Draft Proposal", "Frontend-Native"]
+  },
+  "meta": {
+    "title": "WebSkill — 浏览器中的 Agent 技能"
+  },
+  "trinity": {
+    "heading": "以 LLM 为中心的三位一体架构",
+    "items": [
+      {
+        "icon": "BrainCircuit",
+        "title": "大语言模型 (LLM)",
+        "desc": "承担语义推理与编排的核心功能。作为路由引擎，解析用户自然语言意图，并从前端技能库中检索、加载匹配的 WebSkill 文档。"
+      },
+      {
+        "icon": "Code2",
+        "title": "声明式技能 (WebSkill)",
+        "desc": "连接 LLM、任务执行与 UI 的桥梁。通过“渐进式披露”机制，按需暴露指令与依赖工具，并严格定义必须收集的参数规范 (Schema)。"
+      },
+      {
+        "icon": "LayoutTemplate",
+        "title": "生成式 UI (Generative UI)",
+        "desc": "实时拦截 LLM 基于 Schema 流式输出的 JSON 数据，自动渲染包含文本框、下拉菜单等标准 Web 元素的视觉表单，确保参数收集的准确性。"
+      },
+      {
+        "icon": "Wrench",
+        "title": "前端执行工具 (WebMCP)",
+        "desc": "专为前端 Web 应用定制的 Model Context Protocol (MCP) 实现。直接操作当前页面 DOM 节点，或携带用户现有会话状态向后端发送请求。"
+      }
+    ],
+    "nodeLabels": {
+      "webskill": "声明式技能",
+      "generative": "生成式 UI",
+      "webmcp": "前端执行工具"
+    }
+  },
+  "values": {
+    "heading": "核心价值与企业级应用场景",
+    "items": [
+      {
+        "icon": "Zap",
+        "title": "突破上下文爆炸瓶颈",
+        "desc": "WebSkill 通过按需动态加载仅在匹配特定意图时注入工具声明，大幅降低 Token 消耗，提升复杂场景的意图识别准确性。"
+      },
+      {
+        "icon": "Network",
+        "title": "前端原生闭环",
+        "desc": "技能文档驻留浏览器，工具在前端运行，继承 Cookies、LocalStorage 与登录态，实现零同步成本任务执行。"
+      },
+      {
+        "icon": "RefreshCw",
+        "title": "敏捷迭代与自我进化",
+        "desc": "技能是轻量声明文档，可在可视化编辑器中调整，零后端部署。Agent 可观察用户流并固化为新 WebSkill。"
+      }
+    ]
+  },
+  "standards": {
+    "heading": "基于 OPFS 的 WebSkill 标准化提议",
+    "paragraph": "Origin Private File System (OPFS) 允许网页在隔离的私有目录中读写文件，仅对当前 Origin 可见。",
+    "list": [
+      "严格的同源策略隔离，防止恶意网站跨域访问企业技能定义。",
+      "结合 AES-256-GCM 算法进行本地静态加密，确保机密业务数据不出端。",
+      "高度结构化的绑定：强制分离 uiSchema 与 mcpBindings，明确缺参数时显示的表单与工具调用。",
+      "内建深度防御：绑定底层工具时，必须在创建时通过 domainAllowlist 锁死数据流向。"
+    ]
+  },
+  "security": {
+    "heading": "安全防御边界",
+    "intro": "WebSkill 的安全防御体系",
+    "items": [
+      {
+        "icon": "Lock",
+        "title": "代码级硬边界与执行约束",
+        "desc": "在 WebMCP SDK 底层实现权限阻断。强制域名白名单，限制工具只能向受信任源发送请求。"
+      },
+      {
+        "icon": "ShieldAlert",
+        "title": "Human-in-the-Loop 强制确认",
+        "desc": "对于敏感 DOM 操作、本地文件读取或跨域请求，必须通过 Generative UI 弹出不可绕过的授权弹窗。"
+      },
+      {
+        "icon": "FileJson",
+        "title": "内容边界标记",
+        "desc": "在将不可控网页数据传入 LLM 前，使用显式分隔符包装以帮助模型区分受信任指令与不受信的 DOM 文本。"
+      }
+    ]
+  },
+  "footer": {
+    "author": "Chunhui Mo",
+    "company": "Huawei",
+    "date": "April 2026",
+    "github": "Github"
+  }
+}

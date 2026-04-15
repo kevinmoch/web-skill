@@ -1,0 +1,62 @@
+@import url('css2.css');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono: 'Roboto Mono', 'SF Mono', monospace;
+  --color-bg: #0a0a0b;
+  --color-surface: #121214;
+  --color-accent: #00f0ff;
+  --color-text-main: #f0f0f0;
+  --color-text-dim: #88888d;
+  --color-border-color: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+}
+
+@layer utilities {
+  .panel {
+    border-bottom: 1px solid var(--color-border-color);
+    padding: 40px;
+    position: relative;
+  }
+  .panel-right-border {
+    border-right: 1px solid var(--color-border-color);
+  }
+  .panel-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--color-border-color);
+    font-size: 10px;
+    border-radius: 2px;
+    margin-right: 6px;
+    font-family: var(--font-mono);
+  }
+  .scenario-card {
+    padding: 16px;
+    border-left: 2px solid var(--color-accent);
+    background: rgba(0, 240, 255, 0.03);
+  }
+  .value-item {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--color-border-color);
+    border-radius: 4px;
+  }
+}
+
+.indent {
+  padding-left: 30px;
+}
