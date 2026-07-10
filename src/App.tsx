@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageToggle from './components/LanguageToggle';
 import { motion } from 'motion/react';
@@ -9,7 +9,7 @@ interface FadeInProps {
   delay?: number;
 }
 
-const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0 }) => (
+const FadeIn = ({ children, delay = 0 }: FadeInProps) => (
   <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.6, delay }}>
     {children}
   </motion.div>
@@ -30,7 +30,7 @@ const ICONS: Record<string, any> = {
   Network
 };
 
-const TrinityDiagram: React.FC<{ t: (key: string) => any }> = ({ t }) => (
+const TrinityDiagram = ({ t }: { t: (key: string) => any }) => (
   <div className="relative w-full max-w-2xl mx-auto aspect-video flex items-center justify-center mt-16 mb-8">
     {/* Central LLM */}
     <motion.div
@@ -45,36 +45,9 @@ const TrinityDiagram: React.FC<{ t: (key: string) => any }> = ({ t }) => (
 
     {/* Connecting Lines */}
     <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{ filter: 'drop-shadow(0 0 8px rgba(0,240,255,0.3))' }}>
-      <motion.path
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 1.5, delay: 0.5 }}
-        d="M 50 50 L 20 20"
-        stroke="var(--color-accent)"
-        strokeWidth="1"
-        fill="none"
-        strokeDasharray="4 4"
-      />
-      <motion.path
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 1.5, delay: 0.7 }}
-        d="M 50 50 L 80 20"
-        stroke="var(--color-accent)"
-        strokeWidth="1"
-        fill="none"
-        strokeDasharray="4 4"
-      />
-      <motion.path
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 1.5, delay: 0.9 }}
-        d="M 50 50 L 50 85"
-        stroke="var(--color-accent)"
-        strokeWidth="1"
-        fill="none"
-        strokeDasharray="4 4"
-      />
+      <motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, delay: 0.5 }} d="M 50 50 L 20 20" stroke="var(--color-accent)" strokeWidth="1" fill="none" strokeDasharray="4 4" />
+      <motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, delay: 0.7 }} d="M 50 50 L 80 20" stroke="var(--color-accent)" strokeWidth="1" fill="none" strokeDasharray="4 4" />
+      <motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, delay: 0.9 }} d="M 50 50 L 50 85" stroke="var(--color-accent)" strokeWidth="1" fill="none" strokeDasharray="4 4" />
     </svg>
 
     {/* Nodes */}
@@ -113,7 +86,7 @@ const TrinityDiagram: React.FC<{ t: (key: string) => any }> = ({ t }) => (
   </div>
 );
 
-const CodeBlock: React.FC<{ t: (key: string) => any }> = ({ t }) => (
+const CodeBlock = ({ t }: { t: (key: string) => any }) => (
   <div className="rounded border border-border-color bg-[#0d0d0d] mt-6">
     <div className="flex items-center px-4 py-2 border-b border-border-color bg-surface/50">
       <div className="flex space-x-2">
@@ -154,7 +127,7 @@ const CodeBlock: React.FC<{ t: (key: string) => any }> = ({ t }) => (
 export default function App() {
   const { t, i18n } = useTranslation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     try {
       document.title = t('meta.title');
       document.documentElement.lang = i18n.language || 'en';
@@ -174,28 +147,16 @@ export default function App() {
       <header className="w-full max-w-[1024px] px-10 py-6 flex justify-between items-center border-b border-x border-border-color">
         <div className="font-mono font-bold text-[18px] tracking-[-0.5px] flex items-center gap-2">WebSkill</div>
         <nav className="hidden md:flex gap-8">
-          <a
-            href="#architecture"
-            className={`text-text-dim ${i18n.language && i18n.language.startsWith('en') ? 'text-[10px]' : 'text-[13px]'} uppercase tracking-[1px] hover:text-text-main transition-colors`}
-          >
+          <a href="#architecture" className={`text-text-dim ${i18n.language && i18n.language.startsWith('en') ? 'text-[10px]' : 'text-[13px]'} uppercase tracking-[1px] hover:text-text-main transition-colors`}>
             {t('nav.architecture')}
           </a>
-          <a
-            href="#values"
-            className={`text-text-dim ${i18n.language && i18n.language.startsWith('en') ? 'text-[10px]' : 'text-[13px]'} uppercase tracking-[1px] hover:text-text-main transition-colors`}
-          >
+          <a href="#values" className={`text-text-dim ${i18n.language && i18n.language.startsWith('en') ? 'text-[10px]' : 'text-[13px]'} uppercase tracking-[1px] hover:text-text-main transition-colors`}>
             {t('nav.values')}
           </a>
-          <a
-            href="#standards"
-            className={`text-text-dim ${i18n.language && i18n.language.startsWith('en') ? 'text-[11px]' : 'text-[13px]'} uppercase tracking-[1px] hover:text-text-main transition-colors`}
-          >
+          <a href="#standards" className={`text-text-dim ${i18n.language && i18n.language.startsWith('en') ? 'text-[11px]' : 'text-[13px]'} uppercase tracking-[1px] hover:text-text-main transition-colors`}>
             {t('nav.standards')}
           </a>
-          <a
-            href="#security"
-            className={`text-text-dim ${i18n.language && i18n.language.startsWith('en') ? 'text-[11px]' : 'text-[13px]'} uppercase tracking-[1px] hover:text-text-main transition-colors`}
-          >
+          <a href="#security" className={`text-text-dim ${i18n.language && i18n.language.startsWith('en') ? 'text-[11px]' : 'text-[13px]'} uppercase tracking-[1px] hover:text-text-main transition-colors`}>
             {t('nav.security')}
           </a>
         </nav>
@@ -209,12 +170,7 @@ export default function App() {
         <section className="panel panel-right-border lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-2">
           <span className="panel-label">{t('panel.skillDefinition')}</span>
           <div className="max-w-4xl">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-[48px] font-medium tracking-[-0.02em] leading-[1.1] mb-6"
-            >
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="text-[48px] font-medium tracking-[-0.02em] leading-[1.1] mb-6">
               {t('hero.titleLine1')} <br />
               <span className="text-accent">{t('hero.titleAccent')}</span>
             </motion.h1>
@@ -335,6 +291,9 @@ export default function App() {
               <span className="text-accent">{t('footer.author')}</span>
             </span>
           </div>
+          <a href="/demo" className="font-mono text-[11px] text-accent hover:underline mb-4 md:mb-0">
+            {t('footer.demo')}
+          </a>
           <p className="text-text-dim text-[11px] font-mono">
             <span className="text-accent">{t('footer.company')}</span>, {t('footer.date')}.{' '}
             <a href="https://github.com/kevinmoch/web-skill" target="_blank" className="text-accent">

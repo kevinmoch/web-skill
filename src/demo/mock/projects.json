@@ -1,0 +1,26 @@
+[
+  {
+    "id": "PROJ-CORE",
+    "key": "CORE",
+    "name": "智云协同核心业务平台",
+    "name_en": "SmartCloud Core Platform",
+    "status": "迭代活跃中",
+    "status_en": "Sprint Active"
+  },
+  {
+    "id": "PROJ-CD",
+    "key": "DEVOPS",
+    "name": "低代码自动化交付流水线",
+    "name_en": "Low-Code Automated Pipeline",
+    "status": "架构优化中",
+    "status_en": "Arch Optimization"
+  },
+  {
+    "id": "PROJ-AGENT",
+    "key": "AGENT",
+    "name": "智能协同研发助手系统",
+    "name_en": "AI Dev Large Model Assistant",
+    "status": "需求设计中",
+    "status_en": "Backlog Designing"
+  }
+]
