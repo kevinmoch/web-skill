@@ -1,331 +1,340 @@
-# WebSkill — Agent Skills Running in the Browser
+# WebSkill - The Agentic Web's Evolution into SaaS (Skill as a Service)
 
-Draft Proposal, April 2026
+Draft Proposal, July 2026
 
 **Editors:** Chunhui Mo (Huawei)
 
 **Translations:** [简体中文](https://github.com/kevinmoch/web-skill/blob/main/README.zh-CN.md)
 
-<hr>
+This article is based on the presentation script for **"WebSkill - The Agentic Web's Evolution into SaaS"** Here, SaaS does not refer to the familiar Software as a Service, but rather **Skill as a Service**.
 
-Compared to traditional skills running on backend services, WebSkill is a native architecture that operates entirely on the Web frontend. Together with WebMCP and Generative UI, it forms a trinity Web AI architecture centered around Large Language Models (LLMs). Through tight integration, these three core components achieve a complete closed loop for AI applications right within the browser—from "user intent recognition" to "Agent task execution." Based on this architecture, this article deeply explores the core role WebSkill plays, its unique value, enterprise-level application scenarios, Web standardization proposals, and crucial security defense boundaries.
-
-### I. The LLM-Centric "Agent Interaction Triangle"
-
-In the Agent dialog scenario of frontend Web AI applications, the system's operation can be abstracted as a triangular architecture with the Large Language Model (LLM) acting as the central hub, composed of WebSkill, WebMCP, and Generative UI.
-
-![Web AI](web_ai.jpg 'The Trinity Architecture of Web AI')
-_Figure 1: The Trinity Architecture of Web AI_
-
-1.  **Large Language Model (LLM):** The LLM assumes the core functions of semantic reasoning and orchestration. When a user inputs a natural language intent into the AI application's dialog box, the LLM first parses this intent and acts as a routing engine, retrieving and loading the matching WebSkill document from the frontend skill inventory.
-2.  **Declarative Skills (WebSkill):** WebSkill serves as the bridge connecting the LLM, Agent task execution, and the user interface. Through a "progressive disclosure" mechanism, it exposes the relevant instructions, prerequisites, and required WebMCP tools to the LLM on-demand, only within specific business contexts. Additionally, the WebSkill document strictly defines the parameter specification (Schema) that must be collected to fulfill the user's intent. When the LLM detects that the user's input lacks these required parameters, the WebSkill's logic directs the Agent to pause underlying execution and turn to the user for information collection.
-3.  **Generative UI:** In traditional architectures, LLMs can only ask users questions by outputting text options in Markdown, which makes for a highly rigid interaction. In this architecture, however, the LLM streams structured JSON data based on the Schema defined by the WebSkill. The Generative UI renderer within the Agent dialog box intercepts this data in real-time and automatically renders a visual form containing standard Web elements like text boxes, dropdown menus, and date pickers. Once the user intuitively completes their selections via the form, the Generative UI ensures the accuracy of the collected parameters. After WebMCP completes the task, the LLM can similarly invoke the Generative UI to render dry data results into bar charts, pie charts, or interactive tables, providing users with a visualized presentation of the outcomes.
-4.  **Frontend Execution Tools (WebMCP):** Once the parameters required for task execution are fully collected via the Generative UI, the system passes them to the WebMCP tools for execution. WebMCP is a TypeScript SDK implementation of the Model Context Protocol (MCP) tailored for frontend Web applications. Developers can register MCP tools via webpage scripts; when a tool's callback function is triggered, WebMCP can directly manipulate the current page's DOM nodes or send requests to backend services carrying the user's existing session state.
+This article breaks down WebSkill into three main parts: First, we'll clarify what WebSkill actually is and the value it delivers. Next, we'll dive into how its foundational capabilities and core features operate. Finally, we'll share some proposals for pushing it toward Web standardization.
 
 ---
 
-### II. Core Value and Enterprise Application Scenarios of WebSkill
+### [Slide 1.1: What is an Agent Skill? In what scenarios is it used?]
 
-To discuss the core value of WebSkill, we must differentiate it from standard LLM tool-calling patterns and traditional cloud-based skill architectures.
+![](images/en/1.png)
 
-1.  **Breaking the Context Explosion Bottleneck**
-    Technically, an LLM inherently possesses the ability to directly call WebMCP tools, provided that the complete MCP Tools declarations are attached to the request sent to the model. However, in complex enterprise-level Web AI applications, the number of underlying tools often numbers in the hundreds or thousands. Cramming all tool Schemas into the context at once would not only rapidly deplete the LLM's Context Window—causing a "context explosion" and exorbitant Token costs—but also disperse the model's attention, severely degrading the accuracy of intent recognition.
+Before discussing WebSkill, we must first establish a foundational concept: What is an **Agent Skill**?
 
-    ![Web Skill](web_skill.jpg 'Visual Skill Editor on the Web Frontend')
-    _Figure 2: Visual Skill Editor on the Web Frontend_
+Imagine you just hired a brilliant new employee for your company (representing a general AI large model). While smart, they don't know your company's specific reimbursement processes or coding standards. To get them up to speed, you hand them an employee training manual. **An Agent Skill is exactly that—a training manual designed for AI models.**
 
-    The introduction of WebSkill elegantly solves this dilemma. When a user inputs natural language, the LLM first performs lightweight intent recognition to match a specific WebSkill. Because each WebSkill explicitly declares the specific list of WebMCP tools required for that business logic, the system only needs to inject the declarations of **these specific tools** into the subsequent context. This "on-demand dynamic loading" mechanism drastically reduces system overhead, ensuring the stable operation of large enterprise applications in complex scenarios.
+An Agent Skill is a modular, reusable, and standardized capability unit. Within this unit, we encapsulate professional domain knowledge, explicit instructions, metadata, and even specific scripts and templates. It serves a single purpose: to expand the capabilities and boundaries of an AI agent, transforming it from a mere chatbot into a professional corporate employee.
 
-2.  **Frontend-Native Closed Loop**
-    Currently, the open-source community offers a command-line tool named Webskills, but it merely treats webpages as a knowledge base corpus to serve a CLI agent outside the browser. In contrast, the WebSkill proposed in this article is a true **Frontend-Native closed loop**. The content of a WebSkill resides directly within the browser. In traditional architectures, Skill documents are stored in the cloud and executed as backend APIs, which not only requires handling complex cross-platform authentication but is also subject to execution timeouts. Because WebSkill documents live inside the browser and WebMCP tools run on the frontend, they naturally inherit and reuse the user's existing Cookies, LocalStorage, and login state. This allows the Agent to easily bypass complex Single Sign-On (SSO) or Multi-Factor Authentication (MFA), achieving task execution with "zero state synchronization cost."
+Where are Agent Skills used? Anywhere that requires professional standards, business rules, or deep domain knowledge. Let's look at a few examples:
 
-3.  **Agile Iteration and Self-Evolution**
-    Under the traditional model, equipping an Agent with a specific business capability involves a grueling pipeline: drafting documents -\> writing code -\> backend deployment -\> going live -\> spotting deviations -\> re-developing and re-deploying. Under the WebSkill architecture, skills are transformed into lightweight, declarative documents (such as Markdown) that can be parsed by the frontend. Business personnel or even clients can directly adjust the prerequisites and logic of a Skill within a visual editor. Since the skills are stored on the frontend, modifications require absolutely zero backend deployment; the Agent will instantly load the latest rules upon its next execution, compressing the iteration cycle from days to seconds.
+- **Development & Coding:** You can package code review guidelines into a Skill. This ensures the AI doesn't give random advice but strictly reviews code according to your team's standards. For instance, you could instruct it to write code following Test-Driven Development (TDD) practices or have it handle complex Git branch merges.
+- **Business & Documentation:** This is a highly common scenario. When drafting a document with a corresponding Skill, the AI will strictly apply your company's fixed templates, brand colors, and typography guidelines instead of generating poorly formatted text every time. You can also have it perform variance analysis for financial audits or generate reports in multiple formats (Word, PDF, PPT) with a single click.
+- **Security & Compliance:** We can convert compliance checks, penetration testing rules, and vulnerability scanning workflows into Skills, enabling the AI to execute them in an automated and standardized manner.
 
-    ![Web Agent](web_agent.jpg 'Agent Dialog Box Invoking a WebSkill')
-    _Figure 3: Agent Dialog Box Invoking a WebSkill_
+Why are Agent Skills so crucial? Because traditional AI faces three major pain points that Agent Skills perfectly resolve:
 
-    Furthermore, as the reasoning capabilities of LLMs enhance, Agents in this architecture can even achieve self-evolution. When an Agent observes a user performing repetitive extraction or interaction operations within a complex enterprise application, it can autonomously summarize the workflow and solidify it into a brand-new WebSkill. Because this skill is tightly bound to the current user's browser, it not only delivers the ultimate customized experience but also guarantees that core business operational logic will never be leaked to other tenants.
+1.  **Solving Context Bloat:** In the past, to make AI understand your business, you had to cram dozens of pages of background information into the prompt. This not only causes context overload and skyrocketing API costs but also leads to AI hallucinations and the forgetting of key information. With Agent Skills, the AI only reads specific skill packages when needed, significantly reducing the context burden.
+2.  **Bridging the Domain Expertise Gap:** No matter how smart a general model is, it doesn't intuitively know your company's pricing strategies or approval workflows. Agent Skills solidify human expert knowledge, turning a general model into a specialized one.
+3.  **Eliminating Repetitive Prompting:** Without Agent Skills, you have to copy and paste the same prompts every time you want the AI to perform a task. With them, prompts are created once and reused infinitely, truly achieving workflow automation, standardization, and behavioral consistency.
 
 ---
 
-### III. Standardization Proposals for WebSkill Based on OPFS
+### [Slide 1.2: What is a WebSkill? What are its unique features?]
 
-The Origin Private File System (OPFS) is a standard API proposed by the W3C and gradually implemented by mainstream browsers. It allows webpages to read and write files and directory structures within an isolated, private directory, which is visible only to the current Origin (protocol + domain + port).
+![](images/en/2.png)
 
-In an OPFS-based WebSkill implementation, once a skill document is written to OPFS, it is subject to the browser's strict same-origin policy isolation, ensuring malicious websites cannot cross-origin access an enterprise's skill definitions. Coupled with static encryption of locally stored skills using the AES-256-GCM algorithm, this guarantees that confidential business data never leaves the current device.
+Simply put, WebSkill is a **frontend-native skill running directly in the browser**. It is a declarative contract, and its most unique aspect is that it **operates entirely within a closed loop in the browser**, without relying on traditional backend services. WebSkill differs from traditional Agent Skills in three key ways:
 
-We define the following Web IDL interface specifications to standardize WebSkill and safely store it within OPFS:
+**1. Browser-Based Self-Contained Loop**
+Traditional Skills are usually deployed on Node.js or cloud servers. WebSkill breaks this rule by completing the entire workflow directly in the browser. This means we eliminate the massive data transmission overhead between the frontend and backend. Furthermore, through a lightweight directory (containing instructions, scripts, and templates), it directly grants Agent expert capabilities on the frontend. Tasks like filling out complex forms, running multi-step workflows, or performing enterprise data analysis can all be completed locally on the user's machine.
 
-```web-idl
-// =========================================================
-// 1. Security and Boundary Constraints (WebSkillSecurityConstraints)
-// =========================================================
-dictionary WebSkillSecurityConstraints {
-    // Strict allowlist for WebMCP tool network requests (physically severing data exfiltration)
-    sequence<DOMString> domainAllowlist;
-    // High-risk operations forcibly trigger human-in-the-loop (Generative UI interception modal)
-    boolean requiresHumanConfirmation;
-    // Disable the current skill from accessing local file resources like file:// via WebMCP
-    boolean blockLocalFileAccess;
-};
+**2. Absolute Privacy and Isolation**
+This is extremely important for enterprises. WebSkill files are stored in the browser's OPFS (Origin Private File System). Unlike LocalStorage, OPFS has nearly unlimited capacity (generally limited only by the user's local storage space) and enforces stricter same-origin policy isolation. Moreover, WebSkill scripts run in a Web Worker security sandbox, completely isolated from the browser's main thread. Therefore, WebSkill scripts cannot overstep permissions to access global variables of the main Web application. Consequently, users' sensitive data, login credentials, and corporate trade secrets remain locally stored from start to finish (assuming an on-device model is used), inherently eliminating the risk of cloud data abuse or interception.
 
-// =========================================================
-// 2. Generative UI Contract (GenerativeUIOptions)
-// =========================================================
-dictionary GenerativeUIOptions {
-    // Required: The JSON Schema used for GenUI to intercept and render forms in real-time
-    required object parameterSchema;
-    // Optional: Visual cues for the renderer (e.g., recommending a "DatePicker" for a specific field)
-    object renderHints;
-    // A friendly prompt thrown by the LLM to the UI rendering component when intent parameters are missing
-    DOMString defaultIntentPrompt;
-};
+**3. Dynamic Evolution and User-Level Personalized Assets**
+Traditional backend skills are rigid and shared uniformly across all users. WebSkill, however, is a living entity. It is your personal, private asset stored locally, growing and evolving based on your usage habits. If the current skill cannot complete your task, the on-device model can proactively analyze your needs, record your operation steps, and—with your consent—automatically write a new SKILL file to your local storage. As a result, Web applications adopting WebSkill technology become increasingly attuned to you over time. This is the true experience accumulation we want from AI Agents.
 
-// =========================================================
-// 3. WebMCP Binding Contract (WebMCPBinding)
-// =========================================================
-dictionary WebMCPBinding {
-    // Identifiers of frontend-native WebMCP tools that the current Skill is allowed to call
-    required sequence<DOMString> toolNames;
-    // The data format constraints expected to be returned by WebMCP after the skill is executed
-    object expectedOutputSchema;
-};
+---
 
-// =========================================================
-// 4. Core WebSkill Data Structure
-// =========================================================
-dictionary WebSkillOptions {
-    // Basic information and routing orchestration
-    required DOMString name;
-    required DOMString description; // The retrieval basis for LLM intent routing
-    required DOMString content;     // Business logic or system prompts in YAML/Markdown format
+### [Slide 1.3: LLM-Centric Web AI Architecture]
 
-    // Strong architectural association: UI presentation layer constraints
-    GenerativeUIOptions uiSchema;
+![](images/en/3.png)
 
-    // Strong architectural association: Underlying executor constraints
-    WebMCPBinding mcpBindings;
+Here is an explanation of this Web AI architecture:
 
-    // Strong architectural association: Intent collision defense configuration
-    WebSkillSecurityConstraints security;
+- At the very top is the **Conversational Input**, where the user inputs their request via the AI chat interface.
+- The user's input flows to the **Central Hub**—the on-device Large Language Model (LLM). It is responsible for thinking, reasoning, and skill scheduling (i.e., routing and matching skills).
+- When the LLM decides on a course of action, it connects to the **Skill Layer (WebSkill)** on the left. This layer contains the declarative Skill contract and the Schema (parameter specifications) mentioned earlier. The LLM reviews the Skill's content to determine the prerequisites for executing the task.
+- If the LLM detects missing information from the user, it connects to the **Interaction Layer (Generative UI)** on the right. The Generative UI dynamically renders an interactive form on the frontend based on the missing parameters, prompting the user for data.
+- Once the parameters are complete, the system moves to the **Execution Layer (WebMCP)** below. This is the frontend-native executor responsible for directly manipulating page DOM nodes or sending backend service requests. The MCP tools shoulder the actual workload.
+- After the task is completed, the resulting data returns to the Generative UI on the right, transforming raw data into visual charts for the user.
 
-    DOMString parentId;
-};
+In this architecture, WebSkill first solves the challenge of the model not knowing when to call which tool, thoroughly closing the loop for frontend Agent tasks. Secondly, it prevents context explosion caused by feeding the descriptions of hundreds of WebMCP tools to the model all at once. Lastly, the Generative UI elegantly bridges the human-computer interaction gap when the AI needs to request information from the user during execution.
 
-// The complete static contract object (its form after being saved to OPFS)
-dictionary WebSkill : WebSkillOptions {
-    required DOMString id;
-    required unsigned long long createdAt;
-    unsigned long long updatedAt;
-};
+---
 
-// =========================================================
-// 5. Core Interface Definitions
-// =========================================================
+### [Slide 1.4: WebSkill vs. Traditional Backend Skills]
 
-// WebSkill Manager (Responsible for CRUD and validation based on OPFS)
-[Exposed=(Window,Worker)]
-interface WebSkillManager {
-    Promise<WebSkill?> get(DOMString skillId);
-    Promise<DOMString> create(WebSkillOptions options);
-    Promise<boolean> update(DOMString skillId, WebSkillOptions options);
-    Promise<boolean> remove(DOMString skillId);
+![](images/en/4.png)
 
-    // Core: Validate whether UI constraints and MCP constraints meet the security baseline
-    Promise<boolean> validate(DOMString skillId);
-    Promise<sequence<WebSkill>> query(DOMString? keyword);
-};
+Here is a comparison between traditional backend Skills and WebSkill:
 
-// [Mounting global property]
-partial interface Window {
-    [SameObject] readonly attribute WebSkillManager skills;
-};
-```
+- **Runtime Environment:** Traditional Skills run on Node.js or cloud servers; WebSkill runs in the browser's Web Worker and leverages OPFS for storage.
+- **Execution Carrier:** Traditional Skills rely on container sandboxes; WebSkill utilizes the frontend Worker's native security sandbox.
+- **Data Flow:** The traditional approach sends browser data over the internet to the backend, which then passes it to the LLM. WebSkill operates in a closed loop entirely within the browser, with zero outward data transmission, making it both faster and more secure.
+- **State Management:** Traditional Skills decouple the frontend and backend, requiring extensive code to synchronize state. WebSkill operates directly on the frontend, allowing it to manipulate the DOM and instantly access current session states.
+- **Deployment:** Traditional Skills must be deployed on servers and require dedicated maintenance. WebSkill is distributed alongside the Web application—open the webpage and it's ready to use.
+- **Evolutionary Capability:** When a server version of a traditional Skill is updated, it changes for everyone, making it very rigid. WebSkill is an asset on the user's local device; each person's skills can be distinct, enabling genuine, independent, and personalized evolution.
 
-Through declarative constraints, we have strictly defined WebSkill as a security sandbox:
+---
 
-- **Highly Structured Bindings:** Unlike standard local storage, `WebSkillOptions` mandates the separation of `uiSchema` and `mcpBindings`. This means that when the LLM reads this Skill, it not only knows "what to do" but also explicitly knows "what Schema to use to have the frontend draw a form (Generative UI) when parameters are missing," and "which specific, declared underlying tools (WebMCP) it is allowed to call once parameters are collected."
-- **Built-in Defense-in-Depth:** `WebSkillSecurityConstraints` are embedded directly at the Skill level. If a Skill is bound to a WebMCP tool that extracts sensitive data, it must lock down the data flow via the `domainAllowlist` right at creation, preventing malicious instructions caused by "intent collisions" from covertly sending data to third-party servers.
-- **Foundation for Progressive Disclosure:** This structure allows the system to perform lightweight routing matching via the `description` upon receiving a user intent. Only after a successful match are the specific `mcpBindings` and `uiSchema` loaded on demand, thereby massively saving on Context Token consumption.
+### [Slide 1.5: WebSkill's Unique Feature: A Privacy-First, Sandboxed Agent Loop]
 
-Here is a reference implementation code based on OPFS, which follows the IDL specification above and focuses on implementing the `validate` method to reflect the system-architecture-level validation of Generative UI and WebMCP bindings:
+![](images/en/5.png)
 
-```typescript
-/**
- * Simulates an AES-256-GCM static encryption service to ensure the privacy of data stored locally in OPFS
- */
-const CryptoService = {
-  async encrypt(dataObj) {
-    return new TextEncoder().encode(JSON.stringify(dataObj));
+Within the browser, we rely on two main security and privacy infrastructures: OPFS and Workers:
+
+- **OPFS (Origin Private File System)** acts like a private safe within the browser. Skill files stored here are strictly protected by the same-origin policy, rendering them untouchable by other websites and inherently guarding against malicious remote control from the cloud.
+- **Preventing Intent Collision:** What is intent collision? When an AI reads a malicious operational description in a `Skill.md` file, it might be misled into performing destructive actions, such as reading, modifying, or deleting local files. OPFS establishes a security boundary at the code level, stripping away sensitive access rights like local `file://` protocols and blocking all unauthorized network requests.
+- **Worker Security Sandbox:** WebSkill's scripts can only run within this independent thread. They cannot overstep their bounds to directly access the DOM in the main Web thread or retrieve global variables on the page.
+- **Human-in-the-Loop:** For any operation involving sensitive DOM manipulations or file read/writes, the system is mandated to trigger a native UI authorization popup—meaning human consent via a click is required. Humans remain in the loop at all times to appropriately limit the Agent's autonomy.
+
+---
+
+### [Slide 2.1: WebSkill implements the Agent Skills Protocol in TypeScript]
+
+![](images/en/6.png)
+
+WebSkill is implemented strictly in accordance with the standard Agent Skills protocol using TypeScript. The directory structure is as follows:
+
+- First is the **`SKILL.md`** file in the root directory. This is the core of the entire skill, containing YAML-formatted metadata (telling the LLM who it is) and Markdown-formatted instructions (telling the LLM what to do).
+- Next is the **`scripts/`** directory. This houses the actual executable script code. Since we are in a Web environment, it only supports `.ts` and `.js` scripts.
+- Then comes the **`references/`** directory, which stores the resources required during execution. Examples include `report-template.html` (an HTML report template) or `dashboard.json` (configuration data for an analytics dashboard).
+- Finally, there is the **`assets/`** directory. This holds static resources like `logo.png` icons, as well as intermediate outputs generated by the Agent during execution (placed in `intermediate/`).
+
+---
+
+### [Slide 2.2: WebSkill supports the progressive disclosure of its available skills]
+
+![](images/en/7.png)
+
+WebSkill also supports a key feature of traditional Skills: **Progressive Disclosure**. If you feed all skill descriptions, script codes, and template contents to the LLM at once, the context window will explode instantly. Progressive disclosure is designed to solve this exact problem. Its architecture is divided into three layers:
+
+1.  **Top Layer: SKILL.md Metadata.** When a task first starts, the LLM only loads the `name` and `description` of all available skills. Much like browsing a table of contents, the LLM learns what skills are currently at its disposal.
+2.  **Middle Layer: Instruction Layer.** When the LLM selects a specific skill to complete a task based on the user's need, it will then load the full body content of that `SKILL.md` into its context.
+3.  **Bottom Layer: Resource Layer.** Only when the skill needs to execute its scripts or read its resources will the system load the files from the `scripts`, `references`, or `assets` directories.
+
+This is essentially on-demand loading. Compared to strategies that load all skill descriptions or all MCP tool descriptions upfront, this layered loading approach significantly reduces context length, minimizes Token consumption, and accelerates LLM response times.
+
+---
+
+### [Slide 2.3: Execution Units of WebSkill: scripts/ Files]
+
+![](images/en/8.png)
+
+Let's dive deeper into the script file specifications within the `scripts` directory. We enforce three strict conditions here:
+
+1.  Only **`.ts`** and **`.js`** file types, natively supported by the Web, are allowed.
+2.  The code must export an execution function named **`run`**.
+3.  It must provide an **`inputSchema`**, informing the AI what parameters are required to call the `run` function.
+
+To alleviate the burden on developers, we support providing the `inputSchema` in three ways:
+
+- **Method 1: Explicit Schema Declaration.** Suitable for complex scenarios, this involves writing a standard JSON Schema object.
+- **Method 2: TypeScript Type Inference.** By simply writing a standard TypeScript `interface`, the system automatically infers the Schema.
+- **Method 3: JSDoc Annotation Inference.** By adding JSDoc comments above the function to describe the parameter types, standard JavaScript files can also have their Schema inferred.
+
+After the script finishes executing, the return value must strictly adhere to the **MCP standard format** (including a `content` array, etc.). This ensures output format consistency with other MCP tool calls and makes it easier to encapsulate unified operations later, such as saving output results to the assets directory.
+
+The MCP tools mentioned here come in two types: one uses the standard MCP TypeScript SDK, and the other uses Google's experimental Chrome MCP API, `navigator.modelContext`. We differentiate them using `endpoint:toolName` and `mcp#toolName`, respectively. Here are the code examples:
+
+```ts
+import { McpServer } from '@modelcontextprotocol/server';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { MessageChannelServerTransport, MessageChannelClientTransport } from './channel.ts';
+import * as z from 'zod/v4';
+
+const server = new McpServer({ name: 'greeting-server', version: '1.0.0' });
+
+server.registerTool({
+  'greet',
+  {
+    description: 'Greet someone by name',
+    inputSchema: z.object({ name: z.string() }),
+    async ({ name }) => {
+    content: [{ type: 'text', text: `Hello, ${name}!` }],
+    },
   },
-  async decrypt(buffer) {
-    return JSON.parse(new TextDecoder().decode(buffer));
-  }
-};
+});
 
-class WebSkillManagerImpl {
-  constructor() {
-    this.dirName = 'webskills_vault';
-  }
+const serverTransport = new MessageChannelServerTransport('endpoint');
+const clientTransport = new MessageChannelClientTransport('endpoint');
+const client = new Client({ name: 'greeting-client', version: '1.0.0' });
 
-  async _getSkillDirectory() {
-    const root = await navigator.storage.getDirectory();
-    return await root.getDirectoryHandle(this.dirName, { create: true });
-  }
+await serverTransport.listen();
+await server.connect(serverTransport);
+await client.connect(clientTransport);
 
-  _generateId() {
-    return crypto.randomUUID();
-  }
-
-  async get(skillId) {
-    try {
-      const dirHandle = await this._getSkillDirectory();
-      const fileHandle = await dirHandle.getFileHandle(`${skillId}.json`, { create: false });
-      const file = await fileHandle.getFile();
-      const buffer = await file.arrayBuffer();
-      return await CryptoService.decrypt(buffer);
-    } catch (error) {
-      return null; // Not found
-    }
-  }
-
-  async create(options) {
-    const skillId = `skill_${this._generateId()}`;
-    const skillData = { id: skillId, createdAt: Date.now(), ...options };
-
-    const dirHandle = await this._getSkillDirectory();
-    const fileHandle = await dirHandle.getFileHandle(`${skillId}.json`, { create: true });
-    const writable = await fileHandle.createWritable();
-
-    await writable.write(await CryptoService.encrypt(skillData));
-    await writable.close();
-
-    return skillId;
-  }
-
-  async update(skillId, options) {
-    const existingData = await this.get(skillId);
-    if (!existingData) return false;
-
-    const updatedData = { ...existingData, ...options, updatedAt: Date.now() };
-
-    try {
-      const dirHandle = await this._getSkillDirectory();
-      const fileHandle = await dirHandle.getFileHandle(`${skillId}.json`, { create: false });
-      const writable = await fileHandle.createWritable();
-
-      await writable.write(await CryptoService.encrypt(updatedData));
-      await writable.close();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  async remove(skillId) {
-    try {
-      const dirHandle = await this._getSkillDirectory();
-      await dirHandle.removeEntry(`${skillId}.json`);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  /**
-   * Core validation logic: Verifies whether the Skill meets the systemic requirements of the "Frontend-Native Architecture"
-   */
-  async validate(skillId) {
-    const skill = await this.get(skillId);
-    if (!skill) return false;
-
-    // 1. Basic Metadata Validation
-    if (!skill.name || !skill.description || !skill.content) {
-      console.error(`[Validation Failed] Missing basic routing metadata: ${skillId}`);
-      return false;
-    }
-
-    // 2. Generative UI (GenUI) Contract Validation
-    if (skill.uiSchema) {
-      if (!skill.uiSchema.parameterSchema || typeof skill.uiSchema.parameterSchema !== 'object') {
-        console.error(`[Validation Failed] uiSchema configured but no valid parameterSchema provided: ${skillId}`);
-        return false;
-      }
-    }
-
-    // 3. Synergistic validation of WebMCP bindings and security constraints (Intent Collision Defense)
-    if (skill.mcpBindings && skill.mcpBindings.toolNames?.length > 0) {
-      const security = skill.security || {};
-
-      // Mandatory Rule: If underlying operation tools are bound, a physical-level domain allowlist MUST be provided
-      if (!security.domainAllowlist || security.domainAllowlist.length === 0) {
-        console.error(`[Security Interception] Skill is bound to WebMCP tools, but domainAllowlist is not configured. Validation rejected.`);
-        return false;
-      }
-
-      // Hint: It is recommended to enable Human-in-the-Loop for high-risk tools
-      if (!security.requiresHumanConfirmation) {
-        console.warn(`[Security Warning] Skill calls underlying tools but requiresHumanConfirmation (Human-in-the-Loop) is not enabled.`);
-      }
-    }
-
-    return true;
-  }
-
-  async query(keyword = '') {
-    const dirHandle = await this._getSkillDirectory();
-    const results = [];
-
-    for await (const [name, handle] of dirHandle.entries()) {
-      if (handle.kind === 'file' && name.endsWith('.json')) {
-        const file = await handle.getFile();
-        const buffer = await file.arrayBuffer();
-        const skillData = await CryptoService.decrypt(buffer);
-
-        if (!keyword || skillData.description.includes(keyword) || skillData.name.includes(keyword)) {
-          results.push(skillData);
-        }
-      }
-    }
-    return results;
-  }
-}
-
-// Mount to global Window
-if (typeof window !== 'undefined') {
-  Object.defineProperty(window, 'skills', {
-    value: new WebSkillManagerImpl(),
-    writable: false,
-    enumerable: true,
-    configurable: false
-  });
-}
+const result = await client.listTools();
+const response = await client.callTool({ name: 'greet', arguments: { name: 'Jack' } });
 ```
 
-This reference implementation equips the Skill manager with a solid underlying foundation:
+The above shows the MCP Server and Client defined by the standard MCP TypeScript SDK. In the `Skill.md` document, `endpoint:toolName` is used to declare calling this tool. Below is the experimental Chrome MCP API, where `navigator.modelContext` acts as the MCP Server, and `navigator.modelContextTesting` acts as the MCP Client. In the `Skill.md` document, `mcp#toolName` is used:
 
-- **Inherent Sandbox Isolation:** Leveraging `navigator.storage.getDirectory()`, these WebSkills can only be accessed by the application code of the current Origin. Even if a user inadvertently visits a malicious phishing site, the attacker cannot cross-origin read or tamper with the contents of the `webskills_vault` directory, establishing the physical foundation for an "absolutely isolated privacy AI closed loop."
-- **Ultra-Low I/O Overhead and Zero State Synchronization:** Data is stored directly in the local file system, reducing the latency of the Agent reading skill specifications to near zero. This completely eliminates the network timeout bottlenecks inherent in traditional architectures where Agents must constantly send REST APIs to the backend to fetch Skill descriptions.
-- **Encryption (Auth Vault) Integration Pre-provision:** The `CryptoService` simulates AES-256-GCM static encryption interception. In actual commercial applications, the local storage might hold not just logic, but also sensitive user credentials related to the Skill. The encryption mechanism ensures that even if the device is physically compromised, the files in OPFS cannot be deciphered without the correct key.
-- **Architecture Gatekeeper (the `validate` method):** This is the core business logic of the entire implementation, acting as the system's primary line of defense. If the business side attempts to write a skill that calls a high-risk tool (e.g., a delete operation) without configuring a `domainAllowlist`, `validate` will directly block it, fundamentally neutralizing the possibility of illegal data exfiltration caused by Prompt Injection.
+```ts
+const controller = new AbortController();
+
+navigator.modelContext.registerTool({
+  name: 'fetch_page_summary',
+  description: 'Fetches the title and a partial body summary of the current page for content analysis.',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      maxLength: { type: 'integer', description: 'Maximum number of characters for the returned summary', default: 100 }
+    }
+  },
+  execute: async ({ maxLength }) => {
+    const title = document.title;
+    const bodyText = document.body.innerHTML.slice(0, maxLength);
+
+    return {
+      content: [{ type: 'text', text: `Title: ${title}\nSummary: ${bodyText}` }]
+    };
+  }
+});
+
+const availableTools = await navigator.modelContextTesting.listTools();
+console.log('Registered WebMCP tools on the current page:', availableTools);
+
+const targetTool = 'fetch_page_summary';
+const toolArguments = JSON.stringify({ maxLength: 150 });
+const response = await navigator.modelContextTesting.executeTool(targetTool, toolArguments);
+```
 
 ---
 
-### IV. The Security Defense System of WebSkill
+### [Slide 2.4: Dynamic Exposure of Page-Level WebSkills via the Standard MCP Protocol]
 
-Granting Web AI applications the permissions to directly read webpage content, load WebSkills, and manipulate the underlying DOM via WebMCP inevitably introduces security blind spots—particularly indirect prompt injection and intent collisions.
+![](images/en/9.png)
 
-**The Threat Mechanism of Intent Collisions:** When an Agent runs on the frontend, it not only reads preset WebSkills but also processes massive amounts of untrusted content on the current webpage (e.g., user comments, third-party ads, calendar invites). Due to the limitations of LLM contextual reasoning, it cannot absolutely reliably distinguish between "legitimate business system instructions" and "covert malicious instructions injected into the webpage." For example: an attacker could exploit "task alignment injection" techniques to cleverly disguise a malicious instruction as a helpful task supplement. The attacker might just send the user a meeting invitation containing hidden instructions. When the Agent assists the user in executing their initial intent of "accepting the meeting," the malicious instruction collides with this intent. The Agent might mistakenly believe that "reading the WebSkill document and sending it" is a necessary step to complete the meeting acceptance, subsequently abusing `window.skills` to read sensitive business skill data and silently exfiltrate it to the attacker's server by appending it to a URL.
+Everything discussed so far applies to **persistent skills** stored in OPFS. When the number of such skills grows large, even progressive disclosure might fail to prevent context explosion. This is when we introduce **dynamic page-level skills**. For example, when a user opens a specific product detail page, the AI temporarily gains a skill to check the current product's inventory. When the page is closed or navigated away from, this skill automatically expires. Page-level dynamic skills are declared per page, meaning the number of skills active at any one time is highly controllable. Thus, it is superior to the progressive disclosure approach for mitigating context explosion.
 
-**Multi-Layered Defense-in-Depth Strategy:** To ensure the survivability and system-level security of the WebSkill architecture, developers must abandon blind faith in LLM "safety alignment" and instead establish a robust multi-layered defense mechanism at the architecture's core:
+How do we implement page-level dynamic skills? We utilize the standard MCP protocol:
 
-1.  **Code-Level Hard Boundaries and Execution Constraints:** Implement absolute permission blocking at the base of the WebMCP SDK. Mandate the introduction of a strict domain allowlist mechanism, restricting WebMCP tools to send network requests only to trusted origins, completely severing data exfiltration channels at the physical layer.
-2.  **Human-in-the-Loop Mandatory Confirmation:** For any high-risk WebMCP calls involving sensitive DOM manipulation, local file reading, password resets, or cross-origin requests, the system must force an un-bypassable native authorization modal via Generative UI. Returning the final decision-making power to human users strips the Agent of its autonomy in sensitive execution paths.
-3.  **Content Boundary Markers:** Before passing uncontrollable webpage data into the LLM, the system should wrap it with explicit delimiters, helping the model distinguish between "trusted WebSkill instructions" and "untrusted Web DOM text" at the semantic level, thereby drastically reducing the probability of prompts being semantically hijacked.
+- First, we make the **Web page main thread** act as the **MCP Server**. Using the standard MCP TypeScript SDK in the Web page, we register the contents of the `SKILL.md` instructions via the `registerPrompt` method, the skill's scripts via `registerTool`, and various page resources (mapping to the skill's references/assets directory) via `registerResource`.
+- Next, we build a **MessageChannel Transport** via the standard MCP transmission protocol to facilitate communication between the Web page main thread and the Worker sub-thread.
+- In the **Worker sub-thread**, we also use the standard MCP TypeScript SDK to create an **MCP Client**. It discovers the skills declared by the main thread using methods like `client.listTools` and executes them using `client.callTool`.
 
-### Conclusion
+When the user closes the Web page, these dynamic skills vanish instantly along with the page's destruction. We are effectively inventing a method to make Web applications intelligent page by page. The potential here is massive, and it's easy to envision practical applications for both B2B and B2C scenarios.
 
-The full frontend closed-loop ecosystem—featuring an embedded LLM as the central hub, WebSkill as business capabilities, Generative UI as the interaction bridge, and WebMCP as the underlying execution tool—represents the inevitable evolutionary direction for Web AI architectures.
+---
 
-This architecture not only elegantly resolves the "context window explosion" dilemma brought about by system complexity but also, through frontend localization, endows enterprises with unprecedented agile iteration capabilities and high-standard data privacy guarantees. Provided that a solid security boundary is built to defend against new types of attacks like "intent collisions," frontend-native WebSkills will shatter the operational shackles of traditional cloud-based skills, becoming the core engine driving the next generation of intelligent, personalized Web applications.
+### [Slide 2.5: Generative UI closed the loop on human-machine interaction during WebSkills execution]
+
+![](images/en/10.png)
+
+Let's look at how **Generative UI** provides the final piece of the puzzle for human-computer interaction (HCI) in the WebSkill workflow. In traditional setups, if the LLM realizes it lacks parameters to call a WebMCP tool (e.g., wanting to check an order but missing the order number), it can only output a markdown text string asking, "What is your order number?" The user then replies with text. This experience is far from optimal.
+
+In the **WebSkill + Generative UI** architecture, when the LLM detects missing parameters during execution, it directly outputs a structured JSON Schema. The Generative UI renderer takes this JSON and instantly renders an interactive form (complete with input fields and dropdowns) inside the AI chat interface. The complete WebSkill execution flow looks like this:
+
+The WebSkill starts in an **IDLE** state. Upon receiving a task and finding missing parameters, it transitions to **PARAMS_COLLECTED**. The system then triggers **AWAITING_USER** (pausing execution to wait for the user to fill out the form). Once the user submits the form, the system moves to **COMPLETED**, resumes **EXECUTING**, and finally presents the results.
+
+We've designed a **UIBridge** within the WebSkill architecture. It defines the interaction protocol, meaning it doesn't matter what UI framework renders the form—whether it's `json-render-react`, `Vercel AI SDK`, `OpenUI`, or `A2UI`. Any of them can plug into the UIBridge as an adapter, entirely decoupling the WebSkill runtime from the Generative UI framework.
+
+---
+
+### [Slide 3.1 & 3.2: Web IDL Basic Definition and Return Value Validation]
+
+![](images/en/11.png)
+
+Beyond just building the WebSkill runtime framework, we aim to push it toward Web standardization. Below is our drafted **Web IDL (Interface Definition Language)** for WebSkill, proposing the addition of a native, read-only property to the browser's `Navigator` object: `navigator.webskill`.
+
+The APIs for this webskill property fall into three major categories:
+
+1.  **SkillDiscovery:** Provides `discover` (find skills in a directory), `read` (read skill content), and `validate` (check compliance).
+2.  **MinimalRuntime:** Provides a minimalistic `run(prompt)` method that accepts natural language directly from the user and returns a `RuntimeRun` object to track execution status.
+3.  **SkillManager:** Provides `install` (install new skills) and `uninstall` (remove skills) capabilities.
+
+Simultaneously, we defined data structure dictionaries such as `SkillCatalog`, `SkillDocument`, and `SkillMetadata`. If a `SKILL.md` is incorrectly formatted or missing files, the `ValidationReport` clearly identifies the issues.
+
+---
+
+### [Slide 3.3: WebSkill Usage Examples]
+
+Using WebSkill in a Web application requires just a few lines of code:
+
+```ts
+const ws = navigator.webskills;
+
+// discover → SkillCatalog
+const catalog = await ws.discover('/skills');
+for (const e of catalog.entries) {
+  console.log(e.name, e.hasScripts);
+}
+
+// read → SkillDocument
+const doc = await ws.read('calculator');
+console.log(doc.metadata.description, doc.body);
+
+// validate → ValidationReport
+const report = await ws.validate('/skills');
+if (!report.ok) report.issues.forEach((i) => console.warn(i));
+
+// run → RuntimeRun
+const run = await ws.run('Use calculator to compute 2+3');
+console.log(run.status, run.trace.length);
+
+// install → InstalledSkillManifest
+const m = await ws.install('https://github.com/me/skills.git');
+console.log(m.name, m.installedAt, m.integrity.digest);
+
+// uninstall → void
+await ws.uninstall('calculator');
+```
+
+Here is a breakdown of the code. First, export the `webskill` object from `navigator`:
+
+```javascript
+const ws = navigator.webskill;
+```
+
+To see currently available skills:
+
+```javascript
+const catalog = await ws.discover('/skills');
+```
+
+To read a specific `calculator` skill:
+
+```javascript
+const doc = await ws.read('calculator');
+```
+
+To check if a skill has any errors:
+
+```javascript
+const report = await ws.validate('/skills');
+```
+
+To put a skill to work immediately:
+
+```javascript
+const run = await ws.run('Use calculator to compute 2+3');
+```
+
+It really is that simple! The WebSkill runtime framework automatically handles intent parsing, routing matching, and sandboxed script execution.
+
+If you want to dynamically install a new skill from a Github repository:
+
+```javascript
+const m = await ws.install('https://github.com/me/skills.git');
+```
+
+A single command pulls the skill package, verifies its integrity, and stores it in OPFS, without needing any backend services.
+
+---
+
+### [Conclusion & Outlook]
+
+Currently, the WebSkill concept is still in its infancy, but its technical value is undeniably clear. First, it completely resolves the context bloat dilemma of large models. Second, it achieves a truly isolated and secure privacy loop via OPFS and Worker sandboxes. Finally, it transforms Agent capabilities into a lightweight, dynamically distributable, and highly personalized SaaS (Skill as a Service). We believe the future of Web AI isn't just about Agents manipulating Web pages; it's about the browser itself becoming an intelligent runtime environment equipped with various Agent skills.
+
+We have built a website for WebSkill at https://webskill.ai . To give everyone a more intuitive feel, the site features a Live Demo (https://webskill.ai/demo). Although this Demo is purely static and doesn't involve real AI execution, it perfectly illustrates the concepts and features of WebSkill. We look forward to your feedback. Thank you!
+
+![](images/en/12.gif)
