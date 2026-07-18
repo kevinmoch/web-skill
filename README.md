@@ -14,7 +14,7 @@ This article breaks down WebSkill into three main parts: First, we'll clarify wh
 
 ### [Slide 1.1: What is an Agent Skill? In what scenarios is it used?]
 
-![](images/en/1.png)
+![](public/images/en/1.png)
 
 Before discussing WebSkill, we must first establish a foundational concept: What is an **Agent Skill**?
 
@@ -38,7 +38,7 @@ Why are Agent Skills so crucial? Because traditional AI faces three major pain p
 
 ### [Slide 1.2: What is a WebSkill? What are its unique features?]
 
-![](images/en/2.png)
+![](public/images/en/2.png)
 
 Simply put, WebSkill is a **frontend-native skill running directly in the browser**. It is a declarative contract, and its most unique aspect is that it **operates entirely within a closed loop in the browser**, without relying on traditional backend services. WebSkill differs from traditional Agent Skills in three key ways:
 
@@ -55,7 +55,7 @@ Traditional backend skills are rigid and shared uniformly across all users. WebS
 
 ### [Slide 1.3: LLM-Centric Web AI Architecture]
 
-![](images/en/3.png)
+![](public/images/en/3.png)
 
 Here is an explanation of this Web AI architecture:
 
@@ -72,7 +72,7 @@ In this architecture, WebSkill first solves the challenge of the model not knowi
 
 ### [Slide 1.4: WebSkill vs. Traditional Backend Skills]
 
-![](images/en/4.png)
+![](public/images/en/4.png)
 
 Here is a comparison between traditional backend Skills and WebSkill:
 
@@ -87,7 +87,7 @@ Here is a comparison between traditional backend Skills and WebSkill:
 
 ### [Slide 1.5: WebSkill's Unique Feature: A Privacy-First, Sandboxed Agent Loop]
 
-![](images/en/5.png)
+![](public/images/en/5.png)
 
 Within the browser, we rely on two main security and privacy infrastructures: OPFS and Workers:
 
@@ -100,7 +100,7 @@ Within the browser, we rely on two main security and privacy infrastructures: OP
 
 ### [Slide 2.1: WebSkill implements the Agent Skills Protocol in TypeScript]
 
-![](images/en/6.png)
+![](public/images/en/6.png)
 
 WebSkill is implemented strictly in accordance with the standard Agent Skills protocol using TypeScript. The directory structure is as follows:
 
@@ -113,7 +113,7 @@ WebSkill is implemented strictly in accordance with the standard Agent Skills pr
 
 ### [Slide 2.2: WebSkill supports the progressive disclosure of its available skills]
 
-![](images/en/7.png)
+![](public/images/en/7.png)
 
 WebSkill also supports a key feature of traditional Skills: **Progressive Disclosure**. If you feed all skill descriptions, script codes, and template contents to the LLM at once, the context window will explode instantly. Progressive disclosure is designed to solve this exact problem. Its architecture is divided into three layers:
 
@@ -127,7 +127,7 @@ This is essentially on-demand loading. Compared to strategies that load all skil
 
 ### [Slide 2.3: Execution Units of WebSkill: scripts/ Files]
 
-![](images/en/8.png)
+![](public/images/en/8.png)
 
 Let's dive deeper into the script file specifications within the `scripts` directory. We enforce three strict conditions here:
 
@@ -212,7 +212,7 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
 
 ### [Slide 2.4: Dynamic Exposure of Page-Level WebSkills via the Standard MCP Protocol]
 
-![](images/en/9.png)
+![](public/images/en/9.png)
 
 Everything discussed so far applies to **persistent skills** stored in OPFS. When the number of such skills grows large, even progressive disclosure might fail to prevent context explosion. This is when we introduce **dynamic page-level skills**. For example, when a user opens a specific product detail page, the AI temporarily gains a skill to check the current product's inventory. When the page is closed or navigated away from, this skill automatically expires. Page-level dynamic skills are declared per page, meaning the number of skills active at any one time is highly controllable. Thus, it is superior to the progressive disclosure approach for mitigating context explosion.
 
@@ -228,7 +228,7 @@ When the user closes the Web page, these dynamic skills vanish instantly along w
 
 ### [Slide 2.5: Generative UI closed the loop on human-machine interaction during WebSkills execution]
 
-![](images/en/10.png)
+![](public/images/en/10.png)
 
 Let's look at how **Generative UI** provides the final piece of the puzzle for human-computer interaction (HCI) in the WebSkill workflow. In traditional setups, if the LLM realizes it lacks parameters to call a WebMCP tool (e.g., wanting to check an order but missing the order number), it can only output a markdown text string asking, "What is your order number?" The user then replies with text. This experience is far from optimal.
 
@@ -242,7 +242,7 @@ We've designed a **UIBridge** within the WebSkill architecture. It defines the i
 
 ### [Slide 3.1 & 3.2: Web IDL Basic Definition and Return Value Validation]
 
-![](images/en/11.png)
+![](public/images/en/11.png)
 
 Beyond just building the WebSkill runtime framework, we aim to push it toward Web standardization. Below is our drafted **Web IDL (Interface Definition Language)** for WebSkill, proposing the addition of a native, read-only property to the browser's `Navigator` object: `navigator.webskill`.
 
@@ -337,4 +337,4 @@ Currently, the WebSkill concept is still in its infancy, but its technical value
 
 We have built a website for WebSkill at https://webskill.ai . To give everyone a more intuitive feel, the site features a Live Demo (https://webskill.ai/demo). Although this Demo is purely static and doesn't involve real AI execution, it perfectly illustrates the concepts and features of WebSkill. We look forward to your feedback. Thank you!
 
-![](images/en/12.gif)
+![](public/images/en/12.gif)

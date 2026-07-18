@@ -1,106 +1,190 @@
 {
   "nav": {
-    "architecture": "Trinity Architecture",
-    "values": "Core Value",
-    "standards": "Web Standardization",
-    "security": "Security Defense"
+    "home": "Home",
+    "origin": "Origin",
+    "architecture": "Architecture",
+    "standardization": "Standardization",
+    "implement": "Implement"
   },
   "panel": {
-    "skillDefinition": "Skill Definition",
-    "trinityArchitecture": "Trinity Architecture",
-    "coreValue": "Core Value",
-    "webStandardization": "Web Standardization",
-    "securityDefense": "Security Defense"
+    "hero": "WebSkill Proposal",
+    "origin": "1. Origin",
+    "architecture": "2. Technical Innovations",
+    "standardization": "3. Web Standardization"
   },
   "hero": {
-    "titleLine1": "Running in the browser",
-    "titleAccent": "Agent Skill",
-    "description": "Together with WebMCP and Generative UI, forms a LLM-centered trinity web AI architecture enabling a full in-browser intent-to-execute loop.",
-    "tags": ["Draft Proposal", "Frontend-Native"]
+    "title1": "Web-Based Agent Skill",
+    "title2": "Running in the Browser",
+    "titleLine1": "Browser-Native",
+    "titleAccent": "Agent Skills",
+    "description": "WebSkill turns the browser into a smart Agent execution environment. It completely solves the LLM context bloating issue, ensures absolute privacy through OPFS and Worker sandboxes, and transforms Agent capabilities into lightweight, dynamically distributed SaaS.",
+    "tags": [
+      "Draft Proposal",
+      "Frontend-Native"
+    ]
   },
-  "meta": {
-    "title": "WebSkill — Agent Skills in Browser"
-  },
-  "trinity": {
-    "heading": "Web AI Triangle Architecture",
-    "items": [
+  "home": {
+    "demoTitle": "Live Demo Presentation",
+    "demoDesc": "WebSkill Concept & Feature Demonstration",
+    "agentSkillTitle": "What is Agent Skill?",
+    "agentSkillDesc": "An Agent Skill is a modular, reusable, standardized capability unit. It provides domain-specific knowledge and strict execution workflows to the Large Language Model.",
+    "agentSkillScenariosTitle": "Use Cases",
+    "agentSkillScenarios": [
       {
-        "icon": "BrainCircuit",
-        "title": "LLM",
-        "desc": "Performs semantic reasoning and orchestration, acting as a routing engine that parses user intent and retrieves matching WebSkill documents from the frontend skill library."
+        "title": "Development & Code",
+        "desc": "Code review standards, TDD workflows, complex Git branch merging."
       },
       {
-        "icon": "Code2",
-        "title": "WebSkill",
-        "desc": "Bridges LLM, task execution and UI. Exposes instructions and dependent tools on demand, and strictly defines parameter schemas required."
+        "title": "Business & Docs",
+        "desc": "Applying company templates, brand colors, financial analysis, multi-format report generation."
       },
       {
-        "icon": "LayoutTemplate",
-        "title": "Generative UI",
-        "desc": "Intercepts streaming JSON outputs from the LLM based on schema and renders standard web controls (inputs, selects) to ensure accurate parameter collection."
-      },
-      {
-        "icon": "Wrench",
-        "title": "WebMCP",
-        "desc": "A Model Context Protocol (MCP) tailored for frontend web apps. Operates on current page DOM nodes or sends requests carrying the user's session state."
+        "title": "Security & Compliance",
+        "desc": "Compliance checks, penetration testing rules, and vulnerability scanning workflows."
       }
     ],
-    "nodeLabels": {
-      "webskill": "Declarative Skill",
-      "generative": "Generative UI",
-      "webmcp": "Frontend Execution"
-    }
-  },
-  "values": {
-    "heading": "Core Values and Enterprise Scenarios",
-    "items": [
+    "problemsSolvedTitle": "Core Pain Points Solved",
+    "problemsSolved": [
       {
-        "icon": "Zap",
-        "title": "Mitigate context explosion",
-        "desc": "WebSkill dynamically loads only the tools required for a matched intent, drastically reducing token usage and improving intent recognition in complex enterprise scenarios."
+        "title": "Mitigates Context Bloating",
+        "desc": "Avoids overloading the LLM with dozens of pages of background context, reducing API costs and hallucinations."
       },
       {
-        "icon": "Network",
-        "title": "Frontend-native closed loop",
-        "desc": "Skill documents live in the browser and tools run client-side, inheriting cookies, localStorage and session state for zero sync cost task execution."
+        "title": "Bridges Domain Expertise",
+        "desc": "Codifies human expert experience into the model so it understands internal company strategies and processes."
       },
       {
-        "icon": "RefreshCw",
-        "title": "Agile iteration and self-evolution",
-        "desc": "Skills are lightweight declarative documents editable in visual editors without backend deployment. Agents can observe repeated user flows and solidify them into new WebSkills."
+        "title": "Eliminates Repetitive Prompts",
+        "desc": "Creates prompts once for lifetime reuse, standardizing workflows and ensuring consistent actions."
+      }
+    ],
+    "webskillTitle": "What is WebSkill?",
+    "webskillDesc": "Web-Based Agent Skill (WebSkill) is a modular, reusable, standardized capability unit that runs completely within the browser. It does not rely on traditional backend services.",
+    "webskillFeaturesTitle": "Unique Features",
+    "webskillFeatures": [
+      {
+        "title": "Browser-Native Closed Loop",
+        "desc": "Completes the workflow directly in the browser, eliminating large data transmission overhead to the backend."
+      },
+      {
+        "title": "Absolute Privacy Isolation",
+        "desc": "Stores files in OPFS and runs scripts in Web Worker sandboxes, ensuring local data never leaves the device."
+      },
+      {
+        "title": "Dynamic Personal Assets",
+        "desc": "Evolves based on user habits, creating new SKILL files locally to personalize the AI experience."
+      }
+    ],
+    "trinityTitle": "Trinity Web AI Architecture",
+    "trinityDesc": "A user-centric closed loop powered by LLM, WebSkill, WebMCP, and Generative UI.",
+    "trinityLLM": "LLM acts as the routing engine, reasoning and scheduling skills based on user intent.",
+    "trinityWebSkill": "Solves the 'when to call which tool' problem and prevents context explosion from loading too many MCP tools.",
+    "trinityGenerativeUI": "Solves missing parameter interactions during WebSkill execution and renders data into UI after task completion.",
+    "trinityWebMCP": "The frontend native executor that operates DOM nodes or sends backend requests.",
+    "comparisonTitle": "WebSkill vs Backend Skill",
+    "comparisonDesc": "WebSkill eliminates the need for complex backend deployments and data synchronization, providing a much safer, faster, and personalized experience.",
+    "compTableHeaders": [
+      "Feature",
+      "Traditional Backend Skill",
+      "WebSkill"
+    ],
+    "compRows": [
+      {
+        "feature": "Environment",
+        "backend": "Node.js or Cloud Servers",
+        "webskill": "Browser Web Worker & OPFS"
+      },
+      {
+        "feature": "Execution Container",
+        "backend": "Server/Container Sandbox",
+        "webskill": "Frontend Worker Security Sandbox"
+      },
+      {
+        "feature": "Data Flow",
+        "backend": "Internet -> Backend -> LLM",
+        "webskill": "Closed loop in browser, zero data egress"
+      },
+      {
+        "feature": "State Management",
+        "backend": "Complex frontend-backend sync",
+        "webskill": "Direct DOM operation, session state access"
+      },
+      {
+        "feature": "Deployment",
+        "backend": "Server deployment & maintenance",
+        "webskill": "Distributed with Web App, zero install"
+      },
+      {
+        "feature": "Evolution",
+        "backend": "Global update for all users",
+        "webskill": "Personalized evolution per user"
+      }
+    ],
+    "diagramAnnotation1": "WebSkill solves the 'when to call tools' problem for LLMs, achieving a closed-loop frontend Agent task.",
+    "diagramAnnotation2": "WebSkill prevents context explosion from massive MCP tool loads.",
+    "diagramAnnotation3": "Generative UI solves the human-computer interaction problem of missing WebSkill parameters and result rendering upon task completion.",
+    "demoBtnTitle": "WebSkill Live Demo",
+    "demoRemark": "Purely static functional demo, no real Agent execution",
+    "architectureExplanationTitle": "Web AI Architecture Simplified",
+    "architectureExplanationIntro": "A frontend-native closed-loop architecture featuring Input, Reasoning, Dispatching, Execution, and Feedback:",
+    "architectureExplanationSteps": [
+      {
+        "title": "Conversation Portal (Top)",
+        "desc": "The user inputs natural language requests in the AI chatbox, initiating the intelligent decision-making chain."
+      },
+      {
+        "title": "On-Device LLM (Central Brain)",
+        "desc": "Serves as the central hub for reasoning and dynamically matching the most relevant skills/tools."
+      },
+      {
+        "title": "Skill Layer (Left WebSkill)",
+        "desc": "Contains declarative skill contracts and schema validation rules that define what requirements are needed for task execution."
+      },
+      {
+        "title": "Interaction Layer (Right Generative UI)",
+        "desc": "Renders elegant dynamic forms to collect missing parameters, and renders final execution outputs into beautiful graphical charts."
+      },
+      {
+        "title": "Execution Layer (Bottom WebMCP)",
+        "desc": "The frontend-native executor that interacts with page DOM elements or issues backend network requests to do the heavy lifting."
       }
     ]
+  },
+  "origin": {
+    "splitTitle": "1.1 Web AI Architecture Split: Cloud AI vs Local AI",
+    "splitDesc": "Cloud AI (like ChatGPT) cannot interact closely with users' local environments (local files, LAN). Local AI (running models locally) faces hardware limitations. We need an architecture that uses Cloud AI for reasoning while executing actions safely in the local browser environment.",
+    "mcpTitle": "1.2 MCP Breakthrough & Legacy Pain Points",
+    "mcpDesc": "Anthropic's MCP (Model Context Protocol) standardized how LLMs call external tools. However, traditional MCP architectures run locally via stdio or SSE, requiring users to install desktop clients and configure complex scripts. This creates a huge barrier for ordinary users.",
+    "contextTitle": "1.3 LLM Core Pain Point: Context Explosion",
+    "contextDesc": "If we give an LLM 100 tools, the system prompt describing these tools will consume massive context tokens. This leads to high costs, slower response times, and 'Lost in the middle' hallucinations where the LLM misinterprets tool usage."
+  },
+  "architecture": {
+    "opfsTitle": "2.1 OPFS-based Lightweight Skill Container",
+    "opfsDesc": "We propose packaging Agent tools into 'Skills' (folders containing SKILL.md, index.js, package.json). We download these skills from the cloud and store them in the browser's OPFS (Origin Private File System). They run in isolated Web Workers, ensuring absolute security and privacy.",
+    "routingTitle": "2.2 Multi-layer Routing Architecture",
+    "routingDesc": "Instead of giving all skills to the LLM at once, we use a lightweight routing agent. When a user sends a prompt, the router searches the OPFS catalog and only loads the relevant SKILL.md into the context.",
+    "progressiveTitle": "2.3 Progressive Skill Disclosure",
+    "progressiveDesc": "Even within a single complex skill, there might be many tools. WebSkill uses 'Progressive Disclosure'. The LLM first reads SKILL.md, and only when it decides to use a specific tool does it request the tool's detailed parameters (JSON Schema). This minimizes token usage.",
+    "dynamicTitle": "2.4 Dynamic Page-level WebSkill with MCP",
+    "dynamicDesc": "For dynamic context (e.g., checking stock on a specific product page), the web page itself acts as an MCP Server via a MessageChannel. It registers page-specific tools. When the page is closed, the skill vanishes.",
+    "generativeTitle": "2.5 Generative UI & Human-in-the-Loop",
+    "generativeDesc": "When a tool requires parameters the user hasn't provided, WebSkill outputs a JSON Schema. The UIBridge intercepts this and renders a Generative UI form for the user to fill out, creating a seamless human-in-the-loop interaction."
   },
   "standards": {
-    "heading": "OPFS-based WebSkill Standardization",
-    "paragraph": "Origin Private File System (OPFS) lets webpages read/write files in an isolated private directory visible only to the current origin.",
-    "list": [
-      "Strict same-origin isolation to prevent cross-origin access to enterprise skill definitions.",
-      "Local AES-256-GCM encryption for sensitive business data.",
-      "Structured bindings: separate uiSchema from mcpBindings to clarify displayed forms and tooling.",
-      "Built-in deep defense: enforce domain allowlists when binding low-level tools to lock data flow."
-    ]
-  },
-  "security": {
-    "heading": "Security Defense",
-    "intro": "WebSkill security model",
-    "items": [
-      {
-        "icon": "Lock",
-        "title": "Code-level hard boundaries and execution constraints",
-        "desc": "Implement absolute permission blocking in the WebMCP SDK with strict domain whitelists to limit outgoing network requests."
-      },
-      {
-        "icon": "ShieldAlert",
-        "title": "Human-in-the-loop confirmations",
-        "desc": "For sensitive DOM operations, local file reads or cross-origin calls, require an unskippable native authorization dialog via Generative UI."
-      },
-      {
-        "icon": "FileJson",
-        "title": "Content boundary marking",
-        "desc": "Wrap untrusted webpage data with explicit delimiters before sending to the LLM to help models distinguish trusted WebSkill instructions from untrusted DOM text."
-      }
-    ]
+    "idlTitle": "3.1 Web IDL Definitions",
+    "idlDesc": "We propose a new Web IDL standard: adding `navigator.webskill` to the browser. It includes SkillDiscovery (discover, read, validate), MinimalRuntime (run), and SkillManager (install, uninstall).",
+    "exampleTitle": "3.2 Usage Examples",
+    "exampleDesc": "Using WebSkill in a web app will be as simple as a few lines of JavaScript.",
+    "runPrompt": "Calculate 2+3 using calculator",
+    "sec31Title": "Web IDL Base Definitions",
+    "sec31Desc": "Adding `navigator.webskill` to Navigator. It is partitioned into SkillDiscovery, MinimalRuntime, and SkillManager, establishing clear contracts for directory and metadata structures.",
+    "sec32Title": "Validation & Runtime Returns",
+    "sec32Desc": "To enforce strict schema validation inside sandboxes and power tracing across the execution lifecycle, the draft specifies interfaces like `ValidationReport`, `RuntimeRun`, `Artifact`, and `TraceEvent`.",
+    "sec33Title": "Installation Returns & Examples",
+    "sec33Desc": "Specifies the returned data format structure returned during dynamic skill installation, including verification hash integrity, plus simple Web API calling examples.",
+    "readmeTitle": "3.4 Full Examples & Code Guide (from README)",
+    "readmeDesc": "Demonstrates how to register WebMCP tools on the main thread, establish low-latency MessageChannel transports for Workers, and invoke standard tool execution.",
+    "pageHeading": "WebSkill's W3C Standardization Proposal"
   },
   "footer": {
     "author": "Chunhui Mo",
@@ -108,5 +192,81 @@
     "date": "April 2026",
     "github": "Github",
     "demo": "Live Demo"
+  },
+  "implement": {
+    "s1Title": "WebSkill Protocol in TypeScript",
+    "s1Desc": "WebSkill is implemented strictly in accordance with the standard Agent Skills protocol. The directory contains SKILL.md for metadata and instructions, scripts/ for executable code, references/ for required resources, and assets/ for static resources and intermediate outputs.",
+    "s1DirRoot": "webskill-package/",
+    "s1DirSkill": "SKILL.md",
+    "s1DirSkillDesc": "Metadata (YAML) & Instructions (Markdown)",
+    "s1DirScripts": "scripts/",
+    "s1DirScriptsDesc": "Executable code (.ts, .js)",
+    "s1DirRefs": "references/",
+    "s1DirRefsDesc": "Required resources (templates, configs)",
+    "s1DirAssets": "assets/",
+    "s1DirAssetsDesc": "Static resources & intermediate outputs",
+    "s2Title": "Progressive Disclosure Architecture",
+    "s2Desc": "To prevent context explosion, WebSkill loads skills on-demand. It first loads SKILL.md metadata to discover available skills, then loads the full instruction body when a skill is selected, and finally loads scripts and resources only during execution.",
+    "s2L1": "Top Layer (SKILL.md Metadata):",
+    "s2L1Desc": "LLM only loads names and descriptions (Table of Contents)",
+    "s2L2": "Middle Layer (Instruction Layer):",
+    "s2L2Desc": "LLM loads full SKILL.md body upon skill selection",
+    "s2L3": "Bottom Layer (Resource Layer):",
+    "s2L3Desc": "Loads scripts and assets only during execution",
+    "s3Title": "Execution Units: scripts/ Files",
+    "s3Desc": "Script files must be .ts/.js, export a 'run' function, and provide an 'inputSchema' (via explicit JSON Schema, TS type inference, or JSDoc). The return value strictly adheres to the MCP standard format.",
+    "s3Req1": "Standard Web Types",
+    "s3Req1Desc": "Only .ts and .js files are allowed",
+    "s3Req2": "Export run()",
+    "s3Req2Desc": "Must export an execution function named 'run'",
+    "s3Req3": "inputSchema",
+    "s3Req3Desc": "Required for LLM parameter generation",
+    "s4Title": "Page-Level Dynamic Skills via MCP",
+    "s4Desc": "For context control, page-level skills are dynamically exposed. The Web page main thread acts as an MCP Server registering prompts and tools, communicating via MessageChannel to a Worker sub-thread acting as an MCP Client. Skills expire when the page is closed.",
+    "s4Main": "Web Page Main Thread (MCP Server)",
+    "s4MainDesc": "Registers Prompts, Tools, and Resources",
+    "s4Channel": "MessageChannel Transport",
+    "s4Worker": "Worker Sub-thread (MCP Client)",
+    "s4WorkerDesc": "Discovers and calls tools via Client SDK",
+    "s5Title": "Generative UI Interaction Loop",
+    "s5Desc": "When missing parameters are detected, WebSkill outputs a JSON Schema. A Generative UI renderer (via UIBridge) renders an interactive form. The state transitions from IDLE to PARAMS_COLLECTED, AWAITING_USER, and back to EXECUTING.",
+    "s5State1": "IDLE",
+    "s5State2": "PARAMS_COLLECTED",
+    "s5State3": "AWAITING_USER",
+    "s5State4": "EXECUTING",
+    "s5State5": "COMPLETED",
+    "s5Bridge": "UIBridge (Adapter)",
+    "s5BridgeDesc": "Decouples WebSkill from UI frameworks (React, Vercel AI SDK, OpenUI, etc.)",
+    "s1Exp1": "Core Instructions (SKILL.md): The brain of each skill. It utilizes YAML frontmatter for skill declaration and Markdown guides to instruct the LLM on execution details.",
+    "s1Exp2": "Execution Logic (scripts/): Contains actionable execution scripts. Running inside a secure Web sandbox, it natively supports standard .ts and .js files.",
+    "s1Exp3": "Static Dependencies (references/): Stores required config files or render templates needed during script execution, such as report-template.html or dashboard.json.",
+    "s1Exp4": "Assets & Artifacts (assets/): Manages static assets like custom logos and automatically stores intermediate data or output reports generated by the Agent during execution.",
+    "s2Exp1": "Top Layer (SKILL.md Metadata): Initially, the LLM only loads names and descriptions (like an index table) to map capabilities.",
+    "s2Exp2": "Middle Layer (Instruction Layer): Loads the full SKILL.md prompt body only upon target skill selection.",
+    "s2Exp3": "Bottom Layer (Resource Layer): Dynamically retrieves scripts and references assets only when invocation or read triggers.",
+    "s2Exp4": "This Progressive Disclosure mechanism slashes redundant context overhead, optimizes token consumption, and significantly boosts model inference speeds compared to monolithic loading.",
+    "s3Exp1": "Strictly limited to standard .ts and .js files native to the web runtime.",
+    "s3Exp2": "Scripts must export a primary executable entry point named 'run'.",
+    "s3Exp3": "Must specify an 'inputSchema' so the AI can perform parameter synthesis and validation.",
+    "s3Method1Title": "Explicit JSON Schema",
+    "s3Method1Desc": "Directly define a standard JSON Schema object, ideal for complex, multi-layered parameter validation.",
+    "s3Method2Title": "TypeScript Inference",
+    "s3Method2Desc": "Simply write a clean TypeScript interface, and the compiler automatically derives the correct Schema contract.",
+    "s3Method3Title": "JSDoc-Based Extraction",
+    "s3Method3Desc": "Use standard JSDoc comments to document parameter types, allowing JavaScript scripts to also output typed schemas.",
+    "s3Ret1": "MCP Output Specification: Execution results must strictly follow the standard MCP response data return format (containing the content array). This ensures pipeline-style composability and fits seamlessly into post-execution lifecycles.",
+    "s3Ret2": "Hybrid MCP tools support: WebSkill supports dual-nature MCP runtimes: custom TypeScript-based servers mapped as 'endpoint:toolName', and experimental built-in browser APIs exposed as 'mcp#toolName'.",
+    "s4Exp1": "Dynamic Page-Level Skill Declaration: Persistent skills stored in OPFS are powerful, but as their numbers grow, even progressive disclosure can saturate the LLM's context. Page-Level Dynamic Skills offer the ultimate remedy. For instance, when a user lands on a product detail page, the AI instantly gains a transient skill to query that specific inventory. Once the page is closed, the skill evaporates automatically, keeping the context lightweight and perfectly scoped.",
+    "s4Exp2": "An elegant orchestration powered by standard MCP protocols:",
+    "s4Exp3": "Main Thread (MCP Server): The Main Thread acts as an MCP Server. Using standard MCP SDKs, it registers dynamic prompts via registerPrompt, script actions via registerTool, and page states via registerResource.",
+    "s4Exp4": "Lightweight Pipeline (MessageChannel): A MessageChannel Transport is established, enabling secure, low-latency communication across the main browser thread and the worker pool.",
+    "s4Exp5": "Worker Sub-thread (MCP Client): The Worker Sub-thread initializes an MCP Client, instantly discovering the main thread's page-level tools and invoking them dynamically.",
+    "s4Exp6": "When the user closes the web page, these dynamic skills disappear instantly with page destruction.",
+    "s5Exp1": "Generative UI (Generative UI): Fills the final puzzle piece of human-AI collaboration in the WebSkill workflow. When missing inputs are detected, the LLM outputs a rich schema instead of asking dry questions.",
+    "s5Exp2": "Dynamic Form Rendering: The UI bridge intercepts the Schema and renders a structured interactive form in the current conversation stream, turning user input into simple clicks, drags, or inputs.",
+    "s5Exp3": "WebSkill transitions seamlessly: IDLE ➔ PARAMS_COLLECTED (missing params detected) ➔ AWAITING_USER (execution paused, form rendered) ➔ COMPLETED (user submits) ➔ EXECUTING (continues execution with rich inputs).",
+    "s5Exp4": "Adaptive Bridge (UIBridge): UIBridge establishes a framework-agnostic boundary. Whether backed by Vercel AI SDK, React Schema Form, or OpenUI, components plug in as adapters, separating core execution logic from visual layers.",
+    "s3SchemaMethodsTitle": "Three Ways of Declaring InputSchema",
+    "s3McpReturnFormat": "Standard MCP Return Format"
   }
 }
