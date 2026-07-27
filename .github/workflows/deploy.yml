@@ -1,9 +1,7 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
+  # 仅手动触发发布（push 时的质量反馈见 ci.yml build-only）
   workflow_dispatch:
 
 permissions:
