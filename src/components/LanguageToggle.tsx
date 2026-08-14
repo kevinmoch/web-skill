@@ -21,14 +21,14 @@ const LanguageToggle: React.FC = () => {
     <div className="flex items-center gap-2">
       <button
         onClick={() => setLang('zh')}
-        className={`text-[11px] cursor-pointer px-2 py-1 rounded ${isZh ? 'bg-surface' : 'opacity-50'}`}
+        className={`text-xs cursor-pointer px-2 py-1 rounded font-medium ${isZh ? 'bg-surface font-semibold' : 'opacity-50'}`}
         aria-pressed={isZh}
       >
         中文
       </button>
       <button
         onClick={() => setLang('en')}
-        className={`text-[11px] cursor-pointer px-2 py-1 rounded ${!isZh ? 'bg-surface' : 'opacity-50'}`}
+        className={`text-xs cursor-pointer px-2 py-1 rounded font-medium ${!isZh ? 'bg-surface font-semibold' : 'opacity-50'}`}
         aria-pressed={!isZh}
       >
         English

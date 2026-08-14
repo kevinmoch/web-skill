@@ -47,21 +47,21 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
   const versionText = doc?.metadata?.version || '';
 
   return (
-    <div className="p-8 w-full space-y-8 animate-fadeIn">
-      <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-[#1E293B]">
-        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-          <h2 className="text-lg font-bold">
+    <div className="p-6 w-full space-y-6 text-foreground">
+      <div className="border border-border rounded-xl overflow-hidden shadow-xs bg-card">
+        <div className="px-6 py-4 bg-secondary/50 border-b border-border flex justify-between items-center">
+          <h2 className="text-base font-bold text-foreground">
             {lang === 'zh' ? '技能概况：' : 'Skill Overview: '}
-            {skill.name}
+            <span className="font-mono">{skill.name}</span>
           </h2>
           {validationState === 'init' && (
-            <button onClick={handleValidate} className="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-bold transition duration-155 cursor-pointer shadow-xs border border-transparent">
+            <button onClick={handleValidate} className="btn-primary px-3 py-1 text-xs cursor-pointer shadow-xs">
               {lang === 'zh' ? '校验技能结构' : 'Verify Structure'}
             </button>
           )}
           {validationState === 'validating' && (
-            <button disabled className="px-3 py-1 bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-full text-xs font-bold flex items-center">
-              <svg className="animate-spin -ml-1 mr-1.5 h-3.5 w-3.5 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <button disabled className="btn-secondary px-3 py-1 text-xs flex items-center opacity-70 cursor-not-allowed">
+              <svg className="animate-spin -ml-1 mr-1.5 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
@@ -71,17 +71,17 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
           {validationState === 'success' && (
             <button
               onClick={handleValidate}
-              className="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-400 rounded-full text-xs font-bold ring-1 ring-emerald-200 dark:ring-emerald-800 transition duration-155 cursor-pointer"
+              className="px-2.5 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-lg text-xs font-semibold border border-emerald-500/30 transition cursor-pointer"
               title={lang === 'zh' ? '点击重新校验' : 'Click to reverify'}
             >
-              {lang === 'zh' ? '结构校验通过' : 'Validation Successful'}
+              {lang === 'zh' ? '✓ 结构校验通过' : '✓ Validation Successful'}
             </button>
           )}
         </div>
-        <div className="p-6 grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
+        <div className="p-6 grid grid-cols-2 gap-x-8 gap-y-4 text-xs">
           {/* 描述 */}
-          <div className="flex items-center space-x-1.5 min-h-[30px]">
-            <span className="text-slate-500 flex-shrink-0">{lang === 'zh' ? '描述：' : 'Description:'}</span>
+          <div className="flex items-center space-x-2 min-h-[30px]">
+            <span className="text-muted-foreground shrink-0">{lang === 'zh' ? '描述：' : 'Description:'}</span>
             {isEditingDesc ? (
               <div className="flex items-center space-x-1 flex-1">
                 <input
@@ -96,7 +96,7 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
                       setIsEditingDesc(false);
                     }
                   }}
-                  className="text-xs px-2 py-1 bg-white dark:bg-slate-800 border border-indigo-500 rounded outline-none w-full min-w-[150px] text-slate-800 dark:text-slate-100 font-medium"
+                  className="text-xs px-2 py-1 bg-background border border-ring rounded-md outline-none w-full text-foreground"
                   autoFocus
                 />
                 <button
@@ -104,18 +104,18 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
                     onUpdateMetadata({ description: editDescVal });
                     setIsEditingDesc(false);
                   }}
-                  className="p-1 rounded bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 cursor-pointer"
+                  className="p-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 cursor-pointer"
                   title={lang === 'zh' ? '确认' : 'Confirm'}
                 >
                   <Check className="w-3.5 h-3.5" />
                 </button>
-                <button onClick={() => setIsEditingDesc(false)} className="p-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-pointer" title={lang === 'zh' ? '取消' : 'Cancel'}>
+                <button onClick={() => setIsEditingDesc(false)} className="p-1 rounded bg-secondary hover:bg-accent text-muted-foreground cursor-pointer" title={lang === 'zh' ? '取消' : 'Cancel'}>
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>
             ) : (
               <span
-                className={`cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 px-1.5 py-0.5 rounded flex-1 truncate transition ${descText ? 'font-medium text-slate-800 dark:text-slate-200' : 'text-slate-400 dark:text-slate-500 italic'}`}
+                className={`cursor-pointer hover:bg-accent/40 px-1.5 py-0.5 rounded-md flex-1 truncate transition ${descText ? 'text-foreground' : 'text-muted-foreground italic'}`}
                 onDoubleClick={() => {
                   setIsEditingDesc(true);
                   setEditDescVal(descText);
@@ -128,8 +128,8 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
           </div>
 
           {/* 版本 */}
-          <div className="flex items-center space-x-1.5 min-h-[30px]">
-            <span className="text-slate-500 flex-shrink-0">{lang === 'zh' ? '版本：' : 'Version:'}</span>
+          <div className="flex items-center space-x-2 min-h-[30px]">
+            <span className="text-muted-foreground shrink-0">{lang === 'zh' ? '版本：' : 'Version:'}</span>
             {isEditingVersion ? (
               <div className="flex items-center space-x-1 flex-1">
                 <input
@@ -144,7 +144,7 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
                       setIsEditingVersion(false);
                     }
                   }}
-                  className="text-xs px-2 py-1 bg-white dark:bg-slate-800 border border-indigo-500 rounded outline-none w-full min-w-[150px] text-slate-800 dark:text-slate-100 font-medium"
+                  className="text-xs px-2 py-1 bg-background border border-ring rounded-md outline-none w-full text-foreground font-mono"
                   autoFocus
                 />
                 <button
@@ -152,19 +152,19 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
                     onUpdateMetadata({ version: editVersionVal });
                     setIsEditingVersion(false);
                   }}
-                  className="p-1 rounded bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 cursor-pointer"
+                  className="p-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 cursor-pointer"
                   title={lang === 'zh' ? '确认' : 'Confirm'}
                 >
                   <Check className="w-3.5 h-3.5" />
                 </button>
-                <button onClick={() => setIsEditingVersion(false)} className="p-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-pointer" title={lang === 'zh' ? '取消' : 'Cancel'}>
+                <button onClick={() => setIsEditingVersion(false)} className="p-1 rounded bg-secondary hover:bg-accent text-muted-foreground cursor-pointer" title={lang === 'zh' ? '取消' : 'Cancel'}>
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>
             ) : (
               <span
-                className={`font-mono px-1.5 py-0.5 rounded cursor-pointer transition flex-1 truncate ${
-                  versionText ? 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700' : 'text-slate-400 dark:text-slate-500 italic hover:bg-slate-100 dark:hover:bg-slate-800'
+                className={`font-mono px-1.5 py-0.5 rounded-md cursor-pointer transition flex-1 truncate ${
+                  versionText ? 'bg-secondary text-foreground hover:bg-accent' : 'text-muted-foreground italic hover:bg-accent/40'
                 }`}
                 onDoubleClick={() => {
                   setIsEditingVersion(true);
@@ -178,8 +178,8 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
           </div>
 
           {/* 标签 */}
-          <div className="col-span-2 flex items-center space-x-1.5 min-h-[30px]">
-            <span className="text-slate-500 flex-shrink-0">{lang === 'zh' ? '标签：' : 'Tags:'}</span>
+          <div className="col-span-2 flex items-center space-x-2 min-h-[30px]">
+            <span className="text-muted-foreground shrink-0">{lang === 'zh' ? '标签：' : 'Tags:'}</span>
             {isEditingTags ? (
               <div className="flex items-center space-x-1 flex-1">
                 <input
@@ -202,7 +202,7 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
                       setIsEditingTags(false);
                     }
                   }}
-                  className="text-xs px-2 py-1 bg-white dark:bg-slate-800 border border-indigo-500 rounded outline-none text-slate-800 dark:text-slate-100 font-medium w-full max-w-[150px]"
+                  className="text-xs px-2 py-1 bg-background border border-ring rounded-md outline-none text-foreground w-full max-w-[150px]"
                   autoFocus
                 />
                 <button
@@ -217,12 +217,12 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
                     setNewTagVal('');
                     setIsEditingTags(false);
                   }}
-                  className="p-1 rounded bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 cursor-pointer"
+                  className="p-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 cursor-pointer"
                   title={lang === 'zh' ? '确认添加' : 'Confirm add'}
                 >
                   <Check className="w-3.5 h-3.5" />
                 </button>
-                <button onClick={() => setIsEditingTags(false)} className="p-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-pointer" title={lang === 'zh' ? '取消' : 'Cancel'}>
+                <button onClick={() => setIsEditingTags(false)} className="p-1 rounded bg-secondary hover:bg-accent text-muted-foreground cursor-pointer" title={lang === 'zh' ? '取消' : 'Cancel'}>
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -237,7 +237,7 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
               >
                 {doc?.metadata?.tags && doc.metadata.tags.length > 0 ? (
                   doc.metadata.tags.map((t: string) => (
-                    <span key={t} className="group relative px-2.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded text-xs select-none pr-5 flex items-center inline-block font-semibold">
+                    <span key={t} className="group relative px-2 py-0.5 bg-secondary text-secondary-foreground rounded-md text-xs select-none pr-5 flex items-center inline-block font-mono border border-border">
                       #{t}
                       <button
                         onClick={(e) => {
@@ -245,7 +245,7 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
                           const existingTags = doc?.metadata?.tags || [];
                           onUpdateMetadata({ tags: existingTags.filter((tag: string) => tag !== t) });
                         }}
-                        className="absolute -top-1.5 -right-1.5 hidden group-hover:flex w-4 h-4 rounded-full bg-red-100 hover:bg-red-200 dark:bg-red-950 dark:hover:bg-red-900 border border-red-200 dark:border-red-800 items-center justify-center text-red-600 dark:text-red-300 transition duration-155 cursor-pointer text-[9px] font-bold"
+                        className="absolute -top-1 -right-1 hidden group-hover:flex w-3.5 h-3.5 rounded-full bg-destructive text-destructive-foreground items-center justify-center transition cursor-pointer text-xs font-bold"
                         title={lang === 'zh' ? '删除标签' : 'Delete tag'}
                       >
                         <X className="w-2.5 h-2.5" />
@@ -253,34 +253,34 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
                     </span>
                   ))
                 ) : (
-                  <span className="text-zinc-400 dark:text-zinc-500 italic text-xs">{lang === 'zh' ? '双击此处添加标签...' : 'Double click here to add tag...'}</span>
+                  <span className="text-muted-foreground italic text-xs">{lang === 'zh' ? '双击此处添加标签...' : 'Double click here to add tag...'}</span>
                 )}
               </div>
             )}
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-slate-500">{lang === 'zh' ? '来源类型：' : 'Source Type:'}</span>
-            <span className="font-mono bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-1.5 py-0.5 rounded capitalize">{skill.source === 'webmcp' ? 'WebMCP' : skill.source}</span>
+            <span className="text-muted-foreground">{lang === 'zh' ? '来源类型：' : 'Source Type:'}</span>
+            <span className="font-mono bg-secondary border border-border px-1.5 py-0.5 rounded-md capitalize">{skill.source === 'webmcp' ? 'WebMCP' : skill.source}</span>
             {(skill.source === 'remote' || skill.source === 'webmcp') && skill.url && (
-              <span className="text-xs text-slate-500 font-mono bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded truncate max-w-[200px]" title={skill.url}>
+              <span className="text-xs text-muted-foreground font-mono bg-secondary px-2 py-0.5 rounded-md truncate max-w-[200px]" title={skill.url}>
                 {skill.url}
               </span>
             )}
           </div>
           <div className="col-span-2">
-            <span className="text-slate-500">{lang === 'zh' ? '本地根路径：' : 'Local Root Path:'}</span> <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">{skill.root}</code>
+            <span className="text-muted-foreground">{lang === 'zh' ? '本地根路径：' : 'Local Root Path:'}</span> <code className="text-xs bg-secondary border border-border px-2 py-1 rounded-md font-mono">{skill.root}</code>
           </div>
-          <div className="col-span-2 flex gap-6 border-t border-slate-100 dark:border-slate-800 pt-4 mt-2">
+          <div className="col-span-2 flex gap-6 border-t border-border pt-4 mt-2">
             <div className="flex items-center space-x-2">
-              <CheckCircle2 className={`w-4 h-4 ${scriptsCount > 0 ? 'text-emerald-500' : 'text-slate-300'}`} />
+              <CheckCircle2 className={`w-4 h-4 ${scriptsCount > 0 ? 'text-emerald-500' : 'text-muted-foreground opacity-40'}`} />
               <span>
                 {lang === 'zh' ? '包含 scripts' : 'Contains scripts'} ({scriptsCount})
               </span>
             </div>
             {(referencesCount > 0 || resourcesCount === 0) && (
               <div className="flex items-center space-x-2">
-                <CheckCircle2 className={`w-4 h-4 ${referencesCount > 0 ? 'text-emerald-500' : 'text-slate-300'}`} />
+                <CheckCircle2 className={`w-4 h-4 ${referencesCount > 0 ? 'text-emerald-500' : 'text-muted-foreground opacity-40'}`} />
                 <span>
                   {lang === 'zh' ? '包含 references' : 'Contains references'} ({referencesCount})
                 </span>
@@ -288,14 +288,14 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
             )}
             {resourcesCount > 0 && (
               <div className="flex items-center space-x-2">
-                <CheckCircle2 className={`w-4 h-4 ${resourcesCount > 0 ? 'text-emerald-500' : 'text-slate-300'}`} />
+                <CheckCircle2 className={`w-4 h-4 ${resourcesCount > 0 ? 'text-emerald-500' : 'text-muted-foreground opacity-40'}`} />
                 <span>
                   {lang === 'zh' ? '包含 resources' : 'Contains resources'} ({resourcesCount})
                 </span>
               </div>
             )}
             <div className="flex items-center space-x-2">
-              <CheckCircle2 className={`w-4 h-4 ${assetsCount > 0 ? 'text-emerald-500' : 'text-slate-300'}`} />
+              <CheckCircle2 className={`w-4 h-4 ${assetsCount > 0 ? 'text-emerald-500' : 'text-muted-foreground opacity-40'}`} />
               <span>
                 {lang === 'zh' ? '包含 assets' : 'Contains assets'} ({assetsCount})
               </span>
@@ -305,19 +305,19 @@ export function SkillOverview({ skill, onUpdateMetadata }: { skill: any; onUpdat
       </div>
 
       {skill.source === 'installed' && (
-        <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-[#1E293B]">
-          <div className="px-6 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
-            <h3 className="font-bold text-sm">{lang === 'zh' ? '安装 Manifest 信息' : 'Install Manifest Info'}</h3>
+        <div className="border border-border rounded-xl overflow-hidden shadow-xs bg-card">
+          <div className="px-6 py-3 border-b border-border bg-secondary/50">
+            <h3 className="font-semibold text-xs text-foreground">{lang === 'zh' ? '安装 Manifest 信息' : 'Install Manifest Info'}</h3>
           </div>
-          <div className="p-6 grid grid-cols-2 gap-4 text-sm font-mono text-xs">
+          <div className="p-6 grid grid-cols-2 gap-4 text-xs font-mono">
             <div>
-              <span className="text-slate-500">{lang === 'zh' ? '来源：' : 'Source:'}</span> npm:bug-severity-classifier@1.2.1
+              <span className="text-muted-foreground">{lang === 'zh' ? '来源：' : 'Source:'}</span> npm:bug-severity-classifier@1.2.1
             </div>
             <div>
-              <span className="text-slate-500">{lang === 'zh' ? '安装时间：' : 'Install Time:'}</span> 2026-05-25 10:00:00
+              <span className="text-muted-foreground">{lang === 'zh' ? '安装时间：' : 'Install Time:'}</span> 2026-05-25 10:00:00
             </div>
             <div className="col-span-2">
-              <span className="text-slate-500">{lang === 'zh' ? '摘要(SHA256)：' : 'Digest(SHA256):'}</span> 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+              <span className="text-muted-foreground">{lang === 'zh' ? '摘要(SHA256)：' : 'Digest(SHA256):'}</span> 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
             </div>
           </div>
         </div>

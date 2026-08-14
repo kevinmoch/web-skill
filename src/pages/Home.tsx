@@ -92,7 +92,7 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                 {scenarios.map((s, i) => (
                   <div key={i} className="flex flex-col gap-1.5 border-l-2 border-accent/30 pl-4">
                     <span className="text-[14px] sm:text-[15px] text-text-main font-medium">{s.title}</span>
-                    <span className="text-[13px] sm:text-[14px] text-text-dim leading-relaxed">{s.desc}</span>
+                    <span className="text-[14px] text-text-dim leading-relaxed">{s.desc}</span>
                   </div>
                 ))}
               </div>
@@ -113,8 +113,8 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                   <div key={i} className="flex gap-3 sm:gap-4 items-start bg-surface p-4 rounded-xl">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0"></div>
                     <div className="flex flex-col gap-1">
-                      <span className="text-[13px] sm:text-[14px] text-text-main font-medium">{p.title}</span>
-                      <span className="text-[12px] sm:text-[13px] text-text-dim leading-relaxed">{p.desc}</span>
+                      <span className="text-[14px] text-text-main font-medium">{p.title}</span>
+                      <span className="text-[14px] text-text-dim leading-relaxed">{p.desc}</span>
                     </div>
                   </div>
                 ))}
@@ -131,7 +131,7 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
           <FadeIn>
             <Layers className="w-10 h-10 text-accent mx-auto mb-6 opacity-80" />
             <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium mb-4 relative z-10 tracking-tight">{t('home.webskillTitle')}</h2>
-            <p className="text-[14px] sm:text-[16px] md:text-[18px] text-text-dim leading-relaxed max-w-3xl mx-auto relative z-10">
+            <p className="text-[15px] sm:text-[16px] md:text-[18px] text-text-dim leading-relaxed max-w-3xl mx-auto relative z-10">
               {t('home.webskillDesc')}
             </p>
           </FadeIn>
@@ -148,7 +148,7 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                     <Icon className="w-5 h-5 text-accent opacity-80 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <h4 className="text-[16px] sm:text-[18px] text-text-main font-medium mt-2">{f.title}</h4>
-                  <p className="text-[13px] sm:text-[14px] text-text-dim leading-relaxed">{f.desc}</p>
+                  <p className="text-[14px] text-text-dim leading-relaxed">{f.desc}</p>
                 </div>
               </FadeIn>
             );
@@ -161,7 +161,7 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
         <div className="px-2 text-center max-w-3xl mx-auto mb-2 md:mb-4">
           <FadeIn>
             <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium tracking-tight mb-4">{t('home.trinityTitle')}</h2>
-            <p className="text-[14px] sm:text-[16px] text-text-dim leading-relaxed">
+            <p className="text-[15px] sm:text-[16px] text-text-dim leading-relaxed">
               {t('home.trinityDesc')}
             </p>
           </FadeIn>
@@ -174,13 +174,13 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
           
           <div className="flex flex-col gap-4 w-full max-w-3xl mx-auto relative z-10 mt-6">
              <FadeIn delay={0.2} className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all">
-               <p className="text-[13px] sm:text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation1'))}</p>
+               <p className="text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation1'))}</p>
              </FadeIn>
              <FadeIn delay={0.3} className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all">
-               <p className="text-[13px] sm:text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation2'))}</p>
+               <p className="text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation2'))}</p>
              </FadeIn>
              <FadeIn delay={0.4} className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all">
-               <p className="text-[13px] sm:text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation3'))}</p>
+               <p className="text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation3'))}</p>
              </FadeIn>
           </div>
 
@@ -191,18 +191,18 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                   <Activity className="w-5 h-5 text-accent" />
                   {explanationTitle}
                 </h3>
-                <p className="text-[13px] sm:text-[14px] text-text-dim mb-6 leading-relaxed">
+                <p className="text-[14px] sm:text-[15px] text-text-dim mb-6 leading-relaxed">
                   {explanationIntro}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {explanationSteps.map((step: any, idx: number) => (
                     <div key={idx} className="bg-surface rounded-xl p-4 flex gap-3 hover:bg-surface-hover transition-all">
-                      <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center text-[11px] font-bold text-accent shrink-0 mt-0.5">
+                      <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center text-xs font-bold text-accent shrink-0 mt-0.5">
                         {idx + 1}
                       </div>
                       <div className="flex flex-col gap-1">
-                        <span className="text-[13px] sm:text-[14px] font-semibold text-text-main">{step.title}</span>
-                        <span className="text-[12px] sm:text-[13px] text-text-dim leading-relaxed">{step.desc}</span>
+                        <span className="text-[14px] sm:text-[15px] font-semibold text-text-main">{step.title}</span>
+                        <span className="text-[14px] text-text-dim leading-relaxed">{step.desc}</span>
                       </div>
                     </div>
                   ))}
@@ -232,7 +232,7 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                 <thead>
                   <tr className="border-b border-border-color bg-black/40">
                     {compHeaders.map((h, i) => (
-                      <th key={i} className={`p-5 text-[13px] font-mono uppercase tracking-wider ${i === 2 ? 'text-accent' : 'text-text-main'}`}>
+                      <th key={i} className={`p-5 text-[14px] font-mono uppercase tracking-wider ${i === 2 ? 'text-accent' : 'text-text-main'}`}>
                         {h}
                       </th>
                     ))}
@@ -290,21 +290,21 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                   <div className="p-4 flex flex-col gap-4">
                     {/* Backend column */}
                     <div className="flex flex-col gap-1">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-text-dim flex items-center gap-1.5">
+                      <span className="text-xs font-mono uppercase tracking-wider text-text-dim flex items-center gap-1.5 font-medium">
                         <BackendIcon className="w-3.5 h-3.5" />
                         {compHeaders[1]}
                       </span>
-                      <p className="text-[13px] text-text-dim leading-relaxed pl-5">
+                      <p className="text-[14px] text-text-dim leading-relaxed pl-5">
                         {row.backend}
                       </p>
                     </div>
                     {/* WebSkill column */}
                     <div className="flex flex-col gap-1 bg-accent/5 p-3 rounded-xl border border-accent/10">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-accent/80 flex items-center gap-1.5">
+                      <span className="text-xs font-mono uppercase tracking-wider text-accent/90 flex items-center gap-1.5 font-medium">
                         <WebSkillIcon className="w-3.5 h-3.5" />
                         {compHeaders[2]}
                       </span>
-                      <p className="text-[13px] text-accent/90 leading-relaxed pl-5">
+                      <p className="text-[14px] text-accent/90 leading-relaxed pl-5">
                         {row.webskill}
                       </p>
                     </div>
@@ -320,11 +320,11 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
       <section className="flex flex-col gap-8">
         <FadeIn>
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
-            <a href="/demo" className="flex items-center gap-3 px-6 py-4 bg-accent/10 border border-accent/30 text-accent rounded-full font-medium hover:bg-accent hover:text-black transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] shrink-0 w-full sm:w-auto justify-center">
+            <a href="/demo" className="flex items-center gap-3 px-6 py-4 bg-accent/10 border border-accent/30 text-accent rounded-full font-medium hover:bg-accent hover:text-black transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] shrink-0 w-full sm:w-auto justify-center text-[15px]">
               {t('home.demoBtnTitle')}
               <ArrowRight className="w-4 h-4" />
             </a>
-            <span className="text-[12px] sm:text-[13px] text-text-dim font-mono bg-surface-hover px-3 py-2 rounded-lg text-center sm:whitespace-nowrap">
+            <span className="text-[14px] text-text-dim font-mono bg-surface-hover px-3 py-2 rounded-lg text-center sm:whitespace-nowrap">
               {t('home.demoRemark')}
             </span>
           </div>

@@ -4,7 +4,6 @@ import { Sidebar } from './components/Sidebar';
 import { AIChatPanel } from './components/AIChatPanel';
 import { LoginScreen } from './components/LoginScreen';
 import { Sparkles } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
 import { OverviewScreen, RequirementsScreen, SprintsScreen, BugsScreen, TestsScreen, MetricsScreen } from './components/Screens';
 import WebSkillManager from './components/WebSkillManager';
 
@@ -90,7 +89,7 @@ function DashboardContent() {
 
   return (
     <div
-      className="flex h-screen overflow-hidden text-slate-800 dark:text-slate-100 bg-[#FAFAFC] dark:bg-[#0B0E14] flex-col md:flex-row"
+      className="flex h-screen overflow-hidden text-foreground bg-background flex-col md:flex-row font-sans"
       id="app-workspace"
     >
       {/* 1. Sidebar Panel Column */}
@@ -98,45 +97,35 @@ function DashboardContent() {
 
       {/* 2. Middle Main Screen Workspace Section */}
       <div className="flex-1 flex flex-col min-w-0 relative" id="main-content-wrapper">
-        <header className="flex h-14 items-center justify-between border-b border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#111827] px-6 select-none md:hidden">
-          <div className="flex items-center space-x-2">
-            <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+        <header className="flex h-14 items-center justify-between border-b border-border bg-card px-6 select-none md:hidden">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-7 h-7 rounded-lg webskill-brand-mark flex items-center justify-center shadow-xs">
               <Sparkles className="w-4 h-4" />
             </div>
-            <span className="text-xs font-bold font-display text-slate-800 dark:text-slate-100 uppercase tracking-widest leading-none">
+            <span className="text-xs font-bold text-foreground uppercase tracking-widest leading-none">
               Agile Studio
             </span>
           </div>
         </header>
 
         {/* Scrollable primary content box */}
-        <main className="flex-1 overflow-y-auto px-6 py-6 p-4 md:p-8 bg-[#FAFAFC] dark:bg-[#0F172A]/50 relative">
+        <main className="flex-1 overflow-y-auto px-6 py-6 p-4 md:p-8 bg-background relative">
           <div className="w-full">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentScreen}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.2 }}
-              >
-                {renderActiveScreen()}
-              </motion.div>
-            </AnimatePresence>
+            {renderActiveScreen()}
           </div>
         </main>
       </div>
 
       {/* Resizer Handle Bar */}
       <div
-        className="hidden md:flex w-1 bg-slate-200/80 dark:bg-slate-800/80 cursor-col-resize items-center justify-center select-none h-full flex-shrink-0 z-50 animate-fadeIn"
+        className="hidden md:flex w-1 bg-border hover:bg-muted-foreground/40 cursor-col-resize items-center justify-center select-none h-full shrink-0 z-50 transition-colors"
         onMouseDown={startResize}
         title={lang === 'zh' ? '向左拖拽以扩展宽度' : 'Drag left to resize chat panel'}
       />
 
       {/* 3. Right AI Chat Console Drawer */}
       <div
-        className="w-full h-96 md:h-full border-t md:border-t-0 md:border-l border-slate-200 dark:border-[#1E293B]/70 flex-shrink-0"
+        className="w-full h-96 md:h-full border-t md:border-t-0 md:border-l border-border shrink-0"
         style={{ width: window.innerWidth > 768 ? `${chatWidth}px` : '100%' }}
       >
         <AIChatPanel />

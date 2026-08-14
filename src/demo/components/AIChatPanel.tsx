@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'motion/react';
-import { useAgileData, ChatSession } from '../context/AgileDataContext';
+import { useAgileData } from '../context/AgileDataContext';
 import { translations } from '../utils/translations';
 import { OpenUIRenderer } from './OpenUIRenderer';
 import { Send, Settings2, Trash2, Sparkles, Cpu, Blocks, Zap, History, Plus, MessageSquare, X, User, Bot } from 'lucide-react';
 
 export const AIChatPanel: React.FC = () => {
-  const { chatHistory, sendChatMessage, clearChat, lang, llmConfig, setLlmConfig, sessions, currentSessionId, setCurrentSessionId, createNewSession, deleteSession, setCurrentScreen } = useAgileData();
+  const { chatHistory, sendChatMessage, lang, llmConfig, setLlmConfig, sessions, currentSessionId, setCurrentSessionId, createNewSession, deleteSession, setCurrentScreen } = useAgileData();
 
   const t = translations[lang];
 
@@ -84,17 +84,17 @@ export const AIChatPanel: React.FC = () => {
         ];
 
   return (
-    <div className="w-full h-full flex flex-col bg-slate-50 dark:bg-[#0F172A] text-slate-700 dark:text-slate-150 border-l border-slate-200 dark:border-slate-800 shadow-2xl relative" id="ai-chat-panel">
+    <div className="w-full h-full flex flex-col bg-background text-foreground border-l border-border relative font-sans" id="ai-chat-panel">
       {/* 1. Header with model info and settings/history toggles */}
-      <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900/40 relative z-30">
+      <div className="p-3.5 border-b border-border flex items-center justify-between bg-card text-card-foreground relative z-30">
         <div className="flex items-center space-x-2.5">
-          <div className="w-8 h-8 rounded-xl bg-indigo-600 dark:bg-indigo-700 flex items-center justify-center text-white shadow-md shadow-indigo-500/10 animate-pulse">
-            <Sparkles className="w-4 h-4 text-white" />
+          <div className="w-7 h-7 rounded-lg webskill-brand-mark flex items-center justify-center shadow-xs">
+            <Sparkles className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-xs font-bold text-slate-800 dark:text-white flex items-center font-display uppercase tracking-tight">
+            <h3 className="text-sm font-bold text-foreground flex items-center tracking-tight">
               <span>{lang === 'zh' ? '敏捷平台智能助手' : 'Agile Platform Assistant'}</span>
-              <span className="ml-1.5 w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block animate-pulse" />
+              <span className="ml-1.5 w-2 h-2 bg-success rounded-full inline-block animate-pulse" />
             </h3>
           </div>
         </div>
@@ -105,10 +105,10 @@ export const AIChatPanel: React.FC = () => {
             onClick={() => {
               setCurrentScreen('webskill-manager');
             }}
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition duration-155 cursor-pointer"
+            className="p-1.5 rounded-lg hover:bg-accent text-muted-foreground hover:text-foreground transition cursor-pointer"
             title="WebSkill 技能"
           >
-            <Blocks className="w-4 h-4" />
+            <Blocks className="w-4.5 h-4.5" />
           </button>
 
           {/* History Toggle Button */}
@@ -117,10 +117,10 @@ export const AIChatPanel: React.FC = () => {
               setShowHistory(!showHistory);
               setShowConfig(false);
             }}
-            className={`p-1.5 rounded-lg transition duration-150 cursor-pointer ${showHistory ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'}`}
+            className={`p-1.5 rounded-lg transition cursor-pointer ${showHistory ? 'bg-accent text-accent-foreground font-semibold' : 'hover:bg-accent text-muted-foreground hover:text-foreground'}`}
             title={lang === 'zh' ? '会话历史记录' : 'Chat History Logs'}
           >
-            <History className="w-4 h-4" />
+            <History className="w-4.5 h-4.5" />
           </button>
 
           {/* New Chat fast button */}
@@ -129,10 +129,10 @@ export const AIChatPanel: React.FC = () => {
               createNewSession();
               setShowHistory(false);
             }}
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition duration-155 cursor-pointer"
+            className="p-1.5 rounded-lg hover:bg-accent text-muted-foreground hover:text-foreground transition cursor-pointer"
             title={lang === 'zh' ? '开启新对话' : 'New Conversations'}
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4.5 h-4.5" />
           </button>
 
           {/* Config Settings */}
@@ -141,12 +141,12 @@ export const AIChatPanel: React.FC = () => {
               setShowConfig(!showConfig);
               setShowHistory(false);
             }}
-            className={`p-1.5 rounded-lg transition duration-200 cursor-pointer ${
-              showConfig ? 'bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
+            className={`p-1.5 rounded-lg transition cursor-pointer ${
+              showConfig ? 'bg-accent text-accent-foreground font-semibold' : 'hover:bg-accent text-muted-foreground hover:text-foreground'
             }`}
             title={t.chat.configTitle}
           >
-            <Settings2 className="w-4 h-4" />
+            <Settings2 className="w-4.5 h-4.5" />
           </button>
         </div>
       </div>
@@ -158,54 +158,54 @@ export const AIChatPanel: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="bg-white dark:bg-[#1E293B] border-b border-slate-200 dark:border-slate-800 p-4 transition-all z-20 relative overflow-hidden"
+            transition={{ duration: 0.15 }}
+            className="bg-card border-b border-border p-4 z-20 relative overflow-hidden"
             id="llm-config-panel"
           >
             <form onSubmit={handleApplyConfig} className="space-y-3">
-              <h4 className="text-xs font-bold text-indigo-600 dark:text-indigo-400 flex items-center space-x-1 font-display">
-                <Cpu className="w-3.5 h-3.5" />
+              <h4 className="text-xs font-semibold text-foreground flex items-center space-x-1.5 font-mono uppercase tracking-wider">
+                <Cpu className="w-4 h-4 text-muted-foreground" />
                 <span>{t.chat.configTitle}</span>
               </h4>
 
               <div className="space-y-2">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1 font-mono uppercase tracking-wider">{t.chat.apiKey}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1 font-mono uppercase tracking-wider">{t.chat.apiKey}</label>
                   <input
                     type="password"
                     value={localConfig.apiKey}
                     onChange={(e) => setLocalConfig({ ...localConfig, apiKey: e.target.value })}
-                    className="w-full text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-550 font-mono"
+                    className="w-full text-sm bg-background px-3 py-1.5 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-mono"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1 font-mono uppercase tracking-wider">{t.chat.model}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1 font-mono uppercase tracking-wider">{t.chat.model}</label>
                     <input
                       type="text"
                       value={localConfig.modelName}
                       onChange={(e) => setLocalConfig({ ...localConfig, modelName: e.target.value })}
-                      className="w-full text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 font-mono"
+                      className="w-full text-sm bg-background px-3 py-1.5 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1 font-mono uppercase tracking-wider">{t.chat.endpoint}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1 font-mono uppercase tracking-wider">{t.chat.endpoint}</label>
                     <input
                       type="text"
                       value={localConfig.endpoint}
                       onChange={(e) => setLocalConfig({ ...localConfig, endpoint: e.target.value })}
-                      className="w-full text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 font-mono"
+                      className="w-full text-sm bg-background px-3 py-1.5 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-mono"
                     />
                   </div>
                 </div>
               </div>
 
               <div className="flex justify-end space-x-2 pt-1">
-                <button type="button" onClick={() => setShowConfig(false)} className="px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition cursor-pointer">
+                <button type="button" onClick={() => setShowConfig(false)} className="btn-ghost px-3 py-1 text-xs cursor-pointer">
                   {t.actions.cancel}
                 </button>
-                <button type="submit" className="px-3 py-1 text-[11px] font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs hover:shadow-md transition rounded-lg cursor-pointer">
+                <button type="submit" className="btn-primary px-3.5 py-1 text-xs cursor-pointer">
                   {t.chat.saveConfig}
                 </button>
               </div>
@@ -218,32 +218,32 @@ export const AIChatPanel: React.FC = () => {
         {/* Slide-out Session History List overlay */}
         {showHistory && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-x-0 top-18 bg-white dark:bg-[#151D30] border-b border-slate-200 dark:border-indigo-950 shadow-2xl z-25 p-4 max-h-[75%] overflow-y-auto select-none"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            className="absolute inset-x-0 top-14 bg-popover text-popover-foreground border-b border-border shadow-pop z-25 p-4 max-h-[75%] overflow-y-auto select-none"
           >
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2 mb-3">
-              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono tracking-wider uppercase flex items-center">
-                <History className="w-3.5 h-3.5 mr-1.5" />
+            <div className="flex items-center justify-between border-b border-border pb-2 mb-3">
+              <span className="text-xs font-semibold text-foreground font-mono tracking-wider uppercase flex items-center">
+                <History className="w-4 h-4 mr-1.5 text-muted-foreground" />
                 {lang === 'zh' ? '多轮历史会话列表' : 'Conversation History'}
               </span>
-              <button onClick={() => setShowHistory(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition p-0.5">
+              <button onClick={() => setShowHistory(false)} className="text-muted-foreground hover:text-foreground transition p-0.5 cursor-pointer">
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               {sessions.map((sess) => {
                 const isCurrent = sess.id === currentSessionId;
                 return (
                   <div
                     key={sess.id}
-                    className={`flex items-center justify-between px-2.5 py-2 rounded-lg font-bold transition border cursor-pointer select-none ${
+                    className={`flex items-center justify-between px-3 py-2 rounded-lg font-medium transition border cursor-pointer select-none ${
                       isCurrent
-                        ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-900/40'
-                        : 'text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-indigo-950/20 border-transparent'
+                        ? 'bg-accent text-accent-foreground border-border'
+                        : 'text-popover-foreground hover:bg-accent/60 border-transparent'
                     }`}
                   >
                     <button
@@ -251,23 +251,19 @@ export const AIChatPanel: React.FC = () => {
                         setCurrentSessionId(sess.id);
                         setShowHistory(false);
                       }}
-                      className="flex-1 text-left text-xs font-semibold truncate flex items-center space-x-2 mr-3 cursor-pointer"
+                      className="flex-1 text-left text-sm font-medium truncate flex items-center space-x-2 mr-3 cursor-pointer"
                     >
-                      <MessageSquare className={`w-3.5 h-3.5 flex-shrink-0 ${isCurrent ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500'}`} />
+                      <MessageSquare className="w-4 h-4 shrink-0 text-muted-foreground" />
                       <span className="truncate">{sess.title}</span>
                     </button>
-                    <div className="flex items-center space-x-1.5 text-[10px] font-mono">
-                      <span className={`hidden sm:inline-block ${isCurrent ? 'text-indigo-500 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500'}`}>{sess.timestamp}</span>
+                    <div className="flex items-center space-x-1.5 text-xs font-mono text-muted-foreground">
+                      <span className="hidden sm:inline-block">{sess.timestamp}</span>
                       <button
                         onClick={() => deleteSession(sess.id)}
-                        className={`p-1 rounded-md transition ${
-                          isCurrent
-                            ? 'hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300'
-                            : 'hover:bg-rose-50 dark:hover:bg-rose-950/40 text-slate-400 hover:text-rose-600 dark:text-slate-500 dark:hover:text-rose-500'
-                        }`}
+                        className="p-1 rounded-md hover:bg-destructive-soft hover:text-destructive text-muted-foreground transition cursor-pointer"
                         title={lang === 'zh' ? '删除此条记录' : 'Delete Session'}
                       >
-                        <Trash2 className="w-3.2 h-3.2" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
@@ -279,25 +275,25 @@ export const AIChatPanel: React.FC = () => {
       </AnimatePresence>
 
       {/* 3. Render feed or prompt onboarding templates */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth bg-white dark:bg-slate-950/20 relative" id="chat-messages-container">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-background relative" id="chat-messages-container">
         <AnimatePresence mode="wait">
           {chatHistory.length === 0 ? (
             <motion.div
               key="onboarding"
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="h-full flex flex-col justify-between py-4"
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="h-full flex flex-col justify-between py-2"
               id="chat-onboarding"
             >
-              <div className="text-center my-auto px-4 max-w-sm mx-auto space-y-4 select-none">
-                <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-indigo-600 dark:text-indigo-400 shadow-xl border border-slate-200 dark:border-slate-700/60">
-                  <Sparkles className="w-6 h-6 animate-pulse" />
+              <div className="text-center my-auto px-4 max-w-sm mx-auto space-y-3 select-none">
+                <div className="w-11 h-11 rounded-xl bg-card flex items-center justify-center mx-auto text-foreground shadow-xs border border-border">
+                  <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 font-display">{lang === 'zh' ? '您好！我是敏捷智能协作助手' : 'Hello! I am Agile Workspace Copilot'}</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed font-normal">
+                  <h4 className="text-base font-bold text-foreground">{lang === 'zh' ? '您好！我是敏捷智能协作助手' : 'Hello! I am Agile Workspace Copilot'}</h4>
+                  <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
                     {lang === 'zh'
                       ? '我可以智能分析当前选定项目的需求明细、迭代周期、缺陷程度以及自动化跑测结果。一键录入需求并实时生成各模块的分析报告。'
                       : 'I can query and map active scrum boards or DevOps ratios. Input commands below to paint columns, widgets, grids, or register new issues.'}
@@ -306,18 +302,18 @@ export const AIChatPanel: React.FC = () => {
               </div>
 
               {/* Prompt Quick Actions */}
-              <div className="bg-[#F8FAFC] dark:bg-[#1E293B] p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-lg select-none">
-                <span className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-2 px-1">{t.chat.templates}</span>
-                <div className="space-y-1.5 max-h-[190px] overflow-y-auto">
+              <div className="bg-card p-4 rounded-xl border border-border shadow-xs select-none">
+                <span className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider block mb-2.5 px-1">{t.chat.templates}</span>
+                <div className="space-y-2 max-h-[210px] overflow-y-auto">
                   {templates.map((tpl, i) => (
                     <button
                       key={i}
                       onClick={() => executeTemplate(tpl.prompt)}
                       disabled={isLoading}
-                      className="w-full text-left p-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition flex items-center justify-between group cursor-pointer"
+                      className="w-full text-left p-3 rounded-lg text-sm font-medium text-card-foreground bg-background hover:bg-accent border border-input hover:border-border transition flex items-center justify-between group cursor-pointer"
                     >
                       <span>{tpl.label}</span>
-                      <Zap className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition" />
+                      <Zap className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition" />
                     </button>
                   ))}
                 </div>
@@ -328,33 +324,33 @@ export const AIChatPanel: React.FC = () => {
               {chatHistory.map((m) => (
                 <div key={m.id} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
                   {/* Meta Details */}
-                  <div className="text-xs text-slate-400 dark:text-slate-400 font-bold mb-1.5 flex items-center space-x-1.5 font-mono select-none">
-                    {m.role === 'user' ? <User className="w-5 h-5" /> : <Bot className="w-6 h-6" />}
+                  <div className="text-xs text-muted-foreground font-mono font-medium mb-1.5 flex items-center space-x-1.5 select-none">
+                    {m.role === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
                     <span>{m.timestamp}</span>
                   </div>
 
                   {/* Message Box */}
                   <div
-                    className={`max-w-[92%] px-3.5 py-3 rounded-2xl shadow-xs leading-relaxed space-y-3 font-normal text-xs ${
+                    className={`max-w-[92%] px-4 py-3.5 rounded-2xl shadow-xs leading-relaxed space-y-2.5 text-sm ${
                       m.role === 'user'
-                        ? 'bg-indigo-600 dark:bg-indigo-700 text-white rounded-tr-none text-left'
-                        : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 rounded-tl-none text-left'
+                        ? 'bg-primary text-primary-foreground rounded-tr-none text-left font-medium'
+                        : 'bg-card border border-border text-card-foreground rounded-tl-none text-left'
                     }`}
                   >
                     {m.role === 'user' ? (
-                      <p className="whitespace-pre-line leading-relaxed font-normal">{m.text}</p>
+                      <p className="whitespace-pre-line leading-relaxed text-[15px]">{m.text}</p>
                     ) : (
-                      <div className="markdown-body space-y-1.5 leading-normal text-xs font-normal">
+                      <div className="markdown-body space-y-2 leading-relaxed text-[15px]">
                         <ReactMarkdown
                           components={{
-                            p: ({ node, ...props }) => <p className="leading-relaxed font-normal text-slate-800 dark:text-slate-100" {...props} />,
-                            strong: ({ node, ...props }) => <strong className="font-extrabold text-[#4F46E5] dark:text-[#A5B4FC]" {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-4 space-y-1 mt-1 mb-1" {...props} />,
-                            ol: ({ node, ...props }) => <ol className="list-decimal pl-4 space-y-1 mt-1 mb-1" {...props} />,
-                            li: ({ node, ...props }) => <li className="text-slate-700 dark:text-slate-200" {...props} />,
-                            h1: ({ node, ...props }) => <h1 className="text-sm font-extrabold text-slate-900 dark:text-white mt-2 mb-1" {...props} />,
-                            h2: ({ node, ...props }) => <h2 className="text-xs font-bold text-slate-900 dark:text-white mt-1.5 mb-1" {...props} />,
-                            h3: ({ node, ...props }) => <h3 className="text-xs font-bold text-slate-700 dark:text-slate-250 mt-1" {...props} />
+                            p: ({ node, ...props }) => <p className="leading-relaxed text-card-foreground mb-1.5 text-[15px]" {...props} />,
+                            strong: ({ node, ...props }) => <strong className="font-semibold text-foreground" {...props} />,
+                            ul: ({ node, ...props }) => <ul className="list-disc pl-5 space-y-1 my-2 text-card-foreground text-[15px]" {...props} />,
+                            ol: ({ node, ...props }) => <ol className="list-decimal pl-5 space-y-1 my-2 text-card-foreground text-[15px]" {...props} />,
+                            li: ({ node, ...props }) => <li className="text-card-foreground leading-relaxed text-[15px]" {...props} />,
+                            h1: ({ node, ...props }) => <h1 className="text-lg font-bold text-foreground mt-3 mb-1.5" {...props} />,
+                            h2: ({ node, ...props }) => <h2 className="text-base font-bold text-foreground mt-2.5 mb-1" {...props} />,
+                            h3: ({ node, ...props }) => <h3 className="text-[15px] font-semibold text-foreground mt-2 mb-1" {...props} />
                           }}
                         >
                           {m.text}
@@ -364,15 +360,15 @@ export const AIChatPanel: React.FC = () => {
 
                     {/* Streaming Spinner */}
                     {m.isStreaming && (
-                      <div className="flex items-center space-x-2 text-[10px] text-indigo-400 font-bold font-mono py-1 animate-pulse select-none">
-                        <span className="w-2.5 h-2.5 rounded-full border-2 border-indigo-400 border-t-transparent animate-spin inline-block" />
+                      <div className="flex items-center space-x-2 text-xs text-muted-foreground font-mono py-1 animate-pulse select-none">
+                        <span className="w-3 h-3 rounded-full border-2 border-foreground border-t-transparent animate-spin inline-block" />
                         <span>{t.chat.streamWarning}</span>
                       </div>
                     )}
 
                     {/* Render UI Component if is assistant and schema exists */}
                     {m.role === 'assistant' && m.uiSchema && (
-                      <div className="pt-2 animate-fadeIn text-slate-800 dark:text-slate-150">
+                      <div className="pt-2 animate-fadeIn text-card-foreground">
                         <OpenUIRenderer schema={m.uiSchema} lang={lang} />
                       </div>
                     )}
@@ -385,7 +381,7 @@ export const AIChatPanel: React.FC = () => {
       </div>
 
       {/* 4. Chat Drawer Input Area */}
-      <div className="p-3 bg-white dark:bg-[#0F172A]">
+      <div className="p-3.5 bg-card border-t border-border">
         <form onSubmit={handleSend} className="relative flex items-center">
           <input
             type="text"
@@ -393,20 +389,20 @@ export const AIChatPanel: React.FC = () => {
             onChange={(e) => setInputText(e.target.value)}
             disabled={isLoading}
             placeholder={t.chat.placeholder}
-            className="w-full text-xs pl-3.5 pr-10 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition font-medium"
+            className="w-full text-sm pl-4 pr-11 py-2.5 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:border-ring transition placeholder:text-muted-foreground"
           />
           <button
             type="submit"
             disabled={!inputText.trim() || isLoading}
-            className={`absolute right-1.5 p-2 rounded-lg transition ${
-              inputText.trim() && !isLoading ? 'bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer shadow-md' : 'text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 cursor-not-allowed'
+            className={`absolute right-1.5 p-2 rounded-md transition ${
+              inputText.trim() && !isLoading ? 'bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer shadow-xs' : 'text-muted-foreground bg-transparent cursor-not-allowed'
             }`}
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-4 h-4" />
           </button>
         </form>
-        <div className="mt-2.5 flex items-center justify-center space-x-1.5 text-[11px] text-slate-400 dark:text-slate-500 select-none">
-          <Sparkles className="w-3 h-3 text-indigo-500/80 dark:text-indigo-400/80 flex-shrink-0 animate-pulse" />
+        <div className="mt-2.5 flex items-center justify-center space-x-1.5 text-xs text-muted-foreground select-none">
+          <Sparkles className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
           <span>{lang === 'zh' ? '内容由AI生成，仅供参考' : 'Content generated by AI, for reference only'}</span>
         </div>
       </div>

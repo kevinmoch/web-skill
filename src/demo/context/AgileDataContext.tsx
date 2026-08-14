@@ -140,10 +140,10 @@ export const AgileDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   // Screen
   const [currentScreen, setCurrentScreen] = useState<Screen>('overview');
 
-  // Theme state: default 'light' and load from localStorage
+  // Theme state: default 'dark' and load from localStorage
   const [theme, setThemeState] = useState<'light' | 'dark'>(() => {
     const saved = localStorage.getItem('agile_theme');
-    return (saved as 'light' | 'dark') || 'light';
+    return (saved as 'light' | 'dark') || 'dark';
   });
 
   const [lang, setLang] = useState<'zh' | 'en'>(() => {
@@ -632,7 +632,7 @@ Currently active sprint board contains \`${projectRequirements.length}\` issue c
               {
                 label: currentLangVal === 'zh' ? '容器总速率' : 'Total Velocity',
                 value: `${velocitySP} SP`,
-                color: 'text-indigo-600 dark:text-indigo-400',
+                color: 'text-cyan-600 dark:text-cyan-400',
               },
             ],
             barPoints: [],
@@ -943,7 +943,7 @@ Currently active sprint board contains \`${projectRequirements.length}\` issue c
               {
                 label: lang === 'zh' ? '总需求数量' : 'Total Requirements',
                 value: `${projRequirements.length}`,
-                color: 'text-indigo-600 dark:text-indigo-400',
+                color: 'text-cyan-600 dark:text-cyan-400',
               },
               { label: lang === 'zh' ? '高优先级需求' : 'High Priority', value: `${highReqs.length}`, color: 'text-rose-600' },
               { label: lang === 'zh' ? '中优先级需求' : 'Medium Priority', value: `${mediumReqs.length}`, color: 'text-amber-550' },
@@ -1054,7 +1054,7 @@ Currently active sprint board contains \`${projectRequirements.length}\` issue c
           kpis: countsCombined.map((c) => ({
             label: c.label,
             value: c.value,
-            color: 'text-indigo-600',
+            color: 'text-cyan-600',
             trend: 'neutral',
           })),
         },

@@ -8,16 +8,28 @@
   --color-bg: #000000;
   --color-surface: #161616;
   --color-surface-hover: #222222;
-  --color-accent: #00E5FF;
+  --color-accent: #38bdf8;
   --color-text-main: #FAFAFA;
   --color-text-dim: #A1A1AA;
-  --color-border-color: rgba(255, 255, 255, 0.2);
+  --color-border-color: rgba(255, 255, 255, 0.15);
+
+  --text-xs: 0.875rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.375rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.75rem;
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text-main);
   font-family: var(--font-sans);
+  font-size: 1rem;
 }
 
 @layer utilities {
@@ -31,25 +43,26 @@ body {
   }
   .panel-label {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--color-accent);
     text-transform: uppercase;
     margin-bottom: 8px;
     display: block;
+    letter-spacing: 0.05em;
   }
   .tag {
     display: inline-block;
-    padding: 2px 8px;
+    padding: 3px 8px;
     background: var(--color-border-color);
-    font-size: 10px;
-    border-radius: 2px;
+    font-size: 12px;
+    border-radius: 4px;
     margin-right: 6px;
     font-family: var(--font-mono);
   }
   .scenario-card {
     padding: 16px;
     border-left: 2px solid var(--color-accent);
-    background: rgba(0, 229, 255, 0.05);
+    background: rgba(56, 189, 248, 0.04);
   }
   .value-item {
     padding: 20px;
@@ -72,7 +85,7 @@ body {
     border-radius: 3px;
   }
   .code-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 229, 255, 0.4);
+    background: rgba(56, 189, 248, 0.3);
   }
 }
 

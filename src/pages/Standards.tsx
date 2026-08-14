@@ -264,7 +264,7 @@ export default function Standards({ t }: { t: any }) {
               <h2 className="text-[18px] sm:text-[22px] font-medium text-text-main">
                 {t('standards.sec31Title')}
               </h2>
-              <span className="text-xs font-mono text-accent uppercase tracking-wider">Web IDL Interface Spec</span>
+              <span className="text-[14px] font-mono text-accent uppercase tracking-wider">Web IDL Interface Spec</span>
             </div>
           </div>
           <p className="text-[14px] text-text-dim leading-relaxed mt-4">
@@ -274,24 +274,24 @@ export default function Standards({ t }: { t: any }) {
 
         <FadeIn delay={0.1} className="flex flex-col gap-6 w-full max-w-full overflow-hidden">
            <div className="flex flex-col overflow-hidden max-h-[480px] w-full min-w-0 bg-bg  rounded-xl">
-              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[12px] font-mono text-text-dim flex items-center gap-2 shrink-0">
-                <TerminalSquare className="w-3.5 h-3.5" />
+              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[14px] font-mono text-text-dim flex items-center gap-2 shrink-0">
+                <TerminalSquare className="w-4 h-4" />
                 Navigator & WebSkill IDL
               </div>
-              <div className="overflow-auto code-scrollbar text-[12px] font-mono leading-[1.6] flex-1 bg-black/30">
-                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%' }}>
+              <div className="overflow-auto code-scrollbar text-[14px] font-mono leading-[1.6] flex-1 bg-black/30">
+                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%', fontSize: '14px' }}>
                     {mcpNavigatorCode}
                  </SyntaxHighlighter>
               </div>
            </div>
            
            <div className="flex flex-col overflow-hidden max-h-[480px] w-full min-w-0 bg-bg  rounded-xl">
-              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[12px] font-mono text-text-dim flex items-center gap-2 shrink-0">
-                <Code className="w-3.5 h-3.5" />
+              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[14px] font-mono text-text-dim flex items-center gap-2 shrink-0">
+                <Code className="w-4 h-4" />
                 Skill Document & Metadata Dictionaries
               </div>
-              <div className="overflow-auto code-scrollbar text-[12px] font-mono leading-[1.6] flex-1 bg-black/30">
-                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%' }}>
+              <div className="overflow-auto code-scrollbar text-[14px] font-mono leading-[1.6] flex-1 bg-black/30">
+                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%', fontSize: '14px' }}>
                     {mcpCatalogCode}
                  </SyntaxHighlighter>
               </div>
@@ -311,7 +311,7 @@ export default function Standards({ t }: { t: any }) {
               <h2 className="text-[18px] sm:text-[22px] font-medium text-text-main">
                 {t('standards.sec32Title')}
               </h2>
-              <span className="text-xs font-mono text-accent uppercase tracking-wider">Validation & Trailing Types</span>
+              <span className="text-[14px] font-mono text-accent uppercase tracking-wider">Validation & Trailing Types</span>
             </div>
           </div>
           <p className="text-[14px] text-text-dim leading-relaxed mt-4">
@@ -321,24 +321,24 @@ export default function Standards({ t }: { t: any }) {
 
         <FadeIn delay={0.1} className="flex flex-col gap-6 w-full max-w-full overflow-hidden">
            <div className="flex flex-col overflow-hidden max-h-[480px] w-full min-w-0 bg-bg  rounded-xl">
-              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[12px] font-mono text-text-dim flex items-center gap-2 shrink-0">
-                <TerminalSquare className="w-3.5 h-3.5" />
+              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[14px] font-mono text-text-dim flex items-center gap-2 shrink-0">
+                <TerminalSquare className="w-4 h-4" />
                 Validation Report & Issues IDL
               </div>
-              <div className="overflow-auto code-scrollbar text-[12px] font-mono leading-[1.6] flex-1 bg-black/30">
-                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%' }}>
+              <div className="overflow-auto code-scrollbar text-[14px] font-mono leading-[1.6] flex-1 bg-black/30">
+                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%', fontSize: '14px' }}>
                     {mcpValidationCode}
                  </SyntaxHighlighter>
               </div>
            </div>
            
            <div className="flex flex-col overflow-hidden max-h-[480px] w-full min-w-0 bg-bg  rounded-xl">
-              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[12px] font-mono text-text-dim flex items-center gap-2 shrink-0">
-                <Box className="w-3.5 h-3.5" />
+              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[14px] font-mono text-text-dim flex items-center gap-2 shrink-0">
+                <Box className="w-4 h-4" />
                 Runtime Traces & Artifacts IDL
               </div>
-              <div className="overflow-auto code-scrollbar text-[12px] font-mono leading-[1.6] flex-1 bg-black/30">
-                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%' }}>
+              <div className="overflow-auto code-scrollbar text-[14px] font-mono leading-[1.6] flex-1 bg-black/30">
+                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%', fontSize: '14px' }}>
                     {mcpRuntimeReturnCode}
                  </SyntaxHighlighter>
               </div>
@@ -358,7 +358,7 @@ export default function Standards({ t }: { t: any }) {
               <h2 className="text-[18px] sm:text-[22px] font-medium text-text-main">
                 {t('standards.sec33Title')}
               </h2>
-              <span className="text-xs font-mono text-accent uppercase tracking-wider">Dynamic Installations & API</span>
+              <span className="text-[14px] font-mono text-accent uppercase tracking-wider">Dynamic Installations & API</span>
             </div>
           </div>
           <p className="text-[14px] text-text-dim leading-relaxed mt-4">
@@ -368,24 +368,24 @@ export default function Standards({ t }: { t: any }) {
 
         <FadeIn delay={0.1} className="flex flex-col gap-6 w-full max-w-full overflow-hidden">
            <div className="flex flex-col overflow-hidden max-h-[480px] w-full min-w-0 bg-bg  rounded-xl">
-              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[12px] font-mono text-text-dim flex items-center gap-2 shrink-0">
-                <TerminalSquare className="w-3.5 h-3.5" />
+              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[14px] font-mono text-text-dim flex items-center gap-2 shrink-0">
+                <TerminalSquare className="w-4 h-4" />
                 Installed Skill Manifest IDL
               </div>
-              <div className="overflow-auto code-scrollbar text-[12px] font-mono leading-[1.6] flex-1 bg-black/30">
-                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%' }}>
+              <div className="overflow-auto code-scrollbar text-[14px] font-mono leading-[1.6] flex-1 bg-black/30">
+                 <SyntaxHighlighter language="csharp" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%', fontSize: '14px' }}>
                     {mcpInstallManifestCode}
                  </SyntaxHighlighter>
               </div>
            </div>
            
            <div className="flex flex-col overflow-hidden max-h-[480px] w-full min-w-0 bg-bg  rounded-xl">
-              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[12px] font-mono text-text-dim flex items-center gap-2 shrink-0">
-                <Play className="w-3.5 h-3.5 text-accent" />
+              <div className="bg-black/60 border-b border-border-color px-4 py-2.5 text-[14px] font-mono text-text-dim flex items-center gap-2 shrink-0">
+                <Play className="w-4 h-4 text-accent" />
                 JavaScript API Usage Example
               </div>
-              <div className="overflow-auto code-scrollbar text-[12px] font-mono leading-[1.6] flex-1 bg-black/30">
-                 <SyntaxHighlighter language="javascript" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%' }}>
+              <div className="overflow-auto code-scrollbar text-[14px] font-mono leading-[1.6] flex-1 bg-black/30">
+                 <SyntaxHighlighter language="javascript" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%', fontSize: '14px' }}>
                     {mcpJsUsageCode}
                  </SyntaxHighlighter>
               </div>

@@ -45,11 +45,11 @@ export function SkillPreviewModal({
   const selectedSkill = skills.find((s) => s.name === selectedNode);
 
   const modalContent = (
-    <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-5xl flex flex-col h-[650px] overflow-hidden">
+    <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xs animate-fadeIn">
+      <div className="bg-card rounded-xl shadow-xl border border-border w-full max-w-5xl flex flex-col h-[650px] overflow-hidden text-card-foreground">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800">
-          <h2 className="text-lg font-bold text-slate-800 dark:text-white">
+        <div className="px-6 py-4 border-b border-border bg-secondary/50">
+          <h2 className="text-base font-bold text-foreground">
             {type === 'remote'
               ? lang === 'zh'
                 ? `是否安装来源于 ${url} 的 WebSkill 技能`
@@ -61,9 +61,9 @@ export function SkillPreviewModal({
         </div>
 
         {/* Content (Left tree, Right panel) */}
-        <div className="flex-1 flex overflow-hidden min-h-0 bg-slate-50 dark:bg-slate-950">
+        <div className="flex-1 flex overflow-hidden min-h-0 bg-background">
           {/* Left Tree */}
-          <div className="w-64 border-r border-slate-200 dark:border-slate-800 flex flex-col bg-[#FAFAFC] dark:bg-[#0F172A]/50 pt-2 select-none overflow-y-auto">
+          <div className="w-64 border-r border-border flex flex-col bg-secondary/30 pt-2 select-none overflow-y-auto">
             <div className="flex-1 p-2 space-y-1 text-sm select-none">
               {skills.map((skill) => {
                 const isCollapsed = collapsedNodes.has(skill.name);
@@ -78,7 +78,7 @@ export function SkillPreviewModal({
                         setSelectedFile(null);
                         setIsFolderSelected(true);
                       }}
-                      className={`flex items-center px-2 py-1.5 rounded cursor-pointer ${isRootSelected ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' : 'hover:bg-slate-200 dark:hover:bg-slate-800'}`}
+                      className={`flex items-center px-2 py-1.5 rounded-lg cursor-pointer transition ${isRootSelected ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-accent/40'}`}
                     >
                       <div
                         className="mr-1 cursor-pointer"
@@ -88,13 +88,13 @@ export function SkillPreviewModal({
                         }}
                       >
                         {isCollapsed ? (
-                          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
                         ) : (
-                          <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                          <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
                         )}
                       </div>
-                      <Box className="w-4 h-4 mr-1.5 text-emerald-500 dark:text-emerald-400" />
-                      <span className="truncate flex-1 font-semibold text-xs">{skill.name}</span>
+                      <Box className="w-4 h-4 mr-1.5 text-emerald-500" />
+                      <span className="truncate flex-1 font-mono text-xs">{skill.name}</span>
                     </div>
                     {!isCollapsed && (
                       <FileTreeRenderer
@@ -113,9 +113,9 @@ export function SkillPreviewModal({
           </div>
 
           {/* Right Panel */}
-          <div className="flex-1 bg-white dark:bg-[#111827] overflow-y-auto relative">
+          <div className="flex-1 bg-card overflow-y-auto relative">
             {selectedSkill && selectedFile === null && (
-              <div className="pointer-events-none opacity-80">
+              <div className="pointer-events-none opacity-90">
                 <SkillOverview skill={{ ...selectedSkill, url }} onUpdateMetadata={() => {}} />
               </div>
             )}
@@ -129,7 +129,7 @@ export function SkillPreviewModal({
             )}
 
             {!selectedSkill && (
-              <div className="w-full h-full flex items-center justify-center text-slate-400">
+              <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
                 {lang === 'zh' ? '请选择左侧技能' : 'Please select a skill on the left'}
               </div>
             )}
@@ -137,16 +137,16 @@ export function SkillPreviewModal({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-end space-x-3">
+        <div className="px-6 py-3.5 bg-secondary/50 border-t border-border flex justify-end space-x-2">
           <button
             onClick={onCancel}
-            className="px-5 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition"
+            className="btn-secondary px-4 py-1.5 text-xs font-medium"
           >
             {lang === 'zh' ? '取消' : 'Cancel'}
           </button>
           <button
             onClick={onConfirm}
-            className="px-5 py-2 text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-sm transition"
+            className="btn-primary px-4 py-1.5 text-xs font-medium shadow-xs"
           >
             {lang === 'zh' ? '确认' : 'Confirm'}
           </button>

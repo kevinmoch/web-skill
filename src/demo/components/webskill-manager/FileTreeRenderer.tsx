@@ -43,10 +43,10 @@ function TreeNodeRenderer({
       <div 
         key={name}
         onClick={(e) => { e.stopPropagation(); selectItem(skillName, currentPath, false); }}
-        className={`flex items-center px-2 py-1.5 rounded cursor-pointer text-xs ${isSelected && !isEditing ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'}`}
+        className={`flex items-center px-2 py-1 rounded-md cursor-pointer text-xs transition ${isSelected && !isEditing ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-accent/40'}`}
       >
-        <div className="w-[18px] h-[14px] shrink-0" />
-        {name.endsWith('.md') ? <Type className="w-3.5 h-3.5 mr-1.5 opacity-70" /> : <FileCode className="w-3.5 h-3.5 mr-1.5 opacity-70" />}
+        <div className="w-4 h-3.5 shrink-0" />
+        {name.endsWith('.md') ? <Type className="w-3.5 h-3.5 mr-1.5 opacity-70 shrink-0" /> : <FileCode className="w-3.5 h-3.5 mr-1.5 opacity-70 shrink-0" />}
         {isEditing ? (
           <input 
             autoFocus 
@@ -54,11 +54,11 @@ function TreeNodeRenderer({
             onChange={e => setEditingValue(e.target.value)} 
             onBlur={() => commitEdit()} 
             onKeyDown={e => { if(e.key === 'Enter') commitEdit(); }} 
-            className="flex-1 text-xs px-1 text-slate-900 border border-indigo-500 rounded outline-none w-full" 
+            className="flex-1 text-xs px-1.5 py-0.5 bg-background text-foreground border border-ring rounded outline-none w-full" 
             onClick={e => e.stopPropagation()} 
           />
         ) : (
-          <span className="truncate font-semibold">{name}</span>
+          <span className="truncate font-mono text-xs">{name}</span>
         )}
       </div>
     );
@@ -69,10 +69,10 @@ function TreeNodeRenderer({
       <div key={name}>
         <div 
           onClick={(e) => { e.stopPropagation(); toggle(currentPath); selectItem(skillName, currentPath, true); }}
-          className={`flex items-center px-2 py-1.5 rounded cursor-pointer text-xs ${isSelected && !isEditing ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800'}`}
+          className={`flex items-center px-2 py-1 rounded-md cursor-pointer text-xs transition ${isSelected && !isEditing ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-accent/40'}`}
         >
-          {isExpanded ? <ChevronDown className="w-3.5 h-3.5 mr-1 opacity-70" /> : <ChevronRight className="w-3.5 h-3.5 mr-1 opacity-70" />}
-          <Folder className="w-3.5 h-3.5 mr-1.5 text-indigo-400 dark:text-indigo-500" />
+          {isExpanded ? <ChevronDown className="w-3.5 h-3.5 mr-1 opacity-70 shrink-0" /> : <ChevronRight className="w-3.5 h-3.5 mr-1 opacity-70 shrink-0" />}
+          <Folder className="w-3.5 h-3.5 mr-1.5 text-muted-foreground shrink-0" />
           {isEditing ? (
             <input 
               autoFocus 
@@ -80,15 +80,15 @@ function TreeNodeRenderer({
               onChange={e => setEditingValue(e.target.value)} 
               onBlur={() => commitEdit()} 
               onKeyDown={e => { if(e.key === 'Enter') commitEdit(); }} 
-              className="flex-1 text-xs px-1 text-slate-900 border border-indigo-500 rounded outline-none w-full" 
+              className="flex-1 text-xs px-1.5 py-0.5 bg-background text-foreground border border-ring rounded outline-none w-full" 
               onClick={e => e.stopPropagation()} 
             />
           ) : (
-            <span className="truncate font-semibold">{name}</span>
+            <span className="truncate font-mono text-xs">{name}</span>
           )}
         </div>
         {isExpanded && (
-          <div className="ml-3 mt-1 space-y-1 border-l border-slate-100 dark:border-slate-800 pl-1">
+          <div className="ml-3 mt-0.5 space-y-0.5 border-l border-border pl-1">
             {Object.keys(node).sort().map(childName => {
               if (childName === '') return null;
               return (
@@ -161,7 +161,7 @@ export function FileTreeRenderer({ skillName, files, selectedFile, selectItem, e
   });
 
   return (
-    <div className="ml-3 mt-1 space-y-1">
+    <div className="ml-3 mt-0.5 space-y-0.5">
       {Object.keys(tree).sort().map(name => (
         <TreeNodeRenderer
           key={name}

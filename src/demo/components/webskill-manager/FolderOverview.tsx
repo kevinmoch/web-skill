@@ -4,7 +4,6 @@ import { useAgileData } from '../../context/AgileDataContext';
 
 export function FolderOverview({ skill, folderPath }: { skill: any; folderPath: string }) {
   const { lang } = useAgileData();
-  // Let's list all keys in skill excluding metadata keys
   const excludeKeys = ['name', 'source', 'root', 'refs'];
   const allSubPaths = Object.keys(skill).filter((k) => !excludeKeys.includes(k));
 
@@ -23,62 +22,60 @@ export function FolderOverview({ skill, folderPath }: { skill: any; folderPath: 
         foldersCount++;
       } else {
         filesCount++;
-        // Calculate approx size based on content length
         const content = typeof skill[p] === 'string' ? skill[p] : '';
         totalSize += content.length;
       }
     }
   });
 
-  // Calculate simulated occupied space (typically aligning up to multiples of 4KB)
   const sizeInKb = (totalSize / 1024).toFixed(2);
   const occupiedInKb = (Math.ceil(totalSize / 4096) * 4).toFixed(0);
 
   return (
-    <div className="p-8 w-full space-y-6 animate-fadeIn">
-      <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-[#1E293B]">
-        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-          <h2 className="text-lg font-bold flex items-center">
-            <Folder className="w-5 h-5 mr-2 text-indigo-500" />
+    <div className="p-6 w-full space-y-6 text-foreground">
+      <div className="border border-border rounded-xl overflow-hidden shadow-xs bg-card">
+        <div className="px-6 py-4 bg-secondary/50 border-b border-border flex justify-between items-center">
+          <h2 className="text-base font-bold flex items-center gap-2 text-foreground">
+            <Folder className="w-4 h-4 text-muted-foreground" />
             <span>
               {lang === 'zh' ? '文件夹信息：' : 'Folder Info: '}
-              {folderPath}
+              <span className="font-mono">{folderPath}</span>
             </span>
           </h2>
         </div>
-        <div className="p-6 space-y-4 text-sm">
+        <div className="p-6 space-y-4 text-xs">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <span className="text-slate-400 block text-xs font-medium">{lang === 'zh' ? '位置' : 'Location'}</span>
-              <span className="font-semibold text-slate-800 dark:text-[#F1F5F9]">
+              <span className="text-muted-foreground block text-xs font-medium">{lang === 'zh' ? '位置' : 'Location'}</span>
+              <span className="font-mono font-medium text-foreground">
                 {skill.root}/{folderPath}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs font-medium">{lang === 'zh' ? '创建时间' : 'Created At'}</span>
-              <span className="font-semibold text-slate-800 dark:text-[#F1F5F9]">2026-05-25 10:00:00</span>
+              <span className="text-muted-foreground block text-xs font-medium">{lang === 'zh' ? '创建时间' : 'Created At'}</span>
+              <span className="font-mono font-medium text-foreground">2026-05-25 10:00:00</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs font-medium">{lang === 'zh' ? '大小' : 'Size'}</span>
-              <span className="font-semibold text-slate-800 dark:text-[#F1F5F9]">
+              <span className="text-muted-foreground block text-xs font-medium">{lang === 'zh' ? '大小' : 'Size'}</span>
+              <span className="font-mono font-medium text-foreground">
                 {sizeInKb} KB ({totalSize} {lang === 'zh' ? '字节' : 'bytes'})
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs font-medium">{lang === 'zh' ? '占用空间' : 'Space Occupied'}</span>
-              <span className="font-semibold text-slate-800 dark:text-[#F1F5F9]">{occupiedInKb} KB</span>
+              <span className="text-muted-foreground block text-xs font-medium">{lang === 'zh' ? '占用空间' : 'Space Occupied'}</span>
+              <span className="font-mono font-medium text-foreground">{occupiedInKb} KB</span>
             </div>
           </div>
-          <div className="border-t border-slate-100 dark:border-slate-800 pt-4 flex gap-6">
+          <div className="border-t border-border pt-4 flex gap-6">
             <div className="flex items-center space-x-2">
-              <span className="text-slate-500 font-medium">{lang === 'zh' ? '包含文件数:' : 'Contains Files:'}</span>
-              <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-2.5 py-1 rounded-lg">
+              <span className="text-muted-foreground font-medium">{lang === 'zh' ? '包含文件数:' : 'Contains Files:'}</span>
+              <span className="font-mono font-bold text-foreground bg-secondary border border-border px-2 py-0.5 rounded-md">
                 {filesCount} {lang === 'zh' ? '个文件' : 'files'}
               </span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="text-slate-500 font-medium">{lang === 'zh' ? '包含文件夹数:' : 'Contains Folders:'}</span>
-              <span className="font-mono font-bold text-amber-650 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-lg">
+              <span className="text-muted-foreground font-medium">{lang === 'zh' ? '包含文件夹数:' : 'Contains Folders:'}</span>
+              <span className="font-mono font-bold text-foreground bg-secondary border border-border px-2 py-0.5 rounded-md">
                 {foldersCount} {lang === 'zh' ? '个文件夹' : 'folders'}
               </span>
             </div>

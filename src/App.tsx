@@ -30,12 +30,13 @@ export default function App() {
 
   useEffect(() => {
     try {
-      document.title = 'webskill.ai - Web-Based Agent Skill - Running in the Browser';
+      const isZh = (i18n.resolvedLanguage || i18n.language || '').startsWith('zh');
+      document.title = isZh ? 'webskill.ai - 运行在浏览器的基于 Web 的 Agent 技能' : 'webskill.ai - Web-Based Agent Skill - Running in the Browser';
       document.documentElement.lang = i18n.resolvedLanguage || i18n.language || 'en';
     } catch (e) {
       // ignore
     }
-  }, [t, i18n.language]);
+  }, [t, i18n.language, i18n.resolvedLanguage]);
 
   const renderPage = () => {
     switch (activeTab) {
@@ -66,7 +67,7 @@ export default function App() {
           >
             webskill.ai
           </div>
-          <div className="md:hidden font-mono text-[11px] opacity-70">
+          <div className="md:hidden font-mono text-[14px] opacity-70">
             <LanguageToggle />
           </div>
         </div>
@@ -76,16 +77,14 @@ export default function App() {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`${
-                activeTab === item.id ? 'text-accent' : 'text-text-dim'
-              } ${
-                !(i18n.resolvedLanguage || i18n.language || '').startsWith('zh') ? 'text-[10px] sm:text-[10px]' : 'text-[12px] sm:text-[13px]'
-              } uppercase tracking-[1px] hover:text-text-main cursor-pointer transition-colors whitespace-nowrap`}
+                activeTab === item.id ? 'text-accent font-semibold' : 'text-text-dim'
+              } text-[14px] uppercase tracking-[1px] hover:text-text-main cursor-pointer transition-colors whitespace-nowrap`}
             >
               {item.label}
             </button>
           ))}
         </nav>
-        <div className="font-mono text-[11px] opacity-50 hidden md:block">
+        <div className="font-mono text-[14px] opacity-70 hidden md:block">
           <LanguageToggle />
         </div>
       </header>
@@ -100,11 +99,11 @@ export default function App() {
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Terminal className="w-4 h-4 text-text-dim" />
-            <span className="font-mono font-bold text-[12px] text-text-dim">
+            <span className="font-mono font-bold text-[14px] text-text-dim">
               <span className="text-accent">{t('footer.author')}</span>
             </span>
           </div>
-          <p className="text-text-dim text-[11px] font-mono">
+          <p className="text-text-dim text-[14px] font-mono">
             <span className="text-accent">{t('footer.company')}</span>, {t('footer.date')}.{' '}
             <a href="https://github.com/kevinmoch/web-skill" target="_blank" className="text-accent hover:underline">
               {t('footer.github')}

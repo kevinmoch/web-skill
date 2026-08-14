@@ -349,8 +349,8 @@ export function SkillCatalogTab({ skills, setSkills, resetCounter }: { skills: a
   return (
     <div className="flex h-full min-h-[550px]">
       {/* Left Tree */}
-      <div className="w-64 border-r border-slate-200 dark:border-slate-800 flex flex-col bg-[#FAFAFC] dark:bg-[#0F172A]/50 pt-2 select-none rounded-bl-2xl">
-        <div className="px-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+      <div className="w-64 border-r border-border flex flex-col bg-secondary/30 pt-2 select-none">
+        <div className="px-3 pb-3 border-b border-border">
           <div className="relative mb-2">
             <input
               type="text"
@@ -362,19 +362,19 @@ export function SkillCatalogTab({ skills, setSkills, resetCounter }: { skills: a
                   handleSearch();
                 }
               }}
-              className="w-full pl-3 pr-8 py-1.5 text-xs bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-slate-700 rounded outline-none focus:border-indigo-500"
+              className="w-full pl-3 pr-8 py-1.5 text-xs bg-background border border-input rounded-lg outline-none focus:border-ring text-foreground font-medium"
             />
-            <Search onClick={handleSearch} className="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600 cursor-pointer" />
+            <Search onClick={handleSearch} className="w-3.5 h-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer" />
           </div>
-          <div className="flex justify-end space-x-1 text-slate-500 mt-2">
-            <button title={lang === 'zh' ? '新建技能' : 'New Skill'} onClick={handleAddNewSkill} className="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition duration-155 cursor-pointer">
-              <Plus className="w-4 h-4 text-slate-600 dark:text-slate-300 hover:text-indigo-600" />
+          <div className="flex justify-end space-x-1 mt-2">
+            <button title={lang === 'zh' ? '新建技能' : 'New Skill'} onClick={handleAddNewSkill} className="p-1.5 hover:bg-accent rounded-lg transition text-muted-foreground hover:text-foreground cursor-pointer">
+              <Plus className="w-4 h-4" />
             </button>
             <button
               title={lang === 'zh' ? '新建文件' : 'New File'}
               onClick={handleNewFile}
               disabled={!isAddBtnEnabled}
-              className={`p-1.5 rounded-lg transition duration-155 ${isAddBtnEnabled ? 'hover:bg-slate-200 dark:hover:bg-slate-800 cursor-pointer text-slate-600 dark:text-slate-300 hover:text-indigo-600' : 'opacity-30 cursor-not-allowed'}`}
+              className={`p-1.5 rounded-lg transition ${isAddBtnEnabled ? 'hover:bg-accent cursor-pointer text-muted-foreground hover:text-foreground' : 'opacity-30 cursor-not-allowed'}`}
             >
               <FilePlus className="w-4 h-4" />
             </button>
@@ -382,17 +382,17 @@ export function SkillCatalogTab({ skills, setSkills, resetCounter }: { skills: a
               title={lang === 'zh' ? '新建文件夹' : 'New Folder'}
               onClick={handleNewFolder}
               disabled={!isAddBtnEnabled}
-              className={`p-1.5 rounded-lg transition duration-155 ${isAddBtnEnabled ? 'hover:bg-slate-200 dark:hover:bg-slate-800 cursor-pointer text-slate-600 dark:text-slate-300 hover:text-indigo-600' : 'opacity-30 cursor-not-allowed'}`}
+              className={`p-1.5 rounded-lg transition ${isAddBtnEnabled ? 'hover:bg-accent cursor-pointer text-muted-foreground hover:text-foreground' : 'opacity-30 cursor-not-allowed'}`}
             >
               <FolderPlus className="w-4 h-4" />
             </button>
-            <button title={lang === 'zh' ? '删除' : 'Delete'} onClick={handleDelete} className="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition duration-155 text-rose-500 cursor-pointer">
+            <button title={lang === 'zh' ? '删除' : 'Delete'} onClick={handleDelete} className="p-1.5 hover:bg-destructive/10 rounded-lg transition text-destructive cursor-pointer">
               <Trash2 className="w-4 h-4" />
             </button>
           </div>
         </div>
         <div
-          className="flex-1 p-2 space-y-1 text-sm select-none"
+          className="flex-1 p-2 space-y-1 text-sm select-none overflow-y-auto"
           onClick={() => {
             setSelectedNode(null);
             setSelectedFile(null);
@@ -409,11 +409,11 @@ export function SkillCatalogTab({ skills, setSkills, resetCounter }: { skills: a
                     selectSkill(skill.name);
                     toggleSkillCollapse(skill.name);
                   }}
-                  className={`flex items-center px-2 py-1.5 rounded cursor-pointer ${selectedNode === skill.name && !selectedFile && !isEditingRoot ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' : 'hover:bg-slate-200 dark:hover:bg-slate-800'}`}
+                  className={`flex items-center px-2 py-1.5 rounded-lg cursor-pointer transition ${selectedNode === skill.name && !selectedFile && !isEditingRoot ? 'bg-accent text-accent-foreground font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-accent/40'}`}
                 >
-                  {isCollapsed ? <ChevronRight className="w-3.5 h-3.5 mr-1 text-slate-400" /> : <ChevronDown className="w-3.5 h-3.5 mr-1 text-slate-400" />}
+                  {isCollapsed ? <ChevronRight className="w-3.5 h-3.5 mr-1 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 mr-1 text-muted-foreground" />}
                   <Box
-                    className={`w-4 h-4 mr-1.5 ${selectedNode === skill.name && !selectedFile ? 'text-indigo-600 dark:text-indigo-400' : skill.source === 'remote' ? 'text-emerald-500 dark:text-emerald-400' : skill.source === 'webmcp' ? 'text-sky-500 dark:text-sky-400' : 'text-slate-400 dark:text-slate-500'}`}
+                    className={`w-4 h-4 mr-1.5 shrink-0 ${selectedNode === skill.name && !selectedFile ? 'text-foreground' : skill.source === 'remote' ? 'text-emerald-500' : skill.source === 'webmcp' ? 'text-sky-500' : 'text-amber-500'}`}
                   />
                   {isEditingRoot ? (
                     <input
@@ -424,11 +424,11 @@ export function SkillCatalogTab({ skills, setSkills, resetCounter }: { skills: a
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') commitEdit();
                       }}
-                      className="flex-1 text-xs px-1 text-slate-900 border border-indigo-500 rounded outline-none w-full"
+                      className="flex-1 text-xs px-1.5 py-0.5 bg-background text-foreground border border-ring rounded outline-none w-full"
                       onClick={(e) => e.stopPropagation()}
                     />
                   ) : (
-                    <span className="truncate flex-1 font-semibold text-xs">{skill.name}</span>
+                    <span className="truncate flex-1 font-mono text-xs">{skill.name}</span>
                   )}
                 </div>
                 {!isCollapsed && (
@@ -451,7 +451,7 @@ export function SkillCatalogTab({ skills, setSkills, resetCounter }: { skills: a
       </div>
 
       {/* Right Details */}
-      <div className="flex-1 bg-white dark:bg-[#111827] rounded-br-2xl">
+      <div className="flex-1 bg-card overflow-y-auto">
         {!selectedNode ? (
           <SkillSummaryDashboard skills={skills} onSelectSkill={selectSkill} />
         ) : (
@@ -467,19 +467,19 @@ export function SkillCatalogTab({ skills, setSkills, resetCounter }: { skills: a
       </div>
 
       {deletePrompt?.show && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 animate-fadeIn">
-          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4 border border-slate-200 dark:border-slate-800">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{lang === 'zh' ? '确认删除' : 'Confirm Deletion'}</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xs animate-fadeIn">
+          <div className="bg-card rounded-xl shadow-lg p-6 max-w-sm w-full mx-4 border border-border">
+            <h3 className="text-base font-bold text-foreground mb-2">{lang === 'zh' ? '确认删除' : 'Confirm Deletion'}</h3>
+            <p className="text-xs text-muted-foreground mb-6 leading-relaxed">
               {lang === 'zh'
                 ? `您确定要删除 ${deletePrompt.isRoot ? '文件夹及其所有内容' : '此文件或文件夹'} "${deletePrompt.target}" 吗？此操作无法撤销。`
                 : `Are you sure you want to delete ${deletePrompt.isRoot ? 'the folder and all its contents' : 'this file or folder'} "${deletePrompt.target}"? This action cannot be undone.`}
             </p>
-            <div className="flex justify-end space-x-3">
-              <button onClick={() => setDeletePrompt(null)} className="px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition">
+            <div className="flex justify-end space-x-2">
+              <button onClick={() => setDeletePrompt(null)} className="btn-secondary px-3 py-1.5 text-xs">
                 {lang === 'zh' ? '取消' : 'Cancel'}
               </button>
-              <button onClick={confirmDelete} className="px-4 py-2 text-sm font-semibold bg-rose-600 hover:bg-rose-700 text-white rounded-lg shadow-sm transition">
+              <button onClick={confirmDelete} className="btn-destructive px-3 py-1.5 text-xs">
                 {lang === 'zh' ? '确认删除' : 'Delete'}
               </button>
             </div>

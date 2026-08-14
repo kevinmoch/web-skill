@@ -5,7 +5,7 @@ import { Wand2 } from 'lucide-react';
 import { useAgileData } from '../../context/AgileDataContext';
 
 export function UniversalFileEditor({ skill, selectedFile, onSave }: { skill: any; selectedFile: string; onSave: (skillName: string, path: string, content: string) => void }) {
-  const { lang } = useAgileData();
+  const { lang, theme } = useAgileData();
   const [content, setContent] = useState(skill[selectedFile] || '');
   const [editorInstance, setEditorInstance] = useState<any>(null);
   const [activeMode, setActiveMode] = useState<'edit' | 'preview'>('edit');
@@ -102,23 +102,23 @@ tags: [${tagsStr}]
 
   return (
     <div className="flex h-full min-h-[500px]">
-      <div className="flex-1 flex flex-col border-r border-slate-200 dark:border-slate-800 bg-[#FAFAFC] dark:bg-[#0B0E14]">
-        <div className="p-3 bg-slate-50 dark:bg-[#1E293B] border-b border-slate-200 dark:border-slate-800 text-sm font-bold flex justify-between items-center">
+      <div className="flex-1 flex flex-col border-r border-border bg-background text-foreground">
+        <div className="p-3 bg-secondary/50 border-b border-border text-xs font-medium flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <span className="text-xs text-slate-400 font-normal">{skill.name} /</span>
-            <span className="text-xs">{selectedFile}</span>
+            <span className="text-muted-foreground font-mono">{skill.name} /</span>
+            <span className="font-mono font-semibold text-foreground">{selectedFile}</span>
 
             {isImage && (
-              <div className="ml-4 flex rounded-lg bg-slate-200/60 dark:bg-[#1E293B] p-0.5 text-xs font-medium">
+              <div className="ml-4 flex rounded-lg bg-secondary p-0.5 text-xs">
                 <button
                   onClick={() => setActiveMode('edit')}
-                  className={`px-3 py-1 rounded-md transition cursor-pointer ${activeMode === 'edit' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-xs font-bold' : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'}`}
+                  className={`px-3 py-1 rounded-md transition cursor-pointer text-xs font-medium ${activeMode === 'edit' ? 'bg-card text-foreground shadow-xs font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                 >
                   {lang === 'zh' ? '编辑源码' : 'Edit Source'}
                 </button>
                 <button
                   onClick={() => setActiveMode('preview')}
-                  className={`px-3 py-1 rounded-md transition cursor-pointer ${activeMode === 'preview' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-xs font-bold' : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'}`}
+                  className={`px-3 py-1 rounded-md transition cursor-pointer text-xs font-medium ${activeMode === 'preview' ? 'bg-card text-foreground shadow-xs font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                 >
                   {lang === 'zh' ? '查看图像' : 'Preview Image'}
                 </button>
@@ -167,9 +167,9 @@ tags: [${tagsStr}]
                     alert(lang === 'zh' ? '格式错误，无法格式化' : 'Format error, unable to format');
                   }
                 }}
-                className="text-xs px-2.5 py-1.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-350 hover:bg-slate-300 dark:hover:bg-slate-700 rounded-lg font-medium transition cursor-pointer flex items-center shadow-xs"
+                className="btn-secondary px-3 py-1.5 text-xs flex items-center cursor-pointer shadow-xs font-medium"
               >
-                <Wand2 className="w-4 h-4 mr-1" />
+                <Wand2 className="w-3.5 h-3.5 mr-1.5" />
                 {lang === 'zh' ? '格式化代码' : 'Format Code'}
               </button>
             )}
@@ -177,7 +177,7 @@ tags: [${tagsStr}]
               <button
                 onClick={handleSave}
                 disabled={!isChanged}
-                className={`text-xs px-3 py-1.5 rounded-lg transition font-medium ${isChanged ? 'bg-indigo-600 hover:bg-indigo-750 text-white cursor-pointer shadow-sm' : 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'}`}
+                className={`text-xs px-3.5 py-1.5 rounded-lg transition font-medium ${isChanged ? 'btn-primary cursor-pointer shadow-xs' : 'bg-secondary text-muted-foreground border border-border opacity-70 cursor-not-allowed'}`}
               >
                 {lang === 'zh' ? '保存更改' : 'Save Changes'}
               </button>
@@ -190,20 +190,19 @@ tags: [${tagsStr}]
             <Editor
               height="100%"
               language={language}
-              theme="vs-dark"
+              theme={theme === 'dark' ? 'vs-dark' : 'light'}
               value={content}
               onChange={(value) => setContent(value || '')}
               onMount={(editor) => setEditorInstance(editor)}
-              options={{ minimap: { enabled: false }, fontSize: 13, wordWrap: 'on' as const }}
+              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on' as const }}
             />
           </div>
         ) : activeMode === 'preview' ? (
-          <div className="flex-1 w-full relative bg-[#F1F5F9] dark:bg-black/20 flex items-center justify-center overflow-hidden p-6">
-            <div className="absolute inset-0 pattern-dots border border-b-0 border-x-0 border-slate-200 dark:border-slate-800 opacity-50 z-0"></div>
+          <div className="flex-1 w-full relative bg-secondary/30 flex items-center justify-center overflow-hidden p-6">
             {isImage ? (
-              <img src={content} alt="Preview" className="max-w-full max-h-full object-contain relative z-10 shadow-md rounded-lg border border-slate-200 dark:border-slate-800 bg-white" />
+              <img src={content} alt="Preview" className="max-w-full max-h-full object-contain relative z-10 shadow-md rounded-lg border border-border bg-card" />
             ) : (
-              <div className="text-slate-400 text-sm z-10">{lang === 'zh' ? '该文件类型不支持图形化预览' : 'This file type does not support graphical preview'}</div>
+              <div className="text-muted-foreground text-sm">{lang === 'zh' ? '该文件类型不支持图形化预览' : 'This file type does not support graphical preview'}</div>
             )}
           </div>
         ) : (
@@ -211,11 +210,11 @@ tags: [${tagsStr}]
             <Editor
               height="100%"
               language={language}
-              theme="vs-dark"
+              theme={theme === 'dark' ? 'vs-dark' : 'light'}
               value={content}
               onChange={(value) => setContent(value || '')}
               onMount={(editor) => setEditorInstance(editor)}
-              options={{ minimap: { enabled: false }, fontSize: 13, wordWrap: 'on' as const }}
+              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on' as const }}
             />
           </div>
         )}

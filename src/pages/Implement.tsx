@@ -113,7 +113,7 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                     <FileText className="w-4 h-4 text-text-dim" />
                     {t('implement.s1DirSkill')}
                   </div>
-                  <div className="text-text-dim/60 text-[12px] opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+                  <div className="text-text-dim/60 text-[14px] opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
                     {t('implement.s1DirSkillDesc')}
                   </div>
                 </div>
@@ -124,13 +124,13 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                       <Folder className="w-4 h-4 text-accent/80 fill-accent/10" />
                       {t('implement.s1DirScripts')}
                     </div>
-                    <div className="text-text-dim/60 text-[12px] opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+                    <div className="text-text-dim/60 text-[14px] opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
                       {t('implement.s1DirScriptsDesc')}
                     </div>
                   </div>
                   <div className="ml-6 flex flex-col gap-2 border-l border-border-color/50 pl-3">
-                    <div className="flex items-center gap-2 text-text-dim text-[13px]"><FileCode className="w-3.5 h-3.5" /> index.ts</div>
-                    <div className="flex items-center gap-2 text-text-dim text-[13px]"><FileCode className="w-3.5 h-3.5" /> utils.js</div>
+                    <div className="flex items-center gap-2 text-text-dim text-[14px]"><FileCode className="w-3.5 h-3.5" /> index.ts</div>
+                    <div className="flex items-center gap-2 text-text-dim text-[14px]"><FileCode className="w-3.5 h-3.5" /> utils.js</div>
                   </div>
                 </div>
 
@@ -140,13 +140,13 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                       <Folder className="w-4 h-4 text-accent/80 fill-accent/10" />
                       {t('implement.s1DirRefs')}
                     </div>
-                    <div className="text-text-dim/60 text-[12px] opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+                    <div className="text-text-dim/60 text-[14px] opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
                       {t('implement.s1DirRefsDesc')}
                     </div>
                   </div>
                   <div className="ml-6 flex flex-col gap-2 border-l border-border-color/50 pl-3">
-                    <div className="flex items-center gap-2 text-text-dim text-[13px]"><File className="w-3.5 h-3.5" /> template.html</div>
-                    <div className="flex items-center gap-2 text-text-dim text-[13px]"><File className="w-3.5 h-3.5" /> config.json</div>
+                    <div className="flex items-center gap-2 text-text-dim text-[14px]"><File className="w-3.5 h-3.5" /> template.html</div>
+                    <div className="flex items-center gap-2 text-text-dim text-[14px]"><File className="w-3.5 h-3.5" /> config.json</div>
                   </div>
                 </div>
 
@@ -156,14 +156,14 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                       <Folder className="w-4 h-4 text-accent/80 fill-accent/10" />
                       {t('implement.s1DirAssets')}
                     </div>
-                    <div className="text-text-dim/60 text-[12px] opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+                    <div className="text-text-dim/60 text-[14px] opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
                       {t('implement.s1DirAssetsDesc')}
                     </div>
                   </div>
                   <div className="ml-6 flex flex-col gap-2 border-l border-border-color/50 pl-3">
-                    <div className="flex items-center gap-2 text-text-dim text-[13px]"><ImageIcon className="w-3.5 h-3.5" /> logo.png</div>
+                    <div className="flex items-center gap-2 text-text-dim text-[14px]"><ImageIcon className="w-3.5 h-3.5" /> logo.png</div>
                     <div className="flex flex-col gap-1">
-                       <div className="flex items-center gap-2 text-text-dim text-[13px]"><Folder className="w-3.5 h-3.5" /> intermediate/</div>
+                       <div className="flex items-center gap-2 text-text-dim text-[14px]"><Folder className="w-3.5 h-3.5" /> intermediate/</div>
                     </div>
                   </div>
                 </div>
@@ -173,25 +173,25 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
             <div className="flex flex-col gap-4 bg-surface rounded-2xl p-6 md:p-8">
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[12px] font-bold text-accent">1</span>
+                  <span className="text-[14px] font-bold text-accent">1</span>
                 </div>
                 <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s1Exp1'))}</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[12px] font-bold text-accent">2</span>
+                  <span className="text-[14px] font-bold text-accent">2</span>
                 </div>
                 <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s1Exp2'))}</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[12px] font-bold text-accent">3</span>
+                  <span className="text-[14px] font-bold text-accent">3</span>
                 </div>
                 <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s1Exp3'))}</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[12px] font-bold text-accent">4</span>
+                  <span className="text-[14px] font-bold text-accent">4</span>
                 </div>
                 <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s1Exp4'))}</p>
               </div>
@@ -222,12 +222,12 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
             <ArrowDown className="w-5 h-5 text-text-dim/70" />
             <div className="w-full bg-surface/50  rounded-xl p-6 text-center hover:bg-surface/70 transition-colors cursor-default">
                <h3 className="text-text-main font-medium text-[16px] mb-2">{t('implement.s2L2')}</h3>
-               <p className="text-text-dim text-[13px]">{t('implement.s2L2Desc')}</p>
+               <p className="text-text-dim text-[14px]">{t('implement.s2L2Desc')}</p>
             </div>
             <ArrowDown className="w-5 h-5 text-text-dim/70" />
             <div className="w-full bg-bg  rounded-b-3xl rounded-t-xl p-6 text-center hover:bg-surface transition-colors cursor-default">
                <h3 className="text-text-main font-medium text-[16px] mb-2">{t('implement.s2L3')}</h3>
-               <p className="text-text-dim text-[13px]">{t('implement.s2L3Desc')}</p>
+               <p className="text-text-dim text-[14px]">{t('implement.s2L3Desc')}</p>
             </div>
           </div>
         </FadeIn>
@@ -235,19 +235,19 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
           <div className="flex flex-col gap-4 bg-surface  rounded-2xl p-6 md:p-8">
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">1</span>
+                <span className="text-[14px] font-bold text-accent">1</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s2Exp1'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">2</span>
+                <span className="text-[14px] font-bold text-accent">2</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s2Exp2'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">3</span>
+                <span className="text-[14px] font-bold text-accent">3</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s2Exp3'))}</p>
             </div>
@@ -274,17 +274,17 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
              <div className="p-6  rounded-2xl bg-surface flex flex-col items-center text-center">
                <FileCode className="w-8 h-8 text-accent mb-4 opacity-80" />
                <h4 className="font-medium text-text-main mb-2">{t('implement.s3Req1')}</h4>
-               <p className="text-text-dim text-[13px] leading-relaxed">{t('implement.s3Req1Desc')}</p>
+               <p className="text-text-dim text-[14px] leading-relaxed">{t('implement.s3Req1Desc')}</p>
              </div>
              <div className="p-6  rounded-2xl bg-surface flex flex-col items-center text-center">
                <Zap className="w-8 h-8 text-accent mb-4 opacity-80" />
                <h4 className="font-medium text-text-main mb-2">{t('implement.s3Req2')}</h4>
-               <p className="text-text-dim text-[13px] leading-relaxed">{t('implement.s3Req2Desc')}</p>
+               <p className="text-text-dim text-[14px] leading-relaxed">{t('implement.s3Req2Desc')}</p>
              </div>
              <div className="p-6  rounded-2xl bg-surface flex flex-col items-center text-center">
                <Settings className="w-8 h-8 text-accent mb-4 opacity-80" />
                <h4 className="font-medium text-text-main mb-2">{t('implement.s3Req3')}</h4>
-               <p className="text-text-dim text-[13px] leading-relaxed">{t('implement.s3Req3Desc')}</p>
+               <p className="text-text-dim text-[14px] leading-relaxed">{t('implement.s3Req3Desc')}</p>
              </div>
           </div>
         </FadeIn>
@@ -293,19 +293,19 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
           <div className="flex flex-col gap-4 bg-surface  rounded-2xl p-6 md:p-8">
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">1</span>
+                <span className="text-[14px] font-bold text-accent">1</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s3Exp1'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">2</span>
+                <span className="text-[14px] font-bold text-accent">2</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s3Exp2'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">3</span>
+                <span className="text-[14px] font-bold text-accent">3</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s3Exp3'))}</p>
             </div>
@@ -322,19 +322,19 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                 <Code className="w-6 h-6 text-accent mb-4" />
                 <h4 className="text-text-main font-medium mb-2">{t('implement.s3Method1Title')}</h4>
-                <p className="text-text-dim text-[13px] leading-relaxed">{t('implement.s3Method1Desc')}</p>
+                <p className="text-text-dim text-[14px] leading-relaxed">{t('implement.s3Method1Desc')}</p>
               </div>
               <div className="flex-1 bg-surface  rounded-2xl p-6 flex flex-col relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                 <FileCode className="w-6 h-6 text-accent mb-4" />
                 <h4 className="text-text-main font-medium mb-2">{t('implement.s3Method2Title')}</h4>
-                <p className="text-text-dim text-[13px] leading-relaxed">{t('implement.s3Method2Desc')}</p>
+                <p className="text-text-dim text-[14px] leading-relaxed">{t('implement.s3Method2Desc')}</p>
               </div>
               <div className="flex-1 bg-surface  rounded-2xl p-6 flex flex-col relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                 <FileText className="w-6 h-6 text-accent mb-4" />
                 <h4 className="text-text-main font-medium mb-2">{t('implement.s3Method3Title')}</h4>
-                <p className="text-text-dim text-[13px] leading-relaxed">{t('implement.s3Method3Desc')}</p>
+                <p className="text-text-dim text-[14px] leading-relaxed">{t('implement.s3Method3Desc')}</p>
               </div>
             </div>
           </div>
@@ -342,8 +342,8 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
 
         <FadeIn delay={0.4}>
           <div className="mt-4 p-6  rounded-2xl bg-[#0A0A0A] flex flex-col items-center">
-            <div className="font-mono text-[13px] text-accent mb-2">{t('implement.s3McpReturnFormat')}</div>
-            <pre className="text-[12px] font-mono text-text-dim bg-black/50 p-4 rounded-xl /50 w-full max-w-lg overflow-x-auto code-scrollbar">
+            <div className="font-mono text-[14px] text-accent mb-2">{t('implement.s3McpReturnFormat')}</div>
+            <pre className="text-[14px] font-mono text-text-dim bg-black/50 p-4 rounded-xl /50 w-full max-w-lg overflow-x-auto code-scrollbar">
               <code>{`{\n  "content": [\n    {\n      "type": "text",\n      "text": "..."\n    }\n  ]\n}`}</code>
             </pre>
           </div>
@@ -353,13 +353,13 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
           <div className="flex flex-col gap-4 bg-surface  rounded-2xl p-6 md:p-8">
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">1</span>
+                <span className="text-[14px] font-bold text-accent">1</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s3Ret1'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">2</span>
+                <span className="text-[14px] font-bold text-accent">2</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s3Ret2'))}</p>
             </div>
@@ -368,24 +368,24 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
         
         <FadeIn delay={0.6} className="flex flex-col gap-6 w-full max-w-full overflow-hidden">
            <div className="flex flex-col overflow-hidden max-h-[400px] w-full min-w-0 bg-bg  rounded-xl">
-              <div className="bg-black/60 border-b border-border-color px-4 py-2 text-[12px] font-mono text-text-dim flex items-center gap-2">
-                <TerminalSquare className="w-3.5 h-3.5" />
+              <div className="bg-black/60 border-b border-border-color px-4 py-2 text-[14px] font-mono text-text-dim flex items-center gap-2">
+                <TerminalSquare className="w-4 h-4" />
                 Standard MCP SDK (TypeScript)
               </div>
-              <div className="overflow-auto code-scrollbar text-[12px] font-mono leading-[1.6] flex-1 bg-black/30">
-                 <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%' }}>
+              <div className="overflow-auto code-scrollbar text-[14px] font-mono leading-[1.6] flex-1 bg-black/30">
+                 <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%', fontSize: '14px' }}>
                     {mcpServerCode}
                  </SyntaxHighlighter>
               </div>
            </div>
            
            <div className="flex flex-col overflow-hidden max-h-[400px] w-full min-w-0 bg-bg  rounded-xl">
-              <div className="bg-black/60 border-b border-border-color px-4 py-2 text-[12px] font-mono text-text-dim flex items-center gap-2">
-                <Box className="w-3.5 h-3.5" />
+              <div className="bg-black/60 border-b border-border-color px-4 py-2 text-[14px] font-mono text-text-dim flex items-center gap-2">
+                <Box className="w-4 h-4" />
                 Chrome MCP API (Experimental)
               </div>
-              <div className="overflow-auto code-scrollbar text-[12px] font-mono leading-[1.6] flex-1 bg-black/30">
-                 <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%' }}>
+              <div className="overflow-auto code-scrollbar text-[14px] font-mono leading-[1.6] flex-1 bg-black/30">
+                 <SyntaxHighlighter language="typescript" style={vscDarkPlus} customStyle={{ margin: 0, padding: '1rem', background: 'transparent', overflow: 'visible', width: 'max-content', minWidth: '100%', fontSize: '14px' }}>
                     {chromeMcpCode}
                  </SyntaxHighlighter>
               </div>
@@ -411,7 +411,7 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                    <Server className="w-10 h-10 text-accent" />
                 </div>
                 <h4 className="font-bold text-[16px] text-accent mb-2">{t('implement.s4Main')}</h4>
-                <p className="text-[13px] text-text-dim">{t('implement.s4MainDesc')}</p>
+                <p className="text-[14px] text-text-dim">{t('implement.s4MainDesc')}</p>
              </div>
              
              <div className="flex flex-col items-center gap-2">
@@ -419,7 +419,7 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                 <div className="h-0.5 w-16 md:w-32 bg-gradient-to-r from-accent/50 to-text-main/50 relative">
                    <div className="absolute top-4 left-0 -translate-y-1/2 w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_#00F0FF] animate-[pulse_2s_ease-in-out_infinite]"></div>
                 </div>
-                <span className="text-[11px] font-mono text-text-dim uppercase tracking-wider">{t('implement.s4Channel')}</span>
+                <span className="text-[14px] font-mono text-text-dim uppercase tracking-wider font-medium">{t('implement.s4Channel')}</span>
              </div>
              
              <div className="flex flex-col items-center text-center w-64">
@@ -427,7 +427,7 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                    <Cpu className="w-10 h-10 text-text-main" />
                 </div>
                 <h4 className="font-medium text-[16px] text-text-main mb-2">{t('implement.s4Worker')}</h4>
-                <p className="text-[13px] text-text-dim">{t('implement.s4WorkerDesc')}</p>
+                <p className="text-[14px] text-text-dim">{t('implement.s4WorkerDesc')}</p>
              </div>
           </div>
         </FadeIn>
@@ -435,20 +435,20 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
           <div className="flex flex-col gap-4 bg-surface  rounded-2xl p-6 md:p-8">
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">1</span>
+                <span className="text-[14px] font-bold text-accent">1</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s4Exp1'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">2</span>
+                <span className="text-[14px] font-bold text-accent">2</span>
               </div>
               <div className="flex flex-col gap-3 w-full">
                 <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s4Exp2'))}</p>
                 <div className="pl-4 border-l border-border-color flex flex-col gap-3 w-full">
-                  <p className="text-[13px] md:text-[14px] leading-relaxed">{formatColonText(t('implement.s4Exp3'))}</p>
-                  <p className="text-[13px] md:text-[14px] leading-relaxed">{formatColonText(t('implement.s4Exp4'))}</p>
-                  <p className="text-[13px] md:text-[14px] leading-relaxed">{formatColonText(t('implement.s4Exp5'))}</p>
+                  <p className="text-[14px] leading-relaxed">{formatColonText(t('implement.s4Exp3'))}</p>
+                  <p className="text-[14px] leading-relaxed">{formatColonText(t('implement.s4Exp4'))}</p>
+                  <p className="text-[14px] leading-relaxed">{formatColonText(t('implement.s4Exp5'))}</p>
                 </div>
               </div>
             </div>
@@ -480,10 +480,10 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                    { id: 5, label: t('implement.s5State5'), active: false }
                  ].map((state, i) => (
                     <div key={state.id} className="flex flex-row md:flex-col items-center gap-4 md:gap-3 bg-surface z-10 py-1 md:py-0 pr-4 md:pr-0">
-                       <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-[12px] font-mono font-bold transition-colors ${state.active ? 'bg-accent text-black shadow-[0_0_15px_rgba(0,240,255,0.4)]' : 'bg-surface border border-border-color text-text-dim'}`}>
+                       <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-[14px] font-mono font-bold transition-colors ${state.active ? 'bg-accent text-black shadow-[0_0_15px_rgba(0,240,255,0.4)]' : 'bg-surface border border-border-color text-text-dim'}`}>
                          {state.id}
                        </div>
-                       <div className={`text-[13px] md:text-[11px] font-mono text-left md:text-center ${state.active ? 'text-accent' : 'text-text-dim'}`}>
+                       <div className={`text-[14px] font-mono text-left md:text-center ${state.active ? 'text-accent font-semibold' : 'text-text-dim'}`}>
                          {state.label}
                        </div>
                     </div>
@@ -496,9 +496,9 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
                  <h4 className="text-[18px] font-medium text-text-main mb-2 relative z-10">{t('implement.s5Bridge')}</h4>
                  <p className="text-[14px] text-text-dim relative z-10">{t('implement.s5BridgeDesc')}</p>
                  <div className="mt-6 flex flex-wrap justify-center gap-3 relative z-10">
-                    <span className="px-3 py-1 bg-surface  rounded-full text-[12px] text-text-dim">React</span>
-                    <span className="px-3 py-1 bg-surface  rounded-full text-[12px] text-text-dim">Vercel AI SDK</span>
-                    <span className="px-3 py-1 bg-surface  rounded-full text-[12px] text-text-dim">OpenUI</span>
+                    <span className="px-3.5 py-1.5 bg-surface rounded-full text-[14px] text-text-dim">React</span>
+                    <span className="px-3.5 py-1.5 bg-surface rounded-full text-[14px] text-text-dim">Vercel AI SDK</span>
+                    <span className="px-3.5 py-1.5 bg-surface rounded-full text-[14px] text-text-dim">OpenUI</span>
                  </div>
               </div>
            </div>
@@ -507,25 +507,25 @@ const response = await navigator.modelContextTesting.executeTool(targetTool, too
           <div className="flex flex-col gap-4 bg-surface  rounded-2xl p-6 md:p-8">
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">1</span>
+                <span className="text-[14px] font-bold text-accent">1</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s5Exp1'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">2</span>
+                <span className="text-[14px] font-bold text-accent">2</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s5Exp2'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">3</span>
+                <span className="text-[14px] font-bold text-accent">3</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s5Exp3'))}</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-[12px] font-bold text-accent">4</span>
+                <span className="text-[14px] font-bold text-accent">4</span>
               </div>
               <p className="text-[14px] md:text-[15px] leading-relaxed">{formatColonText(t('implement.s5Exp4'))}</p>
             </div>
