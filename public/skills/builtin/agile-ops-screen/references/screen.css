@@ -1,0 +1,172 @@
+/* 敏捷运营监控大屏：深蓝科技风 · 对称三栏 · 全页最小字号 14px */
+
+.ops {
+  /* 页面饱满：整屏高度纵向铺开，主网格吃掉剩余空间 */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 30px 18px;
+  color: #dbeafe;
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(14, 116, 233, 0.25), transparent 60%),
+    linear-gradient(180deg, #061232 0%, #0a1c4a 55%, #071638 100%);
+  font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  font-size: 14px;
+}
+
+/* 头部：标题居中 + 两侧光带 */
+.ops__masthead {
+  position: relative;
+  text-align: center;
+  padding: 4px 0 12px;
+  margin-bottom: 12px;
+}
+.ops__masthead::before,
+.ops__masthead::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8));
+}
+.ops__masthead::before { left: 0; }
+.ops__masthead::after { right: 0; transform: scaleX(-1); }
+.ops__title {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 8px;
+  color: #7dd3fc;
+  text-shadow: 0 0 18px rgba(56, 189, 248, 0.65);
+}
+.ops__subtitle {
+  margin: 8px 0 0;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: #93c5fd;
+}
+.ops__timestamp {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: rgba(147, 197, 253, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+/* KPI 指标卡 */
+.ops__kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.ops__kpi {
+  padding: 10px 14px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 10px;
+  background: rgba(13, 42, 93, 0.55);
+  box-shadow: inset 0 0 18px rgba(56, 189, 248, 0.08), 0 0 12px rgba(14, 116, 233, 0.15);
+}
+.ops__kpi [data-webskill-metric='label'] {
+  display: block;
+  font-size: 14px;
+  color: #93c5fd;
+  letter-spacing: 1px;
+}
+.ops__kpi [data-webskill-metric='value'] {
+  display: block;
+  margin-top: 2px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #67e8f9;
+  text-shadow: 0 0 14px rgba(103, 232, 249, 0.5);
+  font-variant-numeric: tabular-nums;
+}
+.ops__kpi [data-webskill-metric='change'] {
+  display: block;
+  margin-top: 2px;
+  font-size: 14px;
+  color: rgba(191, 219, 254, 0.75);
+}
+
+/* 主网格：三栏等宽（中栏内容天然更重，列宽一致才是对称），纵向吃满剩余高度 */
+.ops__grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 1fr;
+  gap: 12px;
+}
+.ops__col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.ops__panel {
+  padding: 10px 14px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 10px;
+  background: rgba(10, 30, 68, 0.6);
+  box-shadow: inset 0 0 24px rgba(56, 189, 248, 0.06);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+/* 栏内面板等高均分：三栏底边因此完全对齐，且没有留白 */
+.ops__col > .ops__panel {
+  flex: 1;
+  min-height: 0;
+}
+.ops__panel-title {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #7dd3fc;
+}
+.ops__panel-title::before { content: '» '; color: #22d3ee; }
+
+/* 图表容器：跟随面板拉伸（echarts 需要确定高度） */
+.ops__chart {
+  flex: 1;
+  min-height: 110px;
+}
+.ops__table-grow {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* 表格（renderBlocks 产出的原生 table markup） */
+.ops__panel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.ops__panel th {
+  text-align: left;
+  padding: 6px 8px;
+  color: #7dd3fc;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ops__panel td {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+  color: #dbeafe;
+}
+.ops__panel tr:hover td { background: rgba(56, 189, 248, 0.06); }
+
+.ops__footer {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: rgba(147, 197, 253, 0.45);
+}
+
+/* 窄屏（小窗口/投屏预览）降级为单列 */
+@media (max-width: 900px) {
+  .ops__grid { grid-template-columns: 1fr; }
+}

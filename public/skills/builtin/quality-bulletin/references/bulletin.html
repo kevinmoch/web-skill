@@ -1,0 +1,46 @@
+<!--
+  质量通报公文骨架（档 2：完整文档 + A4 打印）。
+  两种占位，脚本按不同规则转义：
+  - {{json:key}} 只出现在 data-webskill-props 里，按 JSON + 属性转义；
+  - {{text:key}} 只出现在文本/URL 位置，按 HTML 文本转义。
+  组件名必须落在 viewer 白名单（Chart/Table/Metric/Gauge/KeyValue）内。
+-->
+<article class="bulletin">
+  <header class="bulletin__masthead">
+    <p class="bulletin__issuer">{{text:issuer}}</p>
+    <h1 class="bulletin__title">{{text:title}}</h1>
+    <p class="bulletin__issue">{{text:issueLine}}</p>
+    <hr class="bulletin__rule" />
+  </header>
+
+  <p class="screen-only bulletin__hint">使用浏览器打印命令（Ctrl/Cmd+P）即可输出 A4 公文。</p>
+
+  <section>
+    <h2>一、缺陷态势</h2>
+    <p>{{text:defectNarrative}}</p>
+    <div data-webskill-component="Table" data-webskill-props="{{json:defectTable}}"></div>
+  </section>
+
+  <section>
+    <h2>二、测试覆盖</h2>
+    <p>{{text:coverageNarrative}}</p>
+    <div data-webskill-component="Table" data-webskill-props="{{json:suiteTable}}"></div>
+  </section>
+
+  <section>
+    <h2>三、交付效能（DORA）</h2>
+    <div data-webskill-component="KeyValue" data-webskill-props="{{json:dora}}"></div>
+  </section>
+
+  <section>
+    <h2>四、发布就绪度结论</h2>
+    <p class="bulletin__readiness">就绪评分：<b>{{text:readinessScore}}</b> / 100</p>
+    <p>{{text:conclusion}}</p>
+  </section>
+
+  <footer class="bulletin__signoff">
+    <p class="bulletin__issuer-foot">{{text:issuer}}</p>
+    <p class="bulletin__date">{{text:dateLine}}</p>
+    <img class="bulletin__seal" src="{{text:sealDataUrl}}" alt="质量通报公章" />
+  </footer>
+</article>

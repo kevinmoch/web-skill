@@ -1,0 +1,69 @@
+<!--
+  敏捷运营监控大屏骨架（深蓝科技风，独立文档面）。
+  对称三栏：中栏 = 饼图 + 缺陷明细表；左右栏 = 各两张柱状图 + 底部列表。
+  三栏底边由 grid stretch + 面板 flex 均分保证完全对齐。
+  - {{json:key}} 只出现在 data-webskill-props 里，按 JSON + 属性转义；
+  - {{text:key}} 只出现在文本位置，按 HTML 文本转义。
+  组件名必须落在 viewer 白名单（Chart/Table/Metric/Gauge/KeyValue）内。
+  data-viewer-*：查看偏好随产物走（viewer 地址全站只有一个，带不了这两件）。
+-->
+<article class="ops" data-viewer-chrome="hidden" data-viewer-chart-font="lg">
+  <header class="ops__masthead">
+    <h1 class="ops__title">{{text:title}}</h1>
+    <p class="ops__subtitle">{{text:subtitle}}</p>
+    <p class="ops__timestamp">{{text:timestamp}}</p>
+  </header>
+
+  <section class="ops__kpis">
+    <div class="ops__kpi" data-webskill-component="Metric" data-webskill-props="{{json:kpiRequirements}}"></div>
+    <div class="ops__kpi" data-webskill-component="Metric" data-webskill-props="{{json:kpiSprintProgress}}"></div>
+    <div class="ops__kpi" data-webskill-component="Metric" data-webskill-props="{{json:kpiOpenDefects}}"></div>
+    <div class="ops__kpi" data-webskill-component="Metric" data-webskill-props="{{json:kpiPassRate}}"></div>
+    <div class="ops__kpi" data-webskill-component="Metric" data-webskill-props="{{json:kpiLeadTime}}"></div>
+    <div class="ops__kpi" data-webskill-component="Metric" data-webskill-props="{{json:kpiDeploy}}"></div>
+  </section>
+
+  <section class="ops__grid">
+    <!-- 左栏（缺陷侧）：严重程度饼图 + 缺陷明细表 -->
+    <div class="ops__col">
+      <div class="ops__panel">
+        <h2 class="ops__panel-title">未关闭缺陷 · 严重程度</h2>
+        <div class="ops__chart" data-webskill-component="Chart" data-webskill-props="{{json:bugSeverityPie}}"></div>
+      </div>
+      <div class="ops__panel">
+        <h2 class="ops__panel-title">未关闭缺陷明细</h2>
+        <div class="ops__table-grow" data-webskill-component="Table" data-webskill-props="{{json:defectTable}}"></div>
+      </div>
+    </div>
+
+    <!-- 中栏（更宽）：两张主图（面积图 + 堆叠柱）+ 需求清单表 -->
+    <div class="ops__col ops__col--center">
+      <div class="ops__panel">
+        <h2 class="ops__panel-title">迭代进度趋势</h2>
+        <div class="ops__chart" data-webskill-component="Chart" data-webskill-props="{{json:sprintProgressLine}}"></div>
+      </div>
+      <div class="ops__panel">
+        <h2 class="ops__panel-title">需求故事点 · 状态 × 优先级</h2>
+        <div class="ops__chart" data-webskill-component="Chart" data-webskill-props="{{json:reqStatusStacked}}"></div>
+      </div>
+      <div class="ops__panel">
+        <h2 class="ops__panel-title">需求清单</h2>
+        <div class="ops__table-grow" data-webskill-component="Table" data-webskill-props="{{json:reqListTable}}"></div>
+      </div>
+    </div>
+
+    <!-- 右栏（测试侧）：双轴图 + 测试质量表 -->
+    <div class="ops__col">
+      <div class="ops__panel">
+        <h2 class="ops__panel-title">测试套件 · 通过率与覆盖率</h2>
+        <div class="ops__chart" data-webskill-component="Chart" data-webskill-props="{{json:suiteTrendLine}}"></div>
+      </div>
+      <div class="ops__panel">
+        <h2 class="ops__panel-title">测试套件质量</h2>
+        <div class="ops__table-grow" data-webskill-component="Table" data-webskill-props="{{json:suiteTable}}"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ops__footer">{{text:footer}}</footer>
+</article>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agile Studio document viewer</title>
+    <!--
+      这份页面跑在 opaque origin 里（CSP 响应头的 sandbox 指令，见 vite.config.ts）。
+      不能写 <meta http-equiv="Content-Security-Policy">——sandbox 指令在 meta 里会被忽略，
+      写了只会给人「已隔离」的错觉。
+    -->
+    <style id="viewer-skill-style"></style>
+    <style>
+      /* 文档铺满窗口：浏览器默认的 8px body margin 会让深色投放面露出一圈白边；
+         文档的内边距由技能自己的样式负责（通报公文/监控大屏都自带 padding） */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      /* 外壳自身的 UI 打印时必须消失，且不得碰版式（height/overflow/fixed 都会破坏分页） */
+      @media print {
+        #viewer-chrome,
+        #viewer-chrome-restore {
+          display: none;
+        }
+      }
+      /* 右上角浮动胶囊：不再是整条黑色横栏（投屏时遮挡小，且可整条隐藏） */
+      #viewer-chrome {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        padding: 5px 8px;
+        background: #1f2329;
+        color: #e5e7eb;
+        font: 12px/1.5 system-ui, sans-serif;
+        border-radius: 999px;
+        box-shadow: 0 4px 16px rgb(0 0 0 / 0.28);
+        z-index: 10;
+      }
+      #viewer-chrome button {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        border: 1px solid #4b5563;
+        background: #374151;
+        color: #f9fafb;
+        border-radius: 999px;
+        padding: 2px 10px;
+        cursor: pointer;
+        font: inherit;
+      }
+      #viewer-chrome button:hover {
+        background: #4b5563;
+      }
+      /* 隐藏按钮（×）：更弱的边界，表达「只是收起外壳」 */
+      #viewer-chrome-hide {
+        border-color: transparent;
+        background: transparent;
+        color: #9ca3af;
+        padding: 2px 6px;
+      }
+      #viewer-chrome-hide:hover {
+        color: #f9fafb;
+        background: #374151;
+      }
+      /* 隐藏后的恢复入口：角落小圆钮，不挡内容 */
+      #viewer-chrome-restore {
+        display: none;
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #4b5563;
+        border-radius: 50%;
+        background: #1f2329;
+        color: #e5e7eb;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgb(0 0 0 / 0.28);
+        z-index: 10;
+      }
+      #viewer-blocked:empty {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="viewer-chrome">
+      <p id="viewer-blocked" data-testid="viewer-blocked-notice"></p>
+      <button id="viewer-print" type="button">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 9V2h12v7" />
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+          <rect x="6" y="14" width="12" height="8" />
+        </svg>
+        打印
+      </button>
+      <button id="viewer-chrome-hide" type="button" aria-label="隐藏工具条" title="隐藏工具条">×</button>
+    </div>
+    <button id="viewer-chrome-restore" type="button" aria-label="显示打印按钮" title="显示打印按钮">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 9V2h12v7" />
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+        <rect x="6" y="14" width="12" height="8" />
+      </svg>
+    </button>
+    <main id="viewer-content" data-testid="viewer-content"></main>
+    <script type="module" src="/src/demo/viewer.ts"></script>
+  </body>
+</html>

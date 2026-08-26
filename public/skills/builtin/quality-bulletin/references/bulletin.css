@@ -1,0 +1,101 @@
+/* 质量通报公文样式：A4 打印体例 */
+@page {
+  size: A4;
+  margin: 20mm;
+}
+
+.bulletin {
+  font-family: 'Songti SC', 'SimSun', Georgia, serif;
+  color: #1a1a1a;
+  max-width: 170mm;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.bulletin__masthead {
+  text-align: center;
+}
+
+.bulletin__issuer {
+  font-size: 13pt;
+  letter-spacing: 0.2em;
+  color: #8c1f18;
+  font-weight: 600;
+}
+
+.bulletin__title {
+  font-size: 20pt;
+  margin: 4mm 0 2mm;
+  color: #1a1a1a;
+}
+
+.bulletin__issue {
+  font-size: 10pt;
+  color: #555;
+}
+
+.bulletin__rule {
+  border: none;
+  border-top: 2.5px solid #8c1f18;
+  margin: 4mm 0 8mm;
+}
+
+.bulletin h2 {
+  font-size: 13pt;
+  margin: 8mm 0 3mm;
+  border-left: 4px solid #8c1f18;
+  padding-left: 8px;
+}
+
+.bulletin p {
+  font-size: 10.5pt;
+  margin: 2.5mm 0;
+}
+
+.bulletin__hint {
+  text-align: center;
+  color: #888;
+  font-family: system-ui, sans-serif;
+  font-size: 9pt;
+}
+
+.bulletin__signoff {
+  margin-top: 14mm;
+  text-align: right;
+  position: relative;
+}
+
+.bulletin__seal {
+  width: 34mm;
+  opacity: 0.92;
+  margin-top: -18mm;
+  margin-right: 6mm;
+}
+
+.bulletin__date,
+.bulletin__issuer-foot {
+  margin: 1mm 0;
+}
+
+.bulletin__readiness {
+  font-size: 11pt;
+}
+.bulletin__readiness b {
+  font-size: 16pt;
+  color: #8c1f18;
+}
+
+@media print {
+  .screen-only {
+    display: none;
+  }
+  .bulletin {
+    font-size: 10.5pt;
+    line-height: 1.6;
+    max-width: none;
+  }
+  .bulletin__seal {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

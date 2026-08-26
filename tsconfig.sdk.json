@@ -1,0 +1,39 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@webskill/sdk": ["../web-skill-sdk/packages/sdk/src/index.ts"],
+      "@webskill/sdk/agent": ["../web-skill-sdk/packages/agent/src/index.ts"],
+      "@webskill/sdk/browser": ["../web-skill-sdk/packages/browser/src/index.ts"],
+      "@webskill/sdk/mcp": ["../web-skill-sdk/packages/mcp/src/index.ts"],
+      "@webskill/sdk/ui": ["../web-skill-sdk/packages/ui/src/index.ts"],
+      "@webskill/sdk/ui-react": ["../web-skill-sdk/packages/ui-react/src/index.ts"],
+      "@webskill/sdk/ui-vue": ["../web-skill-sdk/packages/ui-vue/src/index.ts"],
+      "@webskill/sdk/governance": ["../web-skill-sdk/packages/governance/src/index.ts"],
+      "@webskill/sdk/testing": ["../web-skill-sdk/packages/sdk/src/testing.ts"],
+      "@webskill/sdk/node": ["../web-skill-sdk/packages/sdk/src/node.ts"],
+      "@webskill/chatbot": ["../web-skill-sdk/packages/chatbot/src/index.ts"],
+      "@webskill/console": ["../web-skill-sdk/packages/console/src/index.ts"],
+      "@webskill/core": ["../web-skill-sdk/packages/core/src/index.ts"],
+      "@webskill/runtime": ["../web-skill-sdk/packages/runtime/src/index.ts"],
+      "@webskill/runtime/testing": ["../web-skill-sdk/packages/runtime/src/testing.ts"],
+      "@webskill/browser": ["../web-skill-sdk/packages/browser/src/index.ts"],
+      "@webskill/ui": ["../web-skill-sdk/packages/ui/src/index.ts"],
+      "@webskill/ui-react": ["../web-skill-sdk/packages/ui-react/src/index.ts"],
+      "@webskill/ui-vue": ["../web-skill-sdk/packages/ui-vue/src/index.ts"],
+      "@webskill/ui-kit": ["../web-skill-sdk/packages/ui-kit/src/index.ts"],
+      "@webskill/ui-kit/charts": ["../web-skill-sdk/packages/ui-kit/src/charts.ts"],
+      "@webskill/governance": ["../web-skill-sdk/packages/governance/src/index.ts"],
+      "@webskill/governance/node": ["../web-skill-sdk/packages/governance/src/node.ts"],
+      "@webskill/agent": ["../web-skill-sdk/packages/agent/src/index.ts"],
+      "@webskill/mcp": ["../web-skill-sdk/packages/mcp/src/index.ts"],
+      "@webskill/node": ["../web-skill-sdk/packages/node/src/index.ts"],
+      "@webskill/node/testing": ["../web-skill-sdk/packages/node/src/testing.ts"],
+      "react": ["./node_modules/@types/react"],
+      "react/*": ["./node_modules/@types/react/*"],
+      "react-dom": ["./node_modules/@types/react-dom"],
+      "react-dom/*": ["./node_modules/@types/react-dom/*"]
+    }
+  }
+}

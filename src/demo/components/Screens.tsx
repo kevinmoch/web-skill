@@ -74,7 +74,7 @@ export const OverviewScreen: React.FC = () => {
   return (
     <div className="space-y-6" id="overview-screen">
       {/* 1. Page Header with Selected Project Context banner */}
-      <div className="bg-card border border-border rounded-xl p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="overview-headline-row bg-card border border-border rounded-xl p-5 shadow-xs flex justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
             <span className="text-[12px] font-mono font-medium px-2 py-0.5 bg-accent text-accent-foreground border border-border rounded">
@@ -347,19 +347,6 @@ export const OverviewScreen: React.FC = () => {
                 </button>
               </div>
             </div>
-
-          {/* Prompt Engine Copilot Tip box */}
-          <div className="p-4 rounded-xl bg-accent border border-border text-xs text-foreground space-y-2 leading-relaxed">
-            <h4 className="font-bold text-foreground flex items-center">
-              <Code className="w-4 h-4 mr-1 text-foreground" />
-              <span>{lang === 'zh' ? '敏捷平台智能助手' : 'Agile Assistant Copilot'}</span>
-            </h4>
-            <p className="font-normal text-muted-foreground">
-              {lang === 'zh'
-                ? "试一试在右侧助手发送 '帮我分析项目迭代进展'。AI 助手可以智能化抓取该协同视窗背后的 JSON 数据集，通过流式 UI 实时渲染漂亮的报告图表！"
-                : "Try typing 'Compare Sprint progress stats' in the assistant dialogue panel to stream custom GenUI layout metrics."}
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -468,7 +455,12 @@ export const RequirementsScreen: React.FC = () => {
           </h2>
           <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-mono font-medium">{lang === 'zh' ? `项目「${activeProject.name}」需求管理看板` : `Requirements for project ${activeProject.key}`}</p>
         </div>
-        <button onClick={openAddModal} className="btn-primary px-3.5 py-2 text-xs flex items-center space-x-1.5 cursor-pointer shadow-xs">
+        <button
+          onClick={openAddModal}
+          data-action-id="req.create.open"
+          aria-label={lang === 'zh' ? '创建需求/故事' : 'Create Requirement/Story'}
+          className="btn-primary px-3.5 py-2 text-xs flex items-center space-x-1.5 cursor-pointer shadow-xs"
+        >
           <Plus className="w-4 h-4" />
           <span>{lang === 'zh' ? '创建需求/故事' : 'Create Requirement/Story'}</span>
         </button>
@@ -567,10 +559,14 @@ export const RequirementsScreen: React.FC = () => {
                       </span>
                     </td>
 
-                    {/* STATUS */}
+                    {/* STATUS — 内联下拉：Agent 与键盘用户可直接改状态（原纯展示徽章） */}
                     <td className="p-3.5 whitespace-nowrap">
-                      <span
-                        className={`px-2 py-0.5 rounded-md text-[12px] font-medium border whitespace-nowrap inline-flex items-center gap-1 ${
+                      <select
+                        data-action-id={`req.row.${req.id}.status`}
+                        aria-label={lang === 'zh' ? `需求 ${req.id} 的状态` : `Status of requirement ${req.id}`}
+                        value={req.status}
+                        onChange={(e) => updateRequirement({ ...req, status: e.target.value as Requirement['status'] })}
+                        className={`px-2 py-0.5 rounded-md text-[12px] font-medium border whitespace-nowrap cursor-pointer focus:outline-none focus:border-ring ${
                           req.status === 'Done'
                             ? 'bg-success-soft text-success border-success/20'
                             : req.status === 'In Progress'
@@ -578,8 +574,10 @@ export const RequirementsScreen: React.FC = () => {
                               : 'bg-secondary text-secondary-foreground border-border'
                         }`}
                       >
-                        {req.status === 'Done' ? 'DONE' : req.status === 'In Progress' ? 'IN PROGRESS' : 'TO DO'}
-                      </span>
+                        <option value="Todo">TO DO</option>
+                        <option value="In Progress">IN PROGRESS</option>
+                        <option value="Done">DONE</option>
+                      </select>
                     </td>
 
                     {/* ASSIGNEE */}
@@ -595,10 +593,22 @@ export const RequirementsScreen: React.FC = () => {
                     {/* ACTION TRIGGERS */}
                     <td className="p-3.5 whitespace-nowrap text-right">
                       <div className="flex items-center justify-end space-x-1">
-                        <button onClick={() => openEditModal(req)} className="p-1.5 hover:bg-accent text-foreground rounded-lg transition cursor-pointer" title="Configure Issue">
+                        <button
+                          onClick={() => openEditModal(req)}
+                          data-action-id={`req.row.${req.id}.open`}
+                          aria-label={lang === 'zh' ? `编辑需求 ${req.id}` : `Edit requirement ${req.id}`}
+                          className="p-1.5 hover:bg-accent text-foreground rounded-lg transition cursor-pointer"
+                          title="Configure Issue"
+                        >
                           <Edit3 className="w-3.5 h-3.5" />
                         </button>
-                        <button onClick={() => handleDelete(req.id)} className="p-1.5 hover:bg-destructive-soft text-destructive rounded-lg transition cursor-pointer" title="Purge Card">
+                        <button
+                          onClick={() => handleDelete(req.id)}
+                          data-action-id={`req.row.${req.id}.delete`}
+                          aria-label={lang === 'zh' ? `删除需求 ${req.id}` : `Delete requirement ${req.id}`}
+                          className="p-1.5 hover:bg-destructive-soft text-destructive rounded-lg transition cursor-pointer"
+                          title="Purge Card"
+                        >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
@@ -633,6 +643,8 @@ export const RequirementsScreen: React.FC = () => {
                     required
                     value={formTitle}
                     onChange={(e) => setFormTitle(e.target.value)}
+                    data-action-id="req.form.title"
+                    aria-label={lang === 'zh' ? '需求概要' : 'Requirement summary'}
                     className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium"
                   />
                 </div>
@@ -647,6 +659,8 @@ export const RequirementsScreen: React.FC = () => {
                       value={formEpic}
                       onChange={(e) => setFormEpic(e.target.value)}
                       placeholder={lang === 'zh' ? '例如 支付网关' : 'e.g. Payment Gateway'}
+                      data-action-id="req.form.epic"
+                      aria-label={lang === 'zh' ? '关联史诗' : 'Epic link'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
                     />
                   </div>
@@ -660,6 +674,8 @@ export const RequirementsScreen: React.FC = () => {
                       max={13}
                       value={formStoryPoints}
                       onChange={(e) => setFormStoryPoints(e.target.value === '' ? '' : Number(e.target.value))}
+                      data-action-id="req.form.points"
+                      aria-label={lang === 'zh' ? '估算故事点' : 'Story points'}
                       className="w-full text-xs font-mono font-bold bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
                     />
                   </div>
@@ -672,6 +688,8 @@ export const RequirementsScreen: React.FC = () => {
                     <select
                       value={formPriority}
                       onChange={(e) => setFormPriority(e.target.value as any)}
+                      data-action-id="req.form.priority"
+                      aria-label={lang === 'zh' ? '优先级' : 'Priority'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium cursor-pointer"
                     >
                       <option value="High">{lang === 'zh' ? '🔴 高优先级' : '🔴 High Priority'}</option>
@@ -684,6 +702,8 @@ export const RequirementsScreen: React.FC = () => {
                     <select
                       value={formStatus}
                       onChange={(e) => setFormStatus(e.target.value as any)}
+                      data-action-id="req.form.status"
+                      aria-label={lang === 'zh' ? '需求状态' : 'Requirement status'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium cursor-pointer"
                     >
                       <option value="Todo">{lang === 'zh' ? '待开发' : 'TO DO'}</option>
@@ -701,6 +721,8 @@ export const RequirementsScreen: React.FC = () => {
                       type="text"
                       value={formAssignee}
                       onChange={(e) => setFormAssignee(e.target.value)}
+                      data-action-id="req.form.assignee"
+                      aria-label={lang === 'zh' ? '经办人' : 'Assignee'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium"
                     />
                   </div>
@@ -710,6 +732,8 @@ export const RequirementsScreen: React.FC = () => {
                       type="text"
                       value={formReporter}
                       onChange={(e) => setFormReporter(e.target.value)}
+                      data-action-id="req.form.reporter"
+                      aria-label={lang === 'zh' ? '报告人' : 'Reporter'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium"
                     />
                   </div>
@@ -722,6 +746,8 @@ export const RequirementsScreen: React.FC = () => {
                     rows={3}
                     value={formDesc}
                     onChange={(e) => setFormDesc(e.target.value)}
+                    data-action-id="req.form.description"
+                    aria-label={lang === 'zh' ? '需求详细说明' : 'Requirement description'}
                     className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring leading-relaxed"
                   />
                 </div>
@@ -735,7 +761,12 @@ export const RequirementsScreen: React.FC = () => {
                   >
                     {t.actions.cancel}
                   </button>
-                  <button type="submit" className="btn-primary px-4 py-1.5 text-xs cursor-pointer">
+                  <button
+                    type="submit"
+                    data-action-id="req.form.submit"
+                    aria-label={lang === 'zh' ? '保存需求' : 'Save requirement'}
+                    className="btn-primary px-4 py-1.5 text-xs cursor-pointer"
+                  >
                     {lang === 'zh' ? '保存' : 'Save'}
                   </button>
                 </div>
@@ -752,7 +783,72 @@ export const RequirementsScreen: React.FC = () => {
 // 3. SPRINTS SCREEN
 // ==========================================
 export const SprintsScreen: React.FC = () => {
-  const { sprints, requirements, updateRequirement, lang } = useAgileData();
+  const { sprints, requirements, updateRequirement, addRequirement, deleteRequirement, addSprint, lang } = useAgileData();
+
+  // 新建迭代任务（落进待办列 = 一条 status 为 Todo 的需求卡）
+  const [showCreate, setShowCreate] = useState(false);
+  const [taskTitle, setTaskTitle] = useState('');
+  const [taskPoints, setTaskPoints] = useState<number | ''>('');
+  const [taskPriority, setTaskPriority] = useState<'High' | 'Medium' | 'Low'>('Medium');
+  const [taskAssignee, setTaskAssignee] = useState('');
+
+  // 新增迭代（Sprint 实体）
+  const [showSprintModal, setShowSprintModal] = useState(false);
+  const [sprintName, setSprintName] = useState('');
+  const [sprintGoal, setSprintGoal] = useState('');
+  const [sprintVelocity, setSprintVelocity] = useState<number | ''>('');
+  const [sprintStart, setSprintStart] = useState('');
+  const [sprintEnd, setSprintEnd] = useState('');
+  const [sprintStatus, setSprintStatus] = useState<'Planned' | 'Active' | 'Completed'>('Planned');
+
+  const openCreateModal = () => {
+    setTaskTitle('');
+    setTaskPoints('');
+    setTaskPriority('Medium');
+    setTaskAssignee('');
+    setShowCreate(true);
+  };
+
+  const handleCreateTask = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!taskTitle.trim()) return;
+    addRequirement({
+      title: taskTitle.trim(),
+      description: '',
+      priority: taskPriority,
+      status: 'Todo',
+      storyPoints: Number(taskPoints) || 1,
+      assignee: taskAssignee || 'Unassigned',
+      reporter: 'Kevin',
+      epic: 'General Epic'
+    });
+    setShowCreate(false);
+  };
+
+  const openSprintModal = () => {
+    setSprintName('');
+    setSprintGoal('');
+    setSprintVelocity('');
+    setSprintStart('');
+    setSprintEnd('');
+    setSprintStatus('Planned');
+    setShowSprintModal(true);
+  };
+
+  const handleCreateSprint = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!sprintName.trim() || !sprintStart || !sprintEnd) return;
+    addSprint({
+      name: sprintName.trim(),
+      goal: sprintGoal.trim(),
+      velocity: Number(sprintVelocity) || 20,
+      progress: 0,
+      startDate: sprintStart,
+      endDate: sprintEnd,
+      status: sprintStatus
+    });
+    setShowSprintModal(false);
+  };
 
   // Current Active Sprint
   const activeSprint = sprints.find((s) => s.status === 'Active') || sprints[0];
@@ -782,7 +878,18 @@ export const SprintsScreen: React.FC = () => {
             <span className="text-muted-foreground font-sans text-xs">{activeSprint ? (lang === 'en' && activeSprint.name_en ? activeSprint.name_en : activeSprint.name) : 'Loading active cycle'}</span>
           </div>
         </div>
-        <div className="bg-card px-3 py-2 rounded-lg border border-border font-mono flex space-x-4 items-center">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={openSprintModal}
+            data-action-id="sprint.create.open"
+            aria-label={lang === 'zh' ? '新增迭代' : 'New sprint'}
+            className="btn-primary px-3.5 py-2 text-xs flex items-center space-x-1.5 cursor-pointer shadow-xs"
+          >
+            <Plus className="w-4 h-4" />
+            <span>{lang === 'zh' ? '新增迭代' : 'New Sprint'}</span>
+          </button>
+          <div className="bg-card px-3 py-2 rounded-lg border border-border font-mono flex space-x-4 items-center">
           <div>
             <span className="text-xs text-muted-foreground uppercase block">{lang === 'zh' ? '已收尾已燃尽' : 'Burned SP'}</span>
             <span className="text-xs text-success font-bold block mt-0.5">{requirements.filter((r) => r.status === 'Done').reduce((sum, r) => sum + (r.storyPoints || 0), 0)} SP</span>
@@ -792,6 +899,7 @@ export const SprintsScreen: React.FC = () => {
             <span className="text-xs text-muted-foreground uppercase block">{lang === 'zh' ? '迭代容量速率' : 'Total Velocity'}</span>
             <span className="text-xs text-foreground font-bold block mt-0.5">{activeSprint ? activeSprint.velocity : 40} SP</span>
           </div>
+        </div>
         </div>
       </div>
 
@@ -804,7 +912,18 @@ export const SprintsScreen: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-muted-foreground inline-block" />
               <span className="font-semibold text-foreground uppercase">{lang === 'zh' ? '待办' : 'TODO'}</span>
             </div>
-            <span className="px-2 py-0.5 bg-background text-foreground border border-border rounded font-mono font-medium text-[12px]">{todoTickets.length}</span>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={openCreateModal}
+                data-action-id="sprint.task.create.open"
+                aria-label={lang === 'zh' ? '新建迭代任务' : 'New sprint task'}
+                className="w-5 h-5 inline-flex items-center justify-center rounded border border-border bg-background text-muted-foreground hover:text-foreground hover:bg-accent transition cursor-pointer text-sm leading-none"
+              >
+                +
+              </button>
+              <span className="px-2 py-0.5 bg-background text-foreground border border-border rounded font-mono font-medium text-[12px]">{todoTickets.length}</span>
+            </div>
           </div>
 
           <div
@@ -823,11 +942,25 @@ export const SprintsScreen: React.FC = () => {
                   key={tc.id}
                   draggable
                   onDragStart={(e) => e.dataTransfer.setData('text/plain', tc.id)}
-                  className="bg-card p-3 rounded-lg border border-border shadow-xs hover:border-foreground/30 transition flex flex-col justify-between h-28 cursor-grab active:cursor-grabbing text-card-foreground"
+                  className="bg-card p-3 rounded-lg border border-border shadow-xs hover:border-foreground/30 transition flex flex-col justify-between min-h-28 cursor-grab active:cursor-grabbing text-card-foreground"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-[12px] font-mono text-muted-foreground font-medium">{tc.id}</span>
+                      <span className="flex items-center gap-1.5">
+                        <span className="text-[12px] font-mono text-muted-foreground font-medium">{tc.id}</span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteRequirement(tc.id);
+                          }}
+                          data-action-id={`sprint.card.${tc.id}.delete`}
+                          aria-label={lang === 'zh' ? `删除卡片 ${tc.id}` : `Delete card ${tc.id}`}
+                          className="text-muted-foreground/50 hover:text-destructive transition cursor-pointer"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </span>
                       {tc.epic && (
                         <span className="text-[12px] px-1.5 py-0.5 bg-accent text-accent-foreground border border-border rounded font-medium max-w-[90px] truncate leading-none">
                           {lang === 'en' && tc.epic_en ? tc.epic_en : getEpicTranslation(tc.epic, lang)}
@@ -847,6 +980,21 @@ export const SprintsScreen: React.FC = () => {
                     >
                       {lang === 'zh' ? '开始研发 →' : 'Start Work →'}
                     </button>
+                  </div>
+
+                  {/* 可编程阶段控件：拖拽给鼠标用户，下拉给键盘用户与 Agent（act_on_page 无 drag） */}
+                  <div className="pt-1.5 mt-1.5 border-t border-border/60 select-none">
+                    <select
+                      data-action-id={`sprint.card.${tc.id}.stage`}
+                      aria-label={lang === 'zh' ? `卡片 ${tc.id} 的阶段` : `Stage of card ${tc.id}`}
+                      value={tc.status}
+                      onChange={(e) => handleMoveStatus(tc.id, e.target.value as 'Todo' | 'In Progress' | 'Done')}
+                      className="w-full text-[12px] bg-background text-foreground border border-input rounded px-1.5 py-0.5 focus:outline-none focus:border-ring cursor-pointer font-medium"
+                    >
+                      <option value="Todo">{lang === 'zh' ? '待办' : 'Todo'}</option>
+                      <option value="In Progress">{lang === 'zh' ? '进行中' : 'In Progress'}</option>
+                      <option value="Done">{lang === 'zh' ? '已关闭' : 'Done'}</option>
+                    </select>
                   </div>
                 </div>
               ))
@@ -880,11 +1028,25 @@ export const SprintsScreen: React.FC = () => {
                   key={tc.id}
                   draggable
                   onDragStart={(e) => e.dataTransfer.setData('text/plain', tc.id)}
-                  className="bg-card p-3 rounded-lg border border-border shadow-xs hover:border-foreground/30 transition flex flex-col justify-between h-28 cursor-grab active:cursor-grabbing text-card-foreground"
+                  className="bg-card p-3 rounded-lg border border-border shadow-xs hover:border-foreground/30 transition flex flex-col justify-between min-h-28 cursor-grab active:cursor-grabbing text-card-foreground"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-[12px] font-mono text-muted-foreground font-medium">{tc.id}</span>
+                      <span className="flex items-center gap-1.5">
+                        <span className="text-[12px] font-mono text-muted-foreground font-medium">{tc.id}</span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteRequirement(tc.id);
+                          }}
+                          data-action-id={`sprint.card.${tc.id}.delete`}
+                          aria-label={lang === 'zh' ? `删除卡片 ${tc.id}` : `Delete card ${tc.id}`}
+                          className="text-muted-foreground/50 hover:text-destructive transition cursor-pointer"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </span>
                       {tc.epic && (
                         <span className="text-[12px] px-1.5 py-0.5 bg-accent text-accent-foreground border border-border rounded font-medium max-w-[90px] truncate leading-none">
                           {lang === 'en' && tc.epic_en ? tc.epic_en : getEpicTranslation(tc.epic, lang)}
@@ -912,6 +1074,21 @@ export const SprintsScreen: React.FC = () => {
                         {lang === 'zh' ? '提交DONE' : 'Done ✔'}
                       </button>
                     </div>
+                  </div>
+
+                  {/* 可编程阶段控件：拖拽给鼠标用户，下拉给键盘用户与 Agent（act_on_page 无 drag） */}
+                  <div className="pt-1.5 mt-1.5 border-t border-border/60 select-none">
+                    <select
+                      data-action-id={`sprint.card.${tc.id}.stage`}
+                      aria-label={lang === 'zh' ? `卡片 ${tc.id} 的阶段` : `Stage of card ${tc.id}`}
+                      value={tc.status}
+                      onChange={(e) => handleMoveStatus(tc.id, e.target.value as 'Todo' | 'In Progress' | 'Done')}
+                      className="w-full text-[12px] bg-background text-foreground border border-input rounded px-1.5 py-0.5 focus:outline-none focus:border-ring cursor-pointer font-medium"
+                    >
+                      <option value="Todo">{lang === 'zh' ? '待办' : 'Todo'}</option>
+                      <option value="In Progress">{lang === 'zh' ? '进行中' : 'In Progress'}</option>
+                      <option value="Done">{lang === 'zh' ? '已关闭' : 'Done'}</option>
+                    </select>
                   </div>
                 </div>
               ))
@@ -945,11 +1122,25 @@ export const SprintsScreen: React.FC = () => {
                   key={tc.id}
                   draggable
                   onDragStart={(e) => e.dataTransfer.setData('text/plain', tc.id)}
-                  className="bg-card p-3 rounded-lg border border-border shadow-xs flex flex-col justify-between h-28 cursor-grab active:cursor-grabbing text-card-foreground"
+                  className="bg-card p-3 rounded-lg border border-border shadow-xs flex flex-col justify-between min-h-28 cursor-grab active:cursor-grabbing text-card-foreground"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center justify-between select-none">
-                      <span className="text-[12px] font-mono text-muted-foreground font-medium">{tc.id}</span>
+                      <span className="flex items-center gap-1.5">
+                        <span className="text-[12px] font-mono text-muted-foreground font-medium">{tc.id}</span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteRequirement(tc.id);
+                          }}
+                          data-action-id={`sprint.card.${tc.id}.delete`}
+                          aria-label={lang === 'zh' ? `删除卡片 ${tc.id}` : `Delete card ${tc.id}`}
+                          className="text-muted-foreground/50 hover:text-destructive transition cursor-pointer"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </span>
                       <span className="inline-flex items-center justify-center text-[12px] bg-success-soft text-success border border-success/20 px-1.5 py-0.5 rounded font-medium font-mono uppercase">
                         {lang === 'zh' ? '已关闭' : 'CLOSED'}
                       </span>
@@ -968,12 +1159,222 @@ export const SprintsScreen: React.FC = () => {
                       ↺ {lang === 'zh' ? '重新开启' : 'Reopen'}
                     </button>
                   </div>
+
+                  {/* 可编程阶段控件：拖拽给鼠标用户，下拉给键盘用户与 Agent（act_on_page 无 drag） */}
+                  <div className="pt-1.5 mt-1.5 border-t border-border/60 select-none">
+                    <select
+                      data-action-id={`sprint.card.${tc.id}.stage`}
+                      aria-label={lang === 'zh' ? `卡片 ${tc.id} 的阶段` : `Stage of card ${tc.id}`}
+                      value={tc.status}
+                      onChange={(e) => handleMoveStatus(tc.id, e.target.value as 'Todo' | 'In Progress' | 'Done')}
+                      className="w-full text-[12px] bg-background text-foreground border border-input rounded px-1.5 py-0.5 focus:outline-none focus:border-ring cursor-pointer font-medium"
+                    >
+                      <option value="Todo">{lang === 'zh' ? '待办' : 'Todo'}</option>
+                      <option value="In Progress">{lang === 'zh' ? '进行中' : 'In Progress'}</option>
+                      <option value="Done">{lang === 'zh' ? '已关闭' : 'Done'}</option>
+                    </select>
+                  </div>
                 </div>
               ))
             )}
           </div>
         </div>
       </div>
+
+      {/* 新建迭代任务弹窗（落进待办列）。控件带 data-action-id：页面操作通道可驱动 */}
+      {showCreate &&
+        createPortal(
+          <div id="sprint-task-create-modal" className="absolute inset-0 z-[1100] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowCreate(false)}></div>
+            <div className="bg-popover text-popover-foreground rounded-xl border border-border shadow-pop w-full max-w-md p-6 max-h-[92vh] overflow-y-auto relative z-10 flex flex-col font-sans">
+              <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
+                <h3 className="text-sm font-bold text-foreground">{lang === 'zh' ? '新建迭代任务（待办）' : 'New sprint task (Todo)'}</h3>
+              </div>
+              <form onSubmit={handleCreateTask} className="space-y-4 pt-1 text-foreground">
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '任务标题' : 'Task title'}</label>
+                  <input
+                    type="text"
+                    required
+                    value={taskTitle}
+                    onChange={(e) => setTaskTitle(e.target.value)}
+                    data-action-id="sprint.task.form.title"
+                    aria-label={lang === 'zh' ? '任务标题' : 'Task title'}
+                    className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '估算故事点' : 'Story points'}</label>
+                    <input
+                      type="number"
+                      required
+                      min={1}
+                      max={13}
+                      value={taskPoints}
+                      onChange={(e) => setTaskPoints(e.target.value === '' ? '' : Number(e.target.value))}
+                      data-action-id="sprint.task.form.points"
+                      aria-label={lang === 'zh' ? '估算故事点' : 'Story points'}
+                      className="w-full text-xs font-mono font-bold bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '优先级' : 'Priority'}</label>
+                    <select
+                      value={taskPriority}
+                      onChange={(e) => setTaskPriority(e.target.value as 'High' | 'Medium' | 'Low')}
+                      data-action-id="sprint.task.form.priority"
+                      aria-label={lang === 'zh' ? '优先级' : 'Priority'}
+                      className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium cursor-pointer"
+                    >
+                      <option value="High">{lang === 'zh' ? '🔴 高优先级' : '🔴 High'}</option>
+                      <option value="Medium">{lang === 'zh' ? '🟡 中优先级' : '🟡 Medium'}</option>
+                      <option value="Low">{lang === 'zh' ? '🟢 低优先级' : '🟢 Low'}</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '经办人' : 'Assignee'}</label>
+                  <input
+                    type="text"
+                    value={taskAssignee}
+                    onChange={(e) => setTaskAssignee(e.target.value)}
+                    data-action-id="sprint.task.form.assignee"
+                    aria-label={lang === 'zh' ? '经办人' : 'Assignee'}
+                    className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium"
+                  />
+                </div>
+                <div className="flex justify-end gap-2 pt-2 border-t border-border">
+                  <button
+                    type="button"
+                    onClick={() => setShowCreate(false)}
+                    className="btn-secondary px-3.5 py-2 text-xs cursor-pointer"
+                  >
+                    {lang === 'zh' ? '取消' : 'Cancel'}
+                  </button>
+                  <button
+                    type="submit"
+                    data-action-id="sprint.task.form.submit"
+                    aria-label={lang === 'zh' ? '创建迭代任务' : 'Create sprint task'}
+                    className="btn-primary px-3.5 py-2 text-xs cursor-pointer"
+                  >
+                    {lang === 'zh' ? '创建任务' : 'Create task'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>,
+          document.getElementById('main-content-wrapper') || document.body
+        )}
+
+      {/* 新增迭代弹窗（Sprint 实体）。控件带 data-action-id：页面操作通道可驱动 */}
+      {showSprintModal &&
+        createPortal(
+          <div id="sprint-create-modal" className="absolute inset-0 z-[1100] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowSprintModal(false)}></div>
+            <div className="bg-popover text-popover-foreground rounded-xl border border-border shadow-pop w-full max-w-md p-6 max-h-[92vh] overflow-y-auto relative z-10 flex flex-col font-sans">
+              <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
+                <h3 className="text-sm font-bold text-foreground">{lang === 'zh' ? '新增迭代' : 'New Sprint'}</h3>
+              </div>
+              <form onSubmit={handleCreateSprint} className="space-y-4 pt-1 text-foreground">
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '迭代名称' : 'Sprint name'}</label>
+                  <input
+                    type="text"
+                    required
+                    value={sprintName}
+                    onChange={(e) => setSprintName(e.target.value)}
+                    data-action-id="sprint.form.name"
+                    aria-label={lang === 'zh' ? '迭代名称' : 'Sprint name'}
+                    className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '迭代目标' : 'Sprint goal'}</label>
+                  <input
+                    type="text"
+                    value={sprintGoal}
+                    onChange={(e) => setSprintGoal(e.target.value)}
+                    data-action-id="sprint.form.goal"
+                    aria-label={lang === 'zh' ? '迭代目标' : 'Sprint goal'}
+                    className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
+                  />
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '容量速率' : 'Velocity'}</label>
+                    <input
+                      type="number"
+                      required
+                      min={1}
+                      value={sprintVelocity}
+                      onChange={(e) => setSprintVelocity(e.target.value === '' ? '' : Number(e.target.value))}
+                      data-action-id="sprint.form.velocity"
+                      aria-label={lang === 'zh' ? '容量速率' : 'Velocity'}
+                      className="w-full text-xs font-mono font-bold bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '开始日期' : 'Start'}</label>
+                    <input
+                      type="date"
+                      required
+                      value={sprintStart}
+                      onChange={(e) => setSprintStart(e.target.value)}
+                      data-action-id="sprint.form.start"
+                      aria-label={lang === 'zh' ? '开始日期' : 'Start date'}
+                      className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '结束日期' : 'End'}</label>
+                    <input
+                      type="date"
+                      required
+                      value={sprintEnd}
+                      onChange={(e) => setSprintEnd(e.target.value)}
+                      data-action-id="sprint.form.end"
+                      aria-label={lang === 'zh' ? '结束日期' : 'End date'}
+                      className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '状态' : 'Status'}</label>
+                  <select
+                    value={sprintStatus}
+                    onChange={(e) => setSprintStatus(e.target.value as 'Planned' | 'Active' | 'Completed')}
+                    data-action-id="sprint.form.status"
+                    aria-label={lang === 'zh' ? '迭代状态' : 'Sprint status'}
+                    className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium cursor-pointer"
+                  >
+                    <option value="Planned">{lang === 'zh' ? '计划中' : 'Planned'}</option>
+                    <option value="Active">{lang === 'zh' ? '进行中' : 'Active'}</option>
+                    <option value="Completed">{lang === 'zh' ? '已完成' : 'Completed'}</option>
+                  </select>
+                </div>
+                <div className="flex justify-end gap-2 pt-2 border-t border-border">
+                  <button
+                    type="button"
+                    onClick={() => setShowSprintModal(false)}
+                    className="btn-secondary px-3.5 py-2 text-xs cursor-pointer"
+                  >
+                    {lang === 'zh' ? '取消' : 'Cancel'}
+                  </button>
+                  <button
+                    type="submit"
+                    data-action-id="sprint.form.submit"
+                    aria-label={lang === 'zh' ? '创建迭代' : 'Create sprint'}
+                    className="btn-primary px-3.5 py-2 text-xs cursor-pointer"
+                  >
+                    {lang === 'zh' ? '创建迭代' : 'Create sprint'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>,
+          document.getElementById('main-content-wrapper') || document.body
+        )}
     </div>
   );
 };
@@ -1056,7 +1457,12 @@ export const BugsScreen: React.FC = () => {
           </h2>
           <p className="text-xs text-muted-foreground mt-1 font-medium uppercase tracking-wider font-mono">{lang === 'zh' ? `项目「${activeProject.name}」生产及研发缺陷协同总览` : `Scrum quality assurance console for project ${activeProject.key}`}</p>
         </div>
-        <button onClick={openAddModal} className="btn-primary px-3.5 py-2 text-xs flex items-center space-x-1.5 cursor-pointer shadow-xs">
+        <button
+          onClick={openAddModal}
+          data-action-id="bug.create.open"
+          aria-label={lang === 'zh' ? '提报缺陷/问题' : 'File Bug'}
+          className="btn-primary px-3.5 py-2 text-xs flex items-center space-x-1.5 cursor-pointer shadow-xs"
+        >
           <Plus className="w-4 h-4" />
           <span>{lang === 'zh' ? '提报缺陷/问题' : 'File Bug'}</span>
         </button>
@@ -1104,10 +1510,14 @@ export const BugsScreen: React.FC = () => {
                       </div>
                     </td>
 
-                    {/* Severity */}
+                    {/* Severity — 内联下拉：Agent 与键盘用户可直接改严重度 */}
                     <td className="p-3.5 whitespace-nowrap">
-                      <span
-                        className={`px-2 py-0.5 rounded-full text-[12px] font-mono font-medium uppercase tracking-wider whitespace-nowrap inline-flex items-center gap-1 border ${
+                      <select
+                        data-action-id={`bug.row.${bug.id}.severity`}
+                        aria-label={lang === 'zh' ? `缺陷 ${bug.id} 的严重程度` : `Severity of bug ${bug.id}`}
+                        value={bug.severity}
+                        onChange={(e) => updateBug({ ...bug, severity: e.target.value as Bug['severity'] })}
+                        className={`px-2 py-0.5 rounded-full text-[12px] font-mono font-medium uppercase tracking-wider whitespace-nowrap border cursor-pointer focus:outline-none focus:border-ring ${
                           bug.severity === 'Critical'
                             ? 'bg-destructive-soft text-destructive border-destructive/20'
                             : bug.severity === 'Major'
@@ -1115,19 +1525,27 @@ export const BugsScreen: React.FC = () => {
                               : 'bg-secondary text-muted-foreground border-border'
                         }`}
                       >
-                        {bug.severity === 'Critical' ? '🔴 Critical' : bug.severity === 'Major' ? '🟡 Major' : '🟢 Minor'}
-                      </span>
+                        <option value="Critical">🔴 Critical</option>
+                        <option value="Major">🟡 Major</option>
+                        <option value="Minor">🟢 Minor</option>
+                      </select>
                     </td>
 
-                    {/* Status */}
+                    {/* Status — 内联下拉 */}
                     <td className="p-3.5 whitespace-nowrap">
-                      <span
-                        className={`px-2 py-0.5 rounded-md text-[12px] font-medium uppercase tracking-wider whitespace-nowrap inline-flex items-center gap-1 border ${
+                      <select
+                        data-action-id={`bug.row.${bug.id}.status`}
+                        aria-label={lang === 'zh' ? `缺陷 ${bug.id} 的状态` : `Status of bug ${bug.id}`}
+                        value={bug.status}
+                        onChange={(e) => updateBug({ ...bug, status: e.target.value as Bug['status'] })}
+                        className={`px-2 py-0.5 rounded-md text-[12px] font-medium uppercase tracking-wider whitespace-nowrap border cursor-pointer focus:outline-none focus:border-ring ${
                           bug.status === 'Open' ? 'bg-destructive-soft text-destructive border-destructive/20' : bug.status === 'Fixed' ? 'bg-info-soft text-info border-info/20' : 'bg-secondary text-muted-foreground border-border'
                         }`}
                       >
-                        {bug.status}
-                      </span>
+                        <option value="Open">Open</option>
+                        <option value="Fixed">Fixed</option>
+                        <option value="Closed">Closed</option>
+                      </select>
                     </td>
 
                     {/* Subsystem Module */}
@@ -1147,10 +1565,21 @@ export const BugsScreen: React.FC = () => {
                     {/* Actions */}
                     <td className="p-3.5 whitespace-nowrap text-right">
                       <div className="flex items-center justify-end space-x-1 flex-row">
-                        <button onClick={() => openEditModal(bug)} className="p-1.5 hover:bg-accent text-foreground rounded-lg transition cursor-pointer" title="Triage Issue">
+                        <button
+                          onClick={() => openEditModal(bug)}
+                          data-action-id={`bug.row.${bug.id}.open`}
+                          aria-label={lang === 'zh' ? `编辑缺陷 ${bug.id}` : `Edit bug ${bug.id}`}
+                          className="p-1.5 hover:bg-accent text-foreground rounded-lg transition cursor-pointer"
+                          title="Triage Issue"
+                        >
                           <Edit3 className="w-3.5 h-3.5" />
                         </button>
-                        <button onClick={() => handleDelete(bug.id)} className="p-1.5 hover:bg-destructive-soft text-destructive rounded-lg transition cursor-pointer">
+                        <button
+                          onClick={() => handleDelete(bug.id)}
+                          data-action-id={`bug.row.${bug.id}.delete`}
+                          aria-label={lang === 'zh' ? `删除缺陷 ${bug.id}` : `Delete bug ${bug.id}`}
+                          className="p-1.5 hover:bg-destructive-soft text-destructive rounded-lg transition cursor-pointer"
+                        >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
@@ -1183,6 +1612,8 @@ export const BugsScreen: React.FC = () => {
                     required
                     value={formTitle}
                     onChange={(e) => setFormTitle(e.target.value)}
+                    data-action-id="bug.form.title"
+                    aria-label={lang === 'zh' ? '缺陷概述' : 'Bug summary'}
                     className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium"
                   />
                 </div>
@@ -1194,6 +1625,8 @@ export const BugsScreen: React.FC = () => {
                     <select
                       value={formSeverity}
                       onChange={(e) => setFormSeverity(e.target.value as any)}
+                      data-action-id="bug.form.severity"
+                      aria-label={lang === 'zh' ? '严重程度' : 'Severity'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium cursor-pointer"
                     >
                       <option value="Critical">🔴 Critical (致瘫故障)</option>
@@ -1206,6 +1639,8 @@ export const BugsScreen: React.FC = () => {
                     <select
                       value={formStatus}
                       onChange={(e) => setFormStatus(e.target.value as any)}
+                      data-action-id="bug.form.status"
+                      aria-label={lang === 'zh' ? '缺陷状态' : 'Bug status'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium cursor-pointer"
                     >
                       <option value="Open">Unresolved (挂起处理中)</option>
@@ -1223,6 +1658,8 @@ export const BugsScreen: React.FC = () => {
                     required
                     value={formModule}
                     onChange={(e) => setFormModule(e.target.value)}
+                    data-action-id="bug.form.module"
+                    aria-label={lang === 'zh' ? '涉及子系统/模块' : 'Subsystem module'}
                     className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-mono"
                   />
                 </div>
@@ -1235,6 +1672,8 @@ export const BugsScreen: React.FC = () => {
                       type="text"
                       value={formAssignee}
                       onChange={(e) => setFormAssignee(e.target.value)}
+                      data-action-id="bug.form.assignee"
+                      aria-label={lang === 'zh' ? '经办人' : 'Assignee'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
                     />
                   </div>
@@ -1244,6 +1683,8 @@ export const BugsScreen: React.FC = () => {
                       type="text"
                       value={formReporter}
                       onChange={(e) => setFormReporter(e.target.value)}
+                      data-action-id="bug.form.reporter"
+                      aria-label={lang === 'zh' ? '上报人' : 'Reporter'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring"
                     />
                   </div>
@@ -1258,7 +1699,12 @@ export const BugsScreen: React.FC = () => {
                   >
                     {t.actions.cancel}
                   </button>
-                  <button type="submit" className="btn-primary px-4 py-1.5 text-xs cursor-pointer">
+                  <button
+                    type="submit"
+                    data-action-id="bug.form.submit"
+                    aria-label={lang === 'zh' ? '确认同步缺陷' : 'Record defect'}
+                    className="btn-primary px-4 py-1.5 text-xs cursor-pointer"
+                  >
                     {lang === 'zh' ? '确认同步' : 'Record Defect'}
                   </button>
                 </div>
@@ -1365,7 +1811,12 @@ export const TestsScreen: React.FC = () => {
             {lang === 'zh' ? `项目「${activeProject.name}」自动化测试验证流水线及质量管理校验底座` : `Automated compilation validation pipeline for project ${activeProject.key}`}
           </p>
         </div>
-        <button onClick={openAddModal} className="btn-primary px-3.5 py-2 text-xs flex items-center space-x-1.5 cursor-pointer shadow-xs">
+        <button
+          onClick={openAddModal}
+          data-action-id="test.create.open"
+          aria-label={lang === 'zh' ? '新增测试用例套件' : 'New Test Case Suite'}
+          className="btn-primary px-3.5 py-2 text-xs flex items-center space-x-1.5 cursor-pointer shadow-xs"
+        >
           <Plus className="w-4 h-4" />
           <span>{lang === 'zh' ? '新增测试用例套件' : 'New Test Case Suite'}</span>
         </button>
@@ -1448,6 +1899,8 @@ export const TestsScreen: React.FC = () => {
                     value={formSuite}
                     onChange={(e) => setFormSuite(e.target.value)}
                     placeholder="e.g. CLI Compiler Unit Tests"
+                    data-action-id="test.form.suite"
+                    aria-label={lang === 'zh' ? '套件名称' : 'Suite name'}
                     className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium"
                   />
                 </div>
@@ -1462,6 +1915,8 @@ export const TestsScreen: React.FC = () => {
                       max="100"
                       value={formCoverage}
                       onChange={(e) => setFormCoverage(e.target.value === '' ? '' : Number(e.target.value))}
+                      data-action-id="test.form.coverage"
+                      aria-label={lang === 'zh' ? '覆盖率 (%)' : 'Coverage (%)'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-mono font-bold"
                     />
                   </div>
@@ -1473,6 +1928,8 @@ export const TestsScreen: React.FC = () => {
                       max="100"
                       value={formPassRate}
                       onChange={(e) => setFormPassRate(e.target.value === '' ? '' : Number(e.target.value))}
+                      data-action-id="test.form.passRate"
+                      aria-label={lang === 'zh' ? '通过率 (%)' : 'Pass rate (%)'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-mono font-bold"
                     />
                   </div>
@@ -1486,6 +1943,8 @@ export const TestsScreen: React.FC = () => {
                       type="number"
                       value={formTotal}
                       onChange={(e) => setFormTotal(e.target.value === '' ? '' : Number(e.target.value))}
+                      data-action-id="test.form.total"
+                      aria-label={lang === 'zh' ? '总用例数' : 'Total cases'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-mono font-bold"
                     />
                   </div>
@@ -1495,6 +1954,8 @@ export const TestsScreen: React.FC = () => {
                       type="number"
                       value={formPassed}
                       onChange={(e) => setFormPassed(e.target.value === '' ? '' : Number(e.target.value))}
+                      data-action-id="test.form.passed"
+                      aria-label={lang === 'zh' ? '通过用例数' : 'Passed cases'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-mono font-bold"
                     />
                   </div>
@@ -1509,7 +1970,12 @@ export const TestsScreen: React.FC = () => {
                   >
                     {t.actions.cancel}
                   </button>
-                  <button type="submit" className="btn-primary px-4 py-1.5 text-xs cursor-pointer">
+                  <button
+                    type="submit"
+                    data-action-id="test.form.submit"
+                    aria-label={lang === 'zh' ? '确认同步套件' : 'Sync suite'}
+                    className="btn-primary px-4 py-1.5 text-xs cursor-pointer"
+                  >
                     {lang === 'zh' ? '确认同步' : 'Sync Suite'}
                   </button>
                 </div>

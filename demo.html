@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agile Studio - WebSkill Demo</title>
+    <!--
+      关掉 @openuidev/react-lang 在开发期自动挂载的 devtools 面板：
+      该包没有官方开关，这里预置它的去重标记——模块副作用求值时看到标记为真即跳过挂载。
+      图标会挡住 chatbot 输入框的发送按钮。生产构建本来就不含它（死代码消除）。
+    -->
+    <script>
+      globalThis[Symbol.for('openui.devtools.autoMount')] = true;
+    </script>
   </head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ5P4S0QQ0"></script>

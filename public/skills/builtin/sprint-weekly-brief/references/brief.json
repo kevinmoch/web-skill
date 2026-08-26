@@ -1,0 +1,27 @@
+{
+  "component": "Card",
+  "props": { "title": "{{sprintName}} · 迭代周报" },
+  "children": [
+    {
+      "component": "KeyValue",
+      "props": { "items": "{{kpis}}" }
+    },
+    {
+      "component": "Chart",
+      "props": "{{burn}}"
+    },
+    {
+      "component": "Callout",
+      "props": { "title": "本期亮点", "text": "{{highlights}}", "palette": "sky" }
+    },
+    {
+      "component": "Stack",
+      "props": { "gap": "sm" },
+      "children": "{{risks}}"
+    },
+    {
+      "component": "Text",
+      "props": { "tone": "muted", "text": "生成于 {{generatedAt}}" }
+    }
+  ]
+}

@@ -27,7 +27,7 @@
   --destructive-foreground: oklch(0.985 0 0);
   --destructive-soft: color-mix(in oklab, var(--destructive) 9%, var(--background));
 
-  --success: oklch(0.60 0.08 150);
+  --success: oklch(0.6 0.08 150);
   --success-foreground: oklch(0.985 0 0);
   --success-soft: color-mix(in oklab, var(--success) 9%, var(--background));
 
@@ -60,8 +60,12 @@
   --chart-5: oklch(0.269 0 0);
 
   /* 4. Typography & Sizing */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Microsoft YaHei', 'PingFang SC', 'Noto Sans Mono CJK SC', monospace;
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Microsoft YaHei',
+    'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', sans-serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Microsoft YaHei', 'PingFang SC',
+    'Noto Sans Mono CJK SC', monospace;
   --font-display: var(--font-sans);
   --text-min: 0.875rem;
   --text-code: 0.9375rem;
@@ -84,7 +88,11 @@
   --webskill-z-overlay: 1000;
 }
 
-.dark, [data-theme='dark'] {
+/* 提到 html 级特异性：ui-kit 的 :root 亮色变量与本块同变量名，
+   裸 .dark（0,1,0）会被包样式里后加载的 :root（同优先级）压掉——
+   html.dark（0,1,1）与加载顺序无关，恒定生效。 */
+html.dark,
+html[data-theme='dark'] {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -108,7 +116,7 @@
   --destructive-foreground: oklch(0.205 0 0);
   --destructive-soft: color-mix(in oklab, var(--destructive) 14%, var(--background));
 
-  --success: oklch(0.70 0.08 150);
+  --success: oklch(0.7 0.08 150);
   --success-foreground: oklch(0.205 0 0);
   --success-soft: color-mix(in oklab, var(--success) 14%, var(--background));
 
@@ -116,7 +124,7 @@
   --warning-foreground: oklch(0.205 0 0);
   --warning-soft: color-mix(in oklab, var(--warning) 14%, var(--background));
 
-  --info: oklch(0.70 0.06 240);
+  --info: oklch(0.7 0.06 240);
   --info-foreground: oklch(0.205 0 0);
   --info-soft: color-mix(in oklab, var(--info) 14%, var(--background));
 
@@ -282,7 +290,8 @@
     color-scheme: light;
   }
 
-  html.dark, [data-theme='dark'] {
+  html.dark,
+  [data-theme='dark'] {
     color-scheme: dark;
   }
 
@@ -355,7 +364,9 @@
   font-weight: 500;
   border-radius: var(--radius-md);
   box-shadow: 0 1px 2px oklch(0 0 0 / 0.05);
-  transition: background-color 0.15s ease, opacity 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
 }
 .btn-primary:hover {
   background-color: color-mix(in oklab, var(--primary) 90%, transparent);
@@ -370,7 +381,9 @@
   border: 1px solid var(--border);
   font-weight: 500;
   border-radius: var(--radius-md);
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 .btn-secondary:hover {
   background-color: var(--accent);
@@ -380,7 +393,9 @@
   color: var(--muted-foreground);
   font-weight: 500;
   border-radius: var(--radius-md);
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 .btn-ghost:hover {
   background-color: var(--accent);
@@ -393,7 +408,9 @@
   font-weight: 500;
   border-radius: var(--radius-md);
   box-shadow: 0 1px 2px oklch(0 0 0 / 0.05);
-  transition: background-color 0.15s ease, opacity 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
 }
 .btn-danger:hover {
   background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
@@ -422,5 +439,126 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── 宿主与 SDK 包样式共存的级联纪律 ──────────────────────────────
+   本工程与 @webskill/* 包各有一份 Tailwind 编译产物，同名工具类声明相同、
+   顺序无关；但「包里的基类 vs 我们的响应式变体」冲突时按源码顺序定胜负。
+   这里的规则故意不进任何 @layer：未分层样式在级联中优先于分层样式，
+   与加载顺序无关，包样式怎么更新都压不住。
+   清单 = src/demo 里用到的全部响应式变体（含两个语义钩子类）。新增变体类时同步加进来。
+*/
+
+/* OpenUI devtools 的双保险：demo.html 已预置 autoMount 标记阻止挂载；
+   万一该包换实现，这里兜底隐藏宿主（它挡住 chatbot 发送按钮） */
+[data-openui-devtools-root] {
+  display: none !important;
+}
+
+/* 抽屉面板自带四边 1px 边框（border + rounded-lg），桌面端与把手细线并排
+   会让竖条显粗；去掉左边框，分隔交给 Resizer Handle 的 1px 细线 + 抽屉左缘柔影 */
+@media (min-width: 48rem) {
+  #app-workspace .webskill-aui-session-panel {
+    border-left-width: 0;
+  }
+}
+
+/* 整体抬字号（需求：最小 12px → 14px）。
+   选择器用 html:root（0,1,1）：包样式的 --text-xs 在 @layer theme（未分层即可赢），
+   但 --text-min/--text-code 写在包内未分层的裸 :root（0,1,0）且加载在我们之后——
+   只有更高特异性才能与加载顺序无关地恒定生效（同上方 html.dark 的处理）。 */
+html:root {
+  --text-xs: 0.875rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.375rem;
+  --text-min: 0.875rem;
+  --text-code: 0.875rem;
+}
+
+/* Screens.tsx 里 36 处 `text-[12px]` 是任意值字面量、不走 token；
+   逐处改源码 churn 太大，在这里把这个类名整体抬到 xs——一条规则覆盖全部实例。 */
+.text-\[12px\] {
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+#app-workspace {
+  flex-direction: column;
+}
+.overview-headline-row {
+  flex-direction: column;
+}
+@media (min-width: 40rem) {
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+  .sm\:items-center {
+    align-items: center;
+  }
+  .sm\:text-right {
+    text-align: right;
+  }
+  .sm\:w-44 {
+    width: 11rem;
+  }
+  .sm\:max-w-\[340px\] {
+    max-width: 340px;
+  }
+  .sm\:max-w-\[380px\] {
+    max-width: 380px;
+  }
+}
+@media (min-width: 48rem) {
+  #app-workspace {
+    flex-direction: row;
+  }
+  .overview-headline-row {
+    flex-direction: row;
+    align-items: center;
+  }
+  .md\:flex {
+    display: flex;
+  }
+  .md\:hidden {
+    display: none;
+  }
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .md\:h-full {
+    height: 100%;
+  }
+  .md\:p-8 {
+    padding: 2rem;
+  }
+  .md\:border-l {
+    border-left-width: 1px;
+  }
+  .md\:border-t-0 {
+    border-top-width: 0;
+  }
+}
+@media (min-width: 64rem) {
+  .lg\:flex {
+    display: flex;
+  }
+  .lg\:hidden {
+    display: none;
+  }
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .lg\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+  .lg\:w-1\/3 {
+    width: 33.333333%;
+  }
+  .lg\:w-2\/3 {
+    width: 66.666667%;
   }
 }
