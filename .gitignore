@@ -6,3 +6,9 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# 本仓库统一用 pnpm（packageManager 字段已固定）
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+docs/

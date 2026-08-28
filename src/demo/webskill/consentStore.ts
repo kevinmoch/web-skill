@@ -50,7 +50,8 @@ const ACTION_LABELS_ZH: Record<PageActionKind, string> = {
   submit: '提交',
   select: '选择',
   set: '开关',
-  attach: '附件上传'
+  attach: '附件上传',
+  back: '返回上一页'
 };
 
 const SCOPE_LABELS_ZH: Record<string, string> = { [SELF_SCOPE]: '本页面' };
