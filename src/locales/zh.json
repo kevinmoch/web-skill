@@ -19,10 +19,7 @@
     "titleLine1": "运行在浏览器的",
     "titleAccent": "Agent 技能",
     "description": "WebSkill 让浏览器本身成为智能的 Agent 运行环境。它彻底解决了大模型上下文臃肿的难题，通过 OPFS 和 Worker 沙箱做到绝对隔离的隐私安全闭环，把 Agent 能力变成了轻量级、可动态分发的 SaaS。",
-    "tags": [
-      "草案建议",
-      "前端原生"
-    ]
+    "tags": ["草案建议", "前端原生"]
   },
   "home": {
     "demoTitle": "在线演示",
@@ -84,11 +81,7 @@
     "trinityWebMCP": "WebMCP 作为前端原生执行器，负责直接操作页面 DOM 节点或向后端发送服务请求。",
     "comparisonTitle": "WebSkill 与传统后端 Skill 对比",
     "comparisonDesc": "相比传统部署在服务器的后端 Skill，WebSkill 在安全性、响应速度以及个性化体验上展现出压倒性优势。",
-    "compTableHeaders": [
-      "特性维度",
-      "传统后端 Skill",
-      "WebSkill"
-    ],
+    "compTableHeaders": ["特性维度", "传统后端 Skill", "WebSkill"],
     "compRows": [
       {
         "feature": "运行环境",
@@ -195,8 +188,8 @@
     "demo": "在线演示"
   },
   "implement": {
-    "s1Title": "TypeScript 实现 Agent Skills 协议",
-    "s1Desc": "WebSkill 严格按照标准的 Agent Skills 协议使用 TypeScript 实现。目录包含 SKILL.md 用于元数据和指令，scripts/ 用于可执行代码，references/ 用于依赖资源，assets/ 用于静态资源和中间产物。",
+    "s1Title": "遵循标准的 Agent Skills 协议",
+    "s1Desc": "WebSkill 严格按照标准的 Agent Skills 协议实现。目录包含 SKILL.md 用于元数据和指令，scripts/ 用于可执行代码，references/ 用于依赖资源，assets/ 用于静态资源和中间产物。",
     "s1DirRoot": "webskill-package/",
     "s1DirSkill": "SKILL.md",
     "s1DirSkillDesc": "元数据 (YAML) 与指令 (Markdown)",
@@ -288,9 +281,17 @@
     "homeSubtitle": "33 章，从五分钟上手到控制台治理。不必从头硬啃，按你的目标选一条路径开始。",
     "pathsTitle": "选择阅读路径",
     "paths": [
-      { "title": "我只想快点用起来", "desc": "四个短章，半小时内跑通第一次完整对话并理解技能。", "chapters": [1, 3, 5, 7] },
+      {
+        "title": "我只想快点用起来",
+        "desc": "四个短章，半小时内跑通第一次完整对话并理解技能。",
+        "chapters": [1, 3, 5, 7]
+      },
       { "title": "我要用全部能力", "desc": "按顺序读完全部 33 章，建立完整的能力版图。", "chapters": [] },
-      { "title": "我要管理和配置", "desc": "面向管理与配置：先分清形态，再按控制台导航逐块深入。", "chapters": [2, 18, 19, 22, 23] },
+      {
+        "title": "我要管理和配置",
+        "desc": "面向管理与配置：先分清形态，再按控制台导航逐块深入。",
+        "chapters": [2, 18, 19, 22, 23]
+      },
       { "title": "我遇到问题了", "desc": "先去排错章按症状索引定位，再跳到对应章节细看。", "chapters": [32] }
     ],
     "readAll": "从第 1 章开始顺序阅读 →",
