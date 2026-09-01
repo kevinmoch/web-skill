@@ -1,0 +1,24 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+flowchart LR
+    R["出什么问题了"] --> S1["助手没有响应"]
+    R --> S2["结果不对或跑偏"]
+    R --> S3["运行中途停了"]
+    R --> S4["传不了图 / 用不了语音"]
+    R --> S5["页面读不到 / 操作没生效"]
+    R --> S6["技能相关的问题"]
+    R --> S7["报问题时该提供什么"]
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class S3 accent

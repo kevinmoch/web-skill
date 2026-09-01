@@ -1,0 +1,225 @@
+/* 三项目综合分析幻灯片：浅色商务主题（舞台固定 1600×900，缩放由 reveal 负责）。
+   浅色是为导出 PDF 选的——满版深色底在打印里要么被浏览器丢掉，要么吃满一页墨。 */
+
+.deck {
+  --deck-ink: #0f172a;
+  --deck-muted: #64748b;
+  --deck-accent: #1d4ed8;
+  --deck-line: #e2e8f0;
+  --deck-surface: #f8fafc;
+  background: #fff;
+  color: var(--deck-ink);
+  font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  font-size: 22px;
+  line-height: 1.5;
+  /* 表头与面板的底色在 PDF 里必须留住，否则分组结构整片消失 */
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* reveal 默认整页居中排版；分析型内容左对齐才读得下去。
+   用 .deck.reveal（reveal 类由 viewer 外壳补上）压过 reveal.css——技能样式先于
+   它进文档，同分会输。 */
+.deck.reveal .slides {
+  text-align: left;
+}
+
+/* 每页都是一列 flex（`display: flex` 由外壳的 reveal 配置内联到 section 上）：
+   标题基线各页对齐，富余高度交给图表/分栏，脚注钉在底边——短页不会在 900px 舞台上空半屏。
+   用后代选择符：切到 PDF 版式时 reveal 会把每页包进 `.pdf-page`，子元素选择符就不再命中了 */
+.deck.reveal .slides section {
+  height: 100%;
+  flex-direction: column;
+}
+
+/* 封面 */
+.deck__cover {
+  justify-content: center;
+  border-left: 10px solid var(--deck-accent);
+  padding-left: 48px;
+}
+.deck__eyebrow {
+  margin: 0 0 18px;
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: var(--deck-accent);
+}
+.deck__title {
+  margin: 0;
+  font-size: 76px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.deck__subtitle {
+  margin: 26px 0 0;
+  font-size: 28px;
+  color: var(--deck-muted);
+}
+.deck__stamp {
+  margin: 44px 0 0;
+  font-size: 20px;
+  color: var(--deck-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 内容页标题 */
+.deck__h2 {
+  margin: 0 0 22px;
+  padding-bottom: 12px;
+  font-size: 40px;
+  font-weight: 700;
+  border-bottom: 3px solid var(--deck-accent);
+}
+.deck__h3 {
+  margin: 0 0 14px;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--deck-accent);
+}
+.deck__note {
+  /* 钉在页底：短页的空白落在正文与脚注之间，而不是堆在页尾 */
+  margin: 0;
+  padding-top: 18px;
+  margin-top: auto;
+  font-size: 20px;
+  color: var(--deck-muted);
+}
+
+/* 指标卡一行 */
+.deck__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.deck__metric {
+  padding: 14px 18px;
+  border: 1px solid var(--deck-line);
+  border-left: 5px solid var(--deck-accent);
+  border-radius: 8px;
+  background: var(--deck-surface);
+}
+.deck__metric [data-webskill-metric='label'] {
+  display: block;
+  font-size: 19px;
+  color: var(--deck-muted);
+}
+.deck__metric [data-webskill-metric='value'] {
+  display: block;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.deck__metric [data-webskill-metric='change'] {
+  display: block;
+  font-size: 18px;
+  color: var(--deck-muted);
+}
+
+/* 图表容器：echarts 要一个确定高度。这里由 flex 分配——图表是最该吃掉富余高度的块，
+   而 mountEchart 装了 ResizeObserver，容器变高会自己重排 */
+.deck__chart {
+  flex: 1 1 auto;
+  min-height: 340px;
+}
+.deck__chart--sm {
+  min-height: 260px;
+}
+/* 分栏里是 grid item，flex 属性不生效，直接吃满整格 */
+.deck__split .deck__chart {
+  height: 100%;
+  min-height: 0;
+}
+
+/* 左右分栏（缺陷页、结论页） */
+.deck__split {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: stretch;
+}
+.deck__panel {
+  padding: 20px 24px;
+  border: 1px solid var(--deck-line);
+  border-radius: 10px;
+  background: var(--deck-surface);
+}
+
+/* 表格（renderBlocks 产出的原生 table markup）：按内容取高，不参与富余高度的瓜分——
+   三五行的表被拉满一屏，行距会难看到不像话 */
+.deck__table {
+  flex: none;
+}
+.deck table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 20px;
+}
+.deck th {
+  text-align: left;
+  padding: 10px 12px;
+  background: var(--deck-surface);
+  border-bottom: 2px solid var(--deck-accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.deck td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--deck-line);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 覆盖率仪表 */
+.deck__gauges {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 22px;
+}
+.deck__gauge [data-webskill-gauge='label'] {
+  font-size: 19px;
+  color: var(--deck-muted);
+}
+.deck__gauge [data-webskill-gauge='track'] {
+  height: 14px;
+  margin: 8px 0 6px;
+  border-radius: 999px;
+  background: var(--deck-line);
+  overflow: hidden;
+}
+.deck__gauge [data-webskill-gauge='fill'] {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--deck-accent);
+}
+.deck__gauge[data-tone='success'] [data-webskill-gauge='fill'] {
+  background: #059669;
+}
+.deck__gauge[data-tone='warning'] [data-webskill-gauge='fill'] {
+  background: #d97706;
+}
+.deck__gauge [data-webskill-gauge='value'] {
+  font-size: 24px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 结论 / 建议（KeyValue 产出的 dl/dt/dd） */
+.deck__panel dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 12px 20px;
+}
+.deck__panel dt {
+  font-weight: 700;
+  color: var(--deck-accent);
+  font-size: 21px;
+}
+.deck__panel dd {
+  margin: 0;
+  font-size: 21px;
+}

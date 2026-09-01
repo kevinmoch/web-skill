@@ -1,0 +1,25 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+%% 图谱是 LR，但 6 段链在 LR 下约 820px（688 列内字号缩到 11px），
+%% 改 TD 纵向，与 M-20/M-29/M-30 同属窄纵向链。「你同意」为必经节点，未省。
+flowchart TD
+    A["需求"] --> B["生成幻灯片"]
+    B --> C["请求开窗"]
+    C --> D["你同意"]
+    D --> E["新窗口放映"]
+    E --> F1["翻页"]
+    E --> F2["导出 PDF"]
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class D accent

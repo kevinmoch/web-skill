@@ -1,0 +1,32 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+flowchart TD
+    subgraph WEB["网页版：助手住在网站里"]
+        W1["某个业务网站"]
+        W2["助手抽屉"]
+        W1 --- W2
+        W2 -->|"只能读写<br/>这一个页面"| W1
+    end
+
+    subgraph EXT["扩展版：助手住在浏览器里"]
+        E0["浏览器侧栏助手"]
+        E1["标签页 A"]
+        E2["标签页 B"]
+        E3["标签页 C"]
+        E0 -->|"可读写<br/>任意标签页"| E1
+        E0 --> E2
+        E0 --> E3
+    end
+    WEB ~~~ EXT

@@ -1,0 +1,23 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+flowchart TD
+    A["需求表（你在看的列表）"] --> B["点某行的链接"]
+    B --> C["新标签页：该需求的迭代表"]
+    C --> D["点某条迭代的链接"]
+    D --> E["新标签页：该迭代的缺陷表"]
+    E --> F["读完回列表，处理下一条"]
+    F -.-> A
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class F accent

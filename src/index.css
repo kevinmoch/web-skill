@@ -102,3 +102,92 @@ body {
     scrollbar-width: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * 文档模块作用域样式（.docs-root）
+ * 移植 VitePress 默认主题暗色档（docs-authoring/01-architecture/04-design-system.md）。
+ * 六个新色相 + divider + text-3 只挂在文档模块作用域，不动站点全局 token；
+ * -soft 一律半透明 alpha，保证容器与行内代码叠加时的层次（规范 §1）。
+ * 品牌色仍用站点 --color-accent（#38bdf8），不引入 VitePress 靛蓝。
+ *
+ * 对规范的两处有意偏离（2026-09 用户评审意见，见 MarkdownBody.tsx h3 渲染器）：
+ * 1. divider 用 #3f3f46 而非规范 §1 的 #2e2e32 —— 后者在纯黑底上几乎不可见，
+ *    评审反馈「分割线与背景色太接近几乎看不清」；#3f3f46 明显可见但克制。
+ *    （站点的 --color-border-color rgba(255,255,255,.15) 叠在黑底上约 #262626，
+ *    比 #2e2e32 更暗，不满足调亮的诉求，故未采用。）
+ * 2. h3 也带上方分隔线 —— 规范 §2 的 h3 无分隔线是 VitePress 原文，评审明确要求
+ *    h3 小节（如 console-settings 的各设置子节）之间也要有区隔。
+ * ------------------------------------------------------------------------- */
+.docs-root {
+  --docs-text-3: #6a6a71;
+  --docs-divider: #3f3f46;
+  --docs-gray-1: #515c67;
+  --docs-gray-2: #414853;
+  --docs-gray-3: #32363f;
+  --docs-gray-soft: rgba(101, 117, 133, 0.16);
+  --docs-indigo-1: #a8b1ff;
+  --docs-indigo-2: #5c73e7;
+  --docs-indigo-3: #3e63dd;
+  --docs-indigo-soft: rgba(100, 108, 255, 0.16);
+  --docs-green-1: #3dd68c;
+  --docs-green-2: #30a46c;
+  --docs-green-3: #298459;
+  --docs-green-soft: rgba(16, 185, 129, 0.16);
+  --docs-yellow-1: #f9b44e;
+  --docs-yellow-2: #da8b17;
+  --docs-yellow-3: #a46a0a;
+  --docs-yellow-soft: rgba(234, 179, 8, 0.16);
+  --docs-orange-1: #fb8c00;
+  --docs-orange-2: #e46a02;
+  --docs-orange-3: #b45309;
+  --docs-orange-soft: rgba(249, 115, 22, 0.16);
+  --docs-red-1: #f66f81;
+  --docs-red-2: #f14158;
+  --docs-red-3: #b62a3c;
+  --docs-red-soft: rgba(244, 63, 94, 0.16);
+  --docs-purple-1: #c8abfa;
+  --docs-purple-2: #a879e6;
+  --docs-purple-3: #8e5cd9;
+  --docs-purple-soft: rgba(159, 122, 234, 0.16);
+}
+
+/* h2 紧接 h3（中间无正文）时摘掉 h3 的分隔线与上方留白，避免两条线近距离叠在一起 */
+.docs-root h2 + h3 {
+  border-top: none;
+  margin-top: 1.5rem;
+  padding-top: 0;
+}
+
+/* CJK 断行（规范 §2 硬要求）：zh 下 h1-h6/li/p 不允许标点落到行首。
+   两段选择器分别覆盖「文档根自身带 lang」与「正文语言回落覆盖层」两种情况。 */
+.docs-root[lang]:where(:lang(zh), :lang(ja), :lang(ko)) :where(h1, h2, h3, h4, h5, h6, li, p),
+.docs-root [lang]:where(:lang(zh), :lang(ja), :lang(ko)) :where(h1, h2, h3, h4, h5, h6, li, p) {
+  line-break: strict;
+}
+
+/* 标题锚点：hover 时左侧浮出 #（规范 §2）。窄屏（<40rem）是触屏，不显示也避免出血 */
+.docs-root :where(h1, h2, h3, h4, h5, h6) {
+  position: relative;
+}
+.docs-root .docs-h-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: -0.87em;
+  padding-right: 0.23em;
+  opacity: 0;
+  user-select: none;
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+.docs-root :where(h1, h2, h3, h4, h5, h6):hover .docs-h-anchor,
+.docs-root .docs-h-anchor:focus-visible {
+  opacity: 1;
+}
+@media (max-width: 40rem) {
+  .docs-root .docs-h-anchor {
+    display: none;
+  }
+}

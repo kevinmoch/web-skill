@@ -1,54 +1,48 @@
+import { seedSkillsFromHttp } from '@webskill/sdk/browser';
+import type { BuiltinSkillManifest } from '@webskill/sdk/browser';
 import type { FileSystemProvider } from '@webskill/sdk';
 
 /**
  * 内置技能播种：把随应用发布的 `public/skills/builtin/*` 写进 OPFS 的 `/skills/builtin`。
  *
- * 幂等是必须的：`.seeded` 戳存在即跳过——每次刷新都重写会覆盖用户对内置技能的改动。
- * 想升级内置技能，删掉 OPFS 里的戳或直接清站点数据。
+ * 搬运本身自 SDK 0.19.0 起由 `seedSkillsFromHttp` 提供（原本 89 行手写）。
+ * 它比手写多两条保护：HTTP 非 2xx、以及「SKILL.md 取回来是 HTML 兜底页」都当场抛出，
+ * 不会把半份技能写进库；清单外的残留文件只在本技能目录内清理，`/skills/user` 不受影响。
+ *
+ * 幂等是必须的：戳存在即跳过——每次刷新都重写会覆盖用户对内置技能的改动。
+ * 想升级内置技能，改 `SEED_STAMP`，或清站点数据。
  */
 
 /** 技能目录 → 文件清单（HTTP 无法列目录，必须显式列出） */
-const MANIFEST: Record<string, string[]> = {
+const MANIFEST: BuiltinSkillManifest = {
   'sprint-progress-report': ['SKILL.md', 'scripts/run.js'],
   'agile-ops-dashboard': ['SKILL.md', 'scripts/run.js'],
   'sprint-weekly-brief': ['SKILL.md', 'scripts/run.js', 'references/brief.json'],
-  'quality-bulletin': ['SKILL.md', 'scripts/run.js', 'references/bulletin.html', 'references/bulletin.css', 'assets/seal.png'],
+  'quality-bulletin': [
+    'SKILL.md',
+    'scripts/run.js',
+    'references/bulletin.html',
+    'references/bulletin.css',
+    'assets/seal.png'
+  ],
   'agile-ops-screen': ['SKILL.md', 'scripts/run.js', 'references/screen.html', 'references/screen.css'],
+  'agile-slide-deck': ['SKILL.md', 'scripts/run.js', 'references/deck.html', 'references/deck.css'],
   'requirement-doc-digest': ['SKILL.md'],
   'bug-screenshot-triage': ['SKILL.md'],
   'cross-project-health': ['SKILL.md', 'scripts/run.js'],
-  'sprint-closeout': ['SKILL.md']
+  'sprint-closeout': ['SKILL.md'],
+  // 三份「模型自己写版式」的文档技能：脚本只做投放校验，取数与 HTML/CSS 都由模型现场做
+  'authored-bulletin': ['SKILL.md', 'references/authoring.md', 'scripts/publish.js'],
+  'authored-screen': ['SKILL.md', 'references/authoring.md', 'scripts/publish.js'],
+  'authored-slides': ['SKILL.md', 'references/authoring.md', 'scripts/publish.js']
 };
 
-const SEED_STAMP = '/skills/builtin/.seeded';
-
-async function copyFromPublic(fs: FileSystemProvider, targetRoot: string, skill: string, file: string): Promise<void> {
-  const url = `/skills/builtin/${skill}/${file}`;
-  const target = `${targetRoot}/${skill}/${file}`;
-  const res = await fetch(url);
-  if (!res.ok) {
-    // 静默吞掉 404 会把错误页 HTML 当成技能内容写进 OPFS，必须炸在这里
-    throw new Error(`Builtin skill asset missing: ${url} (HTTP ${res.status})`);
-  }
-  if (file.endsWith('.png')) {
-    await fs.writeBinary(target, new Uint8Array(await res.arrayBuffer()));
-  } else {
-    const text = await res.text();
-    // vite dev 对缺失路径可能回退成 HTML——技能契约文件必须过内容校验，不许带病落盘
-    if (file === 'SKILL.md' && !text.startsWith('---')) {
-      throw new Error(`Builtin skill asset is not a SKILL.md contract: ${url}`);
-    }
-    await fs.writeText(target, text);
-  }
-}
+/**
+ * 戳名带版本：清单里新增技能时必须跟着改，否则已经打开过 demo 的浏览器
+ * 永远拿不到新技能。改戳名会重抛全部内置技能，用户对它们的改动会被覆盖。
+ */
+const SEED_STAMP = '/skills/builtin/.seeded-v6';
 
 export async function seedBuiltinSkills(fs: FileSystemProvider): Promise<void> {
-  if (await fs.exists(SEED_STAMP)) return;
-  for (const [skill, files] of Object.entries(MANIFEST)) {
-    await fs.mkdir(`/skills/builtin/${skill}`).catch(() => undefined);
-    for (const file of files) {
-      await copyFromPublic(fs, '/skills/builtin', skill, file);
-    }
-  }
-  await fs.writeText(SEED_STAMP, new Date().toISOString());
+  await seedSkillsFromHttp(fs, { manifest: MANIFEST, stamp: SEED_STAMP });
 }

@@ -1,0 +1,29 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  },
+  'flowchart': {
+    'curve': 'stepBefore'
+  }
+}}%%
+flowchart TD
+    A["你说「看看我刚下载的那份」"] --> G1["【卡 1】<br/>允许列出清单？"]
+    G1 -->|允许| L["列出下载的文件（不含路径）"]
+    G1 -->|不允许| STOP["到此为止"]
+    L -.-> F["格式不支持的<br/>列清单时就已标出"]
+    L --> B["你指定一份"]
+    B --> G2["【卡 2】<br/>允许读「文件名 · 大小」？"]
+    G2 -->|允许| R["读出文字内容"]
+    G2 -->|不允许| STOP
+    R --> M["交给模型"]
+    classDef gate stroke:#38bdf8,stroke-width:3px
+    class G1,G2 gate

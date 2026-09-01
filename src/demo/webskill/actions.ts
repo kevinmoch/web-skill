@@ -36,8 +36,7 @@ export function createAgileActions(
   runtime: AgileWebSkillRuntime,
   reader: DomPerceptionReader,
   uiRef: PageActionUiRef,
-  consent: AgileConsentStore,
-  downloadSignalEnabled: () => boolean
+  consent: AgileConsentStore
 ): PageActionPolicy {
   return new PageActionPolicy({
     scope: AGILE_PAGE_SCOPE,
@@ -53,9 +52,11 @@ export function createAgileActions(
     // 接了它，确认卡上才会出现「不再询问」；与 console 连接页是同一份存储，撤销即时生效
     consent,
     // 下载信号（0.15.0 分册 15）：模型点完需求表的附件链接后，结果里才有「这一下产生了文件」。
-    // 开关关着时窗口照开，只是结果改记一条 page.download.unreported 留痕，不进模型
+    // 它只报「刚才那一下产生了文件」，**不读任何内容**，所以跟着页面操作走而不是跟着
+    // 「下载的文件」开关——后者管的是读本机下载目录，本宿主根本没接（见 adapter.ts）。
+    // 走到这里说明 `act()` 已经判过 `enabled`，页面操作不可用时压根到不了。
     downloadWatcher: createAgileDownloadWatcher(),
-    downloadSignalEnabled,
+    downloadSignalEnabled: () => true,
     downloadWaitMs: () => DOWNLOAD_WAIT_MS,
     preauthorized: PREAUTHORIZED
   });

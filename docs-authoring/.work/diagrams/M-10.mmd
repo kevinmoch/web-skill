@@ -1,0 +1,38 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  },
+  'flowchart': {
+    'nodeSpacing': 20,
+    'curve': 'stepBefore'
+  }
+}}%%
+flowchart TD
+    subgraph SRC["来源"]
+        S1["选文件"]
+        S2["拍照"]
+        S3["粘贴"]
+    end
+    SRC --> ATT["成为输入框里的附件"]
+    ATT --> K1["图片<br/>压缩后发"]
+    ATT --> K2["文本<br/>直接发"]
+    ATT --> K3["PDF<br/>整份发"]
+    ATT --> K4["docx · xlsx<br/>本地读成文字再发"]
+    K1 --> SEND["你点发送"]
+    K2 --> SEND
+    K3 --> SEND
+    K4 --> SEND
+    SEND --> CHK{"检查：多模态开了吗<br/>模型接受吗"}
+    CHK -->|通过| OK["发出"]
+    CHK -->|不通过| NO["被拒并提示"]
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class K4 accent

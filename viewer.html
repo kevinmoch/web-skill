@@ -18,12 +18,24 @@
         margin: 0;
         padding: 0;
       }
-      /* 外壳自身的 UI 打印时必须消失，且不得碰版式（height/overflow/fixed 都会破坏分页） */
-      @media print {
-        #viewer-chrome,
-        #viewer-chrome-restore {
-          display: none;
-        }
+      /* 浏览器打印时默认丢弃背景色，深色投放面一进 PDF 就成了白纸。
+         属性可继承，写在根上即覆盖全篇；不能包在 @media print 里——
+         reveal 的导出版式是在屏幕媒体下先排好的，那一阶段就得算数。
+         所见即所得是投放面的职责，不该指望每份技能自己记得写 */
+      html {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+      /* 幻灯片模式：reveal 靠 height:100% 定位，中间这层 <main> 不撑满就把整个演示压成 0 高。
+         reveal 自己只管到 <html>（.reveal-full-page），body 与投放容器归外壳。 */
+      html.viewer-slides body,
+      html.viewer-slides #viewer-content {
+        height: 100%;
+      }
+      /* reveal 把页码和翻页箭头都摆右下角，两者会叠在一起；页码挪到左下 */
+      html.viewer-slides .reveal .slide-number {
+        right: auto;
+        left: 8px;
       }
       /* 右上角浮动胶囊：不再是整条黑色横栏（投屏时遮挡小，且可整条隐藏） */
       #viewer-chrome {
@@ -36,7 +48,9 @@
         padding: 5px 8px;
         background: #1f2329;
         color: #e5e7eb;
-        font: 12px/1.5 system-ui, sans-serif;
+        font:
+          12px/1.5 system-ui,
+          sans-serif;
         border-radius: 999px;
         box-shadow: 0 4px 16px rgb(0 0 0 / 0.28);
         z-index: 10;
@@ -69,12 +83,12 @@
       }
       /* 隐藏后的恢复入口：角落小圆钮，不挡内容 */
       #viewer-chrome-restore {
-        display: none;
         position: fixed;
         top: 12px;
         right: 12px;
         width: 30px;
         height: 30px;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         border: 1px solid #4b5563;
@@ -85,6 +99,20 @@
         box-shadow: 0 4px 16px rgb(0 0 0 / 0.28);
         z-index: 10;
       }
+      /* 收起状态用 hidden 属性表达，不能用内联 style：内联声明压得过下面那条 @media print */
+      #viewer-chrome[hidden],
+      #viewer-chrome-restore[hidden] {
+        display: none;
+      }
+      /* 外壳自身的 UI 打印时必须消失，且不得碰版式（height/overflow/fixed 都会破坏分页）。
+         必须排在上面那些 display 声明之后：同特异性下后来者胜，而胶囊是 fixed 的——
+         压不住它就会印在每一页的右上角 */
+      @media print {
+        #viewer-chrome,
+        #viewer-chrome-restore {
+          display: none;
+        }
+      }
       #viewer-blocked:empty {
         display: none;
       }
@@ -94,7 +122,17 @@
     <div id="viewer-chrome">
       <p id="viewer-blocked" data-testid="viewer-blocked-notice"></p>
       <button id="viewer-print" type="button">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
           <path d="M6 9V2h12v7" />
           <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
           <rect x="6" y="14" width="12" height="8" />
@@ -103,8 +141,18 @@
       </button>
       <button id="viewer-chrome-hide" type="button" aria-label="隐藏工具条" title="隐藏工具条">×</button>
     </div>
-    <button id="viewer-chrome-restore" type="button" aria-label="显示打印按钮" title="显示打印按钮">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <button id="viewer-chrome-restore" type="button" aria-label="显示打印按钮" title="显示打印按钮" hidden>
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
         <path d="M6 9V2h12v7" />
         <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
         <rect x="6" y="14" width="12" height="8" />

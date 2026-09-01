@@ -1,0 +1,39 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  },
+  'flowchart': {
+    'nodeSpacing': 25
+  }
+}}%%
+%% 无连线的子图兄弟按根方向 TB 的垂直方向（横向）排布且顺序镜像：
+%% 倒序声明使「留在本机」在左、「永不外发」在右。
+flowchart TB
+    subgraph NEVER["永不外发"]
+        N1["密码框内容"]
+        N2["Word / Excel 的<br/>原文件本身"]
+    end
+    subgraph SEND["会发给模型"]
+        S1["你的提问"]
+        S2["页面内容"]
+        S3["工具结果"]
+        S4["从文档里<br/>读出的文字"]
+        S5["画像里提炼出的<br/>几条结论"]
+    end
+    subgraph LOCAL["留在本机"]
+        L1["会话"]
+        L2["记忆的原始记录"]
+        L3["技能文件"]
+        L4["设置"]
+        L5["Word / Excel<br/>在本机读成文字"]
+    end
+    style NEVER stroke:#38bdf8,stroke-width:2px

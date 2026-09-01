@@ -73,6 +73,13 @@ export const GLOBAL_QUICK_PROMPTS: QuickPrompt[] = [
       zh: '对当前迭代做收尾核对，覆盖假完成需求、未关闭缺陷分级和测试覆盖缺口，给出结转清单与下迭代建议',
       en: 'Run the end-of-sprint closeout for the current project: audit false-Done requirements, triage open defects by severity, check coverage gaps, and produce carry-over items with next-sprint recommendations'
     }
+  },
+  {
+    icon: 'chart',
+    text: {
+      zh: '把所有项目的交付质量做成一份幻灯片，在新窗口里放映，支持翻页和导出 PDF',
+      en: 'Turn delivery quality across all projects into a slide deck, present it in a new window with page navigation and PDF export'
+    }
   }
 ];
 

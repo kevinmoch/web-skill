@@ -37,26 +37,40 @@ function devLlmDefine(mode: string): Record<string, string> {
  */
 function viewerRoute(): Plugin {
   const middleware = (
-    req: { url?: string; headers: Record<string, string | string[] | undefined> },
+    req: {
+      url?: string;
+      headers: Record<string, string | string[] | undefined>;
+      // Node 的 socket 是 net.Socket，只有 TLS 连接才有 encrypted。不能声明成 `{ encrypted?: boolean }`：
+      // 那样和 IncomingMessage 没有公共属性，整个中间件反而装不进 vite
+      socket?: unknown;
+    },
     res: { setHeader(k: string, v: string): void },
     next: () => void
   ) => {
     const p = (req.url ?? '').split('?')[0] ?? '';
     if (p.endsWith('/viewer.html')) {
-      const host = typeof req.headers['host'] === 'string' ? req.headers['host'] : '127.0.0.1';
+      // CSP 的来源必须和页面**实际**来源逐字符相同（协议 + 主机 + 端口），差一样脚本就全被拦、
+      // 页面只剩静态外壳，握手永不返回、SDK 只能报超时。
+      // HTTP/2（https dev）不发 host 头，只有 :authority；协议也不能写死 http。
+      const authority = req.headers[':authority'] ?? req.headers['host'];
+      const encrypted = (req.socket as { encrypted?: unknown } | undefined)?.encrypted;
+      const scheme = encrypted === true ? 'https' : 'http';
+      const host = typeof authority === 'string' && authority !== '' ? authority : undefined;
+      if (host === undefined) {
+        // 猜一个来源等于发一份必定对不上的 CSP：宁可不下发，也好过静默把 viewer 变成空白页
+        throw new Error('viewer route: request carries neither ":authority" nor "host"; cannot derive the CSP origin');
+      }
+      const origin = `${scheme}://${host}`;
       const isDev = process.env.NODE_ENV !== 'production';
       let csp = viewerCspHeader({
-        hostOrigin: `http://${host}`,
+        hostOrigin: origin,
         // dev server 会给 HTML 注入内联 preamble 并连 HMR websocket；只影响 dev，生产构建都不需要
-        ...(isDev ? { connectSrc: [`ws://${host}`] } : {})
+        ...(isDev ? { connectSrc: [`${scheme === 'https' ? 'wss' : 'ws'}://${host}`] } : {})
       });
       // 受信外壳里的 echarts（viewer 组件的 Chart）需要 eval；技能内容经 postMessage + innerHTML
       // 进入、其中 <script> 本就不执行，所以 eval 的实际受益方只有外壳自身。
       // dev 另加 'unsafe-inline'：vite 给 HTML 注入的内联 preamble 需要它。
-      csp = csp.replace(
-        `script-src http://${host}`,
-        `script-src http://${host} 'unsafe-eval'${isDev ? " 'unsafe-inline'" : ''}`
-      );
+      csp = csp.replace(`script-src ${origin}`, `script-src ${origin} 'unsafe-eval'${isDev ? " 'unsafe-inline'" : ''}`);
       res.setHeader('Content-Security-Policy', csp);
     }
     // viewer 在 opaque origin 里，模块脚本带 crossorigin → Origin: null 的跨源请求，

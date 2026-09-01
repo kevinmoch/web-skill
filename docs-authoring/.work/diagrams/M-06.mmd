@@ -1,0 +1,25 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+%% 无连线的子图兄弟按根方向的垂直方向排布且顺序镜像：
+%% 根 TB → 两个会话左右并列；声明倒序使「会话 A」在左。
+flowchart TB
+    subgraph B["会话 B"]
+        direction TB
+        B1["第一句"] --> B2["第二句<br/>它不记得会话 A"]
+    end
+    subgraph A["会话 A"]
+        direction TB
+        A1["第一句"] --> A2["第二句<br/>它记得上文"]
+    end

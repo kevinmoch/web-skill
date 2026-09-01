@@ -1,0 +1,28 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px'
+  }
+}}%%
+flowchart TB
+    subgraph PAGE["一个页面"]
+        direction LR
+        subgraph SW["可开关"]
+            I["图片"]
+        end
+        subgraph NO["不会读"]
+            N["密码框"]
+        end
+        subgraph YES["会读"]
+            R["正文、表格、表单标签"]
+        end
+    end
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class N accent

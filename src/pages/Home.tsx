@@ -29,7 +29,7 @@ const highlightWebSkill = (text: string) => {
 
 export default function Home({ t, lang }: { t: any, lang: string }) {
   const isZh = lang.startsWith('zh');
-  const imgSrc = '/images/' + (isZh ? 'zh' : 'en') + '/12.gif';
+  const imgSrc = isZh ? '/demo_cn.jpg' : '/demo_en.jpg';
   
   const scenarios = (t('home.agentSkillScenarios', { returnObjects: true }) as any[]) || [];
   const problems = (t('home.problemsSolved', { returnObjects: true }) as any[]) || [];
@@ -61,10 +61,37 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
             <div className="px-4 py-1  rounded-full text-xs font-mono text-text-dim tracking-wide">{t('hero.tags.1')}</div>
           </motion.div>
         </div>
-        <div className="flex-1 w-full max-w-md lg:max-w-none flex justify-center">
-          <div className="w-full max-w-sm sm:max-w-md lg:max-w-none">
-            <TrinityDiagram t={t} className="scale-[0.9] sm:scale-100 origin-center lg:origin-right mt-0" />
-          </div>
+        <div className="flex-1 w-full max-w-md lg:max-w-none flex flex-col items-center gap-5">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="w-full max-w-sm sm:max-w-md lg:max-w-none"
+          >
+            <div className="rounded-2xl p-2 md:p-3 bg-gradient-to-br from-surface to-bg border border-border-color relative overflow-hidden group">
+              <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div className="rounded-xl overflow-hidden bg-black/80 shadow-2xl relative z-10">
+                <div className="absolute top-0 left-0 w-full h-9 bg-gradient-to-b from-black/70 to-transparent pointer-events-none flex items-center px-3">
+                  <div className="flex space-x-1.5">
+                    <div className="w-2 h-2 rounded-full bg-border-color/80" />
+                    <div className="w-2 h-2 rounded-full bg-border-color/80" />
+                    <div className="w-2 h-2 rounded-full bg-border-color/80" />
+                  </div>
+                </div>
+                <img src={imgSrc} alt={t('home.heroDemoAlt')} className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            </div>
+          </motion.div>
+          <motion.a
+            href="/demo"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex items-center gap-2.5 px-6 py-3 bg-accent/10 border border-accent/30 text-accent rounded-full font-medium hover:bg-accent hover:text-black transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] text-[15px]"
+          >
+            {t('home.heroDemoBtn')}
+            <ArrowRight className="w-4 h-4" />
+          </motion.a>
         </div>
       </section>
 
@@ -314,34 +341,6 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
             );
           })}
         </div>
-      </section>
-
-      {/* Screen 6: Live Demo */}
-      <section className="flex flex-col gap-8">
-        <FadeIn>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
-            <a href="/demo" className="flex items-center gap-3 px-6 py-4 bg-accent/10 border border-accent/30 text-accent rounded-full font-medium hover:bg-accent hover:text-black transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] shrink-0 w-full sm:w-auto justify-center text-[15px]">
-              {t('home.demoBtnTitle')}
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <span className="text-[14px] text-text-dim font-mono bg-surface-hover px-3 py-2 rounded-lg text-center sm:whitespace-nowrap">
-              {t('home.demoRemark')}
-            </span>
-          </div>
-          <div className="rounded-3xl p-2 md:p-4 bg-gradient-to-br from-surface to-bg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-            <div className="rounded-2xl overflow-hidden bg-black/80 shadow-2xl relative z-10">
-              <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-black/60 to-transparent pointer-events-none flex items-center px-4">
-                 <div className="flex space-x-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-border-color/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-border-color/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-border-color/80" />
-                 </div>
-              </div>
-              <img src={imgSrc} alt="WebSkill Demo" className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-          </div>
-        </FadeIn>
       </section>
 
     </div>

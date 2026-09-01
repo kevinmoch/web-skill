@@ -1,0 +1,22 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px'
+  }
+}}%%
+flowchart LR
+    L1["智能体运行时"] --> R1["助手一次走多远<br/>何时停下来问你"]
+    L2["沙箱与安全"] --> R2["技能能做什么<br/>能不能联网"]
+    L3["生成式 UI"] --> R3["回答里的界面长什么样"]
+    L4["快捷指令"] --> R4["欢迎页上的快捷指令"]
+    L5["信任与签名"] --> R5["未签名的技能怎么办"]
+    L6["隐私与用户画像"] --> R6["助手学不学你<br/>在本机留什么"]
+    L7["外观"] --> R7["界面颜色与语言"]
+    L8["关于与诊断"] --> R8["版本、存储与诊断导出"]

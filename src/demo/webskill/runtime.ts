@@ -18,6 +18,13 @@ const RUNTIME_CONFIG_KEY = 'agile.webskill.runtime-config';
 const DEV_MODELS_SEEDED_KEY = 'agile.webskill.dev-models-seeded';
 
 /**
+ * 「下载的文件」曾缺省置开，现已撤销：读本机下载目录是扩展宿主的事，
+ * 本应用不再接那个端口（见 adapter.ts）。老存储里那个键已经是 `true`，得再翻一次，
+ * 否则设置页会一直显示一个背后根本没有工具的「已开启」。
+ */
+const DOWNLOADS_RETIRED_KEY = 'agile.webskill.downloads-retired';
+
+/**
  * 本机跑（dev server 或 `vite preview`）判定。
  *
  * **不能用 `import.meta.env.DEV`**：`preview` 跑的是生产构建，DEV 为 `false`，
@@ -54,7 +61,6 @@ export const RUNTIME_CONFIG_STORAGE_KEY = RUNTIME_CONFIG_KEY;
  * - 本 demo 的卖点之一是声明式渲染，所以 `generativeUi` 缺省打开；SDK 默认关
  *   （catalog 描述计入每次请求）。判定走原始存储内容——「用户显式关过」不能被写回。
  * - 技能脚本要按数据源取数（T4），`sandbox.capabilities.fetchData` 缺省打开。
- * - 「下载的文件」（console › 设置 › 沙箱与安全）`sandbox.downloadedFiles` 缺省打开。
  * - 「允许技能脚本读上传的文件」`sandbox.uploadFiles` 缺省打开；开关只是配置闸门，
  *   每次读取仍要用户在同意卡上放行。
  * - 本机跑（dev server 与 `vite preview`）在 http://localhost，出站准入默认 https-only
@@ -78,7 +84,6 @@ function wrapRuntimeConfigStore(base: RuntimeConfigStore): RuntimeConfigStore {
       sandbox?: {
         capabilities?: Record<string, unknown>;
         remoteUrl?: Record<string, unknown>;
-        downloadedFiles?: boolean;
         uploadFiles?: boolean;
       };
       multimodal?: Record<string, unknown>;
@@ -128,16 +133,20 @@ function wrapRuntimeConfigStore(base: RuntimeConfigStore): RuntimeConfigStore {
         sandbox: { ...next.sandbox, capabilities: { ...next.sandbox.capabilities, fetchData: true } }
       };
     }
-    // 「下载的文件」（console › 设置 › 沙箱与安全）缺省打开；用户显式关过的保持关。
-    // 开关与取件通路是「与」的关系：reader 已在 adapter.ts 注入，
-    // 但浏览器不支持 File System Access API 时 list() 仍会明确报错。
-    if (raw.sandbox === undefined || !('downloadedFiles' in raw.sandbox)) {
-      next = { ...next, sandbox: { ...next.sandbox, downloadedFiles: true } };
-    }
     // 「允许技能脚本读上传的文件」缺省打开；用户显式关过的保持关。
     // 关掉开关后技能只能看到附件的元信息，读不到字节。
     if (raw.sandbox === undefined || !('uploadFiles' in raw.sandbox)) {
       next = { ...next, sandbox: { ...next.sandbox, uploadFiles: true } };
+    }
+    // 一次性关回「下载的文件」：本应用曾把它缺省置开，老浏览器的存储里还留着 true
+    if (globalThis.localStorage?.getItem(DOWNLOADS_RETIRED_KEY) !== '1') {
+      next = { ...next, sandbox: { ...next.sandbox, downloadedFiles: false } };
+      try {
+        globalThis.localStorage?.setItem(RUNTIME_CONFIG_KEY, JSON.stringify(next));
+        globalThis.localStorage?.setItem(DOWNLOADS_RETIRED_KEY, '1');
+      } catch {
+        // 存储不可用：本次加载仍返回关掉的值，标记未竖下次重试
+      }
     }
     if (servedFromLocalHost() && raw.sandbox?.remoteUrl === undefined) {
       next = { ...next, sandbox: { ...next.sandbox, remoteUrl: { allowHttp: true, allowPrivateHosts: true } } };

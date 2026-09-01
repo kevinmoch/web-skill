@@ -1,0 +1,33 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px'
+  },
+  'sequence': {
+    'actorMargin': 18,
+    'messageMargin': 24,
+    'boxMargin': 5,
+    'boxTextMargin': 3,
+    'noteMargin': 5
+  }
+}}%%
+sequenceDiagram
+    participant U as 你
+    participant A as 助手
+    participant P as 页面工具
+    participant S as 技能
+    U->>A: 生成敏捷运营报告
+    A->>P: 取需求数据
+    P-->>A: 需求列表
+    A->>P: 取迭代数据
+    P-->>A: 迭代列表
+    A->>S: 用报告技能汇总
+    S-->>A: 报告
+    A-->>U: 报告 + 可下载产物

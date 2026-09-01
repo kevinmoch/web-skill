@@ -1,0 +1,22 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+%% 「必要时问你」画成虚线旁路（与 M-11 的「等待输入」对应），主链保持一条直线。
+flowchart TD
+    Q["你提问"] --> U["助手理解"]
+    U --> S["选技能或工具"]
+    S --> X["执行"]
+    S -.->|必要时| ASK["问你"]
+    ASK -.->|你回答了| X
+    X --> R["给结果"]

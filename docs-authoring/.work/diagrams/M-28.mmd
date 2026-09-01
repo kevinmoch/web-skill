@@ -1,0 +1,24 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+flowchart TD
+    A["你说一句话"] --> B["它读懂"]
+    B --> C["跳到对应页面"]
+    C --> D["逐个字段填写（不打断你）"]
+    D --> E["【停】提交确认卡"]
+    E --> F["你允许"]
+    F --> G["写入成功"]
+    F -.-> H["也可以拒绝<br/>这条不写入，但任务继续"]
+    classDef stop stroke:#38bdf8,stroke-width:3px
+    class E stop

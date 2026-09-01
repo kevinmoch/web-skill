@@ -1,0 +1,22 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  },
+  'flowchart': {
+    'rankSpacing': 25
+  }
+}}%%
+flowchart LR
+    A["提出需求"] --> B["生成公文"]
+    B --> C["对话里预览"]
+    C --> D["打开文档"]
+    D --> E["打印或存 PDF"]

@@ -14,7 +14,6 @@ import { MANAGED_ROOT } from './runtime';
 import { createAgilePageReader, createAgilePerception } from './perception';
 import { createAgileActions, type PageActionUiRef } from './actions';
 import { createAgileConsentStore, type AgileConsentStore } from './consentStore';
-import { createAgileDownloadedFileReader, createAgileDownloadsConsent } from './downloads';
 import { getAgileMcpHost } from './mcpHost';
 import { VIEWER_URL } from './viewerRoute';
 import type { PagePerceptionPolicy } from '@webskill/sdk/agent';
@@ -57,20 +56,6 @@ export function createAgileHostCapabilities(
   const mcpHost = getAgileMcpHost();
   const audit = new FsAuditLog({ root: MANAGED_ROOT, fs: runtime.storage });
 
-  // 下载信号的开关要**同步**读得到（策略在 act() 里判），而配置存储是异步的：
-  // 缓存一份并订阅变更。装配期取一次就固化的话，用户刚在设置里打开的开关要等刷新才生效
-  let downloadSignalOn = false;
-  const refreshDownloadSignal = (): void => {
-    void runtime.runtimeConfig
-      .load()
-      .then((config) => {
-        downloadSignalOn = config.sandbox.downloadedFiles === true;
-      })
-      .catch(() => undefined);
-  };
-  refreshDownloadSignal();
-  runtime.runtimeConfig.subscribe?.(refreshDownloadSignal);
-
   const adapter: ChatbotHostAdapter = {
     storage: runtime.storage,
     skillRoots: runtime.skillRoots,
@@ -80,11 +65,11 @@ export function createAgileHostCapabilities(
       openConsoleCandidate: (candidateId) => deps.navigate.toCandidate(candidateId)
     },
     pagePerception,
-    pageActions: createAgileActions(runtime, pageReader, pageActionUiRef, pageActionConsent, () => downloadSignalOn),
+    pageActions: createAgileActions(runtime, pageReader, pageActionUiRef, pageActionConsent),
     // 需求列表这类长表格一次感知能上千节点，不分段就会在工具结果层被中段截断，
     // 而模型看不出自己少读了什么（SDK 分册 22）
     pagePerceptionPaging: { enabled: true, ...PERCEPTION_PAGING_DEFAULTS },
-    pageSkillSource: mcpHost.pageSkillSource,
+    pageSkillSource: mcpHost.toolSource,
     // 链接文档读取：需求表的 .docx 附件是同源资源，直读；
     // 跨源文档由引擎侧准入策略拦截（需用户确认），宿主不需要额外开关
     linkedDocuments: createFetchLinkedDocumentReader(),
@@ -92,9 +77,9 @@ export function createAgileHostCapabilities(
     docxExtractor: extractDocxText,
     // 不注入则 .xlsx 连附件选择框都进不去（SDK 分册 12）
     xlsxExtractor: extractXlsxText,
-    // 下载的文件（0.14.0 分册 20）：reader 缺席即两个工具不注册。
-    // 授权卡出口 / 能力开关 / 读图判定 / docx·xlsx 抽取 / 审计由引擎从适配器既有字段接线
-    downloads: { reader: createAgileDownloadedFileReader(), consent: createAgileDownloadsConsent() },
+    // **不接 `downloads`**：读用户本机下载目录是扩展宿主的事（`chrome.downloads`）。
+    // 网页端唯一的入口是 File System Access 目录选择器，那等于让模型开口要整个下载文件夹，
+    // 换来的能力和风险不成比例。缺席即 `list_downloaded_files` / `read_downloaded_file` 都不注册。
     // 文档投放面（0.15.0 分册 13）：接了它，技能脚本才能发 `Spec.OpenDocument`，
     // 会话里那颗「在独立窗口打开」的按钮也才渲染得出来。
     // 宿主自己那两处入口（质量通报 / 监控大屏）走的是同一个 viewer 路由

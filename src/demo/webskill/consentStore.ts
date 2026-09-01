@@ -51,6 +51,7 @@ const ACTION_LABELS_ZH: Record<PageActionKind, string> = {
   select: '选择',
   set: '开关',
   attach: '附件上传',
+  scroll: '滚动',
   back: '返回上一页'
 };
 

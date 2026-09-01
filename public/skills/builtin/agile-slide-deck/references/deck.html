@@ -1,0 +1,100 @@
+<!--
+  三项目综合分析幻灯片骨架（八页，reveal.js 渲染）。
+  - 外层 `data-viewer-mode="slides"` 是给 viewer 外壳的信号：由它加载 reveal、
+    补上 `.reveal` 类、接管键盘与 PDF 分页版式。技能这边只出结构与数据。
+  - {{json:key}} 只出现在 data-webskill-props 里，按 JSON + 属性转义；
+  - {{text:key}} 只出现在文本位置，按 HTML 文本转义。
+  组件名必须落在 viewer 白名单（Chart/Table/Metric/Gauge/KeyValue）内。
+-->
+<div class="deck" data-viewer-mode="slides" data-viewer-chart-font="lg">
+  <div class="slides">
+    <!-- 1 / 8 封面 -->
+    <section class="deck__cover">
+      <p class="deck__eyebrow">{{text:coverEyebrow}}</p>
+      <h1 class="deck__title">{{text:coverTitle}}</h1>
+      <p class="deck__subtitle">{{text:coverSubtitle}}</p>
+      <p class="deck__stamp">{{text:timestamp}}</p>
+    </section>
+
+    <!-- 2 / 8 三项目全景 -->
+    <section>
+      <h2 class="deck__h2">三项目全景</h2>
+      <div class="deck__metrics">
+        <div class="deck__metric" data-webskill-component="Metric" data-webskill-props="{{json:kpiProjects}}"></div>
+        <div class="deck__metric" data-webskill-component="Metric" data-webskill-props="{{json:kpiRequirements}}"></div>
+        <div class="deck__metric" data-webskill-component="Metric" data-webskill-props="{{json:kpiOpenBugs}}"></div>
+        <div class="deck__metric" data-webskill-component="Metric" data-webskill-props="{{json:kpiCases}}"></div>
+      </div>
+      <div class="deck__table" data-webskill-component="Table" data-webskill-props="{{json:overviewTable}}"></div>
+      <p class="deck__note">{{text:s2Note}}</p>
+    </section>
+
+    <!-- 3 / 8 需求交付进度 -->
+    <section>
+      <h2 class="deck__h2">需求交付进度对比</h2>
+      <div class="deck__chart" data-webskill-component="Chart" data-webskill-props="{{json:deliveryChart}}"></div>
+      <p class="deck__note">{{text:deliveryNote}}</p>
+    </section>
+
+    <!-- 4 / 8 迭代节奏 -->
+    <section>
+      <h2 class="deck__h2">迭代节奏趋势</h2>
+      <div class="deck__chart" data-webskill-component="Chart" data-webskill-props="{{json:sprintChart}}"></div>
+      <p class="deck__note">{{text:sprintNote}}</p>
+    </section>
+
+    <!-- 5 / 8 缺陷分布 -->
+    <section>
+      <h2 class="deck__h2">缺陷分布与严重程度</h2>
+      <div class="deck__split">
+        <div class="deck__chart" data-webskill-component="Chart" data-webskill-props="{{json:defectChart}}"></div>
+        <div class="deck__table" data-webskill-component="Table" data-webskill-props="{{json:defectTable}}"></div>
+      </div>
+    </section>
+
+    <!-- 6 / 8 测试质量 -->
+    <section>
+      <h2 class="deck__h2">测试覆盖与通过率</h2>
+      <div
+        class="deck__chart deck__chart--sm"
+        data-webskill-component="Chart"
+        data-webskill-props="{{json:qualityChart}}"
+      ></div>
+      <div class="deck__gauges">
+        <div class="deck__gauge" data-webskill-component="Gauge" data-webskill-props="{{json:gaugeA}}"></div>
+        <div class="deck__gauge" data-webskill-component="Gauge" data-webskill-props="{{json:gaugeB}}"></div>
+        <div class="deck__gauge" data-webskill-component="Gauge" data-webskill-props="{{json:gaugeC}}"></div>
+      </div>
+      <p class="deck__note">{{text:qualityNote}}</p>
+    </section>
+
+    <!-- 7 / 8 健康分排名与 DORA -->
+    <section>
+      <h2 class="deck__h2">交付健康分与工作区 DORA</h2>
+      <div class="deck__table" data-webskill-component="Table" data-webskill-props="{{json:healthTable}}"></div>
+      <div class="deck__metrics">
+        <div class="deck__metric" data-webskill-component="Metric" data-webskill-props="{{json:doraLeadTime}}"></div>
+        <div class="deck__metric" data-webskill-component="Metric" data-webskill-props="{{json:doraCycleTime}}"></div>
+        <div class="deck__metric" data-webskill-component="Metric" data-webskill-props="{{json:doraDeploy}}"></div>
+        <div class="deck__metric" data-webskill-component="Metric" data-webskill-props="{{json:doraFailure}}"></div>
+      </div>
+      <p class="deck__note">{{text:doraNote}}</p>
+    </section>
+
+    <!-- 8 / 8 结论与建议 -->
+    <section>
+      <h2 class="deck__h2">结论与建议</h2>
+      <div class="deck__split">
+        <div class="deck__panel">
+          <h3 class="deck__h3">结论</h3>
+          <div data-webskill-component="KeyValue" data-webskill-props="{{json:conclusions}}"></div>
+        </div>
+        <div class="deck__panel">
+          <h3 class="deck__h3">下一步建议</h3>
+          <div data-webskill-component="KeyValue" data-webskill-props="{{json:advices}}"></div>
+        </div>
+      </div>
+      <p class="deck__note">{{text:footer}}</p>
+    </section>
+  </div>
+</div>

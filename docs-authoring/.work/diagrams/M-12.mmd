@@ -1,0 +1,19 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+flowchart LR
+    S["运行状态<br/>思考中…"] -->|展开| T["运行流程<br/>这次运行走过的每一步"]
+    T -->|再展开| D["单步详情<br/>工具名、参数、行右侧耗时"]
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class D accent

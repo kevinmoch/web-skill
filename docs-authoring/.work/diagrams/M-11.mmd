@@ -1,0 +1,34 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'noteBkgColor': '#222222',
+    'noteTextColor': '#FAFAFA',
+    'noteBorderColor': 'rgba(255,255,255,0.15)'
+  }
+}}%%
+stateDiagram-v2
+    state "等待输入" as waiting
+    [*] --> 路由中
+    路由中 --> 激活技能
+    路由中 --> 执行工具
+    激活技能 --> 执行工具
+    执行工具 --> waiting: 需要你回答
+    waiting --> 执行工具: 你提交了
+    执行工具 --> 路由中: 还需要下一步
+    执行工具 --> 已完成
+    已完成 --> [*]
+    失败 --> [*]
+    note right of 失败
+        任意阶段都可能失败
+        8 种原因与对策见本章
+    end note
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class waiting accent

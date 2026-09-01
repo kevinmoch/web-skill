@@ -1,0 +1,18 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px'
+  }
+}}%%
+flowchart LR
+    Q["对话里的一次提问"] --> R["一条运行记录"]
+    R --> D["展开为详情<br/>时间线 · 工具调用 · 模型往返 · 产物"]
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class D accent

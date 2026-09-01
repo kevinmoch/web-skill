@@ -1,0 +1,31 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'noteBkgColor': '#222222',
+    'noteTextColor': '#FAFAFA',
+    'noteBorderColor': 'rgba(255,255,255,0.15)'
+  }
+}}%%
+stateDiagram-v2
+    state "已停止" as stopped
+    [*] --> 编辑中
+    编辑中 --> 生成中: 发送
+    生成中 --> 已完成: 正常结束
+    生成中 --> stopped: 你点了停止
+    生成中 --> 失败: 出错
+    stopped --> 生成中: 重试
+    失败 --> 生成中: 重试
+    已完成 --> [*]
+    note right of stopped
+        已生成的内容会保留
+    end note
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class stopped accent

@@ -1,0 +1,27 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+flowchart TD
+    A["选文件"] --> L
+    subgraph L["【在你的电脑里】"]
+        B["抽成文字"]
+    end
+    L --> C["文字发给助手"]
+    C --> D["它复述准备录什么"]
+    D --> E["你确认"]
+    E --> F["逐条填表"]
+    F --> G["每条提交前确认"]
+    G --> H["录入完成"]
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class B accent

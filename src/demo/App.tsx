@@ -3,7 +3,7 @@ import { AgileDataProvider, useAgileData } from './context/AgileDataContext';
 import { Sidebar } from './components/Sidebar';
 import { ChatDrawer } from './components/ChatDrawer';
 import { LoginScreen } from './components/LoginScreen';
-import { Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import {
   OverviewScreen,
   RequirementsScreen,
@@ -40,6 +40,17 @@ function DashboardContent() {
   const isResizing = useRef<boolean>(false);
   // 拖动中保持把手高亮（:hover 在鼠标移出把手后失效）
   const [isResizingBar, setIsResizingBar] = useState(false);
+
+  // 折叠态与宽度一样落盘：用户收起就是为了腾出 Agile 的地方，刷新后不该又弹回来
+  const [isChatCollapsed, setIsChatCollapsed] = useState<boolean>(
+    () => localStorage.getItem('agile_chat_collapsed') === '1'
+  );
+
+  const toggleChatCollapsed = React.useCallback(() => {
+    const next = !isChatCollapsed;
+    setIsChatCollapsed(next);
+    localStorage.setItem('agile_chat_collapsed', next ? '1' : '0');
+  }, [isChatCollapsed]);
 
   // Sync ref with state
   React.useEffect(() => {
@@ -148,24 +159,64 @@ function DashboardContent() {
       </div>
 
       {/* Resizer Handle Bar：常态 1px 细线（带阴影），悬停/拖动时浮现蓝色长条，光标 col-resize。
-          视觉与 ccs-framework ChatbotDrawer 左缘把手一致：命中区透明，条带居中不改变布局。 */}
+          视觉与 ccs-framework ChatbotDrawer 左缘把手一致：命中区透明，条带居中不改变布局。
+          条带中部挂折叠按钮：收起后细线留在原地当唯一的展开入口。 */}
       <div
-        className="group relative hidden md:flex w-1.5 cursor-col-resize select-none h-full shrink-0 z-50"
-        onMouseDown={startResize}
-        title={lang === 'zh' ? '向左拖拽以扩展宽度' : 'Drag left to resize chat panel'}
+        className={`group relative hidden md:flex w-1.5 select-none h-full shrink-0 z-50 ${
+          isChatCollapsed ? '' : 'cursor-col-resize'
+        }`}
+        onMouseDown={isChatCollapsed ? undefined : startResize}
+        title={isChatCollapsed ? undefined : lang === 'zh' ? '向左拖拽以扩展宽度' : 'Drag left to resize chat panel'}
       >
         <div
           className={`absolute left-1/2 top-0 bottom-0 -translate-x-1/2 transition-all ${
             isResizingBar ? 'w-[3px] bg-blue-500/70' : 'w-px bg-border group-hover:w-[3px] group-hover:bg-blue-500/60'
           }`}
         />
+        {/* 收起时按钮贴容器右缘（把手已在视口最右，再居中会有一半被裁掉） */}
+        <button
+          type="button"
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={toggleChatCollapsed}
+          aria-expanded={!isChatCollapsed}
+          aria-controls="ai-chat-panel"
+          aria-label={
+            isChatCollapsed
+              ? lang === 'zh'
+                ? '展开 AI 助手'
+                : 'Expand AI copilot'
+              : lang === 'zh'
+                ? '收起 AI 助手'
+                : 'Collapse AI copilot'
+          }
+          title={
+            isChatCollapsed
+              ? lang === 'zh'
+                ? '展开 AI 助手'
+                : 'Expand AI copilot'
+              : lang === 'zh'
+                ? '收起 AI 助手'
+                : 'Collapse AI copilot'
+          }
+          className={`absolute top-1/2 -translate-y-1/2 flex h-14 w-4 cursor-pointer items-center justify-center border border-border bg-card text-muted-foreground shadow-xs transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+            isChatCollapsed ? 'right-0 rounded-l-md border-r-0' : 'left-1/2 -translate-x-1/2 rounded-md'
+          }`}
+        >
+          {isChatCollapsed ? <ChevronLeft className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
+        </button>
       </div>
 
       {/* 3. Right AI Chat Console Drawer（宽度由内部 aside 携带；wrapper 不能再 w-full，
           否则在桌面 flex-row 里会吃掉主区宽度）。左缘双层柔影营造浮层感：近层勾出
           面板边缘，远层铺开深度；relative + z-10 保证阴影压在内容卡片之上。
-          细线本体保持 1px 干净（阴影打在线条上会糊成粗线） */}
-      <div className="h-96 md:h-full border-t md:border-t-0 border-border shrink-0 relative z-10 md:shadow-[-8px_0_16px_-10px_rgba(15,23,42,0.14),-24px_0_48px_-20px_rgba(15,23,42,0.20)]">
+          细线本体保持 1px 干净（阴影打在线条上会糊成粗线）。
+          收起用 display:none 而不是卸载：卸载会连引擎带会话一起销毁。
+          只在 md+ 收起——移动端把手不显示，收了就没法展开回来 */}
+      <div
+        className={`h-96 md:h-full border-t md:border-t-0 border-border shrink-0 relative z-10 md:shadow-[-8px_0_16px_-10px_rgba(15,23,42,0.14),-24px_0_48px_-20px_rgba(15,23,42,0.20)] ${
+          isChatCollapsed ? 'md:hidden' : ''
+        }`}
+      >
         <ChatDrawer width={chatWidth} onEngine={setEngine} />
       </div>
     </div>

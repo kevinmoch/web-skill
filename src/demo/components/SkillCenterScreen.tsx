@@ -200,6 +200,9 @@ export const SkillCenterScreen: React.FC<{
 
   return (
     // h-full min-h-0 必须给穿到 Console 根：少一层内部表格就没有独立滚动容器
+    // TODO(sdk>0.15.0)：新版 console 出了 `hostCapabilities` 后补上
+    // `hostCapabilities={{ downloadedFiles: false }}`，沙箱页才不再出「下载的文件」开关。
+    // 本宿主已不接 `downloads` 端口（见 webskill/adapter.ts），那个开关现在开了也无效
     <div id="webskill-manager" className="h-full min-h-0">
       <Console
         key={screenParams?.runId ?? screenParams?.candidateId ?? screenParams?.settings ?? 'console'}

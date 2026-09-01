@@ -1,0 +1,21 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+flowchart LR
+    P["产物（报告、文档、幻灯片）"] --> V["在对话里看"]
+    P -->|需你同意| W["新窗口放映"]
+    P --> D["下载到本地"]
+    P --> X["打印成 PDF"]
+    classDef accent stroke:#38bdf8,stroke-width:2px
+    class W accent

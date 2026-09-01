@@ -1,0 +1,24 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': 'transparent',
+    'primaryColor': '#161616',
+    'primaryTextColor': '#FAFAFA',
+    'primaryBorderColor': 'rgba(255,255,255,0.15)',
+    'lineColor': '#A1A1AA',
+    'secondaryColor': '#222222',
+    'tertiaryColor': '#161616',
+    'fontSize': '14px',
+    'edgeLabelBackground': '#161616'
+  }
+}}%%
+%% 辨认树横向画：TD 下 6 个叶子并排会到 ~880px，688 列宽里字号缩到 11px；
+%% 改 LR 后叶子纵向排，宽度落在区间内。
+flowchart LR
+    R["助手需要什么"]
+    R -->|一句回答| C1["需要回答"]
+    R -->|是否确认| C2["请确认"]
+    R -->|多个字段| C3["需要补充信息"]
+    R -->|从几项里选| C4["选择一个选项"]
+    R -->|一次许可| C5["需要授权"]
+    R -->|一个文件| C6["需要一个文件"]
