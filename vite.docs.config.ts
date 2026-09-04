@@ -72,7 +72,7 @@ export default defineConfig((configEnv: ConfigEnv) => {
   return {
     ...base,
     // 子路径部署时用 DOCS_BASE 指定（如 /docs/）；默认根部署
-    base: process.env.DOCS_BASE || '/',
+    base: process.env.DOCS_BASE || './',
     publicDir: false as const,
     plugins: [...(base.plugins ?? []), stripGtag(), docsArtifact()],
     build: {
