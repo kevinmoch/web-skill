@@ -1,6 +1,7 @@
 import { seedSkillsFromHttp } from '@webskill/sdk/browser';
 import type { BuiltinSkillManifest } from '@webskill/sdk/browser';
 import type { FileSystemProvider } from '@webskill/sdk';
+import { APP_BASE } from '../../base';
 
 /**
  * 内置技能播种：把随应用发布的 `public/skills/builtin/*` 写进 OPFS 的 `/skills/builtin`。
@@ -44,5 +45,7 @@ const MANIFEST: BuiltinSkillManifest = {
 const SEED_STAMP = '/skills/builtin/.seeded-v6';
 
 export async function seedBuiltinSkills(fs: FileSystemProvider): Promise<void> {
-  await seedSkillsFromHttp(fs, { manifest: MANIFEST, stamp: SEED_STAMP });
+  // baseUrl 只作用于 HTTP 取回侧：子路径/相对部署（dist-docs）下 `/skills/builtin/...`
+  // 会打到站点根、被 SPA 兜底页顶掉，SKILL.md 取回来是 HTML。存储侧的根仍是 /skills/builtin。
+  await seedSkillsFromHttp(fs, { manifest: MANIFEST, stamp: SEED_STAMP, baseUrl: APP_BASE });
 }

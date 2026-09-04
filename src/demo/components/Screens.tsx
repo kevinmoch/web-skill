@@ -4,7 +4,25 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useAgileData } from '../context/AgileDataContext';
 import { translations } from '../utils/translations';
 import { Requirement, Bug, TestSuite } from '../mock/staticData';
-import { Plus, Search, Trash2, Edit3, TrendingUp, Layers, Workflow, Bug as BugIcon, GraduationCap, Activity, CheckCircle, Code, ChevronRight, Briefcase, FileCheck, Info } from 'lucide-react';
+import {
+  Plus,
+  Search,
+  Trash2,
+  Edit3,
+  TrendingUp,
+  Layers,
+  Workflow,
+  Bug as BugIcon,
+  GraduationCap,
+  Activity,
+  CheckCircle,
+  Code,
+  ChevronRight,
+  Briefcase,
+  FileCheck,
+  Info
+} from 'lucide-react';
+import { withBase } from '../../base';
 
 const getEpicTranslation = (epic: string | undefined | null, lang: 'zh' | 'en'): string => {
   if (!epic) return '';
@@ -31,7 +49,8 @@ const getEpicTranslation = (epic: string | undefined | null, lang: 'zh' | 'en'):
 // 1. OVERVIEW SCREEN
 // ==========================================
 export const OverviewScreen: React.FC = () => {
-  const { requirements, sprints, bugs, testSuites, lang, setCurrentScreen, projects, currentProjectId } = useAgileData();
+  const { requirements, sprints, bugs, testSuites, lang, setCurrentScreen, projects, currentProjectId } =
+    useAgileData();
 
   // Selected project details
   const activeProject = projects.find((p) => p.id === currentProjectId) || projects[0];
@@ -58,7 +77,9 @@ export const OverviewScreen: React.FC = () => {
   const inProgressReqs = requirements.filter((r) => r.status === 'In Progress').length;
   const doneReqs = requirements.filter((r) => r.status === 'Done').length;
   const totalStoryPoints = requirements.reduce((acc, r) => acc + (r.storyPoints || 0), 0);
-  const doneStoryPoints = requirements.filter((r) => r.status === 'Done').reduce((acc, r) => acc + (r.storyPoints || 0), 0);
+  const doneStoryPoints = requirements
+    .filter((r) => r.status === 'Done')
+    .reduce((acc, r) => acc + (r.storyPoints || 0), 0);
 
   // Bug calculations
   const openBugsCount = bugs.filter((b) => b.status === 'Open').length;
@@ -68,8 +89,10 @@ export const OverviewScreen: React.FC = () => {
 
   // Test suite stats
   const totalSuites = testSuites.length;
-  const avgCoverage = totalSuites > 0 ? Math.round(testSuites.reduce((sum, suite) => sum + suite.coverage, 0) / totalSuites) : 0;
-  const avgPassRate = totalSuites > 0 ? Math.round(testSuites.reduce((sum, suite) => sum + suite.passRate, 0) / totalSuites) : 100;
+  const avgCoverage =
+    totalSuites > 0 ? Math.round(testSuites.reduce((sum, suite) => sum + suite.coverage, 0) / totalSuites) : 0;
+  const avgPassRate =
+    totalSuites > 0 ? Math.round(testSuites.reduce((sum, suite) => sum + suite.passRate, 0) / totalSuites) : 100;
 
   return (
     <div className="space-y-6" id="overview-screen">
@@ -85,18 +108,27 @@ export const OverviewScreen: React.FC = () => {
             <Briefcase className="w-5 h-5 text-foreground" />
             <span>{lang === 'zh' ? activeProject.name : activeProject.name_en}</span>
           </h2>
-          <p className="text-xs text-muted-foreground mt-1">{lang === 'zh' ? '该全景图基于该项目内真实的需求积压、迭代、缺陷以及编译测试套件自动汇总。' : 'This workspace aggregates live sprint items, backlog tickets, QA blocks, and pipeline status.'}</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            {lang === 'zh'
+              ? '该全景图基于该项目内真实的需求积压、迭代、缺陷以及编译测试套件自动汇总。'
+              : 'This workspace aggregates live sprint items, backlog tickets, QA blocks, and pipeline status.'}
+          </p>
         </div>
         <div className="flex items-center space-x-2 text-[12px] shrink-0 bg-secondary px-2.5 py-1 rounded-lg border border-border">
           <span className="w-2 h-2 bg-success rounded-full inline-block animate-pulse opacity-80" />
-          <span className="font-mono text-foreground font-medium">{lang === 'zh' ? '状态：活跃' : 'STATUS: LIVE ACTIVE'}</span>
+          <span className="font-mono text-foreground font-medium">
+            {lang === 'zh' ? '状态：活跃' : 'STATUS: LIVE ACTIVE'}
+          </span>
         </div>
       </div>
 
       {/* 2. Responsive KPIs Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" id="agile-real-kpis">
         {/* Card 1: Requirements Total */}
-        <div onClick={() => setCurrentScreen('requirements')} className="p-4 bg-card border border-border rounded-xl hover:border-foreground/40 shadow-xs cursor-pointer transition group">
+        <div
+          onClick={() => setCurrentScreen('requirements')}
+          className="p-4 bg-card border border-border rounded-xl hover:border-foreground/40 shadow-xs cursor-pointer transition group"
+        >
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{lang === 'zh' ? '需求积压总数' : 'Requirements'}</span>
             <Layers className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition" />
@@ -106,7 +138,9 @@ export const OverviewScreen: React.FC = () => {
               <span className="text-2xl font-bold font-mono tracking-tight text-foreground">{totalRequirements}</span>
               <span className="text-xs text-muted-foreground font-mono ml-1">{lang === 'zh' ? '个' : 'items'}</span>
             </div>
-            <span className="text-[12px] text-foreground bg-accent px-1.5 py-0.5 rounded font-medium font-mono border border-border">{totalStoryPoints} SP</span>
+            <span className="text-[12px] text-foreground bg-accent px-1.5 py-0.5 rounded font-medium font-mono border border-border">
+              {totalStoryPoints} SP
+            </span>
           </div>
           <div className="mt-2 text-xs text-muted-foreground flex space-x-2">
             <span>Todo: {todoReqs}</span>
@@ -116,22 +150,34 @@ export const OverviewScreen: React.FC = () => {
         </div>
 
         {/* Card 2: Active Sprint Progress */}
-        <div onClick={() => setCurrentScreen('sprints')} className="p-4 bg-card border border-border rounded-xl hover:border-foreground/40 shadow-xs cursor-pointer transition group">
+        <div
+          onClick={() => setCurrentScreen('sprints')}
+          className="p-4 bg-card border border-border rounded-xl hover:border-foreground/40 shadow-xs cursor-pointer transition group"
+        >
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{lang === 'zh' ? '当前迭代进度' : 'Active Sprint Burn'}</span>
             <Workflow className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition" />
           </div>
           <div className="mt-2.5 flex items-baseline justify-between">
             <div>
-              <span className="text-2xl font-bold font-mono tracking-tight text-foreground">{activeSprint.progress}%</span>
+              <span className="text-2xl font-bold font-mono tracking-tight text-foreground">
+                {activeSprint.progress}%
+              </span>
             </div>
-            <span className="text-[12px] text-warning bg-warning-soft border border-warning/20 font-mono px-1.5 py-0.5 rounded font-medium">{activeSprint.status}</span>
+            <span className="text-[12px] text-warning bg-warning-soft border border-warning/20 font-mono px-1.5 py-0.5 rounded font-medium">
+              {activeSprint.status}
+            </span>
           </div>
-          <div className="mt-2 text-xs text-muted-foreground truncate">Goal: {activeSprint ? (lang === 'zh' ? activeSprint.goal : activeSprint.goal_en) : '-'}</div>
+          <div className="mt-2 text-xs text-muted-foreground truncate">
+            Goal: {activeSprint ? (lang === 'zh' ? activeSprint.goal : activeSprint.goal_en) : '-'}
+          </div>
         </div>
 
         {/* Card 3: Defect Risk Monitor */}
-        <div onClick={() => setCurrentScreen('bugs')} className="p-4 bg-card border border-border rounded-xl hover:border-foreground/40 shadow-xs cursor-pointer transition group">
+        <div
+          onClick={() => setCurrentScreen('bugs')}
+          className="p-4 bg-card border border-border rounded-xl hover:border-foreground/40 shadow-xs cursor-pointer transition group"
+        >
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{lang === 'zh' ? '遗留未解缺陷' : 'Pending Defects'}</span>
             <BugIcon className="w-4 h-4 text-muted-foreground group-hover:text-destructive transition" />
@@ -141,7 +187,11 @@ export const OverviewScreen: React.FC = () => {
               <span className="text-2xl font-bold font-mono tracking-tight text-destructive">{openBugsCount}</span>
               <span className="text-xs text-muted-foreground font-mono ml-1">{lang === 'zh' ? '挂起' : 'open'}</span>
             </div>
-            <span className={`text-[12px] px-1.5 py-0.5 rounded font-medium font-mono border ${criticalBugs > 0 ? 'bg-destructive-soft text-destructive border-destructive/20' : 'bg-secondary text-muted-foreground border-border'}`}>CRIT: {criticalBugs}</span>
+            <span
+              className={`text-[12px] px-1.5 py-0.5 rounded font-medium font-mono border ${criticalBugs > 0 ? 'bg-destructive-soft text-destructive border-destructive/20' : 'bg-secondary text-muted-foreground border-border'}`}
+            >
+              CRIT: {criticalBugs}
+            </span>
           </div>
           <div className="mt-2 text-xs text-muted-foreground flex space-x-2">
             <span>Major: {majorBugs}</span>
@@ -151,7 +201,10 @@ export const OverviewScreen: React.FC = () => {
         </div>
 
         {/* Card 4: Quality Gate status */}
-        <div onClick={() => setCurrentScreen('tests')} className="p-4 bg-card border border-border rounded-xl hover:border-foreground/40 shadow-xs cursor-pointer transition group">
+        <div
+          onClick={() => setCurrentScreen('tests')}
+          className="p-4 bg-card border border-border rounded-xl hover:border-foreground/40 shadow-xs cursor-pointer transition group"
+        >
           <div className="flex items-center justify-between text-muted-foreground">
             <span className="text-xs font-medium">{lang === 'zh' ? '自动化测试阀门' : 'Auto Quality Gate'}</span>
             <CheckCircle className="w-4 h-4 text-muted-foreground group-hover:text-success transition" />
@@ -161,7 +214,9 @@ export const OverviewScreen: React.FC = () => {
               <span className="text-2xl font-bold font-mono tracking-tight text-success">{avgPassRate}%</span>
               <span className="text-xs text-muted-foreground block">{lang === 'zh' ? '平均通过率' : 'Avg Pass'}</span>
             </div>
-            <span className="text-[12px] font-medium text-success bg-success-soft border border-success/20 px-1.5 py-0.5 rounded font-mono">COV: {avgCoverage}%</span>
+            <span className="text-[12px] font-medium text-success bg-success-soft border border-success/20 px-1.5 py-0.5 rounded font-mono">
+              COV: {avgCoverage}%
+            </span>
           </div>
           <div className="mt-2 text-xs text-muted-foreground flex space-x-2">
             <span>Suites: {totalSuites}</span>
@@ -186,24 +241,35 @@ export const OverviewScreen: React.FC = () => {
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 bg-secondary/50 p-3 rounded-lg border border-border">
                 <div>
-                  <h4 className="text-sm font-bold text-foreground leading-normal">{lang === 'en' && activeSprint.name_en ? activeSprint.name_en : activeSprint.name}</h4>
+                  <h4 className="text-sm font-bold text-foreground leading-normal">
+                    {lang === 'en' && activeSprint.name_en ? activeSprint.name_en : activeSprint.name}
+                  </h4>
                   <p className="text-xs text-muted-foreground font-mono mt-1 font-medium">
                     🗓️ Scope: {activeSprint.startDate} → {activeSprint.endDate}
                   </p>
                 </div>
                 <div className="text-left sm:text-right">
-                  <span className="text-xs text-muted-foreground font-mono uppercase block">{lang === 'zh' ? '迭代周期故事点容量' : 'Sprint commitment'}</span>
-                  <span className="text-xs font-bold text-foreground block mt-0.5 font-mono">{activeSprint.velocity} story points</span>
+                  <span className="text-xs text-muted-foreground font-mono uppercase block">
+                    {lang === 'zh' ? '迭代周期故事点容量' : 'Sprint commitment'}
+                  </span>
+                  <span className="text-xs font-bold text-foreground block mt-0.5 font-mono">
+                    {activeSprint.velocity} story points
+                  </span>
                 </div>
               </div>
 
               {/* Progress visual bar */}
               <div className="space-y-1.5">
                 <div className="h-3 w-full bg-secondary rounded-full overflow-hidden relative flex items-center select-none">
-                  <div className="h-full bg-primary rounded-full transition-all duration-300" style={{ width: `${activeSprint.progress}%` }} />
+                  <div
+                    className="h-full bg-primary rounded-full transition-all duration-300"
+                    style={{ width: `${activeSprint.progress}%` }}
+                  />
                 </div>
                 <div className="flex justify-end text-xs text-muted-foreground font-mono">
-                  {lang === 'zh' ? `已燃尽 ${doneStoryPoints} SP / 共 ${totalStoryPoints} SP` : `Burned ${doneStoryPoints} SP out of ${totalStoryPoints} SP`}
+                  {lang === 'zh'
+                    ? `已燃尽 ${doneStoryPoints} SP / 共 ${totalStoryPoints} SP`
+                    : `Burned ${doneStoryPoints} SP out of ${totalStoryPoints} SP`}
                 </div>
               </div>
 
@@ -212,19 +278,28 @@ export const OverviewScreen: React.FC = () => {
                 <div className="p-2 bg-secondary/40 rounded-lg">
                   <span className="text-xs text-muted-foreground font-medium uppercase block">ToDo</span>
                   <span className="text-base font-bold text-foreground block mt-0.5">
-                    {todoReqs} <span className="text-xs font-normal text-muted-foreground">({lang === 'zh' ? '待开发' : 'iss'})</span>
+                    {todoReqs}{' '}
+                    <span className="text-xs font-normal text-muted-foreground">
+                      ({lang === 'zh' ? '待开发' : 'iss'})
+                    </span>
                   </span>
                 </div>
                 <div className="p-2 bg-secondary/40 rounded-lg border-x border-border">
                   <span className="text-xs text-muted-foreground font-medium uppercase block">In Progress</span>
                   <span className="text-base font-bold text-info block mt-0.5">
-                    {inProgressReqs} <span className="text-xs font-normal text-muted-foreground">({lang === 'zh' ? '处理中' : 'iss'})</span>
+                    {inProgressReqs}{' '}
+                    <span className="text-xs font-normal text-muted-foreground">
+                      ({lang === 'zh' ? '处理中' : 'iss'})
+                    </span>
                   </span>
                 </div>
                 <div className="p-2 bg-secondary/40 rounded-lg">
                   <span className="text-xs text-muted-foreground font-medium uppercase block">Done</span>
                   <span className="text-base font-bold text-success block mt-0.5">
-                    {doneReqs} <span className="text-xs font-normal text-muted-foreground">({lang === 'zh' ? '已完成' : 'iss'})</span>
+                    {doneReqs}{' '}
+                    <span className="text-xs font-normal text-muted-foreground">
+                      ({lang === 'zh' ? '已完成' : 'iss'})
+                    </span>
                   </span>
                 </div>
               </div>
@@ -238,14 +313,21 @@ export const OverviewScreen: React.FC = () => {
                 <FileCheck className="w-3.5 h-3.5 mr-1.5 text-foreground" />
                 {lang === 'zh' ? 'DevOps 质量流水线编译测试套件' : 'AUTOMATED PIPE TEST SUITES'}
               </h3>
-              <span className="text-xs font-semibold text-success font-mono">{lang === 'zh' ? `平均通过率: ${avgPassRate}%` : `Gate: ${avgPassRate}% avg pass`}</span>
+              <span className="text-xs font-semibold text-success font-mono">
+                {lang === 'zh' ? `平均通过率: ${avgPassRate}%` : `Gate: ${avgPassRate}% avg pass`}
+              </span>
             </div>
 
             <div className="space-y-2.5">
               {testSuites.slice(0, 3).map((suite) => (
-                <div key={suite.id} className="flex items-center justify-between p-3 rounded-lg bg-secondary/40 border border-border">
+                <div
+                  key={suite.id}
+                  className="flex items-center justify-between p-3 rounded-lg bg-secondary/40 border border-border"
+                >
                   <div className="flex-1 min-w-0 pr-4">
-                    <span className="text-xs font-semibold text-foreground block truncate leading-relaxed">{lang === 'en' && suite.suite_en ? suite.suite_en : suite.suite}</span>
+                    <span className="text-xs font-semibold text-foreground block truncate leading-relaxed">
+                      {lang === 'en' && suite.suite_en ? suite.suite_en : suite.suite}
+                    </span>
                     <div className="flex items-center space-x-2 text-xs text-muted-foreground font-mono mt-1">
                       <span>Coverage: {suite.coverage}%</span>
                       <span>•</span>
@@ -256,7 +338,9 @@ export const OverviewScreen: React.FC = () => {
                     <div className="text-right">
                       <span
                         className={`px-2 py-0.5 rounded-sm font-medium text-[12px] font-mono tracking-wider border ${
-                          suite.status === 'Passed' ? 'bg-success-soft text-success border-success/20' : 'bg-destructive-soft text-destructive border-destructive/20'
+                          suite.status === 'Passed'
+                            ? 'bg-success-soft text-success border-success/20'
+                            : 'bg-destructive-soft text-destructive border-destructive/20'
                         }`}
                       >
                         {suite.status === 'Passed' ? 'PASSED' : 'FAILED'}
@@ -269,7 +353,10 @@ export const OverviewScreen: React.FC = () => {
             </div>
 
             <div className="mt-4 text-right">
-              <button onClick={() => setCurrentScreen('tests')} className="text-xs font-medium text-foreground hover:text-primary transition inline-flex items-center font-mono cursor-pointer">
+              <button
+                onClick={() => setCurrentScreen('tests')}
+                className="text-xs font-medium text-foreground hover:text-primary transition inline-flex items-center font-mono cursor-pointer"
+              >
                 <span>{lang === 'zh' ? `管理全部 ${totalSuites} 个测试套件` : 'View all quality suites'}</span>
                 <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
               </button>
@@ -297,7 +384,10 @@ export const OverviewScreen: React.FC = () => {
                   <span className="font-mono font-medium text-destructive">{criticalBugs}</span>
                 </div>
                 <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                  <div className="h-full bg-destructive/75 transition-all duration-300" style={{ width: `${openBugsCount > 0 ? (criticalBugs / openBugsCount) * 100 : 0}%` }} />
+                  <div
+                    className="h-full bg-destructive/75 transition-all duration-300"
+                    style={{ width: `${openBugsCount > 0 ? (criticalBugs / openBugsCount) * 100 : 0}%` }}
+                  />
                 </div>
               </div>
 
@@ -311,7 +401,10 @@ export const OverviewScreen: React.FC = () => {
                   <span className="font-mono font-medium text-warning">{majorBugs}</span>
                 </div>
                 <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                  <div className="h-full bg-warning/75 transition-all duration-300" style={{ width: `${openBugsCount > 0 ? (majorBugs / openBugsCount) * 100 : 0}%` }} />
+                  <div
+                    className="h-full bg-warning/75 transition-all duration-300"
+                    style={{ width: `${openBugsCount > 0 ? (majorBugs / openBugsCount) * 100 : 0}%` }}
+                  />
                 </div>
               </div>
 
@@ -325,28 +418,36 @@ export const OverviewScreen: React.FC = () => {
                   <span className="font-mono font-medium text-success">{minorBugs}</span>
                 </div>
                 <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                  <div className="h-full bg-success/75 transition-all duration-300" style={{ width: `${openBugsCount > 0 ? (minorBugs / openBugsCount) * 100 : 0}%` }} />
+                  <div
+                    className="h-full bg-success/75 transition-all duration-300"
+                    style={{ width: `${openBugsCount > 0 ? (minorBugs / openBugsCount) * 100 : 0}%` }}
+                  />
                 </div>
               </div>
             </div>
 
             {/* Divider Total details */}
-              <div className="border-t border-border pt-4 flex items-center justify-between">
-                <div>
-                  <span className="text-xs text-muted-foreground font-mono uppercase tracking-wider block">{lang === 'zh' ? '待开发/未解决缺陷总计' : 'ACTIVE DEFECT TOTALS'}</span>
-                  <span className="text-2xl font-bold font-mono tracking-tight text-foreground mt-1 block">
-                    {openBugsCount} <span className="text-xs text-destructive font-semibold uppercase font-sans">{lang === 'zh' ? '个未解决' : 'Open'}</span>
+            <div className="border-t border-border pt-4 flex items-center justify-between">
+              <div>
+                <span className="text-xs text-muted-foreground font-mono uppercase tracking-wider block">
+                  {lang === 'zh' ? '待开发/未解决缺陷总计' : 'ACTIVE DEFECT TOTALS'}
+                </span>
+                <span className="text-2xl font-bold font-mono tracking-tight text-foreground mt-1 block">
+                  {openBugsCount}{' '}
+                  <span className="text-xs text-destructive font-semibold uppercase font-sans">
+                    {lang === 'zh' ? '个未解决' : 'Open'}
                   </span>
-                </div>
-                <button
-                  onClick={() => setCurrentScreen('bugs')}
-                  className="btn-secondary px-3 py-1.5 text-xs font-medium flex items-center justify-center cursor-pointer"
-                >
-                  {lang === 'zh' ? '缺陷分级中心' : 'Defect console'}
-                  <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                </button>
+                </span>
               </div>
+              <button
+                onClick={() => setCurrentScreen('bugs')}
+                className="btn-secondary px-3 py-1.5 text-xs font-medium flex items-center justify-center cursor-pointer"
+              >
+                {lang === 'zh' ? '缺陷分级中心' : 'Defect console'}
+                <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+              </button>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -357,7 +458,8 @@ export const OverviewScreen: React.FC = () => {
 // 2. REQUIREMENTS SCREEN
 // ==========================================
 export const RequirementsScreen: React.FC = () => {
-  const { requirements, addRequirement, updateRequirement, deleteRequirement, lang, projects, currentProjectId } = useAgileData();
+  const { requirements, addRequirement, updateRequirement, deleteRequirement, lang, projects, currentProjectId } =
+    useAgileData();
   const t = translations[lang];
 
   const activeProject = projects.find((p) => p.id === currentProjectId) || projects[0];
@@ -436,10 +538,13 @@ export const RequirementsScreen: React.FC = () => {
   const filtered = requirements.filter((r) => {
     const matchesSearch =
       (lang === 'en' && r.title_en ? r.title_en : r.title).toLowerCase().includes(search.toLowerCase()) ||
-      ((lang === 'en' && r.reporter_en ? r.reporter_en : r.reporter) && (lang === 'en' && r.reporter_en ? r.reporter_en : r.reporter).toLowerCase().includes(search.toLowerCase())) ||
-      ((lang === 'en' && r.assignee_en ? r.assignee_en : r.assignee) && (lang === 'en' && r.assignee_en ? r.assignee_en : r.assignee)?.toLowerCase().includes(search.toLowerCase())) ||
+      ((lang === 'en' && r.reporter_en ? r.reporter_en : r.reporter) &&
+        (lang === 'en' && r.reporter_en ? r.reporter_en : r.reporter).toLowerCase().includes(search.toLowerCase())) ||
+      ((lang === 'en' && r.assignee_en ? r.assignee_en : r.assignee) &&
+        (lang === 'en' && r.assignee_en ? r.assignee_en : r.assignee)?.toLowerCase().includes(search.toLowerCase())) ||
       (r.id && r.id.toLowerCase().includes(search.toLowerCase())) ||
-      ((lang === 'en' && r.epic_en ? r.epic_en : r.epic) && (lang === 'en' && r.epic_en ? r.epic_en : r.epic)?.toLowerCase().includes(search.toLowerCase()));
+      ((lang === 'en' && r.epic_en ? r.epic_en : r.epic) &&
+        (lang === 'en' && r.epic_en ? r.epic_en : r.epic)?.toLowerCase().includes(search.toLowerCase()));
     const matchesPriority = priorityFilter === 'All' || r.priority === priorityFilter;
     return matchesSearch && matchesPriority;
   });
@@ -453,7 +558,11 @@ export const RequirementsScreen: React.FC = () => {
             <Layers className="w-5 h-5 text-foreground" />
             <span>{t.requirements.title}</span>
           </h2>
-          <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-mono font-medium">{lang === 'zh' ? `项目「${activeProject.name}」需求管理看板` : `Requirements for project ${activeProject.key}`}</p>
+          <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-mono font-medium">
+            {lang === 'zh'
+              ? `项目「${activeProject.name}」需求管理看板`
+              : `Requirements for project ${activeProject.key}`}
+          </p>
         </div>
         <button
           onClick={openAddModal}
@@ -467,14 +576,19 @@ export const RequirementsScreen: React.FC = () => {
       </div>
 
       {/* Filter bar */}
-      <div className="flex flex-col sm:flex-row gap-3 items-center bg-card p-3 rounded-xl border border-border" id="requirements-filter-bar">
+      <div
+        className="flex flex-col sm:flex-row gap-3 items-center bg-card p-3 rounded-xl border border-border"
+        id="requirements-filter-bar"
+      >
         <div className="relative flex-1 w-full flex items-center">
           <Search className="absolute left-3 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={lang === 'zh' ? '搜索需求 ID、经办人、史诗模块、关键字...' : 'Search by ID, assignee, Epic or keyterms...'}
+            placeholder={
+              lang === 'zh' ? '搜索需求 ID、经办人、史诗模块、关键字...' : 'Search by ID, assignee, Epic or keyterms...'
+            }
             className="w-full text-xs pl-9 pr-3 py-2 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring"
           />
         </div>
@@ -492,7 +606,10 @@ export const RequirementsScreen: React.FC = () => {
       </div>
 
       {/* Backlog list table */}
-      <div className="rounded-xl border border-border overflow-hidden bg-card shadow-xs" id="requirements-backlog-board">
+      <div
+        className="rounded-xl border border-border overflow-hidden bg-card shadow-xs"
+        id="requirements-backlog-board"
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
@@ -523,11 +640,23 @@ export const RequirementsScreen: React.FC = () => {
                     {/* SUMMARY & DESCRIPTION */}
                     <td className="p-3.5">
                       <div className="max-w-[280px] sm:max-w-[380px]">
-                        <span className="font-semibold text-foreground block leading-relaxed">{lang === 'en' && req.title_en ? req.title_en : req.title}</span>
+                        <span className="font-semibold text-foreground block leading-relaxed">
+                          {lang === 'en' && req.title_en ? req.title_en : req.title}
+                        </span>
                         {(lang === 'en' && req.description_en ? req.description_en : req.description) && (
-                          <span className="text-xs text-muted-foreground block mt-0.5 line-clamp-1">{lang === 'en' && req.description_en ? req.description_en : req.description}</span>
+                          <span className="text-xs text-muted-foreground block mt-0.5 line-clamp-1">
+                            {lang === 'en' && req.description_en ? req.description_en : req.description}
+                          </span>
                         )}
-                        <a href={`/demo/attachment/${(lang === 'en' && req.title_en ? req.title_en : req.title).replace(/\//g, '-')}.docx`} className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline mt-1.5 flex items-center gap-1 w-max font-medium transition-colors" target="_blank" rel="noopener noreferrer" download>
+                        <a
+                          href={withBase(
+                            `/demo/attachment/${(lang === 'en' && req.title_en ? req.title_en : req.title).replace(/\//g, '-')}.docx`
+                          )}
+                          className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline mt-1.5 flex items-center gap-1 w-max font-medium transition-colors"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download
+                        >
                           📎 {lang === 'en' && req.title_en ? req.title_en : req.title}.docx
                         </a>
                       </div>
@@ -587,7 +716,9 @@ export const RequirementsScreen: React.FC = () => {
 
                     {/* STORY POINTS SP */}
                     <td className="p-3.5 whitespace-nowrap text-center font-mono font-medium">
-                      <span className="w-5 h-5 rounded-full bg-secondary text-secondary-foreground inline-block text-center leading-5 font-semibold text-[12px]">{req.storyPoints || 1}</span>
+                      <span className="w-5 h-5 rounded-full bg-secondary text-secondary-foreground inline-block text-center leading-5 font-semibold text-[12px]">
+                        {req.storyPoints || 1}
+                      </span>
                     </td>
 
                     {/* ACTION TRIGGERS */}
@@ -629,15 +760,26 @@ export const RequirementsScreen: React.FC = () => {
             <div className="bg-popover text-popover-foreground rounded-xl border border-border shadow-pop w-full max-w-lg p-6 max-h-[92vh] overflow-y-auto relative z-10 flex flex-col font-sans">
               <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
                 <h3 className="text-sm font-bold text-foreground">
-                  🔧 {editingId ? (lang === 'zh' ? `编辑需求/故事 [${editingId}]` : `Edit Requirement/Story [${editingId}]`) : lang === 'zh' ? '创建新需求/故事' : 'Create Requirement/Story'}
+                  🔧{' '}
+                  {editingId
+                    ? lang === 'zh'
+                      ? `编辑需求/故事 [${editingId}]`
+                      : `Edit Requirement/Story [${editingId}]`
+                    : lang === 'zh'
+                      ? '创建新需求/故事'
+                      : 'Create Requirement/Story'}
                 </h3>
-                <span className="text-xs font-mono font-medium text-muted-foreground">{lang === 'zh' ? '状态引擎' : 'Status Engine'}</span>
+                <span className="text-xs font-mono font-medium text-muted-foreground">
+                  {lang === 'zh' ? '状态引擎' : 'Status Engine'}
+                </span>
               </div>
 
               <form onSubmit={handleSave} className="space-y-4 pt-1 text-foreground">
                 {/* Summary */}
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '概要' : 'Summary Title'}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    {lang === 'zh' ? '概要' : 'Summary Title'}
+                  </label>
                   <input
                     type="text"
                     required
@@ -652,7 +794,9 @@ export const RequirementsScreen: React.FC = () => {
                 <div className="grid grid-cols-2 gap-3">
                   {/* Epic */}
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '关联史诗' : 'Epic Link'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '关联史诗' : 'Epic Link'}
+                    </label>
                     <input
                       type="text"
                       required
@@ -666,7 +810,9 @@ export const RequirementsScreen: React.FC = () => {
                   </div>
                   {/* Story Points */}
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '估算故事点' : 'Story Points'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '估算故事点' : 'Story Points'}
+                    </label>
                     <input
                       type="number"
                       required
@@ -684,7 +830,9 @@ export const RequirementsScreen: React.FC = () => {
                 {/* Status and Priority */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '优先级' : 'Priority'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '优先级' : 'Priority'}
+                    </label>
                     <select
                       value={formPriority}
                       onChange={(e) => setFormPriority(e.target.value as any)}
@@ -698,7 +846,9 @@ export const RequirementsScreen: React.FC = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '状态' : 'Status'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '状态' : 'Status'}
+                    </label>
                     <select
                       value={formStatus}
                       onChange={(e) => setFormStatus(e.target.value as any)}
@@ -716,7 +866,9 @@ export const RequirementsScreen: React.FC = () => {
                 {/* Assignee / Reporter */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '经办人' : 'Assignee'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '经办人' : 'Assignee'}
+                    </label>
                     <input
                       type="text"
                       value={formAssignee}
@@ -727,7 +879,9 @@ export const RequirementsScreen: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '报告人' : 'Reporter'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '报告人' : 'Reporter'}
+                    </label>
                     <input
                       type="text"
                       value={formReporter}
@@ -741,7 +895,9 @@ export const RequirementsScreen: React.FC = () => {
 
                 {/* Desc Description */}
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '详细说明信息' : 'Specification Description'}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    {lang === 'zh' ? '详细说明信息' : 'Specification Description'}
+                  </label>
                   <textarea
                     rows={3}
                     value={formDesc}
@@ -783,7 +939,8 @@ export const RequirementsScreen: React.FC = () => {
 // 3. SPRINTS SCREEN
 // ==========================================
 export const SprintsScreen: React.FC = () => {
-  const { sprints, requirements, updateRequirement, addRequirement, deleteRequirement, addSprint, lang } = useAgileData();
+  const { sprints, requirements, updateRequirement, addRequirement, deleteRequirement, addSprint, lang } =
+    useAgileData();
 
   // 新建迭代任务（落进待办列 = 一条 status 为 Todo 的需求卡）
   const [showCreate, setShowCreate] = useState(false);
@@ -874,8 +1031,16 @@ export const SprintsScreen: React.FC = () => {
             <span>{lang === 'zh' ? '迭代管理看板' : 'Sprint Kanban Board'}</span>
           </h2>
           <div className="flex items-center space-x-2 mt-1 font-mono font-medium leading-none">
-            <span className="text-success bg-success-soft border border-success/20 px-1.5 py-0.5 rounded text-[12px] uppercase animate-pulse">{lang === 'zh' ? '● 活跃执行中' : '● ACTIVE'}</span>
-            <span className="text-muted-foreground font-sans text-xs">{activeSprint ? (lang === 'en' && activeSprint.name_en ? activeSprint.name_en : activeSprint.name) : 'Loading active cycle'}</span>
+            <span className="text-success bg-success-soft border border-success/20 px-1.5 py-0.5 rounded text-[12px] uppercase animate-pulse">
+              {lang === 'zh' ? '● 活跃执行中' : '● ACTIVE'}
+            </span>
+            <span className="text-muted-foreground font-sans text-xs">
+              {activeSprint
+                ? lang === 'en' && activeSprint.name_en
+                  ? activeSprint.name_en
+                  : activeSprint.name
+                : 'Loading active cycle'}
+            </span>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -890,16 +1055,24 @@ export const SprintsScreen: React.FC = () => {
             <span>{lang === 'zh' ? '新增迭代' : 'New Sprint'}</span>
           </button>
           <div className="bg-card px-3 py-2 rounded-lg border border-border font-mono flex space-x-4 items-center">
-          <div>
-            <span className="text-xs text-muted-foreground uppercase block">{lang === 'zh' ? '已收尾已燃尽' : 'Burned SP'}</span>
-            <span className="text-xs text-success font-bold block mt-0.5">{requirements.filter((r) => r.status === 'Done').reduce((sum, r) => sum + (r.storyPoints || 0), 0)} SP</span>
+            <div>
+              <span className="text-xs text-muted-foreground uppercase block">
+                {lang === 'zh' ? '已收尾已燃尽' : 'Burned SP'}
+              </span>
+              <span className="text-xs text-success font-bold block mt-0.5">
+                {requirements.filter((r) => r.status === 'Done').reduce((sum, r) => sum + (r.storyPoints || 0), 0)} SP
+              </span>
+            </div>
+            <div className="w-px h-6 bg-border" />
+            <div>
+              <span className="text-xs text-muted-foreground uppercase block">
+                {lang === 'zh' ? '迭代容量速率' : 'Total Velocity'}
+              </span>
+              <span className="text-xs text-foreground font-bold block mt-0.5">
+                {activeSprint ? activeSprint.velocity : 40} SP
+              </span>
+            </div>
           </div>
-          <div className="w-px h-6 bg-border" />
-          <div>
-            <span className="text-xs text-muted-foreground uppercase block">{lang === 'zh' ? '迭代容量速率' : 'Total Velocity'}</span>
-            <span className="text-xs text-foreground font-bold block mt-0.5">{activeSprint ? activeSprint.velocity : 40} SP</span>
-          </div>
-        </div>
         </div>
       </div>
 
@@ -922,7 +1095,9 @@ export const SprintsScreen: React.FC = () => {
               >
                 +
               </button>
-              <span className="px-2 py-0.5 bg-background text-foreground border border-border rounded font-mono font-medium text-[12px]">{todoTickets.length}</span>
+              <span className="px-2 py-0.5 bg-background text-foreground border border-border rounded font-mono font-medium text-[12px]">
+                {todoTickets.length}
+              </span>
             </div>
           </div>
 
@@ -935,7 +1110,9 @@ export const SprintsScreen: React.FC = () => {
             }}
           >
             {todoTickets.length === 0 ? (
-              <div className="h-full flex items-center justify-center border-2 border-dashed border-border/80 rounded-xl py-12 italic text-muted-foreground">{lang === 'zh' ? '暂无待办需求' : 'Column Clear'}</div>
+              <div className="h-full flex items-center justify-center border-2 border-dashed border-border/80 rounded-xl py-12 italic text-muted-foreground">
+                {lang === 'zh' ? '暂无待办需求' : 'Column Clear'}
+              </div>
             ) : (
               todoTickets.map((tc) => (
                 <div
@@ -967,12 +1144,16 @@ export const SprintsScreen: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    <p className="text-xs font-medium text-foreground line-clamp-2 leading-relaxed">{lang === 'en' && tc.title_en ? tc.title_en : tc.title}</p>
+                    <p className="text-xs font-medium text-foreground line-clamp-2 leading-relaxed">
+                      {lang === 'en' && tc.title_en ? tc.title_en : tc.title}
+                    </p>
                   </div>
 
                   <div className="flex items-center justify-between border-t border-border pt-2 mt-2 select-none">
                     <div className="flex items-center space-x-1">
-                      <span className="text-[12px] font-mono px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded-full font-medium">{tc.storyPoints} SP</span>
+                      <span className="text-[12px] font-mono px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded-full font-medium">
+                        {tc.storyPoints} SP
+                      </span>
                     </div>
                     <button
                       onClick={() => handleMoveStatus(tc.id, 'In Progress')}
@@ -1009,7 +1190,9 @@ export const SprintsScreen: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-info inline-block animate-pulse opacity-80" />
               <span className="font-semibold text-info uppercase">{lang === 'zh' ? '进行中' : 'IN PROGRESS'}</span>
             </div>
-            <span className="px-2 py-0.5 bg-info-soft text-info border border-info/20 rounded font-mono font-medium text-[12px]">{doingTickets.length}</span>
+            <span className="px-2 py-0.5 bg-info-soft text-info border border-info/20 rounded font-mono font-medium text-[12px]">
+              {doingTickets.length}
+            </span>
           </div>
 
           <div
@@ -1021,7 +1204,9 @@ export const SprintsScreen: React.FC = () => {
             }}
           >
             {doingTickets.length === 0 ? (
-              <div className="h-full flex items-center justify-center border-2 border-dashed border-border/80 rounded-xl py-12 italic text-muted-foreground">{lang === 'zh' ? '团队休息中' : 'No executing issues'}</div>
+              <div className="h-full flex items-center justify-center border-2 border-dashed border-border/80 rounded-xl py-12 italic text-muted-foreground">
+                {lang === 'zh' ? '团队休息中' : 'No executing issues'}
+              </div>
             ) : (
               doingTickets.map((tc) => (
                 <div
@@ -1053,12 +1238,16 @@ export const SprintsScreen: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    <p className="text-xs font-medium text-foreground line-clamp-2 leading-relaxed">{lang === 'en' && tc.title_en ? tc.title_en : tc.title}</p>
+                    <p className="text-xs font-medium text-foreground line-clamp-2 leading-relaxed">
+                      {lang === 'en' && tc.title_en ? tc.title_en : tc.title}
+                    </p>
                   </div>
 
                   <div className="flex items-center justify-between border-t border-border pt-2 mt-2 select-none">
                     <div className="flex items-center space-x-1.5">
-                      <span className="text-[12px] font-mono px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded-full font-medium">{tc.storyPoints} SP</span>
+                      <span className="text-[12px] font-mono px-1.5 py-0.5 bg-secondary text-secondary-foreground rounded-full font-medium">
+                        {tc.storyPoints} SP
+                      </span>
                     </div>
                     <div className="flex space-x-1">
                       <button
@@ -1103,7 +1292,9 @@ export const SprintsScreen: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-success inline-block opacity-80" />
               <span className="font-semibold text-success uppercase">{lang === 'zh' ? '已关闭' : 'DONE'}</span>
             </div>
-            <span className="px-2 py-0.5 bg-success-soft text-success border border-success/20 rounded font-mono font-medium text-[12px]">{doneTickets.length}</span>
+            <span className="px-2 py-0.5 bg-success-soft text-success border border-success/20 rounded font-mono font-medium text-[12px]">
+              {doneTickets.length}
+            </span>
           </div>
 
           <div
@@ -1115,7 +1306,9 @@ export const SprintsScreen: React.FC = () => {
             }}
           >
             {doneTickets.length === 0 ? (
-              <div className="h-full flex items-center justify-center border-2 border-dashed border-border/80 rounded-xl py-12 italic text-muted-foreground">{lang === 'zh' ? '暂无关闭任务' : 'Burn down some tickets'}</div>
+              <div className="h-full flex items-center justify-center border-2 border-dashed border-border/80 rounded-xl py-12 italic text-muted-foreground">
+                {lang === 'zh' ? '暂无关闭任务' : 'Burn down some tickets'}
+              </div>
             ) : (
               doneTickets.map((tc) => (
                 <div
@@ -1145,7 +1338,9 @@ export const SprintsScreen: React.FC = () => {
                         {lang === 'zh' ? '已关闭' : 'CLOSED'}
                       </span>
                     </div>
-                    <p className="text-xs font-medium text-muted-foreground line-clamp-2 leading-relaxed line-through">{lang === 'en' && tc.title_en ? tc.title_en : tc.title}</p>
+                    <p className="text-xs font-medium text-muted-foreground line-clamp-2 leading-relaxed line-through">
+                      {lang === 'en' && tc.title_en ? tc.title_en : tc.title}
+                    </p>
                   </div>
 
                   <div className="flex items-center justify-between border-t border-border pt-2 mt-2 select-none">
@@ -1188,11 +1383,15 @@ export const SprintsScreen: React.FC = () => {
             <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowCreate(false)}></div>
             <div className="bg-popover text-popover-foreground rounded-xl border border-border shadow-pop w-full max-w-md p-6 max-h-[92vh] overflow-y-auto relative z-10 flex flex-col font-sans">
               <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-                <h3 className="text-sm font-bold text-foreground">{lang === 'zh' ? '新建迭代任务（待办）' : 'New sprint task (Todo)'}</h3>
+                <h3 className="text-sm font-bold text-foreground">
+                  {lang === 'zh' ? '新建迭代任务（待办）' : 'New sprint task (Todo)'}
+                </h3>
               </div>
               <form onSubmit={handleCreateTask} className="space-y-4 pt-1 text-foreground">
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '任务标题' : 'Task title'}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    {lang === 'zh' ? '任务标题' : 'Task title'}
+                  </label>
                   <input
                     type="text"
                     required
@@ -1205,7 +1404,9 @@ export const SprintsScreen: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '估算故事点' : 'Story points'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '估算故事点' : 'Story points'}
+                    </label>
                     <input
                       type="number"
                       required
@@ -1219,7 +1420,9 @@ export const SprintsScreen: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '优先级' : 'Priority'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '优先级' : 'Priority'}
+                    </label>
                     <select
                       value={taskPriority}
                       onChange={(e) => setTaskPriority(e.target.value as 'High' | 'Medium' | 'Low')}
@@ -1234,7 +1437,9 @@ export const SprintsScreen: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '经办人' : 'Assignee'}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    {lang === 'zh' ? '经办人' : 'Assignee'}
+                  </label>
                   <input
                     type="text"
                     value={taskAssignee}
@@ -1271,14 +1476,19 @@ export const SprintsScreen: React.FC = () => {
       {showSprintModal &&
         createPortal(
           <div id="sprint-create-modal" className="absolute inset-0 z-[1100] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowSprintModal(false)}></div>
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              onClick={() => setShowSprintModal(false)}
+            ></div>
             <div className="bg-popover text-popover-foreground rounded-xl border border-border shadow-pop w-full max-w-md p-6 max-h-[92vh] overflow-y-auto relative z-10 flex flex-col font-sans">
               <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
                 <h3 className="text-sm font-bold text-foreground">{lang === 'zh' ? '新增迭代' : 'New Sprint'}</h3>
               </div>
               <form onSubmit={handleCreateSprint} className="space-y-4 pt-1 text-foreground">
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '迭代名称' : 'Sprint name'}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    {lang === 'zh' ? '迭代名称' : 'Sprint name'}
+                  </label>
                   <input
                     type="text"
                     required
@@ -1290,7 +1500,9 @@ export const SprintsScreen: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '迭代目标' : 'Sprint goal'}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    {lang === 'zh' ? '迭代目标' : 'Sprint goal'}
+                  </label>
                   <input
                     type="text"
                     value={sprintGoal}
@@ -1302,7 +1514,9 @@ export const SprintsScreen: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '容量速率' : 'Velocity'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '容量速率' : 'Velocity'}
+                    </label>
                     <input
                       type="number"
                       required
@@ -1315,7 +1529,9 @@ export const SprintsScreen: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '开始日期' : 'Start'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '开始日期' : 'Start'}
+                    </label>
                     <input
                       type="date"
                       required
@@ -1327,7 +1543,9 @@ export const SprintsScreen: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '结束日期' : 'End'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '结束日期' : 'End'}
+                    </label>
                     <input
                       type="date"
                       required
@@ -1340,7 +1558,9 @@ export const SprintsScreen: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '状态' : 'Status'}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    {lang === 'zh' ? '状态' : 'Status'}
+                  </label>
                   <select
                     value={sprintStatus}
                     onChange={(e) => setSprintStatus(e.target.value as 'Planned' | 'Active' | 'Completed')}
@@ -1455,7 +1675,11 @@ export const BugsScreen: React.FC = () => {
             <BugIcon className="w-5 h-5 text-destructive" />
             <span>{lang === 'zh' ? '缺陷管理看板' : 'Defect Management Board'}</span>
           </h2>
-          <p className="text-xs text-muted-foreground mt-1 font-medium uppercase tracking-wider font-mono">{lang === 'zh' ? `项目「${activeProject.name}」生产及研发缺陷协同总览` : `Scrum quality assurance console for project ${activeProject.key}`}</p>
+          <p className="text-xs text-muted-foreground mt-1 font-medium uppercase tracking-wider font-mono">
+            {lang === 'zh'
+              ? `项目「${activeProject.name}」生产及研发缺陷协同总览`
+              : `Scrum quality assurance console for project ${activeProject.key}`}
+          </p>
         </div>
         <button
           onClick={openAddModal}
@@ -1475,7 +1699,9 @@ export const BugsScreen: React.FC = () => {
             <thead>
               <tr className="bg-secondary/60 border-b border-border text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="p-3.5 w-28 font-mono whitespace-nowrap">{lang === 'zh' ? '缺陷键值' : 'Bug Key'}</th>
-                <th className="p-3.5 min-w-[240px]">{lang === 'zh' ? '缺陷说明 / 关联事项' : 'Stack Trace / Summary'}</th>
+                <th className="p-3.5 min-w-[240px]">
+                  {lang === 'zh' ? '缺陷说明 / 关联事项' : 'Stack Trace / Summary'}
+                </th>
                 <th className="p-3.5 whitespace-nowrap">{lang === 'zh' ? '严重程度' : 'Severity'}</th>
                 <th className="p-3.5 whitespace-nowrap">{lang === 'zh' ? '缺陷状态' : 'Status'}</th>
                 <th className="p-3.5 whitespace-nowrap">{lang === 'zh' ? '涉及子系统/模块' : 'Subsystem Module'}</th>
@@ -1495,17 +1721,21 @@ export const BugsScreen: React.FC = () => {
                 bugs.map((bug) => (
                   <tr key={bug.id} className="border-b last:border-0 border-border hover:bg-accent/40 transition">
                     {/* ID */}
-                    <td className="p-3.5 font-mono font-bold text-destructive select-all whitespace-nowrap">{bug.id}</td>
+                    <td className="p-3.5 font-mono font-bold text-destructive select-all whitespace-nowrap">
+                      {bug.id}
+                    </td>
 
                     {/* Summary */}
                     <td className="p-3.5 font-sans font-medium text-foreground">
                       <div className="max-w-[280px] sm:max-w-[340px]">
-                        <span className="leading-relaxed block truncate">{lang === 'en' && bug.title_en ? bug.title_en : bug.title}</span>
-                        <img 
-                          src={`/demo/attachment/${bug.id}.jpg`} 
-                          alt={bug.id} 
-                          className="mt-2 rounded-md border border-border h-14 object-cover cursor-pointer hover:opacity-80 transition" 
-                          onClick={() => setPreviewImage(`/demo/attachment/${bug.id}.jpg`)}
+                        <span className="leading-relaxed block truncate">
+                          {lang === 'en' && bug.title_en ? bug.title_en : bug.title}
+                        </span>
+                        <img
+                          src={withBase(`/demo/attachment/${bug.id}.jpg`)}
+                          alt={bug.id}
+                          className="mt-2 rounded-md border border-border h-14 object-cover cursor-pointer hover:opacity-80 transition"
+                          onClick={() => setPreviewImage(withBase(`/demo/attachment/${bug.id}.jpg`))}
                         />
                       </div>
                     </td>
@@ -1539,7 +1769,11 @@ export const BugsScreen: React.FC = () => {
                         value={bug.status}
                         onChange={(e) => updateBug({ ...bug, status: e.target.value as Bug['status'] })}
                         className={`px-2 py-0.5 rounded-md text-[12px] font-medium uppercase tracking-wider whitespace-nowrap border cursor-pointer focus:outline-none focus:border-ring ${
-                          bug.status === 'Open' ? 'bg-destructive-soft text-destructive border-destructive/20' : bug.status === 'Fixed' ? 'bg-info-soft text-info border-info/20' : 'bg-secondary text-muted-foreground border-border'
+                          bug.status === 'Open'
+                            ? 'bg-destructive-soft text-destructive border-destructive/20'
+                            : bug.status === 'Fixed'
+                              ? 'bg-info-soft text-info border-info/20'
+                              : 'bg-secondary text-muted-foreground border-border'
                         }`}
                       >
                         <option value="Open">Open</option>
@@ -1557,7 +1791,9 @@ export const BugsScreen: React.FC = () => {
                     </td>
 
                     {/* Assignee */}
-                    <td className="p-3.5 whitespace-nowrap text-foreground font-mono font-medium">{(lang === 'en' && bug.assignee_en ? bug.assignee_en : bug.assignee) || 'Elena G'}</td>
+                    <td className="p-3.5 whitespace-nowrap text-foreground font-mono font-medium">
+                      {(lang === 'en' && bug.assignee_en ? bug.assignee_en : bug.assignee) || 'Elena G'}
+                    </td>
 
                     {/* Created Date */}
                     <td className="p-3.5 whitespace-nowrap text-muted-foreground font-mono">{bug.createdAt}</td>
@@ -1600,13 +1836,23 @@ export const BugsScreen: React.FC = () => {
             <div className="bg-popover text-popover-foreground rounded-xl border border-border shadow-pop w-full max-w-md p-6 max-h-[92vh] overflow-y-auto relative z-10 flex flex-col font-sans">
               <h3 className="text-sm font-bold text-foreground pb-3 border-b border-border flex items-center gap-2">
                 <span>🐞</span>
-                <span>{editingId ? (lang === 'zh' ? `缺陷键值 ${editingId}` : `Defect Key ${editingId}`) : lang === 'zh' ? '新增缺陷问题' : 'Report Automated Defect'}</span>
+                <span>
+                  {editingId
+                    ? lang === 'zh'
+                      ? `缺陷键值 ${editingId}`
+                      : `Defect Key ${editingId}`
+                    : lang === 'zh'
+                      ? '新增缺陷问题'
+                      : 'Report Automated Defect'}
+                </span>
               </h3>
 
               <form onSubmit={handleSave} className="space-y-4 pt-3 text-foreground">
                 {/* Summary */}
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '问题概述 / 异常堆栈' : 'Exception Stack Summary'}</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    {lang === 'zh' ? '问题概述 / 异常堆栈' : 'Exception Stack Summary'}
+                  </label>
                   <input
                     type="text"
                     required
@@ -1667,7 +1913,9 @@ export const BugsScreen: React.FC = () => {
                 {/* Assignee / Reporter */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '经办人' : 'Assignee'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '经办人' : 'Assignee'}
+                    </label>
                     <input
                       type="text"
                       value={formAssignee}
@@ -1678,7 +1926,9 @@ export const BugsScreen: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '上报人' : 'Reporter'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '上报人' : 'Reporter'}
+                    </label>
                     <input
                       type="text"
                       value={formReporter}
@@ -1718,10 +1968,18 @@ export const BugsScreen: React.FC = () => {
       {previewImage &&
         createPortal(
           <div className="absolute inset-0 z-[1200] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/80 backdrop-blur-xs cursor-pointer" onClick={() => setPreviewImage(null)}></div>
+            <div
+              className="absolute inset-0 bg-black/80 backdrop-blur-xs cursor-pointer"
+              onClick={() => setPreviewImage(null)}
+            ></div>
             <div className="relative z-10 w-full max-w-4xl bg-popover rounded-xl overflow-hidden shadow-pop flex flex-col items-center p-4 border border-border">
-              <img src={previewImage} alt="Preview" className="w-full h-auto object-contain rounded-lg" style={{ maxHeight: '80vh' }} />
-              <button 
+              <img
+                src={previewImage}
+                alt="Preview"
+                className="w-full h-auto object-contain rounded-lg"
+                style={{ maxHeight: '80vh' }}
+              />
+              <button
                 onClick={() => setPreviewImage(null)}
                 className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-black/60 text-white rounded-full hover:bg-black/80 transition font-bold cursor-pointer"
               >
@@ -1739,7 +1997,8 @@ export const BugsScreen: React.FC = () => {
 // 5. TEST SCREEN
 // ==========================================
 export const TestsScreen: React.FC = () => {
-  const { testSuites, addTestSuite, updateTestSuite, deleteTestSuite, lang, projects, currentProjectId } = useAgileData();
+  const { testSuites, addTestSuite, updateTestSuite, deleteTestSuite, lang, projects, currentProjectId } =
+    useAgileData();
   const t = translations[lang];
 
   const activeProject = projects.find((p) => p.id === currentProjectId) || projects[0];
@@ -1808,7 +2067,9 @@ export const TestsScreen: React.FC = () => {
             <span>{lang === 'zh' ? '测试管理看板' : 'Test Management Board'}</span>
           </h2>
           <p className="text-xs text-muted-foreground mt-1 font-medium block uppercase tracking-wider font-mono">
-            {lang === 'zh' ? `项目「${activeProject.name}」自动化测试验证流水线及质量管理校验底座` : `Automated compilation validation pipeline for project ${activeProject.key}`}
+            {lang === 'zh'
+              ? `项目「${activeProject.name}」自动化测试验证流水线及质量管理校验底座`
+              : `Automated compilation validation pipeline for project ${activeProject.key}`}
           </p>
         </div>
         <button
@@ -1825,7 +2086,10 @@ export const TestsScreen: React.FC = () => {
       {/* Grid listing */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4" id="tests-database">
         {testSuites.map((suite) => (
-          <div key={suite.id} className="p-5 bg-card border border-border rounded-xl flex flex-col justify-between shadow-xs hover:border-foreground/30 transition text-card-foreground">
+          <div
+            key={suite.id}
+            className="p-5 bg-card border border-border rounded-xl flex flex-col justify-between shadow-xs hover:border-foreground/30 transition text-card-foreground"
+          >
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-medium text-muted-foreground">{suite.id}</span>
@@ -1836,7 +2100,9 @@ export const TestsScreen: React.FC = () => {
                 </span>
               </div>
 
-              <h3 className="text-sm font-bold text-foreground leading-normal mt-2">📂 {lang === 'en' && suite.suite_en ? suite.suite_en : suite.suite}</h3>
+              <h3 className="text-sm font-bold text-foreground leading-normal mt-2">
+                📂 {lang === 'en' && suite.suite_en ? suite.suite_en : suite.suite}
+              </h3>
             </div>
 
             {/* Test Metrics layout */}
@@ -1861,16 +2127,25 @@ export const TestsScreen: React.FC = () => {
                   </span>
                 </div>
                 <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden relative">
-                  <div className="h-full bg-success rounded-full transition-all duration-300" style={{ width: `${suite.passRate}%` }} />
+                  <div
+                    className="h-full bg-success rounded-full transition-all duration-300"
+                    style={{ width: `${suite.passRate}%` }}
+                  />
                 </div>
               </div>
 
               {/* Action buttons panel */}
               <div className="flex justify-end space-x-1 pt-1 opacity-100 transition-all duration-200">
-                <button onClick={() => openEditModal(suite)} className="p-1.5 hover:bg-accent text-foreground rounded-lg transition text-xs flex items-center font-medium cursor-pointer">
+                <button
+                  onClick={() => openEditModal(suite)}
+                  className="p-1.5 hover:bg-accent text-foreground rounded-lg transition text-xs flex items-center font-medium cursor-pointer"
+                >
                   <Edit3 className="w-3.5 h-3.5 mr-1" /> {lang === 'zh' ? '编辑' : 'Edit'}
                 </button>
-                <button onClick={() => handleDelete(suite.id)} className="p-1.5 hover:bg-destructive-soft text-destructive rounded-lg transition text-xs flex items-center font-medium cursor-pointer">
+                <button
+                  onClick={() => handleDelete(suite.id)}
+                  className="p-1.5 hover:bg-destructive-soft text-destructive rounded-lg transition text-xs flex items-center font-medium cursor-pointer"
+                >
                   <Trash2 className="w-3.5 h-3.5 mr-1" /> {lang === 'zh' ? '删除' : 'Delete'}
                 </button>
               </div>
@@ -1886,7 +2161,13 @@ export const TestsScreen: React.FC = () => {
             <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowModal(false)}></div>
             <div className="bg-popover text-popover-foreground rounded-xl border border-border shadow-pop w-full max-w-md p-6 max-h-[92vh] overflow-y-auto relative z-10 flex flex-col font-sans">
               <h3 className="text-sm font-bold text-foreground pb-3 border-b border-border">
-                {editingId ? (lang === 'zh' ? '编辑测试套件属性' : 'Edit QA Suite') : lang === 'zh' ? '新建自动化测试套件' : 'Create Test Suite'}
+                {editingId
+                  ? lang === 'zh'
+                    ? '编辑测试套件属性'
+                    : 'Edit QA Suite'
+                  : lang === 'zh'
+                    ? '新建自动化测试套件'
+                    : 'Create Test Suite'}
               </h3>
 
               <form onSubmit={handleSave} className="space-y-4 pt-3 text-foreground">
@@ -1908,7 +2189,9 @@ export const TestsScreen: React.FC = () => {
                 {/* Coverage and Pass Rate */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{t.tests.coverage} (%)</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {t.tests.coverage} (%)
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -1921,7 +2204,9 @@ export const TestsScreen: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{t.tests.passRate} (%)</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {t.tests.passRate} (%)
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -1938,7 +2223,9 @@ export const TestsScreen: React.FC = () => {
                 {/* Total Cases and Passed cases */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '总归纳例数' : 'Total cases'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '总归纳例数' : 'Total cases'}
+                    </label>
                     <input
                       type="number"
                       value={formTotal}
@@ -1949,7 +2236,9 @@ export const TestsScreen: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-muted-foreground mb-1">{lang === 'zh' ? '通过验证数' : 'Passed cases'}</label>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      {lang === 'zh' ? '通过验证数' : 'Passed cases'}
+                    </label>
                     <input
                       type="number"
                       value={formPassed}
@@ -2000,7 +2289,9 @@ export const MetricsScreen: React.FC = () => {
   // Calculates stats active sprint items
   const activeSprint = sprints.find((s) => s.status === 'Active') || sprints[0];
   const totalStoryPoints = requirements.reduce((acc, r) => acc + (r.storyPoints || 0), 0);
-  const doneStoryPoints = requirements.filter((r) => r.status === 'Done').reduce((acc, r) => acc + (r.storyPoints || 0), 0);
+  const doneStoryPoints = requirements
+    .filter((r) => r.status === 'Done')
+    .reduce((acc, r) => acc + (r.storyPoints || 0), 0);
 
   return (
     <div className="space-y-6 text-xs" id="metrics-reports-screen">
@@ -2010,7 +2301,11 @@ export const MetricsScreen: React.FC = () => {
           <Activity className="w-5 h-5 text-foreground" />
           <span>{lang === 'zh' ? '度量分析与研发报告' : 'Metrics & Reports Hub'}</span>
         </h2>
-        <p className="text-xs text-muted-foreground mt-1 font-medium uppercase tracking-wider font-mono">{lang === 'zh' ? '敏捷交付燃尽记录、团队速率趋势及累计流向深度分析看板' : 'Sprint burndown trajectory, commitment velocity & cumulative flows'}</p>
+        <p className="text-xs text-muted-foreground mt-1 font-medium uppercase tracking-wider font-mono">
+          {lang === 'zh'
+            ? '敏捷交付燃尽记录、团队速率趋势及累计流向深度分析看板'
+            : 'Sprint burndown trajectory, commitment velocity & cumulative flows'}
+        </p>
       </div>
 
       {/* Reports tabs navigation */}
@@ -2053,26 +2348,53 @@ export const MetricsScreen: React.FC = () => {
       </div>
 
       {/* Dynamic Report Content based on tab */}
-      <div className="bg-card rounded-xl border border-border p-5 shadow-xs overflow-hidden text-card-foreground" id="jira-reports-viewport">
+      <div
+        className="bg-card rounded-xl border border-border p-5 shadow-xs overflow-hidden text-card-foreground"
+        id="jira-reports-viewport"
+      >
         <AnimatePresence mode="wait">
-          <motion.div key={activeTab} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.15 }}>
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ duration: 0.15 }}
+          >
             {/* REPORT 1: BURNDOWN CHART */}
             {activeTab === 'burndown' && (
               <div className="space-y-5" id="report-burndown">
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 bg-secondary/40 p-4 rounded-lg border border-border select-none">
                   <div className="space-y-1">
-                    <span className="text-xs text-muted-foreground font-mono font-medium uppercase tracking-wider block">{lang === 'zh' ? '当前正跟踪活跃迭代' : 'Currently tracking active sprint'}</span>
-                    <h4 className="text-sm font-bold text-foreground leading-none">{activeSprint ? (lang === 'en' && activeSprint.name_en ? activeSprint.name_en : activeSprint.name) : 'Scrum Active Sprint Iteration'}</h4>
-                    <p className="text-xs text-muted-foreground mt-1">{lang === 'zh' ? `迭代容量：共交付储备 ${totalStoryPoints} 故事点` : `SP Scope: ${totalStoryPoints} Total story points committed`}</p>
+                    <span className="text-xs text-muted-foreground font-mono font-medium uppercase tracking-wider block">
+                      {lang === 'zh' ? '当前正跟踪活跃迭代' : 'Currently tracking active sprint'}
+                    </span>
+                    <h4 className="text-sm font-bold text-foreground leading-none">
+                      {activeSprint
+                        ? lang === 'en' && activeSprint.name_en
+                          ? activeSprint.name_en
+                          : activeSprint.name
+                        : 'Scrum Active Sprint Iteration'}
+                    </h4>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {lang === 'zh'
+                        ? `迭代容量：共交付储备 ${totalStoryPoints} 故事点`
+                        : `SP Scope: ${totalStoryPoints} Total story points committed`}
+                    </p>
                   </div>
                   <div className="flex space-x-4 text-xs font-mono">
                     <div>
-                      <span className="text-xs text-muted-foreground block uppercase">{lang === 'zh' ? '理想故事点剩余' : 'Ideal Burn remaining'}</span>
+                      <span className="text-xs text-muted-foreground block uppercase">
+                        {lang === 'zh' ? '理想故事点剩余' : 'Ideal Burn remaining'}
+                      </span>
                       <span className="text-sm font-bold text-muted-foreground block mt-0.5">0 SP</span>
                     </div>
                     <div>
-                      <span className="text-xs text-destructive block uppercase">{lang === 'zh' ? '实际故事点剩余' : 'Actual Burn remaining'}</span>
-                      <span className="text-sm font-bold text-destructive block mt-0.5">{totalStoryPoints - doneStoryPoints} SP Left</span>
+                      <span className="text-xs text-destructive block uppercase">
+                        {lang === 'zh' ? '实际故事点剩余' : 'Actual Burn remaining'}
+                      </span>
+                      <span className="text-sm font-bold text-destructive block mt-0.5">
+                        {totalStoryPoints - doneStoryPoints} SP Left
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -2081,25 +2403,121 @@ export const MetricsScreen: React.FC = () => {
                 <div className="h-64 relative font-sans">
                   <svg viewBox="0 0 500 180" className="w-full h-full text-muted-foreground select-none">
                     {/* Horizontal reference lanes */}
-                    <line x1="50" y1="20" x2="450" y2="20" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="50" x2="450" y2="50" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="90" x2="450" y2="90" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="130" x2="450" y2="130" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
+                    <line
+                      x1="50"
+                      y1="20"
+                      x2="450"
+                      y2="20"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="50"
+                      x2="450"
+                      y2="50"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="90"
+                      x2="450"
+                      y2="90"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="130"
+                      x2="450"
+                      y2="130"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
                     <line x1="50" y1="160" x2="450" y2="160" stroke="currentColor" strokeOpacity="0.18" />
 
                     {/* Vertical reference lanes for Day 1 to Day 10 */}
-                    <line x1="50" y1="20" x2="50" y2="160" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="130" y1="20" x2="130" y2="160" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="210" y1="20" x2="210" y2="160" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="290" y1="20" x2="290" y2="160" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="370" y1="20" x2="370" y2="160" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="450" y1="20" x2="450" y2="160" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
+                    <line
+                      x1="50"
+                      y1="20"
+                      x2="50"
+                      y2="160"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="130"
+                      y1="20"
+                      x2="130"
+                      y2="160"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="210"
+                      y1="20"
+                      x2="210"
+                      y2="160"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="290"
+                      y1="20"
+                      x2="290"
+                      y2="160"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="370"
+                      y1="20"
+                      x2="370"
+                      y2="160"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="450"
+                      y1="20"
+                      x2="450"
+                      y2="160"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
 
                     {/* Ideal burndown line (Dashed line) */}
-                    <line x1="50" y1="25" x2="450" y2="160" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeDasharray="4" />
+                    <line
+                      x1="50"
+                      y1="25"
+                      x2="450"
+                      y2="160"
+                      stroke="currentColor"
+                      strokeOpacity="0.3"
+                      strokeWidth="1.5"
+                      strokeDasharray="4"
+                    />
 
                     {/* Actual remaining story points line */}
-                    <path d="M 50 25 L 130 25 L 210 50 L 290 90 L 370 120 L 450 142" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" className="text-foreground/75" />
+                    <path
+                      d="M 50 25 L 130 25 L 210 50 L 290 90 L 370 120 L 450 142"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      className="text-foreground/75"
+                    />
 
                     {/* Visual points */}
                     <circle cx="50" cy="25" r="3" fill="currentColor" className="text-foreground/75" />
@@ -2164,8 +2582,14 @@ export const MetricsScreen: React.FC = () => {
               <div className="space-y-4" id="report-velocity">
                 <div className="flex justify-between items-center bg-secondary/40 p-4 rounded-lg border border-border select-none">
                   <div>
-                    <h4 className="text-sm font-bold text-foreground">{lang === 'zh' ? '团队迭代交付速率看板' : 'Scrum Velocity Board'}</h4>
-                    <p className="text-xs text-muted-foreground mt-1">{lang === 'zh' ? 'Sprint 1 至 Sprint 4 历史达成故事点占比' : 'S1 to S4 historical completed story points ratio'}</p>
+                    <h4 className="text-sm font-bold text-foreground">
+                      {lang === 'zh' ? '团队迭代交付速率看板' : 'Scrum Velocity Board'}
+                    </h4>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {lang === 'zh'
+                        ? 'Sprint 1 至 Sprint 4 历史达成故事点占比'
+                        : 'S1 to S4 historical completed story points ratio'}
+                    </p>
                   </div>
                   <div className="flex space-x-4 text-xs font-mono">
                     <span className="flex items-center">
@@ -2182,26 +2606,90 @@ export const MetricsScreen: React.FC = () => {
                 {/* Velocity columns graph */}
                 <div className="h-64 relative font-sans">
                   <svg viewBox="0 0 500 180" className="w-full h-full text-muted-foreground select-none">
-                    <line x1="50" y1="20" x2="450" y2="20" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="60" x2="450" y2="60" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="100" x2="450" y2="100" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="140" x2="450" y2="140" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
+                    <line
+                      x1="50"
+                      y1="20"
+                      x2="450"
+                      y2="20"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="60"
+                      x2="450"
+                      y2="60"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="100"
+                      x2="450"
+                      y2="100"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="140"
+                      x2="450"
+                      y2="140"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
                     <line x1="55" y1="160" x2="450" y2="160" stroke="currentColor" strokeOpacity="0.18" />
 
                     {/* SPRINT 1 */}
-                    <rect x="90" y="70" width="18" height="90" fill="currentColor" className="text-foreground/35" rx="2" />
+                    <rect
+                      x="90"
+                      y="70"
+                      width="18"
+                      height="90"
+                      fill="currentColor"
+                      className="text-foreground/35"
+                      rx="2"
+                    />
                     <rect x="111" y="88" width="18" height="72" fill="var(--success)" opacity="0.7" rx="2" />
 
                     {/* SPRINT 2 */}
-                    <rect x="180" y="55" width="18" height="105" fill="currentColor" className="text-foreground/35" rx="2" />
+                    <rect
+                      x="180"
+                      y="55"
+                      width="18"
+                      height="105"
+                      fill="currentColor"
+                      className="text-foreground/35"
+                      rx="2"
+                    />
                     <rect x="201" y="55" width="18" height="105" fill="var(--success)" opacity="0.7" rx="2" />
 
                     {/* SPRINT 3 */}
-                    <rect x="270" y="40" width="18" height="120" fill="currentColor" className="text-foreground/35" rx="2" />
+                    <rect
+                      x="270"
+                      y="40"
+                      width="18"
+                      height="120"
+                      fill="currentColor"
+                      className="text-foreground/35"
+                      rx="2"
+                    />
                     <rect x="291" y="46" width="18" height="114" fill="var(--success)" opacity="0.7" rx="2" />
 
                     {/* SPRINT 4 */}
-                    <rect x="360" y="25" width="18" height="135" fill="currentColor" className="text-foreground/35" rx="2" />
+                    <rect
+                      x="360"
+                      y="25"
+                      width="18"
+                      height="135"
+                      fill="currentColor"
+                      className="text-foreground/35"
+                      rx="2"
+                    />
                     <rect x="381" y="25" width="18" height="135" fill="var(--success)" opacity="0.7" rx="2" />
 
                     {/* X Text Labels */}
@@ -2244,8 +2732,14 @@ export const MetricsScreen: React.FC = () => {
               <div className="space-y-4" id="report-cfd">
                 <div className="flex justify-between items-center bg-secondary/40 p-4 rounded-lg border border-border select-none">
                   <div>
-                    <h4 className="text-sm font-bold text-foreground">{lang === 'zh' ? '累计流向看板' : 'Cumulative Flow Board'}</h4>
-                    <p className="text-xs text-muted-foreground mt-1">{lang === 'zh' ? '展示 7 周期间不同流向状态的配比漂移量' : 'Shows state proportion drift metrics over 7 weeks'}</p>
+                    <h4 className="text-sm font-bold text-foreground">
+                      {lang === 'zh' ? '累计流向看板' : 'Cumulative Flow Board'}
+                    </h4>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {lang === 'zh'
+                        ? '展示 7 周期间不同流向状态的配比漂移量'
+                        : 'Shows state proportion drift metrics over 7 weeks'}
+                    </p>
                   </div>
                   <div className="flex space-x-3 text-xs font-mono text-foreground">
                     <span className="flex items-center">
@@ -2267,20 +2761,64 @@ export const MetricsScreen: React.FC = () => {
                 <div className="h-64 relative font-sans">
                   <svg viewBox="0 0 500 180" className="w-full h-full text-muted-foreground select-none">
                     {/* Horizontal reference lanes */}
-                    <line x1="50" y1="20" x2="450" y2="20" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="60" x2="450" y2="60" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="100" x2="450" y2="100" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
-                    <line x1="50" y1="140" x2="450" y2="140" stroke="currentColor" strokeOpacity="0.08" strokeDasharray="3" />
+                    <line
+                      x1="50"
+                      y1="20"
+                      x2="450"
+                      y2="20"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="60"
+                      x2="450"
+                      y2="60"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="100"
+                      x2="450"
+                      y2="100"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="50"
+                      y1="140"
+                      x2="450"
+                      y2="140"
+                      stroke="currentColor"
+                      strokeOpacity="0.08"
+                      strokeDasharray="3"
+                    />
                     <line x1="50" y1="160" x2="450" y2="160" stroke="currentColor" strokeOpacity="0.18" />
 
                     {/* Area 1: TO DO */}
-                    <path d="M 50 160 Q 150 140 250 110 T 450 60 L 450 160 L 50 160 Z" fill="currentColor" opacity="0.12" />
+                    <path
+                      d="M 50 160 Q 150 140 250 110 T 450 60 L 450 160 L 50 160 Z"
+                      fill="currentColor"
+                      opacity="0.12"
+                    />
 
                     {/* Area 2: IN PROGRESS */}
-                    <path d="M 50 160 Q 150 150 250 130 T 450 100 L 450 160 L 50 160 Z" fill="var(--info)" opacity="0.25" />
+                    <path
+                      d="M 50 160 Q 150 150 250 130 T 450 100 L 450 160 L 50 160 Z"
+                      fill="var(--info)"
+                      opacity="0.25"
+                    />
 
                     {/* Area 3: DONE */}
-                    <path d="M 50 160 Q 150 158 250 150 T 450 135 L 450 160 L 50 160 Z" fill="var(--success)" opacity="0.45" />
+                    <path
+                      d="M 50 160 Q 150 158 250 150 T 450 135 L 450 160 L 50 160 Z"
+                      fill="var(--success)"
+                      opacity="0.45"
+                    />
 
                     {/* Y labels */}
                     <text x="35" y="23" fontSize="8" fontWeight="bold" fill="currentColor">
@@ -2334,7 +2872,16 @@ export const MetricsScreen: React.FC = () => {
 
 // Simple custom inline SVG bar chart helper icon
 const BarChartIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
     <line x1="18" y1="20" x2="18" y2="10" />
     <line x1="12" y1="20" x2="12" y2="4" />
     <line x1="6" y1="20" x2="6" y2="14" />

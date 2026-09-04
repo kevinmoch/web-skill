@@ -25,7 +25,7 @@ import {
   type LucideIcon
 } from 'lucide-react';
 import DocsImage from './DocsImage';
-import { withBase } from '../../docs/base';
+import { withBase } from '../../base';
 
 /** 当前章 slug，供标题锚点 # 拼出可复制的深链（#/docs/<slug>#<id>） */
 export const DocsSlugContext = createContext<string>('');
@@ -83,12 +83,7 @@ export function extractToc(markdown: string): TocItem[] {
 function HeadingAnchor({ id }: { id: string }) {
   const slug = useContext(DocsSlugContext);
   return (
-    <a
-      href={slug ? `#/docs/${slug}#${id}` : `#${id}`}
-      className="docs-h-anchor"
-      aria-hidden="true"
-      tabIndex={-1}
-    >
+    <a href={slug ? `#/docs/${slug}#${id}` : `#${id}`} className="docs-h-anchor" aria-hidden="true" tabIndex={-1}>
       #
     </a>
   );
@@ -125,8 +120,7 @@ const CONTAINER_LABELS: ReadonlyArray<readonly [RegExp, ContainerKind]> = [
  * 判断子元素是否是我们注册的 p/strong 渲染器产物。
  * 注意：components 映射里覆盖过的标签，children 里元素的 type 是渲染函数而不是字符串。
  */
-const isP = (c: ReactNode): c is ReactElement =>
-  isValidElement(c) && (c.type === 'p' || c.type === renderP);
+const isP = (c: ReactNode): c is ReactElement => isValidElement(c) && (c.type === 'p' || c.type === renderP);
 const isStrong = (c: ReactNode): c is ReactElement =>
   isValidElement(c) && (c.type === 'strong' || c.type === renderStrong);
 
@@ -179,9 +173,7 @@ function renderBlockquote(children: ReactNode): ReactNode {
               <Icon className="h-4 w-4 shrink-0" />
               {label}
             </p>
-            <div className="[&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0">
-              {stripLabel(firstP, arr)}
-            </div>
+            <div className="[&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0">{stripLabel(firstP, arr)}</div>
           </div>
         );
       }
@@ -199,15 +191,7 @@ function renderBlockquote(children: ReactNode): ReactNode {
 // 代码块壳：语言标签 + 复制按钮（规范 §4 第 1、2 条）
 // ---------------------------------------------------------------------------
 
-function CodeBlockShell({
-  language,
-  raw,
-  children
-}: {
-  language: string;
-  raw: string;
-  children: ReactNode;
-}) {
+function CodeBlockShell({ language, raw, children }: { language: string; raw: string; children: ReactNode }) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
@@ -236,9 +220,7 @@ function CodeBlockShell({
       <div className="absolute right-1 top-1 z-10 flex items-center gap-1">
         {/* 语言标签：hover 时隐去，让位给复制按钮 */}
         {language && !copied && (
-          <span className="text-[0.75rem] text-text-dim transition-opacity group-hover:opacity-0">
-            {language}
-          </span>
+          <span className="text-[0.75rem] text-text-dim transition-opacity group-hover:opacity-0">{language}</span>
         )}
         <button
           type="button"
@@ -269,9 +251,7 @@ function CodeBlockShell({
 
 /** 图片独占一段时不再裹 <p>，让 img 渲染器直接输出合法的 <figure>（容忍段落内换行空白节点） */
 function isLoneImage(children: ReactNode): boolean {
-  const kids = Children.toArray(children).filter(
-    (c) => !(typeof c === 'string' && c.trim() === '')
-  );
+  const kids = Children.toArray(children).filter((c) => !(typeof c === 'string' && c.trim() === ''));
   return kids.length === 1 && isValidElement(kids[0]) && kids[0].type === renderImg;
 }
 
@@ -361,9 +341,7 @@ const components: Components = {
     </div>
   ),
   th: ({ children }) => (
-    <th className="bg-surface px-3 py-2 text-left text-[0.875rem] font-semibold text-text-dim">
-      {children}
-    </th>
+    <th className="bg-surface px-3 py-2 text-left text-[0.875rem] font-semibold text-text-dim">{children}</th>
   ),
   td: ({ children }) => <td className="px-3 py-2 align-top">{children}</td>,
   img: renderImg,

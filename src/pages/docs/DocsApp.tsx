@@ -4,7 +4,7 @@ import DocsPage from './DocsPage';
 import LanguageToggle from '../../components/LanguageToggle';
 import { chapterBySlug, chapterTitle } from '../../docs/manifest';
 import { docsRouteFromHash, type DocsRoute } from '../../docs/router';
-import { withBase } from '../../docs/base';
+import { withBase } from '../../base';
 
 /**
  * 独立文档构建（pnpm build:docs → dist-docs/）的外壳。
@@ -48,6 +48,8 @@ export default function DocsApp() {
     <div className="flex items-center justify-between gap-3 min-[60rem]:w-full">
       <a
         href={withBase('/demo')}
+        target="_blank"
+        rel="noopener noreferrer"
         className="text-sm font-medium text-accent hover:underline underline-offset-[0.125rem]"
       >
         {t('docs.demoEntry')}

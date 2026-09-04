@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
-import { withBase } from '../../docs/base';
+import { withBase } from '../../base';
 
 interface DocsImageProps {
   src?: string;
@@ -64,9 +64,7 @@ export default function DocsImage({ src, alt, caption, imgClassName }: DocsImage
           onClick={() => setOpen(true)}
           className={`h-auto max-w-full cursor-zoom-in rounded-lg border border-[var(--docs-divider)] ${imgClassName ?? ''}`}
         />
-        {label ? (
-          <figcaption className="mt-2 text-center text-[0.875rem] text-text-dim">{label}</figcaption>
-        ) : null}
+        {label ? <figcaption className="mt-2 text-center text-[0.875rem] text-text-dim">{label}</figcaption> : null}
       </figure>
       <AnimatePresence>
         {open && (

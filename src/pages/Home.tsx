@@ -1,8 +1,26 @@
 import { motion } from 'motion/react';
 import { FadeIn } from '../components/FadeIn';
-import { 
-  Network, Zap, ShieldAlert, Cpu, Layers, Workflow, Activity, Database, CheckCircle2, ArrowRight,
-  Server, HardDrive, Box, Lock, RefreshCw, LayoutTemplate, CloudUpload, MonitorPlay, Globe, UserCheck
+import {
+  Network,
+  Zap,
+  ShieldAlert,
+  Cpu,
+  Layers,
+  Workflow,
+  Activity,
+  Database,
+  CheckCircle2,
+  ArrowRight,
+  Server,
+  HardDrive,
+  Box,
+  Lock,
+  RefreshCw,
+  LayoutTemplate,
+  CloudUpload,
+  MonitorPlay,
+  Globe,
+  UserCheck
 } from 'lucide-react';
 import { TrinityDiagram } from '../components/TrinityDiagram';
 
@@ -14,23 +32,27 @@ const ICONS: Record<string, any> = {
   CheckCircle2,
   Network,
   Zap,
-  ShieldAlert,
+  ShieldAlert
 };
 
 const highlightWebSkill = (text: string) => {
   if (!text) return null;
   const parts = text.split(/(WebSkill)/gi);
-  return parts.map((part, i) => 
-    part.toLowerCase() === 'webskill' 
-      ? <span key={i} className="text-accent font-semibold">WebSkill</span>
-      : part
+  return parts.map((part, i) =>
+    part.toLowerCase() === 'webskill' ? (
+      <span key={i} className="text-accent font-semibold">
+        WebSkill
+      </span>
+    ) : (
+      part
+    )
   );
 };
 
-export default function Home({ t, lang }: { t: any, lang: string }) {
+export default function Home({ t, lang }: { t: any; lang: string }) {
   const isZh = lang.startsWith('zh');
   const imgSrc = isZh ? '/demo_cn.jpg' : '/demo_en.jpg';
-  
+
   const scenarios = (t('home.agentSkillScenarios', { returnObjects: true }) as any[]) || [];
   const problems = (t('home.problemsSolved', { returnObjects: true }) as any[]) || [];
   const features = (t('home.webskillFeatures', { returnObjects: true }) as any[]) || [];
@@ -42,7 +64,6 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
 
   return (
     <div className="flex flex-col gap-12 md:gap-16 w-full max-w-[1024px] mx-auto px-4 sm:px-6 md:px-8 lg:px-0 pb-16">
-      
       {/* Screen 1: Hero & Architecture Diagram */}
       <section className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center mt-6 md:mt-12 mb-4 md:mb-8">
         <div className="flex-1 px-2 sm:px-4 lg:px-0 lg:pr-8 text-center lg:text-left">
@@ -53,12 +74,26 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
               <span className="text-accent text-[20px] sm:text-[26px] md:text-[36px]">{t('hero.title2')}</span>
             </h1>
           </motion.div>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="text-[15px] md:text-[18px] text-text-dim max-w-[480px] leading-[1.6] mx-auto lg:mx-0">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-[15px] md:text-[18px] text-text-dim max-w-[480px] leading-[1.6] mx-auto lg:mx-0"
+          >
             {t('hero.description')}
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="mt-8 flex flex-wrap justify-center lg:justify-start gap-3">
-            <div className="px-4 py-1  rounded-full text-xs font-mono text-text-dim tracking-wide">{t('hero.tags.0')}</div>
-            <div className="px-4 py-1  rounded-full text-xs font-mono text-text-dim tracking-wide">{t('hero.tags.1')}</div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8 flex flex-wrap justify-center lg:justify-start gap-3"
+          >
+            <div className="px-4 py-1  rounded-full text-xs font-mono text-text-dim tracking-wide">
+              {t('hero.tags.0')}
+            </div>
+            <div className="px-4 py-1  rounded-full text-xs font-mono text-text-dim tracking-wide">
+              {t('hero.tags.1')}
+            </div>
           </motion.div>
         </div>
         <div className="flex-1 w-full max-w-md lg:max-w-none flex flex-col items-center gap-5">
@@ -78,12 +113,18 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                     <div className="w-2 h-2 rounded-full bg-border-color/80" />
                   </div>
                 </div>
-                <img src={imgSrc} alt={t('home.heroDemoAlt')} className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+                <img
+                  src={imgSrc}
+                  alt={t('home.heroDemoAlt')}
+                  className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                />
               </div>
             </div>
           </motion.div>
           <motion.a
             href="/demo"
+            target="_blank"
+            rel="noopener noreferrer"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -99,10 +140,10 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
       <section className="flex flex-col gap-6 md:gap-8">
         <div className="px-2 text-center max-w-3xl mx-auto mb-2 md:mb-4">
           <FadeIn>
-            <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium tracking-tight mb-4">{t('home.agentSkillTitle')}</h2>
-            <p className="text-[14px] sm:text-[16px] text-text-dim leading-relaxed">
-              {t('home.agentSkillDesc')}
-            </p>
+            <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium tracking-tight mb-4">
+              {t('home.agentSkillTitle')}
+            </h2>
+            <p className="text-[14px] sm:text-[16px] text-text-dim leading-relaxed">{t('home.agentSkillDesc')}</p>
           </FadeIn>
         </div>
 
@@ -113,7 +154,9 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                 <div className="w-8 h-8 rounded bg-accent/10 flex items-center justify-center shrink-0">
                   <Workflow className="w-4 h-4 text-accent" />
                 </div>
-                <h3 className="text-[16px] sm:text-[18px] font-medium text-text-main">{t('home.agentSkillScenariosTitle')}</h3>
+                <h3 className="text-[16px] sm:text-[18px] font-medium text-text-main">
+                  {t('home.agentSkillScenariosTitle')}
+                </h3>
               </div>
               <div className="flex flex-col gap-5 mt-2">
                 {scenarios.map((s, i) => (
@@ -125,7 +168,7 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
               </div>
             </FadeIn>
           </div>
-          
+
           <div className="rounded-2xl p-5 sm:p-8 bg-[#0A0A0A] flex flex-col gap-6 relative overflow-hidden">
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
             <FadeIn delay={0.2}>
@@ -133,7 +176,9 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                 <div className="w-8 h-8 rounded bg-accent/10 flex items-center justify-center shrink-0">
                   <CheckCircle2 className="w-4 h-4 text-accent" />
                 </div>
-                <h3 className="text-[16px] sm:text-[18px] font-medium text-text-main">{t('home.problemsSolvedTitle')}</h3>
+                <h3 className="text-[16px] sm:text-[18px] font-medium text-text-main">
+                  {t('home.problemsSolvedTitle')}
+                </h3>
               </div>
               <div className="flex flex-col gap-4 mt-2 relative z-10">
                 {problems.map((p, i) => (
@@ -157,7 +202,9 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-64 bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
           <FadeIn>
             <Layers className="w-10 h-10 text-accent mx-auto mb-6 opacity-80" />
-            <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium mb-4 relative z-10 tracking-tight">{t('home.webskillTitle')}</h2>
+            <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium mb-4 relative z-10 tracking-tight">
+              {t('home.webskillTitle')}
+            </h2>
             <p className="text-[15px] sm:text-[16px] md:text-[18px] text-text-dim leading-relaxed max-w-3xl mx-auto relative z-10">
               {t('home.webskillDesc')}
             </p>
@@ -187,28 +234,43 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
       <section className="flex flex-col gap-6 md:gap-8">
         <div className="px-2 text-center max-w-3xl mx-auto mb-2 md:mb-4">
           <FadeIn>
-            <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium tracking-tight mb-4">{t('home.trinityTitle')}</h2>
-            <p className="text-[15px] sm:text-[16px] text-text-dim leading-relaxed">
-              {t('home.trinityDesc')}
-            </p>
+            <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium tracking-tight mb-4">
+              {t('home.trinityTitle')}
+            </h2>
+            <p className="text-[15px] sm:text-[16px] text-text-dim leading-relaxed">{t('home.trinityDesc')}</p>
           </FadeIn>
         </div>
 
         <div className="rounded-3xl bg-[#0A0A0A] p-5 sm:p-8 md:p-12 overflow-hidden flex flex-col items-center">
           <FadeIn delay={0.1} className="w-full max-w-3xl mx-auto mt-2 mb-6">
-             <TrinityDiagram t={t} className="my-2" />
+            <TrinityDiagram t={t} className="my-2" />
           </FadeIn>
-          
+
           <div className="flex flex-col gap-4 w-full max-w-3xl mx-auto relative z-10 mt-6">
-             <FadeIn delay={0.2} className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all">
-               <p className="text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation1'))}</p>
-             </FadeIn>
-             <FadeIn delay={0.3} className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all">
-               <p className="text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation2'))}</p>
-             </FadeIn>
-             <FadeIn delay={0.4} className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all">
-               <p className="text-[14px] text-text-dim leading-relaxed">{highlightWebSkill(t('home.diagramAnnotation3'))}</p>
-             </FadeIn>
+            <FadeIn
+              delay={0.2}
+              className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all"
+            >
+              <p className="text-[14px] text-text-dim leading-relaxed">
+                {highlightWebSkill(t('home.diagramAnnotation1'))}
+              </p>
+            </FadeIn>
+            <FadeIn
+              delay={0.3}
+              className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all"
+            >
+              <p className="text-[14px] text-text-dim leading-relaxed">
+                {highlightWebSkill(t('home.diagramAnnotation2'))}
+              </p>
+            </FadeIn>
+            <FadeIn
+              delay={0.4}
+              className="p-4 sm:p-5 rounded-2xl bg-surface  hover:border-accent/20 hover:bg-surface transition-all"
+            >
+              <p className="text-[14px] text-text-dim leading-relaxed">
+                {highlightWebSkill(t('home.diagramAnnotation3'))}
+              </p>
+            </FadeIn>
           </div>
 
           {explanationTitle && (
@@ -218,12 +280,13 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                   <Activity className="w-5 h-5 text-accent" />
                   {explanationTitle}
                 </h3>
-                <p className="text-[14px] sm:text-[15px] text-text-dim mb-6 leading-relaxed">
-                  {explanationIntro}
-                </p>
+                <p className="text-[14px] sm:text-[15px] text-text-dim mb-6 leading-relaxed">{explanationIntro}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {explanationSteps.map((step: any, idx: number) => (
-                    <div key={idx} className="bg-surface rounded-xl p-4 flex gap-3 hover:bg-surface-hover transition-all">
+                    <div
+                      key={idx}
+                      className="bg-surface rounded-xl p-4 flex gap-3 hover:bg-surface-hover transition-all"
+                    >
                       <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center text-xs font-bold text-accent shrink-0 mt-0.5">
                         {idx + 1}
                       </div>
@@ -244,10 +307,10 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
       <section className="flex flex-col gap-6 md:gap-8">
         <div className="px-2 text-center max-w-3xl mx-auto mb-2 md:mb-4">
           <FadeIn>
-            <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium tracking-tight mb-4">{t('home.comparisonTitle')}</h2>
-            <p className="text-[14px] sm:text-[16px] text-text-dim leading-relaxed">
-              {t('home.comparisonDesc')}
-            </p>
+            <h2 className="text-[26px] sm:text-[28px] md:text-[32px] font-medium tracking-tight mb-4">
+              {t('home.comparisonTitle')}
+            </h2>
+            <p className="text-[14px] sm:text-[16px] text-text-dim leading-relaxed">{t('home.comparisonDesc')}</p>
           </FadeIn>
         </div>
 
@@ -259,7 +322,10 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                 <thead>
                   <tr className="border-b border-border-color bg-black/40">
                     {compHeaders.map((h, i) => (
-                      <th key={i} className={`p-5 text-[14px] font-mono uppercase tracking-wider ${i === 2 ? 'text-accent' : 'text-text-main'}`}>
+                      <th
+                        key={i}
+                        className={`p-5 text-[14px] font-mono uppercase tracking-wider ${i === 2 ? 'text-accent' : 'text-text-main'}`}
+                      >
                         {h}
                       </th>
                     ))}
@@ -269,7 +335,8 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                   {compRows.map((row, i) => {
                     const RowIcon = [Database, Box, Network, RefreshCw, CloudUpload, Globe][i] || Cpu;
                     const BackendIcon = [Server, Box, Network, RefreshCw, CloudUpload, Globe][i] || Cpu;
-                    const WebSkillIcon = [HardDrive, ShieldAlert, Lock, LayoutTemplate, MonitorPlay, UserCheck][i] || Cpu;
+                    const WebSkillIcon =
+                      [HardDrive, ShieldAlert, Lock, LayoutTemplate, MonitorPlay, UserCheck][i] || Cpu;
                     return (
                       <tr key={i} className="hover:bg-surface-hover transition-colors">
                         <td className="p-5 text-[14px] font-medium text-text-main w-[25%]">
@@ -321,9 +388,7 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                         <BackendIcon className="w-3.5 h-3.5" />
                         {compHeaders[1]}
                       </span>
-                      <p className="text-[14px] text-text-dim leading-relaxed pl-5">
-                        {row.backend}
-                      </p>
+                      <p className="text-[14px] text-text-dim leading-relaxed pl-5">{row.backend}</p>
                     </div>
                     {/* WebSkill column */}
                     <div className="flex flex-col gap-1 bg-accent/5 p-3 rounded-xl border border-accent/10">
@@ -331,9 +396,7 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
                         <WebSkillIcon className="w-3.5 h-3.5" />
                         {compHeaders[2]}
                       </span>
-                      <p className="text-[14px] text-accent/90 leading-relaxed pl-5">
-                        {row.webskill}
-                      </p>
+                      <p className="text-[14px] text-accent/90 leading-relaxed pl-5">{row.webskill}</p>
                     </div>
                   </div>
                 </div>
@@ -342,7 +405,6 @@ export default function Home({ t, lang }: { t: any, lang: string }) {
           })}
         </div>
       </section>
-
     </div>
   );
 }

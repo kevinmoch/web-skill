@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync, renameSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { defineConfig, type ConfigEnv, type Plugin, type UserConfig } from 'vite';
 import baseConfig from './vite.config';
@@ -6,10 +6,14 @@ import baseConfig from './vite.config';
 /**
  * 独立文档构建（pnpm build:docs → dist-docs/）。
  *
- * 产物只含两部分：文档外壳（docs.html → index.html，无主站 header/footer、
- * 无 gtag）和 demo 页（正文里的 /demo 链接指向它）。复用主配置的全部
- * resolve alias / node shim / define（demo 依赖 SDK），只改入口、输出目录、
- * public 目录策略；主站的 main/viewer 入口不在本产物里。
+ * 产物含三部分：文档外壳（docs.html → index.html，无主站 header/footer、
+ * 无 gtag）、demo 页（正文里的 /demo 链接指向它）和 demo 的文档投放面
+ * viewer.html。复用主配置的全部 resolve alias / node shim / define
+ * （demo 依赖 SDK），只改入口、输出目录、public 目录策略；主站 main 入口不在本产物里。
+ *
+ * viewer 另有部署前提：`/viewer.html` 的 CSP（含 sandbox 指令）与 `assets/*` 的
+ * `Access-Control-Allow-Origin` 必须由托管方下发（dev/preview 由 vite.config.ts
+ * 的 viewerRoute 中间件挂）。缺了这两条头 viewer 仍能投出内容，但不在 opaque origin 里跑。
  *
  * 子路径部署：DOCS_BASE=/docs/ pnpm build:docs（markdown 里的根绝对图片与
  * /demo 链接会经 withBase 加上同一前缀）。
@@ -33,13 +37,12 @@ function stripGtag(): Plugin {
     name: 'webskill-docs-strip-gtag',
     apply: 'build',
     transformIndexHtml(html) {
-      const out = html.replace(
-        /\s*<!-- Google tag \(gtag\.js\) -->[\s\S]*?gtag\('config'[^)]*\);\s*<\/script>/,
-        ''
-      );
+      const out = html.replace(/\s*<!-- Google tag \(gtag\.js\) -->[\s\S]*?gtag\('config'[^)]*\);\s*<\/script>/, '');
       if (/googletagmanager|gtag\(/.test(out)) {
         // demo.html 的 gtag 块结构变了会导致剥离失败，宁可构建报错也不把统计脚本带进产物
-        throw new Error('docs build: failed to strip the gtag snippet from demo.html; update the pattern in vite.docs.config.ts');
+        throw new Error(
+          'docs build: failed to strip the gtag snippet from demo.html; update the pattern in vite.docs.config.ts'
+        );
       }
       return out;
     }
@@ -56,9 +59,11 @@ function docsArtifact(): Plugin {
       // 入口改名：docs.html → index.html，部署到域名根或子路径都能直接访问
       renameSync(resolve(out, 'docs.html'), resolve(out, 'index.html'));
       // demo 复制一份为 demo/index.html：/demo 在任何支持目录索引的静态托管下可用；
-      // 根上的 demo.html 保留，供 preview 中间件 /demo → /demo.html 的重写命中
+      // 根上的 demo.html 保留，供 preview 中间件 /demo → /demo.html 的重写命中。
+      // 副本比 demo.html 深一层，相对 base 下 './assets/...' 会解析进 demo/ 里，抬一级。
       mkdirSync(resolve(out, 'demo'), { recursive: true });
-      cpSync(resolve(out, 'demo.html'), resolve(out, 'demo/index.html'));
+      const demoHtml = readFileSync(resolve(out, 'demo.html'), 'utf8');
+      writeFileSync(resolve(out, 'demo/index.html'), demoHtml.replace(/(src|href)="\.\//g, '$1="../'));
       for (const dir of PUBLIC_SUBDIRS) {
         const from = resolve(__dirname, 'public', dir);
         if (existsSync(from)) cpSync(from, resolve(out, dir), { recursive: true });
@@ -80,10 +85,11 @@ export default defineConfig((configEnv: ConfigEnv) => {
       outDir: OUT_DIR,
       rollupOptions: {
         ...base.build?.rollupOptions,
-        // 整体替换主配置的 input：本产物不含主站 main/viewer 入口
+        // 整体替换主配置的 input：本产物不含主站 main 入口；viewer 是 demo 的文档投放面，必须带上
         input: {
           docs: resolve(__dirname, 'docs.html'),
-          demo: resolve(__dirname, 'demo.html')
+          demo: resolve(__dirname, 'demo.html'),
+          viewer: resolve(__dirname, 'viewer.html')
         }
       }
     }

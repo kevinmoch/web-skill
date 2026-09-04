@@ -8,4 +8,7 @@
  * 响应头（CSP + CORS）由 `vite.config.ts` 的 viewer 路由中间件挂，是宿主的部署责任——
  * `sandbox` 指令写在 `<meta>` 里会被忽略。
  */
-export const VIEWER_URL = '/viewer.html';
+import { withBase } from '../../base';
+
+/** SDK 侧是 `window.open(viewerUrl)`：子路径/相对部署下不过 base 会打到站点根 */
+export const VIEWER_URL = withBase('/viewer.html');
