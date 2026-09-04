@@ -1,12 +1,13 @@
 node_modules/
 build/
 dist/
+dist-docs/
 coverage/
 .DS_Store
 *.log
 .env*
 !.env.example
-docs-authoring/
+
 # 本仓库统一用 pnpm（packageManager 字段已固定）
 package-lock.json
 yarn.lock

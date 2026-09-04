@@ -25,6 +25,7 @@ import {
   type LucideIcon
 } from 'lucide-react';
 import DocsImage from './DocsImage';
+import { withBase } from '../../docs/base';
 
 /** 当前章 slug，供标题锚点 # 拼出可复制的深链（#/docs/<slug>#<id>） */
 export const DocsSlugContext = createContext<string>('');
@@ -332,10 +333,11 @@ const components: Components = {
   p: renderP,
   a: ({ children, href }) => {
     // 规范 §2：brand-1 + 下划线（offset .125rem）+ 字重 500；§6：外链自动追加小箭头
+    // 根绝对链接（/demo 等）按构建 base 加前缀（主站 base='/' 时零操作）
     const external = !!href && href.includes('://');
     return (
       <a
-        href={href}
+        href={href ? withBase(href) : href}
         className="font-medium text-accent underline underline-offset-[0.125rem]"
         {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
       >

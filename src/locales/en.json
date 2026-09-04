@@ -266,6 +266,7 @@
   "docs": {
     "pageTitle": "Docs",
     "sidebarTitle": "Documentation",
+    "demoEntry": "Live Demo",
     "menu": "Chapters",
     "close": "Close",
     "searchPlaceholder": "Search chapters…",

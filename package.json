@@ -11,6 +11,8 @@
     "dev:sdk:dist": "cross-env WEBSKILL_SRC=../web-skill-sdk WEBSKILL_LINK=dist vite --port=3000",
     "build": "vite build",
     "build:sdk:dist": "cross-env WEBSKILL_SRC=../web-skill-sdk WEBSKILL_LINK=dist vite build",
+    "build:docs": "vite build --config vite.docs.config.ts",
+    "preview:docs": "vite preview --config vite.docs.config.ts",
     "preview": "vite preview",
     "clean": "rimraf dist",
     "lint": "tsc --noEmit",

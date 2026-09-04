@@ -266,6 +266,7 @@
   "docs": {
     "pageTitle": "文档",
     "sidebarTitle": "文档目录",
+    "demoEntry": "在线演示",
     "menu": "章节",
     "close": "关闭",
     "searchPlaceholder": "搜索章节…",

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
+import { withBase } from '../../docs/base';
 
 interface DocsImageProps {
   src?: string;
@@ -47,6 +48,8 @@ export default function DocsImage({ src, alt, caption, imgClassName }: DocsImage
   }, [open]);
 
   const label = caption ?? alt;
+  // 根绝对路径按构建 base 加前缀（主站 base='/' 时零操作；独立文档构建子路径部署时必需）
+  const resolvedSrc = src ? withBase(src) : src;
   // SVG（Mermaid 图）天然分辨率小，位图式 max 约束不会放大它；
   // 给 SVG 一个 90vw×90vh 的盒子 + object-contain，让它在盒内等比放大（矢量无损）。
   // 位图（截图）保持 max 约束，不放超过原始尺寸（避免糊）。
@@ -55,7 +58,7 @@ export default function DocsImage({ src, alt, caption, imgClassName }: DocsImage
     <>
       <figure className="my-4">
         <img
-          src={src}
+          src={resolvedSrc}
           alt={alt ?? ''}
           loading="lazy"
           onClick={() => setOpen(true)}
@@ -79,7 +82,7 @@ export default function DocsImage({ src, alt, caption, imgClassName }: DocsImage
             className="fixed inset-0 z-[70] flex cursor-zoom-out items-center justify-center bg-bg/80 p-4 backdrop-blur-sm"
           >
             <motion.img
-              src={src}
+              src={resolvedSrc}
               alt={alt ?? ''}
               initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

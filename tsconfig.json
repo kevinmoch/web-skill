@@ -19,5 +19,5 @@
     "allowImportingTsExtensions": true,
     "noEmit": true
   },
-  "exclude": ["demo", "dist"]
+  "exclude": ["demo", "dist", "dist-docs"]
 }

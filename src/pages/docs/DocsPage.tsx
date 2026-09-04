@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'motion/react';
 import { List, PenLine, X } from 'lucide-react';
@@ -13,6 +13,12 @@ export interface DocsPageProps {
   slug: string | null;
   /** 章内锚点（##/### 标题 id） */
   anchor: string | null;
+  /**
+   * 可选的侧栏顶部插槽（独立文档构建用来放语言切换——它没有主站 header，
+   * 切换按钮需要新位置）。桌面端渲染在侧栏顶部，窄屏渲染在「菜单」那一行右侧；
+   * 主站不传，布局完全不变。
+   */
+  sidebarTop?: ReactNode;
 }
 
 /**
@@ -20,7 +26,7 @@ export interface DocsPageProps {
  * + 正文区 + 右栏大纲（章节页内渲染）。`docs-root` 类承载视觉规范的作用域
  * CSS 变量与 CJK 断行规则（index.css，规范 §1/§2）。
  */
-export default function DocsPage({ t, slug, anchor }: DocsPageProps) {
+export default function DocsPage({ t, slug, anchor, sidebarTop }: DocsPageProps) {
   const { i18n } = useTranslation();
   const isZh = (i18n.resolvedLanguage || i18n.language || '').startsWith('zh');
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -60,12 +66,14 @@ export default function DocsPage({ t, slug, anchor }: DocsPageProps) {
           {t('docs.menu')}
         </button>
         <span className="truncate text-sm text-text-dim">{heading}</span>
+        {sidebarTop && <div className="ml-auto shrink-0">{sidebarTop}</div>}
       </div>
 
       <div className="flex gap-10">
         {/* 桌面侧栏：17rem、底色 bg-alt（规范 §2/§6） */}
         <aside className="hidden w-[17rem] shrink-0 min-[60rem]:block">
           <div className="sticky top-6 flex h-[calc(100vh-4rem)] flex-col rounded-lg border border-[var(--docs-divider)] bg-surface p-4">
+            {sidebarTop && <div className="mb-3 flex shrink-0 justify-end">{sidebarTop}</div>}
             <DocsSidebar t={t} isZh={isZh} currentSlug={slug} />
           </div>
         </aside>
