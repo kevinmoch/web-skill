@@ -298,7 +298,7 @@
     "readAll": "从第 1 章开始顺序阅读 →",
     "versionTitle": "版本基线",
     "versionDesc": "本手册基于以下版本撰写，界面与文案以它们为准：",
-    "versions": ["@webskill/sdk 0.19.0", "@webskill/chatbot 0.16.0", "@webskill/console 0.16.0"],
+    "versions": ["@webskill/sdk 0.20.0", "@webskill/chatbot 0.17.0", "@webskill/console 0.16.1"],
     "editionsTitle": "先确认你用的是哪种形态",
     "editionsDesc": "WebSkill 有网页版与浏览器扩展版两种形态，能力差异集中在第三部分「页面能力」。拿不准自己在用哪个，先看第 2 章《网页版与扩展版》。",
     "overviewTitle": "全书能力总览",

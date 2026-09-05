@@ -14,7 +14,7 @@ A batch of data, a set of comparisons, a form to fill in — putting these into 
 
 Most answers are text. But when the content is itself "a batch of data" or "a form to fill in", the assistant draws the answer straight into an interface — no setup needed from you. The same question may get text this time and a table next time, depending on which is clearer. The interface's colors follow your light/dark theme automatically; you don't need to re-ask after switching themes.
 
-![M-09 What an answer can look like](/docs-assets/generative-ui/M-09.svg)
+![M-09 What an answer can look like](/docs-assets/generative-ui/en/M-09.svg)
 
 An answer has six possible looks: forms are for you to fill in, a document wants you to click a button to open it, and the rest are mainly for looking at.
 
@@ -24,7 +24,7 @@ An answer has six possible looks: forms are for you to fill in, a document wants
 
 List-type answers usually come straight out as a table. Click a column header to sort; drag a column's edge to adjust its width. With lots of data, the table may show a few rows first and fill in row by row after — it's drawing while generating, not stuck.
 
-![A table answer: click a column header to sort, drag a column edge to adjust its width](/docs-assets/generative-ui/zh/S-genui-01-table.png)
+![A table answer: click a column header to sort, drag a column edge to adjust its width](/docs-assets/generative-ui/en/S-genui-01-table.png)
 
 List-type answers come out as sortable tables. Sample run output; your actual output will differ.
 
@@ -32,7 +32,7 @@ List-type answers come out as sortable tables. Sample run output; your actual ou
 
 Trend, share, and comparison answers get charts, often with a few metric cards alongside: one big number plus a name. In the Demo, send `Generate an agile operations report for the current project covering sprint health, requirement distribution, defect hotspots and test quality` and you'll see a report-style answer mixing metric cards, charts, and tables.
 
-![A chart answer, with metric cards alongside](/docs-assets/generative-ui/zh/S-genui-02-chart.png)
+![A chart answer, with metric cards alongside](/docs-assets/generative-ui/en/S-genui-02-chart.png)
 
 Charts and metric cards can be mixed together. Sample run output; your actual output will differ.
 
@@ -40,7 +40,7 @@ Charts and metric cards can be mixed together. Sample run output; your actual ou
 
 When the assistant needs several pieces of information at once, besides popping up a fixed card (see [Six Interaction Cards](#/docs/interactions)), it may also draw the form right into the answer: text boxes, dropdowns, dates, checkboxes — fill it in and click submit. Item groups that can be repeated carry "Add" and "Remove" buttons. When a dropdown shows "No options are available for this field.", the option list is empty — it isn't broken; just tell it in words instead.
 
-![A form answer: fields can be filled in directly, and item groups can be added and removed](/docs-assets/generative-ui/zh/S-genui-03-form.png)
+![A form answer: fields can be filled in directly, and item groups can be added and removed](/docs-assets/generative-ui/en/S-genui-03-form.png)
 
 A form drawn into an answer; below an empty field there may be a line with a suggested value — see below. Sample run output; your actual output will differ.
 
@@ -48,7 +48,7 @@ A form drawn into an answer; below an empty field there may be a line with a sug
 
 Status-distribution and progress-overview answers may give a kanban: cards laid out in columns, so you can see at a glance which column is piled up. A kanban is laid out for looking at — cards can't be dragged.
 
-![A kanban answer: cards laid out in columns](/docs-assets/generative-ui/zh/S-genui-04-kanban.png)
+![A kanban answer: cards laid out in columns](/docs-assets/generative-ui/en/S-genui-04-kanban.png)
 
 A kanban lays a pile of statuses out by zone, for viewing only. Sample run output; your actual output will differ.
 
@@ -56,7 +56,7 @@ A kanban lays a pile of statuses out by zone, for viewing only. Sample run outpu
 
 Full-page works like dashboards, formal documents, and slide decks appear in the conversation as a card with an "Open document" button; click it and the work opens in a new window. In the Demo, send `Open the current project's delivery monitoring dashboard in a new window — sprint progress, defect distribution, test quality, and DORA metrics on one screen` to get one. For how to page through, print, and export after opening, see [Artifacts: Dashboards, Documents, Slides, and Printing](#/docs/artifacts).
 
-![A document answer: a card with an "Open document" button](/docs-assets/generative-ui/zh/S-genui-05-document.png)
+![A document answer: a card with an "Open document" button](/docs-assets/generative-ui/en/S-genui-05-document.png)
 
 Click "Open document" and the full-page work opens in a new window.
 
@@ -76,7 +76,7 @@ Interface answers are saved on your device along with the session. In the round 
 
 No data is lost — the interface has become a saved record. If you want to operate it again, send a new sentence and have it draw a fresh one.
 
-![An interface card in a past session, with "This is a saved record — its actions are no longer available." shown below](/docs-assets/generative-ui/zh/S-genui-06-readonly.png)
+![An interface card in a past session, with "This is a saved record — its actions are no longer available." shown below](/docs-assets/generative-ui/en/S-genui-06-readonly.png)
 
 When you page back to it, the buttons no longer work, and the notice is attached below the interface.
 

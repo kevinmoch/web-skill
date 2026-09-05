@@ -15,13 +15,13 @@ Under "Try an example" on the welcome screen, click this quick prompt, or type i
 
 This comes verbatim from the quick prompts on the Demo's welcome screen. It triggers a page read: a perception notice appears in the answer area first — "Reading page content (scope: {scope})" — then the assistant summarizes section by section based on what it read.
 
-![The perception notice, showing the region being read](/docs-assets/case-summarize/zh/S-case-sum-03-reading-scope-hint.png)
+![The perception notice, showing the region being read](/docs-assets/case-summarize/en/S-case-sum-03-reading-scope-hint.png)
 
 Which region was read is written right in the conversation — no guessing.
 
 The boundaries of the read are exactly the same as in chapter 13:
 
-![M-14 Which parts of a page the assistant can see](/docs-assets/page-perception/M-14.svg)
+![M-14 Which parts of a page the assistant can see](/docs-assets/page-perception/en/M-14.svg)
 
 It reads body text, tables, and form labels; password field values are not read; whether the page's images are read is controlled by your toggle.
 
@@ -29,7 +29,7 @@ It reads body text, tables, and form labels; password field values are not read;
 
 The items and numbers cited in the summary come from the Requirements screen itself, not from a retelling.
 
-![After asking on the Requirements screen, the summary the assistant gave from that screen's real data](/docs-assets/case-summarize/zh/S-case-sum-01-requirements-screen.png)
+![After asking on the Requirements screen, the summary the assistant gave from that screen's real data](/docs-assets/case-summarize/en/S-case-sum-01-requirements-screen.png)
 
 Every item in the summary can be found verbatim on this screen. Sample run output — your actual output will differ.
 
@@ -37,7 +37,7 @@ Every item in the summary can be found verbatim on this screen. Sample run outpu
 
 Switch to the **Bugs** screen on the left, and send the same sentence verbatim once more.
 
-![Asking the same sentence on the Bugs screen, the summarized content is completely different](/docs-assets/case-summarize/zh/S-case-sum-02-bugs-screen-same-prompt.png)
+![Asking the same sentence on the Bugs screen, the summarized content is completely different](/docs-assets/case-summarize/en/S-case-sum-02-bugs-screen-same-prompt.png)
 
 Not a word of the phrasing changed, yet the summarized content is completely different. Sample run output — your actual output will differ.
 
@@ -50,7 +50,7 @@ The assistant judges intent, not wording — these two also produce summaries:
 - On the **Overview** screen, a more focused one appears among the quick prompts: `Give me a readout of the page I am on: which screen and which project I am viewing, plus its headline stats — backlog size, sprint progress, open defects and test quality`. It triggers a summary that reports only those items.
 - To have it read the attached documents too: `Read the requirement documents with attachments in the list I am viewing, extract acceptance criteria, and list items present in the documents but missing from the tickets`. It triggers this: the assistant doesn't just read the list — it opens each requirement document with an attachment, reads out the text, and compares it against the ticket. For how a document gets read into text, see [Attachments, Images, Voice, and Camera](#/docs/attachments).
 
-![The assistant extracted acceptance criteria from the requirement documents and listed items present in the documents but missing from the tickets](/docs-assets/case-summarize/zh/S-case-sum-04-doc-digest.png)
+![The assistant extracted acceptance criteria from the requirement documents and listed items present in the documents but missing from the tickets](/docs-assets/case-summarize/en/S-case-sum-04-doc-digest.png)
 
 Items present in the documents but missing from the tickets are listed one by one. Sample run output — your actual output will differ.
 

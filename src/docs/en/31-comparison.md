@@ -4,7 +4,7 @@ The two forms are the same assistant: embedded in a website it's the web version
 
 How to read the tables: one capability per row, with only three possible values — Yes / No / Limited — and a short note in parentheses. The exact limits behind "Limited" are written in the chapter each row's "Details" links to; they're not repeated here.
 
-![M-31 The capability boundary: the inner circle is what the web version can reach — the one website it lives on; the outer circle is what the extension version can reach — any web page, multiple tabs, files downloaded on this machine; the outer circle's edge is marked with constraints: password fields are not read, at most 32 pages open at once per round, authorizations are revocable](/docs-assets/comparison/M-31.svg)
+![M-31 The capability boundary: the inner circle is what the web version can reach — the one website it lives on; the outer circle is what the extension version can reach — any web page, multiple tabs, files downloaded on this machine; the outer circle's edge is marked with constraints: password fields are not read, at most 32 pages open at once per round, authorizations are revocable](/docs-assets/comparison/en/M-31.svg)
 
 The outer circle is one size bigger than the inner one, but the circle's edge is marked with constraints: bigger capability, boundaries still clear.
 

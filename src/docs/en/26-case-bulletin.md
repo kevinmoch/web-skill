@@ -2,7 +2,7 @@
 
 With one sentence, the assistant turns the current project's quality situation into a formal bulletin: issuing unit, tables, conclusion, and signature block all in place, laid out for A4, ready to print or save as a PDF. This chapter strings together skills, the artifact window, and printing into one complete task.
 
-![From one sentence to a PDF: make the request → the assistant generates the bulletin → preview in the conversation → open the document → print or save as PDF; asking for changes goes back to "generate a fresh version"](/docs-assets/case-bulletin/M-26.svg)
+![From one sentence to a PDF: make the request → the assistant generates the bulletin → preview in the conversation → open the document → print or save as PDF; asking for changes goes back to "generate a fresh version"](/docs-assets/case-bulletin/en/M-26.svg)
 
 ## Before you start
 
@@ -19,7 +19,7 @@ Generate a printable quality bulletin for the current project with defect trends
 
 This sentence sets no scope and states no requirements, so the assistant goes with a "ready-made" fixed-template skill: fast and steady, but not editable. The ready-made vs. made-on-the-spot trade-off is covered in [Skills: Giving the Assistant Expertise](#/docs/skills-usage) and isn't repeated here.
 
-![A summary of the bulletin's key points appears in the conversation, with an "Open document" button](/docs-assets/case-bulletin/zh/S-case-bul-01-preview.png)
+![A summary of the bulletin's key points appears in the conversation, with an "Open document" button](/docs-assets/case-bulletin/en/S-case-bul-01-preview.png)
 
 The assistant first gives a brief summary of the bulletin's key points, with an **Open document** button at the end. Sample run output — your actual output will differ.
 
@@ -27,7 +27,7 @@ The assistant first gives a brief summary of the bulletin's key points, with an 
 
 Click **Open document**. Before the window opens, a **Confirmation** card pops up, stating who wants to open the window and where the data comes from; the window only opens when you click **Confirm** (see [Artifacts: Dashboards, Documents, Slides, and Printing](#/docs/artifacts)).
 
-![The bulletin opened in a separate window, with letterhead, tables, and signature block complete](/docs-assets/case-bulletin/zh/S-case-bul-02-document.png)
+![The bulletin opened in a separate window, with letterhead, tables, and signature block complete](/docs-assets/case-bulletin/en/S-case-bul-02-document.png)
 
 It isn't a stretch of plain text but a fully laid-out bulletin: the red letterhead and issue number, the defect-grading table, the test-coverage table, the four DORA metrics, the release-readiness score and conclusion, and the signature block with seal. The layout the skill set (margins and such) is preserved when printing.
 
@@ -37,9 +37,9 @@ It isn't a stretch of plain text but a fully laid-out bulletin: the red letterhe
 2. Check the layout in the print preview.
 3. Print directly; to save it as a file, choose "Save as PDF" as the print destination.
 
-![The bulletin in the print preview, the A4 layout matching what's on screen](/docs-assets/case-bulletin/zh/S-case-bul-03-print-preview.png)
+![The bulletin in the print preview, the A4 layout matching what's on screen](/docs-assets/case-bulletin/en/S-case-bul-03-print-preview.png)
 
-![The bulletin file after saving as a PDF](/docs-assets/case-bulletin/zh/S-case-bul-04-pdf.png)
+![The bulletin file after saving as a PDF](/docs-assets/case-bulletin/en/S-case-bul-04-pdf.png)
 
 ## Step 4: Ask it for a revised version
 
@@ -51,7 +51,7 @@ Keep only this sprint's data, and turn the release-readiness section into a tabl
 
 The assistant switches to a "made on the spot" skill, fetches the data again, and lays out a **fresh** version rather than fine-tuning the original — the skill badge changes its name along with it. Seeing it redo the whole thing doesn't mean it misunderstood you.
 
-![The second version regenerated after asking for changes, its skill badge different from the first](/docs-assets/case-bulletin/zh/S-case-bul-05-second-version.png)
+![The second version regenerated after asking for changes, its skill badge different from the first](/docs-assets/case-bulletin/en/S-case-bul-05-second-version.png)
 
 What saves a round is stating your requirements up front:
 
@@ -69,12 +69,12 @@ With the scope limited and the structure specified, the first attempt goes "made
 
 ## What this used
 
-| Step | Chapter |
-| --- | --- |
-| Setting a skill in motion with one sentence, recognizing the skill badge | [Skills: Giving the Assistant Expertise](#/docs/skills-usage) |
-| Watching what the assistant does step by step | [Seeing What the Assistant Is Doing](#/docs/transparency) |
-| The "Confirmation" card before the window opens | [Six Interaction Cards](#/docs/interactions) |
-| Opening the document, printing, and saving as a PDF | [Artifacts: Dashboards, Documents, Slides, and Printing](#/docs/artifacts) |
+| Step                                                                     | Chapter                                                                    |
+| ------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| Setting a skill in motion with one sentence, recognizing the skill badge | [Skills: Giving the Assistant Expertise](#/docs/skills-usage)              |
+| Watching what the assistant does step by step                            | [Seeing What the Assistant Is Doing](#/docs/transparency)                  |
+| The "Confirmation" card before the window opens                          | [Six Interaction Cards](#/docs/interactions)                               |
+| Opening the document, printing, and saving as a PDF                      | [Artifacts: Dashboards, Documents, Slides, and Printing](#/docs/artifacts) |
 
 ## Web version vs. extension version
 

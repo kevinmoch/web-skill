@@ -9,79 +9,11 @@ import type { Screen } from '../types';
  * 2. 不写死 ID——写「当前项目」「我正在看的这张表」，让 Agent 走感知；
  * 3. 要画面就说画面——涉及取像的必须出现「看图 / 截图 / 画面」。
  *
- * 全局 8 条走宿主种子（只注入一次，之后归 console「快捷指令」页管理），
- * 当前屏最多 4 条走 dynamicQuickPrompts 实时下发（SDK 0.13.0 分册 17）。
+ * 全局条的出厂种子写在 config.json 的 `quickPrompts.items` 里（只注入一次，之后归 console「快捷指令」页管理），
+ * 本文件只负责当前屏最多 4 条、随换屏实时下发的那批（SDK 0.13.0 分册 17）。
  * 文案按语种写在同一个 `text` 里由 chatbot 按 locale 解析（分册 21），不再维护两份平行数组。
  * 图标取 SDK 受控枚举（0.12.0 分册 21）：按意图就近选，不追求唯一。
  */
-
-/** 与所在屏无关的通用指令，作为宿主种子 */
-export const GLOBAL_QUICK_PROMPTS: QuickPrompt[] = [
-  {
-    icon: 'report',
-    text: {
-      zh: '生成当前项目的敏捷运营报告，覆盖迭代健康、需求分布、缺陷热点和测试质量',
-      en: 'Generate an agile operations report for the current project covering sprint health, requirement distribution, defect hotspots and test quality'
-    }
-  },
-  {
-    icon: 'document',
-    text: {
-      zh: '为当前项目生成一份可打印的质量通报公文，包含缺陷趋势、测试覆盖和发布就绪度结论',
-      en: 'Generate a printable quality bulletin for the current project with defect trends, test coverage and a release-readiness conclusion'
-    }
-  },
-  {
-    icon: 'report',
-    text: {
-      zh: '用周报模板输出本迭代的进展简报',
-      en: 'Output this sprint’s progress brief using the weekly report template'
-    }
-  },
-  {
-    icon: 'metric',
-    text: {
-      zh: '分析当前迭代的燃尽情况，判断能否按时收尾，说明依据和风险',
-      en: 'Analyze the current sprint’s burndown, judge whether it can land on time, and explain the evidence and risks'
-    }
-  },
-  {
-    icon: 'compare',
-    text: {
-      zh: '对比所有项目的交付健康度，给出排名和掉队项目的原因',
-      en: 'Compare delivery health across all projects, rank them, and explain why the lagging ones fall behind'
-    }
-  },
-  {
-    icon: 'page',
-    text: {
-      zh: '读取我当前正在看的这个页面的内容，总结出关键信息和异常项',
-      en: 'Read the page I am currently looking at and summarize the key information and anomalies'
-    }
-  },
-  {
-    icon: 'page',
-    text: {
-      zh: '在新窗口打开当前项目的交付监控大屏：迭代进度、缺陷分布、测试质量与 DORA 指标一屏总览',
-      en: 'Open the current project’s delivery monitoring screen in a new window: sprint progress, defect distribution, test quality and DORA metrics on one page'
-    }
-  },
-  // sprint-closeout 已固化为内置技能，从「用户技能动态芯片」迁为静态全局芯片
-  {
-    icon: 'list',
-    text: {
-      zh: '对当前迭代做收尾核对，覆盖假完成需求、未关闭缺陷分级和测试覆盖缺口，给出结转清单与下迭代建议',
-      en: 'Run the end-of-sprint closeout for the current project: audit false-Done requirements, triage open defects by severity, check coverage gaps, and produce carry-over items with next-sprint recommendations'
-    }
-  },
-  {
-    icon: 'chart',
-    text: {
-      zh: '把所有项目的交付质量做成一份幻灯片，在新窗口里放映，支持翻页和导出 PDF',
-      en: 'Turn delivery quality across all projects into a slide deck, present it in a new window with page navigation and PDF export'
-    }
-  }
-];
 
 const BY_SCREEN: Partial<Record<Screen, QuickPrompt[]>> = {
   overview: [

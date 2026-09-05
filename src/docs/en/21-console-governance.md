@@ -14,7 +14,7 @@ A skill isn't frozen once installed: where new skills come from, who approved th
 
 After you [save a successful process as a skill](#/docs/skills-usage) in a conversation, it doesn't take effect directly — it enters the **Review Queue** as a skill awaiting approval; only after you review and publish it does it enter the library. Every later edit, publish, and rollback goes into the **Audit Log**; when a change goes wrong you go back to an old version on the **Versions** page; **Evaluation** and **Insights** answer two other questions: is it still stable after the change, and what should be cleaned up.
 
-![M-22 The gate a new skill passes to enter the library: a skill awaiting approval is published or rejected through the review queue, enters the library once published, every change is recorded in the audit log, and problems can be rolled back to an older version](/docs-assets/console-governance/M-22.svg)
+![M-22 The gate a new skill passes to enter the library: a skill awaiting approval is published or rejected through the review queue, enters the library once published, every change is recorded in the audit log, and problems can be rolled back to an older version](/docs-assets/console-governance/en/M-22.svg)
 
 The five pages sit under the **Governance** group in the Console's left navigation, and their top-to-bottom order is exactly this line: Review Queue, Audit Log, Versions, Evaluation, Insights.
 
@@ -40,9 +40,9 @@ Reviewing an entry:
 3. If it's fine, click **Publish**. One click completes the whole review procedure (for a draft, the submit and approve steps are filled in automatically), followed by the notice "Published {name} — installed, versioned and audited."
 4. If not, click **Reject**: a rejection reason is required (the input box prompts "What has to change before this can be published?"), the button won't budge without one, and the reason stays on record. Rejecting only works on "pending-review" and "approved"; a **draft** can't be rejected — if you don't want it, click **Delete** in the list.
 
-![The review queue list: every entry carries status, source, and risk badges](/docs-assets/console-governance/zh/S-console-gov-01-review-queue.png)
+![The review queue list: every entry carries status, source, and risk badges](/docs-assets/console-governance/en/S-console-gov-01-review-queue.png)
 
-![The details list risk reasons and full file text one by one, with "Publish / Reject" at the bottom](/docs-assets/console-governance/zh/S-console-gov-06-review-actions.png)
+![The details list risk reasons and full file text one by one, with "Publish / Reject" at the bottom](/docs-assets/console-governance/en/S-console-gov-06-review-actions.png)
 
 Publishing takes effect immediately: the skill appears in the [library](#/docs/console-skills) and works in the conversation right away. When saving a skill from a conversation, the card's **Go to review** jumps straight to this page with that entry selected (the candidate ID can be copied); when the entry is no longer in the queue, the page states its possible whereabouts (approved, rejected, or removed) instead of leaving you to comb the list.
 
@@ -60,7 +60,7 @@ Publishing takes effect immediately: the skill appears in the [library](#/docs/c
 
 Installing, uninstalling, publishing, rolling back, quarantining, changing security and privacy policies, swapping model configurations… every action becomes a row: time, event, target, actor. The event column shows codes (like `skill.published`); the "Filter by type…" dropdown lists every event type with each entry spelled out, so there's no name-guessing. Click **View details** to expand a row's specifics.
 
-![The audit log: every row is one change, filterable by type and actor](/docs-assets/console-governance/zh/S-console-gov-02-audit-log.png)
+![The audit log: every row is one change, filterable by type and actor](/docs-assets/console-governance/en/S-console-gov-02-audit-log.png)
 
 This record only grows. Click **Verify chain**: "Chain intact" means it's sound; when the chain breaks at some row, the page states the break point and the reason, the records before the break remain visible, and the notice carries a **Retry** entry.
 
@@ -86,9 +86,9 @@ Rolling back to a previous version:
 2. A dialog confirms once more: the old version's files must pass verification before anything happens, and any failure fully restores the current files.
 3. After "Rolled back to {versionId}." appears, go back to the conversation and use the skill once more — it behaves like the old version, not just a changed version number.
 
-![Rollback has a second confirmation and spells out the verification and restore behavior](/docs-assets/console-governance/zh/S-console-gov-07-rollback.png)
+![Rollback has a second confirmation and spells out the verification and restore behavior](/docs-assets/console-governance/en/S-console-gov-07-rollback.png)
 
-![The Versions page: version history and skill states on the same page](/docs-assets/console-governance/zh/S-console-gov-03-versions.png)
+![The Versions page: version history and skill states on the same page](/docs-assets/console-governance/en/S-console-gov-03-versions.png)
 
 Below on the same page is **Skill states**: a skill whose consecutive failures reach the threshold (5 by default, stated on the page) is quarantined automatically (state quarantined), and the assistant stops calling it. The quarantine reason is shown directly — "consecutive failed runs" and "integrity verification failed" (the files were modified) are told apart; calls blocked by safety policy don't count as failures. Click **Diagnose** to have the assistant analyze the latest failure and propose a repair plan — click **Apply** on whichever suggestion you accept; you can also switch it back to active in the state dropdown. Quarantine isn't lifted automatically just because one run happens to succeed.
 
@@ -108,7 +108,7 @@ At the bottom of the page is the **Runtime miss hook** switch: when it's on, and
 
 Each task has three fields: `Prompt` (one instruction), expected substring (optional), and skills (optional, comma-separated). Click **Run all** to run the whole set; the button shows progress (Running {done}/{total}…). A report comes out afterwards: pass rate, average score, and per-task conclusions; failed ones show the gap between expected and actual, and you can click through to that run's details.
 
-![The Evaluation page: task list, "Run all", and the latest report; the report content is an example from a real run — your actual results will differ](/docs-assets/console-governance/zh/S-console-gov-04-evaluation.png)
+![The Evaluation page: task list, "Run all", and the latest report; the report content is an example from a real run — your actual results will differ](/docs-assets/console-governance/en/S-console-gov-04-evaluation.png)
 
 **Regression suggestions** are genuinely handy: copy a failed run's ID from [Run History](#/docs/console-runs), paste it into the input box, and click **Suggest & add** — it generates a new task modeled on that failure, watching that pitfall for you in every future evaluation.
 
@@ -134,7 +134,7 @@ Each task has three fields: `Prompt` (one instruction), expected substring (opti
 
 **Usage statistics**: each skill's activation, success, and failure counts, charted in success and failure series.
 
-![The Insights page: scorecards, possible duplicates, the dependency graph, and usage statistics](/docs-assets/console-governance/zh/S-console-gov-05-insights.png)
+![The Insights page: scorecards, possible duplicates, the dependency graph, and usage statistics](/docs-assets/console-governance/en/S-console-gov-05-insights.png)
 
 ## Web version vs. extension version
 

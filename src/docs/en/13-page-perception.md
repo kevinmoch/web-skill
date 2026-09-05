@@ -21,7 +21,7 @@ No fixed phrasing needed — just get the meaning "read the current page" across
 
 This comes verbatim from the quick prompts on the Demo's welcome screen. It triggers a page read: a perception notice appears in the answer area first, then the assistant summarizes section by section based on what it read.
 
-![A summary the assistant produced from the page's real data](/docs-assets/page-perception/zh/S-perception-04-summary-result.png)
+![A summary the assistant produced from the page's real data](/docs-assets/page-perception/en/S-perception-04-summary-result.png)
 
 The numbers and items cited in the summary come from the page itself. Sample run output — your actual output will differ.
 
@@ -29,13 +29,13 @@ The numbers and items cited in the summary come from the page itself. Sample run
 
 When a read happens, the answer area shows a notice: **Reading page content (scope: {scope})**. The notice says which region was read — the region is marked out in advance by the system you're in; the assistant can't change it. In the Demo's case, the marked-out region is the main business area: lists, tables, and forms are inside it; the assistant's own chat panel is not.
 
-![The perception notice, showing the region being read](/docs-assets/page-perception/zh/S-perception-01-reading-scope.png)
+![The perception notice, showing the region being read](/docs-assets/page-perception/en/S-perception-01-reading-scope.png)
 
 What was read is written right in the conversation — no guessing.
 
 If the system has marked regions not to read, the interface tells you that too: **Excluded: {scope}**.
 
-![The exclusion notice, stating which region was not read](/docs-assets/page-perception/zh/S-perception-02-excluded.png)
+![The exclusion notice, stating which region was not read](/docs-assets/page-perception/en/S-perception-02-excluded.png)
 
 A region named in "Excluded" never enters the assistant's view.
 
@@ -54,7 +54,7 @@ Attachments hanging on table rows don't need downloading or opening one by one: 
 
 It first reads the list, recognizes the rows with documents, then reads each one's content for comparison. For defect screenshots, send: `Look at the screenshots of these defects on the current page, judge which ones may share a root cause, and explain the reasoning`. Both come verbatim from the quick prompts on the Demo's welcome screen. When what it reads out should be recorded into the system, the full walkthrough is in [Case: Importing a Document into the System](#/docs/case-import-file).
 
-![The assistant followed the document links in the requirement table to read multiple Word documents and gave a comparison](/docs-assets/page-perception/zh/S-perception-06-linked-docs.png)
+![The assistant followed the document links in the requirement table to read multiple Word documents and gave a comparison](/docs-assets/page-perception/en/S-perception-06-linked-docs.png)
 
 The answer states content from inside the documents — proof it really followed the links and read them, not just the link text. Sample run output — your actual output will differ.
 
@@ -64,7 +64,7 @@ Three boundaries:
 - **Defect screenshots count as images on the page**: they need **Page image capture** turned on first and a model badge showing "Images"; the switch is in "Images on the page" below.
 - **It reads the links that appear on the page.** Documents on the same website are read directly; when a link points to another website, a "Confirmation" card pops up first every time, with the full address to be fetched written on the card — it fetches only after you agree.
 
-![The "Confirmation" card that pops up before reading a document from another website, with the full address to be fetched written on the card](/docs-assets/page-perception/zh/S-perception-07-cross-origin-confirm.png)
+![The "Confirmation" card that pops up before reading a document from another website, with the full address to be fetched written on the card](/docs-assets/page-perception/en/S-perception-07-cross-origin-confirm.png)
 
 Every cross-website read needs your nod, with the address written out in full on the card.
 
@@ -75,7 +75,7 @@ Every cross-website read needs your nod, with the address written out in full on
 - **When it can't read something, it says so.** Ask about content outside its scope and it tells you it can't read it, rather than making up an answer.
 - **Text on the page can't pry the scope open.** Even if the page contains phrases like "ignore your previous instructions", excluded regions stay unread — the scope is set by the system you're in; page content doesn't get a say.
 
-![M-14 Which parts of a page the assistant can see](/docs-assets/page-perception/M-14.svg)
+![M-14 Which parts of a page the assistant can see](/docs-assets/page-perception/en/M-14.svg)
 
 It reads body text, tables, and form labels; password field values are not read; whether page images are read is controlled by your toggle.
 
@@ -85,13 +85,13 @@ By default the assistant reads text only — **not a single image is sent out**.
 
 Once it's on, reads show a few extra counts:
 
-| On-screen message | What it means |
-| --- | --- |
-| Captured {count} images | These images went to the model along with this read |
-| {count} omitted | Over the count limit, or tiny icon-type images — not sent |
-| {count} could not be read | Individual images failed; the text part is unaffected |
+| On-screen message         | What it means                                             |
+| ------------------------- | --------------------------------------------------------- |
+| Captured {count} images   | These images went to the model along with this read       |
+| {count} omitted           | Over the count limit, or tiny icon-type images — not sent |
+| {count} could not be read | Individual images failed; the text part is unaffected     |
 
-![The count notices for image capture](/docs-assets/page-perception/zh/S-perception-03-image-count.png)
+![The count notices for image capture](/docs-assets/page-perception/en/S-perception-03-image-count.png)
 
 Captured, omitted, and failed are counted separately, not merged into one number.
 
@@ -99,14 +99,14 @@ Turn the switch back off and text is still read while not a single image is sent
 
 ## Web version vs. extension version
 
-|  | Web version | Extension version |
-| --- | --- | --- |
-| Pages it can read | Only the one page the assistant is on | Any web page you have open |
-| Third-party frames embedded in the page | Limited | Can read cross-origin content nested several frames deep, text and images alike |
+|                                         | Web version                           | Extension version                                                               |
+| --------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------- |
+| Pages it can read                       | Only the one page the assistant is on | Any web page you have open                                                      |
+| Third-party frames embedded in the page | Limited                               | Can read cross-origin content nested several frames deep, text and images alike |
 
 > **Extension only**: On any website you open, the assistant can read the current page — including third-party frames embedded several layers deep, such as cross-origin content inside the body.
 
-![The extension version reading page content on an ordinary web page](/docs-assets/page-perception/zh/S-perception-05-extension-web.png)
+![The extension version reading page content on an ordinary web page](/docs-assets/page-perception/en/S-perception-05-extension-web.png)
 
 Bigger capability, same constraints: password values still aren't read, the image-capture switch still applies, and it still says plainly when it can't read something. Sample run output — your actual output will differ.
 

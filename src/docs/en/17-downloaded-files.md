@@ -26,15 +26,15 @@ Why does even listing need asking? Because file names are themselves information
 
 Click deny on either card and that's the end: it gets neither the list nor the file, and simply tells you honestly that it couldn't do it this time.
 
-![M-18 How many gates one read passes through](/docs-assets/downloaded-files/M-18.svg)
+![M-18 How many gates one read passes through](/docs-assets/downloaded-files/en/M-18.svg)
 
 Both cards need your nod; deny either one and the flow ends there; unreadable formats are already marked during listing.
 
-![The first authorization card that pops up before listing](/docs-assets/downloaded-files/zh/S-downloads-01.png)
+![The first authorization card that pops up before listing](/docs-assets/downloaded-files/en/S-downloads-01.png)
 
 The first gate: before you allow, it doesn't even know what's in the folder.
 
-![The second authorization card that pops up before reading a file, with the file's name and size on the card](/docs-assets/downloaded-files/zh/S-downloads-02.png)
+![The second authorization card that pops up before reading a file, with the file's name and size on the card](/docs-assets/downloaded-files/en/S-downloads-02.png)
 
 The second gate states which file it will read and how big it is; it reads only after you confirm.
 
@@ -53,13 +53,13 @@ The authorization cards have a "Don’t ask again" checkbox whose label spells o
 
 In other words, what's remembered is **not this one file**, but **this kind of action on the whole download folder**. The two kinds of actions are remembered separately: letting it list doesn't mean letting it open files.
 
-![Close-up of the "Don’t ask again" checkbox on the authorization card](/docs-assets/downloaded-files/zh/S-downloads-03.png)
+![Close-up of the "Don’t ask again" checkbox on the authorization card](/docs-assets/downloaded-files/en/S-downloads-03.png)
 
 Read the label before checking: it remembers this kind of action on the whole folder, not the one file in front of you.
 
 To take it back: open the Console, go to **Connections** → **Page Skills**, and find "Remembered page actions" — download authorizations and page actions are remembered in the same list; click **Revoke** (see [Connections](#/docs/console-connections)). Revoking takes effect immediately, and next time it asks you first again.
 
-![Revoking a remembered download authorization in the Console](/docs-assets/downloaded-files/zh/S-downloads-04.png)
+![Revoking a remembered download authorization in the Console](/docs-assets/downloaded-files/en/S-downloads-04.png)
 
 Remembered authorizations can be revoked one by one; afterwards, each action is confirmed individually again.
 
@@ -84,11 +84,11 @@ This capability is off out of the box. To use it, turn on two switches — both 
 
 1. **The capability switch in the Console.** Open the Console, go to **Settings** → **Sandbox & Security**, find the "Downloaded files" group, and turn on **Allow reading downloaded files**. While it's off, the assistant doesn't even know the capability exists — it won't propose looking at your files, rather than proposing and getting blocked.
 
-![Turning on "Allow reading downloaded files" in the Console](/docs-assets/downloaded-files/zh/S-downloads-05.png)
+![Turning on "Allow reading downloaded files" in the Console](/docs-assets/downloaded-files/en/S-downloads-05.png)
 
 2. **The browser's file-access switch.** Type `chrome://extensions` in the address bar, find this extension, click "Details", and turn on "Allow access to file URLs". The extension cannot turn this one on by itself — you must do it by hand. That's the browser protecting you, not the product being fussy.
 
-![Turning on "Allow access to file URLs" in chrome://extensions](/docs-assets/downloaded-files/zh/S-downloads-06.png)
+![Turning on "Allow access to file URLs" in chrome://extensions](/docs-assets/downloaded-files/en/S-downloads-06.png)
 
 This browser switch can only be turned on by you.
 

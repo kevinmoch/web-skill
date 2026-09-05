@@ -8,21 +8,21 @@ The WebSkill assistant comes in two forms: the **web version** is embedded in a 
 - Say what each form can and can't do
 - Know where to look up the detailed comparison
 
-![M-02 The two forms compared](/docs-assets/editions/M-02.svg)
+![M-02 The two forms compared](/docs-assets/editions/en/M-02.svg)
 
 The web-version assistant lives inside a website and can only read and write that one site; the extension-version assistant lives in the browser and can read and write any tab you have open.
 
 ## How to tell which one I'm using
 
-| Sign | Web version | Extension version |
-| --- | --- | --- |
-| Where the entry is | Inside the site's page (in the Demo, on the right edge of the page — click **Expand AI copilot**) | The browser's sidebar |
-| Close that website | The assistant disappears along with it | The assistant is still there |
+| Sign                | Web version                                                                                                                                                                   | Extension version                         |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Where the entry is  | Inside the site's page (in the Demo, on the right edge of the page — click **Expand AI copilot**)                                                                             | The browser's sidebar                     |
+| Close that website  | The assistant disappears along with it                                                                                                                                        | The assistant is still there              |
 | Opening the Console | Click **Settings** in the chat header (Demo); in other systems watch for an entry like "Open Console", leading to the in-site Console (where skills and settings are managed) | From the browser extension's options page |
 
 The one-sentence version: an assistant that lives inside one particular website is the web version; one that lives on the browser and stays with you when you change sites is the extension version.
 
-![The Console entry points of the two forms compared](/docs-assets/editions/zh/S-editions-03-console-entry.png)
+![The Console entry points of the two forms compared](/docs-assets/editions/en/S-editions-03-console-entry.png)
 
 The Console entry isn't in the same place on the two forms: on the web version (Demo) it's "Settings" in the chat header; on the extension version it's the browser extension's options page.
 
@@ -30,7 +30,7 @@ The Console entry isn't in the same place on the two forms: on the web version (
 
 The web version is provided by the system you're in — like this site's [Demo](/demo). It knows that system: it can read the system's pages, pull data with the tools the system provides, and fill in forms and click buttons in the system for you. Outside that website, it can neither see nor touch anything.
 
-![The web-version assistant in the Demo: the chat drawer open, the site's own interface next to it](/docs-assets/editions/zh/S-editions-01-web-in-site.png)
+![The web-version assistant in the Demo: the chat drawer open, the site's own interface next to it](/docs-assets/editions/en/S-editions-01-web-in-site.png)
 
 The assistant is embedded in the website — right next to the chat drawer is the site's own interface.
 
@@ -38,7 +38,7 @@ The assistant is embedded in the website — right next to the chat drawer is th
 
 Once the extension is installed, the assistant appears in the browser's sidebar, alongside any web page you open. It can read the current page and act on it for you, and it can also have several tabs open at once, gathering information scattered across several sites into one conclusion.
 
-![The extension-version assistant in the browser's sidebar, with an ordinary web page next to it](/docs-assets/editions/zh/S-editions-02-extension-sidepanel.png)
+![The extension-version assistant in the browser's sidebar, with an ordinary web page next to it](/docs-assets/editions/en/S-editions-02-extension-sidepanel.png)
 
 The assistant exists independently in the sidebar — it stays there no matter which site sits next to it.
 
@@ -50,14 +50,14 @@ Bigger capability, same constraints — these three hold at all times:
 
 ## Where the capabilities differ
 
-| Capability | Web version | Extension version |
-| --- | --- | --- |
-| Read the current page | Only the site the assistant is on | Any web page you have open |
-| Act on pages | Only the site the assistant is on | Any web page you have open |
-| Working across tabs | No | Yes |
-| Working through a list item by item | Possible within one site, via navigate-and-go-back | Across tabs and across sites, no action needed from you midway |
-| Downloading files | Regular browser download | Can confirm the download actually happened; the authorization is revocable |
-| Opening the Console | The in-site Console | The browser extension's options page |
+| Capability                          | Web version                                        | Extension version                                                          |
+| ----------------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------- |
+| Read the current page               | Only the site the assistant is on                  | Any web page you have open                                                 |
+| Act on pages                        | Only the site the assistant is on                  | Any web page you have open                                                 |
+| Working across tabs                 | No                                                 | Yes                                                                        |
+| Working through a list item by item | Possible within one site, via navigate-and-go-back | Across tabs and across sites, no action needed from you midway             |
+| Downloading files                   | Regular browser download                           | Can confirm the download actually happened; the authorization is revocable |
+| Opening the Console                 | The in-site Console                                | The browser extension's options page                                       |
 
 This is the short version. The full comparison (including nested frames, the cap on simultaneously open pages, and more) is in [Capability Comparison: Web vs Extension](#/docs/comparison).
 

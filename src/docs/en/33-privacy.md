@@ -13,7 +13,7 @@ Working with the assistant, one question can't be avoided: the things you say, t
 
 The assistant runs in your browser: the only place it stores data is this browser, and the only direction it sends data is the model service you configured yourself on the Console's **LLM** page (for how to configure it, see [Connections](#/docs/console-connections)).
 
-![M-33 Where the data goes: sessions, memory, skill files and settings stay on this machine; your questions, page content, tool results and attachment content go to the model; password field values never leave](/docs-assets/privacy/M-33.svg)
+![M-33 Where the data goes: sessions, memory, skill files and settings stay on this machine; your questions, page content, tool results and attachment content go to the model; password field values never leave](/docs-assets/privacy/en/M-33.svg)
 
 Three destinations in one diagram: the left zone is stored on this machine, the middle zone goes with the conversation to the model service you configured, the right zone never leaves; the original Word and Excel files stay on this machine — only the text read out of them is sent.
 
@@ -65,13 +65,13 @@ Attaching a file to the input field doesn't mean it's sent — it only counts on
 
 By default the assistant reads text only — **not a single image is sent out**. If you want it to look at images too, turn on a switch first: in the Console, the **Agent Runtime** page in the **Settings** group, the **Multimodal** section — **Page image capture** (the same switch also lives on the **Page Skills** page in the **Connections** group). It's off out of the box; the Demo has it on for demonstration. Turn it back off and text is still read while not a single image is sent.
 
-![M-14 Which parts of a page the assistant can see](/docs-assets/page-perception/M-14.svg)
+![M-14 Which parts of a page the assistant can see](/docs-assets/page-perception/en/M-14.svg)
 
 What gets read is body text, tables, and form labels; password field values are not read; whether page images are read is controlled by your toggle.
 
 Two prerequisites: the model capability badge must show "Images", and each message has count and size limits for images. For the count notices shown once it's on, see [Letting the Assistant Read the Page](#/docs/page-perception).
 
-![The Page Skills page: the Page image capture toggle and the recent reads are both on this page](/docs-assets/console-connections/zh/S-console-conn-04-page-skills.png)
+![The Page Skills page: the Page image capture toggle and the recent reads are both on this page](/docs-assets/console-connections/en/S-console-conn-04-page-skills.png)
 
 Right next to the switch is **Recent reads** — the time and region of every read can be checked.
 
@@ -89,11 +89,11 @@ Right next to the switch is **Recent reads** — the time and region of every re
 
 So "your preferences are stored only locally and never sent out" doesn't hold: **the raw records are not sent out, but the distilled conclusions are handed to the model as context.** If some entry shouldn't be sent, delete it one by one on the **Privacy & User Modeling** page (with a second confirmation); if you don't want the whole thing at all, turn off the master toggle — it will ask whether to "Also clear it" or "Keep it". For the full description, see [Settings](#/docs/console-settings).
 
-![The Privacy & User Modeling page: the master toggle, the profile list, and the clear buttons](/docs-assets/console-settings/zh/S-console-set-06-privacy.png)
+![The Privacy & User Modeling page: the master toggle, the profile list, and the clear buttons](/docs-assets/console-settings/en/S-console-set-06-privacy.png)
 
 The profile is not a black box: every entry is a plain readable sentence, deletable one by one.
 
-![The profile entry list: each entry carries a confidence mark](/docs-assets/console-settings/zh/S-privacy-02-profile-entries.png)
+![The profile entry list: each entry carries a confidence mark](/docs-assets/console-settings/en/S-privacy-02-profile-entries.png)
 
 ## What you can control
 
@@ -120,7 +120,7 @@ Sessions and run history, the three memory layers, the profile and behaviour rec
 - Deleting a session has no undo: the session and its run records are permanently deleted together (see [Managing Sessions](#/docs/sessions)); the browser's "clear site data" wipes the sessions along with everything else.
 - To see how much space is used on this machine, check **Storage** on the Console's **About & Diagnostics** page.
 
-![The About & Diagnostics page: version, storage, wired capabilities](/docs-assets/console-settings/zh/S-console-set-08-about.png)
+![The About & Diagnostics page: version, storage, wired capabilities](/docs-assets/console-settings/en/S-console-set-08-about.png)
 
 ## Web version vs. extension version
 

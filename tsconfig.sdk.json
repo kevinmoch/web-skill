@@ -14,6 +14,7 @@
       "@webskill/sdk/testing": ["../web-skill-sdk/packages/sdk/src/testing.ts"],
       "@webskill/sdk/node": ["../web-skill-sdk/packages/sdk/src/node.ts"],
       "@webskill/chatbot": ["../web-skill-sdk/packages/chatbot/src/index.ts"],
+      "@webskill/chatbot/config": ["../web-skill-sdk/packages/chatbot/src/config/index.ts"],
       "@webskill/console": ["../web-skill-sdk/packages/console/src/index.ts"],
       "@webskill/core": ["../web-skill-sdk/packages/core/src/index.ts"],
       "@webskill/runtime": ["../web-skill-sdk/packages/runtime/src/index.ts"],

@@ -28,7 +28,7 @@ These five kinds of tasks correspond to the five chapters of this part; this cha
 1. Click **Expand AI copilot** on the right edge of the page to open the chat drawer (skip if it's already open).
 2. Click **Settings** in the chat header (the gear icon; hovering shows its name). The Console opens in the site's main area, landing on the Overview page.
 
-![The Settings button in the Demo's chat header — click it to enter the Console](/docs-assets/console-tour/zh/S-console-tour-02-entry.png)
+![The Settings button in the Demo's chat header — click it to enter the Console](/docs-assets/console-tour/en/S-console-tour-02-entry.png)
 
 The entry isn't hidden in a menu: it's the gear at the far right of the chat header.
 
@@ -40,20 +40,20 @@ Two more shortcuts live inside the conversation: **View trace** on a message's a
 
 The left sidebar is the Console's entire table of contents: six top-level groups; open a group to see its pages — 25 in total. The order here matches exactly what you see in the interface.
 
-![Console overview: the six groups top to bottom in the left sidebar, page content on the right](/docs-assets/console-tour/zh/S-console-tour-01-shell.png)
+![Console overview: the six groups top to bottom in the left sidebar, page content on the right](/docs-assets/console-tour/en/S-console-tour-01-shell.png)
 
 The six groups in the sidebar correspond one-to-one with the table below.
 
-| Group | What it manages | Pages | Details |
-| --- | --- | --- | --- |
-| Overview | Workspace health: run metrics, things needing attention, recent runs | 1 | This chapter |
-| Skills | What's installed, editing skills, install & export, checking whether skill files were tampered with | 4 | [Skill Management](#/docs/console-skills) |
-| Runs | Records and details of every run, sessions, and what the assistant remembers | 3 | [Run History](#/docs/console-runs) |
-| Governance | Review before new skills enter the library, an unchangeable ledger of changes, version rollback, stability verification, usage statistics | 5 | [Governance and Review](#/docs/console-governance) |
-| Connections | Which model to use, external tool services, tools and temporary skills offered by the current page | 4 | [Connections](#/docs/console-connections) |
-| Settings | How long the assistant may run, what skill scripts may do, how generated interfaces look, quick prompts, trust, privacy, appearance, about | 8 | [Settings](#/docs/console-settings) |
+| Group       | What it manages                                                                                                                            | Pages | Details                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----- | -------------------------------------------------- |
+| Overview    | Workspace health: run metrics, things needing attention, recent runs                                                                       | 1     | This chapter                                       |
+| Skills      | What's installed, editing skills, install & export, checking whether skill files were tampered with                                        | 4     | [Skill Management](#/docs/console-skills)          |
+| Runs        | Records and details of every run, sessions, and what the assistant remembers                                                               | 3     | [Run History](#/docs/console-runs)                 |
+| Governance  | Review before new skills enter the library, an unchangeable ledger of changes, version rollback, stability verification, usage statistics  | 5     | [Governance and Review](#/docs/console-governance) |
+| Connections | Which model to use, external tool services, tools and temporary skills offered by the current page                                         | 4     | [Connections](#/docs/console-connections)          |
+| Settings    | How long the assistant may run, what skill scripts may do, how generated interfaces look, quick prompts, trust, privacy, appearance, about | 8     | [Settings](#/docs/console-settings)                |
 
-![M-19 A map of the Console: six groups and all 25 pages](/docs-assets/console-tour/M-19.svg)
+![M-19 A map of the Console: six groups and all 25 pages](/docs-assets/console-tour/en/M-19.svg)
 
 When you can't find a page, check this map first: every node is a page in the sidebar, and the names on the nodes match the interface.
 
@@ -73,7 +73,7 @@ Two wayfinding tricks:
 - Deal with what's under **Needs attention**: entries appear when candidate skills await your review or a recent run failed, and clicking an entry jumps straight to the page in question; when all is well it shows "Nothing needs attention."
 - Under **LLM usage statistics**, view charts of API requests, tokens used, and spend by time range (Today, Last 7 days, This month, and so on); the chart can switch between requests and tokens.
 
-![The Overview page: four metric cards, the recent-runs list, needs-attention and usage statistics](/docs-assets/console-tour/zh/S-console-tour-03-overview.png)
+![The Overview page: four metric cards, the recent-runs list, needs-attention and usage statistics](/docs-assets/console-tour/en/S-console-tour-03-overview.png)
 
 The metrics aggregate real runs; when no conversation has been run yet, Recent runs shows "No runs yet."
 
@@ -89,7 +89,7 @@ Too many pages to memorize? Use the command palette:
 2. Type a word from the page name or its purpose — Chinese and English both work: searching "审计" or "audit" hits the same page.
 3. Select with the arrow keys and press Enter to go straight there. Every result is written as "group / page" with a purpose line; when nothing matches you'll see "No matches".
 
-![The command palette: results filter as you type, each showing its group, page name, and purpose](/docs-assets/console-tour/zh/S-console-tour-04-palette.png)
+![The command palette: results filter as you type, each showing its group, page name, and purpose](/docs-assets/console-tour/en/S-console-tour-04-palette.png)
 
 The command palette does exactly one thing: get you to that page. What you do on the page is still up to you.
 
@@ -97,12 +97,12 @@ The command palette does exactly one thing: get you to that page. What you do on
 
 The Console itself — the six groups, the 25 pages, the command palette — is the same in both forms. What differs is where it opens:
 
-| | Web version | Extension version |
-| --- | --- | --- |
-| Where it opens | A management page inside your website | The extension's options page, in a browser tab |
+|                              | Web version                                                                                                                                        | Extension version                                                                                                                             |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Where it opens               | A management page inside your website                                                                                                              | The extension's options page, in a browser tab                                                                                                |
 | Direct entries from the chat | **Settings** in the chat header, **View trace** on a message, and **Go to review** on a candidate-skill card all land on the matching Console page | Clicking **Settings** or **Go to review** opens the options page and lands on the matching section (such as the LLM page or the review queue) |
 
-![The extension version's Console: opened in a browser tab as the extension's options page](/docs-assets/console-tour/zh/S-console-tour-05-extension.png)
+![The extension version's Console: opened in a browser tab as the extension's options page](/docs-assets/console-tour/en/S-console-tour-05-extension.png)
 
 Different form, same content: a page you learned in one form sits in the same group in the other.
 

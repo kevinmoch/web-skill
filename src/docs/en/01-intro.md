@@ -14,19 +14,19 @@ All three examples run as-is in the [Demo](/demo) (Agile Studio, a sample projec
 
 **Build a delivery monitoring dashboard.** Send `Open the current project’s delivery monitoring screen in a new window: sprint progress, defect distribution, test quality and DORA metrics on one page`, and it pulls the current project's real data and opens a dashboard in a new window, ready to cast to a big screen.
 
-![A dark delivery monitoring dashboard, with sprint progress, defect distribution, test quality and metrics each in its own area](/docs-assets/intro/zh/S-intro-03-screen.png)
+![A dark delivery monitoring dashboard, with sprint progress, defect distribution, test quality and metrics each in its own area](/docs-assets/intro/en/S-intro-03-screen.png)
 
 One sentence in exchange for a dashboard you can cast to a screen. Sample run output; your actual output will differ.
 
 **Produce an operations report.** Send `Generate an agile operations report for the current project covering sprint health, requirement distribution, defect hotspots and test quality`, and it looks up data in several passes, then renders the report right into the conversation.
 
-![An agile operations report in the conversation, with four data areas side by side](/docs-assets/intro/zh/S-intro-01-report-result.png)
+![An agile operations report in the conversation, with four data areas side by side](/docs-assets/intro/en/S-intro-01-report-result.png)
 
 Every number in the report comes from a real query it ran against the system. Sample run output; your actual output will differ.
 
 **Summarize the page you're looking at.** Send `Read the page I am currently looking at and summarize the key information and anomalies`, and it reads the page first, then summarizes from what's actually on it — no copy-paste from you.
 
-![A summary the assistant produced from the page's real data, citing items on the page](/docs-assets/intro/zh/S-intro-02-page-summary.png)
+![A summary the assistant produced from the page's real data, citing items on the page](/docs-assets/intro/en/S-intro-02-page-summary.png)
 
 The items cited in the summary come from the page itself. Sample run output; your actual output will differ.
 
@@ -46,7 +46,7 @@ Open its welcome screen and you can try it right away: under "How can I help you
 
 ## Where to start
 
-![M-01 Capability map of the whole book](/docs-assets/intro/M-01.svg)
+![M-01 Capability map of the whole book](/docs-assets/intro/en/M-01.svg)
 
 Once your sentence is sent, the assistant has four kinds of capability: conversation, calling skills, reading and writing pages, and producing files — and this diagram doubles as the map of this book: each kind corresponds to one part of the chapters.
 

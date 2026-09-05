@@ -1,31 +1,10 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { existsSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path, { resolve } from 'node:path';
-import { defineConfig, loadEnv, type Plugin } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import { viewerCspHeader } from '@webskill/sdk/browser';
-
-/**
- * 开发凭据只在 dev 下注入。不走 `VITE_` 前缀：那个前缀会让 Vite
- * 无条件把值写进客户端产物，包括生产构建。改用显式 `define` 后，生产下常量被
- * 替换为 `undefined`，装载分支整段被 tree-shake。
- * 与 SDK 仓库 examples/chatbot-playground/vite.config.ts 的 devLlmDefine 同款。
- */
-function devLlmDefine(mode: string): Record<string, string> {
-  if (mode !== 'development') return { __WEBSKILL_DEV_LLM__: 'undefined' };
-  const env = loadEnv(mode, '.', '');
-  return {
-    __WEBSKILL_DEV_LLM__: JSON.stringify({
-      openai: { baseUrl: env['LLM_BASE_URL'], apiKey: env['LLM_API_KEY'], model: env['LLM_MODEL'] },
-      anthropic: {
-        baseUrl: env['ANTHROPIC_BASE_URL'],
-        apiKey: env['ANTHROPIC_API_KEY'],
-        model: env['ANTHROPIC_MODEL']
-      },
-      google: { baseUrl: env['GOOGLE_BASE_URL'], apiKey: env['GOOGLE_API_KEY'], model: env['GOOGLE_MODEL'] }
-    })
-  };
-}
+import { webskillConfig } from '@webskill/chatbot/vite';
 
 /**
  * viewer 路由（文档投放面）。**这是宿主的部署责任**，不是纯客户端能力：
@@ -162,6 +141,12 @@ function webskillAlias() {
   }
   alias.push({ find: '@webskill/sdk', replacement: sdkBarrel('index') });
 
+  // 同理，chatbot 的子路径也要排在包名之前。`@webskill/chatbot/vite` 不在此列：
+  // vite.config.ts 由 vite 自己的 config loader 从 node_modules 解析，别名管不到它。
+  alias.push({
+    find: '@webskill/chatbot/config',
+    replacement: resolve(SDK, 'packages/chatbot', LINK_DIST ? 'dist/config.js' : 'src/config/index.ts')
+  });
   alias.push({ find: '@webskill/chatbot', replacement: pkg('chatbot') });
   alias.push({ find: '@webskill/console', replacement: pkg('console') });
 
@@ -182,13 +167,36 @@ function webskillAlias() {
   return alias;
 }
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, '.', '');
+/**
+ * 出厂设置在入库的 config.json 里，模型定义与 apiKey 单独放 models.json（gitignored）。
+ * 公网产物不合并 models.json：有模型定义却没有 key，访客一开口就报错，还不如让他自己配。
+ * 插件只认路径，所以合并结果得先落盘。
+ */
+export function webskillConfigFile(withModels: boolean): string {
+  const base = path.resolve(__dirname, 'config.json');
+  const models = path.resolve(__dirname, 'models.json');
+  if (!withModels || !existsSync(models)) return base;
+  const merged = {
+    ...(JSON.parse(readFileSync(base, 'utf8')) as Record<string, unknown>),
+    ...(JSON.parse(readFileSync(models, 'utf8')) as Record<string, unknown>)
+  };
+  const out = path.resolve(__dirname, 'node_modules/.webskill/config.merged.json');
+  mkdirSync(path.dirname(out), { recursive: true });
+  writeFileSync(out, JSON.stringify(merged));
+  return out;
+}
+
+export default defineConfig(({ command }) => {
   return {
     plugins: [
       react(),
       tailwindcss(),
       viewerRoute(),
+      // 只有 dev 带模型与 key；`pnpm build` 的产物结构上就不含凭据，不靠 CI 上恰好没有那个文件
+      webskillConfig({
+        file: webskillConfigFile(command === 'serve'),
+        secrets: command === 'serve' ? 'bake' : 'omit'
+      }),
       {
         name: 'demo-rewrite',
         configureServer(server) {
@@ -202,10 +210,6 @@ export default defineConfig(({ mode }) => {
       }
     ],
     base: '/',
-    define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      ...devLlmDefine(mode)
-    },
     resolve: {
       // 数组形式保证顺序：先 '@'，再 webskill（其内部顺序见 webskillAlias）
       alias: [

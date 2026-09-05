@@ -20,11 +20,11 @@ Two things to know up front:
 - **It can't open a page out of thin air.** Send it a URL and ask it to open a new page — it can't; only pages brought about by its actions (like clicking a link that opens in a new tab) can enter the workset.
 - **Single-page rules apply unchanged.** Actions with side effects still pop a card to ask you first — see [Letting the Assistant Act on the Page](#/docs/page-actions).
 
-![The extension sidebar assistant alongside several browser tabs](/docs-assets/tabs/zh/S-tabs-01-sidepanel-tabs.png)
+![The extension sidebar assistant alongside several browser tabs](/docs-assets/tabs/en/S-tabs-01-sidepanel-tabs.png)
 
 The assistant works in the sidebar and can use the multiple tabs next to it at the same time.
 
-![The flow of reading multiple pages item by item from the starting page and gathering them into one answer](/docs-assets/tabs/zh/S-tabs-02-multi-page-flow.svg)
+![The flow of reading multiple pages item by item from the starting page and gathering them into one answer](/docs-assets/tabs/en/S-tabs-02-multi-page-flow.svg)
 
 Schematic — not a real screenshot. Starting from the starting page, it enters a detail page to read, returns to the list, moves to the next page, and gathers everything into one answer.
 
@@ -36,13 +36,13 @@ This is the most practical use of multiple tabs. Give it a list — orders, requ
 
 The method fits in one sentence: enter an item → finish reading → back to the list → next item, looping until done. And it goes more than one level deep: from a list into a detail, and from the detail into a further level — drill-down at least three levels deep, and backing out level by level, are supported. The next section walks through the full process with an example; how far the web version can go is in the edition-differences section at the end.
 
-![The item-by-item walkthrough: open the item, read it, note the key point, go back to the list, move to the next item, and once everything is read, gather it into one answer](/docs-assets/tabs/zh/S-tabs-04-list-walkthrough.svg)
+![The item-by-item walkthrough: open the item, read it, note the key point, go back to the list, move to the next item, and once everything is read, gather it into one answer](/docs-assets/tabs/en/S-tabs-04-list-walkthrough.svg)
 
 Schematic — not a real screenshot. It enters a detail, returns to the list, and moves to the next item by itself, looping until done.
 
 The whole process needs no action from you; the run flow shows it advancing item by item.
 
-![Three-level drill-down: level 1 the list page, level 2 the detail page, level 3 the detail's detail — the assistant can read into each level and back out level by level](/docs-assets/tabs/zh/S-tabs-05-three-level-drilldown.svg)
+![Three-level drill-down: level 1 the list page, level 2 the detail page, level 3 the detail's detail — the assistant can read into each level and back out level by level](/docs-assets/tabs/en/S-tabs-05-three-level-drilldown.svg)
 
 Schematic — not a real screenshot. Multi-level drill-down, at least three levels deep: list page, detail page, and the detail's detail — in and out level by level.
 
@@ -59,7 +59,7 @@ Imagine you're looking at a requirement list in an agile management system: one 
 3. **Back to the requirement list, on to the second requirement.** The same motions repeat for every requirement: open page, read table, drill down, close page, back to the list.
 4. **Finally you get one big table.** One row per requirement: how many sprints, how many unresolved defects in total — the heaviest one visible at a glance.
 
-![The worked-scenario drill-down: click a row's link in the requirement list and a new tab opens that requirement's sprint table; click a sprint's link and a new tab opens that sprint's defect table; after reading, back to the list for the next requirement](/docs-assets/tabs/zh/S-tabs-07-scenario-drilldown.svg)
+![The worked-scenario drill-down: click a row's link in the requirement list and a new tab opens that requirement's sprint table; click a sprint's link and a new tab opens that sprint's defect table; after reading, back to the list for the next requirement](/docs-assets/tabs/en/S-tabs-07-scenario-drilldown.svg)
 
 Schematic — not a real screenshot. It holds one requirement's sprint table open and clicks into the defect pages row by row.
 
@@ -67,12 +67,12 @@ Requirement list → sprint table → defect list — each level opens in its ow
 
 Sample for illustration — not real data. The final summary table looks roughly like this:
 
-| Requirement | Sprints | Unresolved defects |
-| --- | --- | --- |
-| Req A: checkout flow revamp | 3 | 2 |
-| Req B: report export | 5 | 7 |
-| Req C: notifications | 2 | 0 |
-| Req D: permission management | 4 | 5 |
+| Requirement                  | Sprints | Unresolved defects |
+| ---------------------------- | ------- | ------------------ |
+| Req A: checkout flow revamp  | 3       | 2                  |
+| Req B: report export         | 5       | 7                  |
+| Req C: notifications         | 2       | 0                  |
+| Req D: permission management | 4       | 5                  |
 
 The final table delivered: one row per requirement.
 
@@ -86,18 +86,18 @@ This is the chapter's most important boundary: **the assistant can only use page
 - **It can't close the starting page.** That page belongs to you: it can read it and click it, but not close it.
 - **It doesn't take over the extension's own pages.** If you open the extension's settings page, for example, it won't follow you in.
 
-![M-16 The boundary of the workset: on one side, pages inside the workset — the starting page and pages it opened itself, marked with the 32-page limit and the "enter an item → read → back to list → next item" loop; on the other side, tabs you opened yourself, which the assistant can't see](/docs-assets/tabs/M-16.svg)
+![M-16 The boundary of the workset: on one side, pages inside the workset — the starting page and pages it opened itself, marked with the 32-page limit and the "enter an item → read → back to list → next item" loop; on the other side, tabs you opened yourself, which the assistant can't see](/docs-assets/tabs/en/M-16.svg)
 
 The boundary is a hard isolation: inside the workset it can use; outside it, it can't perceive.
 
 Sample for illustration — not real data. The cross-page aggregation looks roughly like this:
 
-| Page / item | Key point read |
-| --- | --- |
-| Requirement list | 4 requirements, each row ending with a "view sprints" link |
-| Req A's sprint table | 3 sprints; the current sprint is still open |
-| Sprint 3's defect page | 2 unresolved defects left |
-| Req B's sprint table | 5 sprints; defects cluster in sprint 2 |
+| Page / item            | Key point read                                             |
+| ---------------------- | ---------------------------------------------------------- |
+| Requirement list       | 4 requirements, each row ending with a "view sprints" link |
+| Req A's sprint table   | 3 sprints; the current sprint is still open                |
+| Sprint 3's defect page | 2 unresolved defects left                                  |
+| Req B's sprint table   | 5 sprints; defects cluster in sprint 2                     |
 
 Every switch and every read between pages is listed in the run flow.
 
@@ -111,12 +111,12 @@ Within one task, the workset holds at most 32 pages at the same time. The limit 
 
 In two other situations, you'll find "that page" no longer usable:
 
-| What you see | What it is |
-| --- | --- |
-| The page you just looked at suddenly won't respond | That page was closed or navigated away and is no longer in the workset; have it list the currently usable pages again, then continue |
-| In a new conversation, it doesn't recognize pages from before | Page references don't carry across sessions; in a new conversation, start over from the current page |
+| What you see                                                  | What it is                                                                                                                           |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| The page you just looked at suddenly won't respond            | That page was closed or navigated away and is no longer in the workset; have it list the currently usable pages again, then continue |
+| In a new conversation, it doesn't recognize pages from before | Page references don't carry across sessions; in a new conversation, start over from the current page                                 |
 
-![Wrapping up at the capacity limit: it opens pages one by one, the number of simultaneously open pages grows, and at the 32-page limit it finishes what is in hand, wraps up, and tells you which part was not done](/docs-assets/tabs/zh/S-tabs-06-capacity-wrapup.svg)
+![Wrapping up at the capacity limit: it opens pages one by one, the number of simultaneously open pages grows, and at the 32-page limit it finishes what is in hand, wraps up, and tells you which part was not done](/docs-assets/tabs/en/S-tabs-06-capacity-wrapup.svg)
 
 Schematic — not a real screenshot. At the 32-page limit, it finishes what it's holding, wraps up, and tells you which part wasn't done.
 
@@ -130,12 +130,12 @@ When the page it's holding isn't the one you're looking at, a notice appears in 
 
 ## Web version vs. extension version
 
-| | Web version | Extension version |
-| --- | --- | --- |
-| Between multiple browser tabs | Not possible | Supported (within the workset) |
-| Aggregating across websites | Not possible | Supported |
-| Item-by-item work between in-app tabs | Possible once the system's own tab bar is wired in | Supported |
-| Item-by-item back-and-forth within one site | Possible via "navigate + go back" | Supported |
+|                                             | Web version                                        | Extension version              |
+| ------------------------------------------- | -------------------------------------------------- | ------------------------------ |
+| Between multiple browser tabs               | Not possible                                       | Supported (within the workset) |
+| Aggregating across websites                 | Not possible                                       | Supported                      |
+| Item-by-item work between in-app tabs       | Possible once the system's own tab bar is wired in | Supported                      |
+| Item-by-item back-and-forth within one site | Possible via "navigate + go back"                  | Supported                      |
 
 The third row deserves an extra word. Some systems have their own tab bar: click a link and the system opens a new in-app tab instead of a new browser tab. Once such a system wires in the corresponding capability, the web-version assistant can also work across tabs item by item — the tabs it opens appear on the tab bar, where you can see them, click in, and close them at will; the boundaries are the same set: only allowed pages are used, and the tab you're watching is never hijacked. Whether your system has this capability — ask the people who provide it.
 

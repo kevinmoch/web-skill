@@ -1,0 +1,106 @@
+{
+  "agentRuntime": {
+    "agentCapabilities": {
+      "skillGeneration": true,
+      "generativeUi": true,
+      "delegation": true
+    },
+    "multimodal": {
+      "imageAttachments": true,
+      "pageImageCapture": true
+    }
+  },
+  "sandbox": {
+    "downloadedFiles": true,
+    "uploadFiles": true,
+    "allowHttp": true,
+    "allowPrivateHosts": true,
+    "capabilities": {
+      "fetchData": true
+    },
+    "documentSurface": true
+  },
+  "quickPrompts": {
+    "limit": 10,
+    "items": [
+      {
+        "id": "qp-agile-report",
+        "icon": "report",
+        "text": {
+          "zh": "生成当前项目的敏捷运营报告，覆盖迭代健康、需求分布、缺陷热点和测试质量",
+          "en": "Generate an agile operations report for the current project covering sprint health, requirement distribution, defect hotspots and test quality"
+        }
+      },
+      {
+        "id": "qp-quality-bulletin",
+        "icon": "document",
+        "text": {
+          "zh": "为当前项目生成一份可打印的质量通报公文，包含缺陷趋势、测试覆盖和发布就绪度结论",
+          "en": "Generate a printable quality bulletin for the current project with defect trends, test coverage and a release-readiness conclusion"
+        }
+      },
+      {
+        "id": "qp-weekly-brief",
+        "icon": "report",
+        "text": {
+          "zh": "用周报模板输出本迭代的进展简报",
+          "en": "Output this sprint’s progress brief using the weekly report template"
+        }
+      },
+      {
+        "id": "qp-burndown",
+        "icon": "metric",
+        "text": {
+          "zh": "分析当前迭代的燃尽情况，判断能否按时收尾，说明依据和风险",
+          "en": "Analyze the current sprint’s burndown, judge whether it can land on time, and explain the evidence and risks"
+        }
+      },
+      {
+        "id": "qp-project-compare",
+        "icon": "compare",
+        "text": {
+          "zh": "对比所有项目的交付健康度，给出排名和掉队项目的原因",
+          "en": "Compare delivery health across all projects, rank them, and explain why the lagging ones fall behind"
+        }
+      },
+      {
+        "id": "qp-page-summary",
+        "icon": "page",
+        "text": {
+          "zh": "读取我当前正在看的这个页面的内容，总结出关键信息和异常项",
+          "en": "Read the page I am currently looking at and summarize the key information and anomalies"
+        }
+      },
+      {
+        "id": "qp-delivery-dashboard",
+        "icon": "page",
+        "text": {
+          "zh": "在新窗口打开当前项目的交付监控大屏：迭代进度、缺陷分布、测试质量与 DORA 指标一屏总览",
+          "en": "Open the current project’s delivery monitoring screen in a new window: sprint progress, defect distribution, test quality and DORA metrics on one page"
+        }
+      },
+      {
+        "id": "qp-sprint-closeout",
+        "icon": "list",
+        "text": {
+          "zh": "对当前迭代做收尾核对，覆盖假完成需求、未关闭缺陷分级和测试覆盖缺口，给出结转清单与下迭代建议",
+          "en": "Run the end-of-sprint closeout for the current project: audit false-Done requirements, triage open defects by severity, check coverage gaps, and produce carry-over items with next-sprint recommendations"
+        }
+      },
+      {
+        "id": "qp-quality-deck",
+        "icon": "chart",
+        "text": {
+          "zh": "把所有项目的交付质量做成一份幻灯片，在新窗口里放映，支持翻页和导出 PDF",
+          "en": "Turn delivery quality across all projects into a slide deck, present it in a new window with page navigation and PDF export"
+        }
+      }
+    ]
+  },
+  "privacy": {
+    "userProfile": true
+  },
+  "appearance": {
+    "theme": "dark"
+  }
+}

@@ -16,7 +16,7 @@ Every message you send sets off a whole set of actions the assistant performs to
 
 The key connecting the two sides is the **Run ID**. The easiest path needs no copying: hover over the assistant's answer and click **View trace** to land directly on this run in the run-detail page. When the message is hard to find, expand the "Run flow" card, click **Copy run ID**, and paste it into the search box on the Activity page or the detail page to filter — that finds it too.
 
-![M-21 From one conversation to one run record](/docs-assets/console-runs/M-21.svg)
+![M-21 From one conversation to one run record](/docs-assets/console-runs/en/M-21.svg)
 
 One question produces one run record; the record expands into details: timeline, tool calls, LLM turns, artifacts.
 
@@ -35,7 +35,7 @@ At the top are four metric cards: **Success rate**, **Avg turns**, **Avg duratio
 - Page through older records with the pagination and page-size controls under the table
 - Click a row's run ID to jump to the run-detail page for the complete record
 
-![The Activity page: metric cards, recent failures, and the filterable run list](/docs-assets/console-runs/zh/S-console-runs-01-activity.png)
+![The Activity page: metric cards, recent failures, and the filterable run list](/docs-assets/console-runs/en/S-console-runs-01-activity.png)
 
 Finding failed runs needs no paging: pick failed in the status dropdown and only they remain; run IDs under Recent failures jump straight to the details.
 
@@ -61,15 +61,15 @@ For a run still in progress, this page offers **Cancel run** when your system su
 - Pasting a run ID into this page's search box only filters the list — no "located by id" tag appears
 - Read the LLM turn cards round by round to pin down where it made the wrong call
 
-![The Inspector page: the run list on the left, one run's complete file on the right](/docs-assets/console-runs/zh/S-console-runs-02-inspector.png)
+![The Inspector page: the run list on the left, one run's complete file on the right](/docs-assets/console-runs/en/S-console-runs-02-inspector.png)
 
 Select a run, and on the right are its turns, checklist, timeline, and artifacts.
 
-![Arriving from the conversation via "View trace", the target run is tagged "located by id"](/docs-assets/console-runs/zh/S-console-runs-04-locate-by-id.png)
+![Arriving from the conversation via "View trace", the target run is tagged "located by id"](/docs-assets/console-runs/en/S-console-runs-04-locate-by-id.png)
 
 When you arrive via "View trace", the target run is pulled to the front even if it isn't on the current page, tagged "located by id"; pasting an ID into search only filters.
 
-![The details of a failed run, with the failure reason marked on the timeline](/docs-assets/console-runs/zh/S-console-runs-05-failed-run.png)
+![The details of a failed run, with the failure reason marked on the timeline](/docs-assets/console-runs/en/S-console-runs-05-failed-run.png)
 
 The failed step is documented on the timeline; the end-reason code and the conversation's termination notice describe the same thing.
 
@@ -93,11 +93,11 @@ Pick a layer, fill in the identifier, click **Load** to see every entry; delete 
 
 **Interrupted runs**: when you refresh the page while a run is paused on a card waiting for your answer, a snapshot is left behind. Click **Resume** to go back to the conversation, where that card reappears. Runs interrupted on an **authorization card** can't be resumed, though — see [Asking, Answering, and Interrupting](#/docs/chat-basics). Snapshots written by older builds are listed but can't be resumed.
 
-![Overview of the Sessions & Memory page](/docs-assets/console-runs/zh/S-console-runs-03-sessions.png)
+![Overview of the Sessions & Memory page](/docs-assets/console-runs/en/S-console-runs-03-sessions.png)
 
 Three blocks on one page: sessions, memory, interrupted runs.
 
-![The memory browser's entry list](/docs-assets/console-runs/zh/S-console-runs-06-memory.png)
+![The memory browser's entry list](/docs-assets/console-runs/en/S-console-runs-06-memory.png)
 
 Memory is visible entry by entry — and deletable entry by entry.
 

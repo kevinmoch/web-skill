@@ -14,7 +14,7 @@ Which model answers you is your own choice: switch per session, effective on the
 
 Among the row of entries at the bottom of the input area there's a **Model** button; the button shows the name of the model this session is using. Click it open for the model menu: the checked one is the current one; click another to switch immediately.
 
-![The model menu expanded: the available models listed, the current one checked, unavailable entries greyed out](/docs-assets/models/zh/S-models-01-menu.png)
+![The model menu expanded: the available models listed, the current one checked, unavailable entries greyed out](/docs-assets/models/en/S-models-01-menu.png)
 
 The switch only takes effect for the current session, and no page refresh is needed either. Three boundaries to know up front:
 
@@ -35,11 +35,11 @@ Next to the model menu is a set of **Model capabilities** badges: two small icon
 
 A tool is one concrete action the assistant can perform, like "read the requirement list" or "navigate to a page"; a skill is a packaged "instruction manual for doing something" — install it and the assistant can do that thing. **The consequences of "No tools" are far bigger than the words suggest: when the model doesn't support tools, the assistant can't call skills, and can't read or act on pages either — plain chat only.** If you feel "the assistant suddenly got dumb", the number-one cause is this: most likely the current model doesn't support tools — the assistant isn't broken.
 
-![M-13 Model capabilities decide what you can do: the current model forks into "tools supported?" and "images supported?", each leading to what can and can't be done](/docs-assets/models/M-13.svg)
+![M-13 Model capabilities decide what you can do: the current model forks into "tools supported?" and "images supported?", each leading to what can and can't be done](/docs-assets/models/en/M-13.svg)
 
 Of the two badges, tools decides whether the assistant can work; images only decides whether it can look at pictures.
 
-![The Model capabilities badges in the input area: two small icons for tools and images](/docs-assets/models/zh/S-models-02-capabilities.png)
+![The Model capabilities badges in the input area: two small icons for tools and images](/docs-assets/models/en/S-models-02-capabilities.png)
 
 Hover an icon to see its text; when it shows "No tools" a reason comes with it: "Unavailable: the selected model does not support tool calling."
 
@@ -49,7 +49,7 @@ Hover an icon to see its text; when it shows "No tools" a reason comes with it: 
 
 When there's not a single usable model, clicking send (or clicking the **Model** button) doesn't start a conversation — it pops up a guide titled "**No model configured**": A large language model has not been configured yet. Configure one on the model settings page before chatting. Click **Configure model** and you jump to the LLM page of the Console's [Connections](#/docs/console-connections) group.
 
-![The "No model configured" guide, with the entry to configure one](/docs-assets/models/zh/S-models-03-no-model.png)
+![The "No model configured" guide, with the entry to configure one](/docs-assets/models/en/S-models-03-no-model.png)
 
 The other situation is **an entry in the menu being greyed out and unselectable**: hovering over it shows "Not usable: this entry has no API key or base URL. Configure it in the console." — go to the LLM page and complete it, or delete it.
 

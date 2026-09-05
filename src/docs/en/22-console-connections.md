@@ -14,7 +14,7 @@ The assistant can answer and get work done thanks to two kinds of sources: which
 
 The capabilities behind one answer can come from four places: skills installed in the Library (packaged "instructions for doing something"), page tools provided by your system, tools the web page itself reports, and tool services elsewhere on the network. Add "which model", and you have exactly what this group's four pages manage.
 
-![M-23 Where tools come from: four sources — skills, page tools, the web page's own tools, and remote tool services — flow into the capabilities available to the assistant](/docs-assets/console-connections/M-23.svg)
+![M-23 Where tools come from: four sources — skills, page tools, the web page's own tools, and remote tool services — flow into the capabilities available to the assistant](/docs-assets/console-connections/en/M-23.svg)
 
 The four sources merge into the same capability list; whichever source isn't connected, its capabilities are absent from the list.
 
@@ -29,7 +29,7 @@ The four sources merge into the same capability list; whichever source isn't con
 - Click **Test connection** to run a real probe: "Endpoint reachable" or "Endpoint unreachable or not configured", and whether "Streaming supported" — each with a stated reason
 - Use **Use as default** to designate the default model for new sessions; removing asks for one more confirmation
 
-![The LLM page: each model shows its display name, provider, and model name, and the default carries a badge](/docs-assets/console-connections/zh/S-console-conn-01-models.png)
+![The LLM page: each model shows its display name, provider, and model name, and the default carries a badge](/docs-assets/console-connections/en/S-console-conn-01-models.png)
 
 The default carries a Default badge; keys are never shown in plain text.
 
@@ -50,17 +50,17 @@ Two switches whose consequences you should know: turning off **Supports tool cal
 - Some services require signing in first: turn on **Use OAuth** when adding; the row then shows Not authorized / Authorized / Authorization expired, and when it expires you click **Authorize** to sign in again
 - In the **Endpoint Registry** below, see every tool offered by the connected endpoints, and click a tool name to see which arguments it asks for
 
-![The MCP Endpoints page: the endpoint list shows connection state and tool count live, with failure reasons next to the status](/docs-assets/console-connections/zh/S-console-conn-02-mcp.png)
+![The MCP Endpoints page: the endpoint list shows connection state and tool count live, with failure reasons next to the status](/docs-assets/console-connections/en/S-console-conn-02-mcp.png)
 
 Status, tool count, and egress-policy badge are all in the row.
 
 **Typical use**: the Demo ships with an `agile-page` endpoint — your system (Agile Studio) offers its tools to the assistant through it, 10 in all. Eight of them serve the business: querying requirements, sprints, defects, and test suites, fetching metrics, listing projects, switching pages, and getting form-fill suggestions; the other two (`list_skill_files`, `write_skill_file`) work on skill files themselves, letting the assistant read and modify the skills you've installed — [Case: Turning What You Just Did into a Skill](#/docs/case-skill-lifecycle) runs on them. Saying `Take me to the defect management page` in the conversation goes through the page-switching tool among them.
 
-![The Demo's page endpoint and its 10 tools in the Endpoint Registry](/docs-assets/console-connections/zh/S-console-conn-05-agile-page.png)
+![The Demo's page endpoint and its 10 tools in the Endpoint Registry](/docs-assets/console-connections/en/S-console-conn-05-agile-page.png)
 
 Every tool can be enabled or disabled individually. If you don't want the assistant switching pages on its own, flip that one tool to Disabled — the endpoint's other tools keep working.
 
-![A single tool's three-way toggle: Enabled / On demand / Disabled; when its endpoint is disabled the tool is marked "Endpoint is disabled"](/docs-assets/console-connections/zh/S-console-conn-06-tool-toggle.png)
+![A single tool's three-way toggle: Enabled / On demand / Disabled; when its endpoint is disabled the tool is marked "Endpoint is disabled"](/docs-assets/console-connections/en/S-console-conn-06-tool-toggle.png)
 
 > **Note**: When adding an endpoint, **Allow plain http for this endpoint** and **Allow private and loopback hosts for this endpoint** are both off by default — check them only after confirming; and they can only be opened within what Settings › Sandbox & Security has already allowed — when it's globally forbidden, the checkboxes here can't be checked. MCP services come in two kinds: those with a network address, and those started by a command line on your computer; the browser can only connect the former.
 
@@ -75,7 +75,7 @@ Every tool can be enabled or disabled individually. If you don't want the assist
 - Within a source, set each tool individually to Enabled / On demand / Disabled
 - A tool carrying the **Untrusted** badge returns the web page's own content; the assistant treats it as reference material, not as instructions to follow
 
-![The WebMCP Tools page: grouped by source, each group marked with one of three states, tools toggled one by one](/docs-assets/console-connections/zh/S-console-conn-03-webmcp.png)
+![The WebMCP Tools page: grouped by source, each group marked with one of three states, tools toggled one by one](/docs-assets/console-connections/en/S-console-conn-03-webmcp.png)
 
 Source names, state badges, and per-tool toggles all live in their own groups.
 
@@ -93,7 +93,7 @@ Source names, state badges, and per-tool toggles all live in their own groups.
 - **Recent reads** lists each read's time, region, and node count one by one
 - Revoke remembered authorizations in the **Remembered page actions** section — next section
 
-![The Page Skills page: temporary skills, perception scope, and remembered authorizations top to bottom](/docs-assets/console-connections/zh/S-console-conn-04-page-skills.png)
+![The Page Skills page: temporary skills, perception scope, and remembered authorizations top to bottom](/docs-assets/console-connections/en/S-console-conn-04-page-skills.png)
 
 The perception section is read-only; the only switch is Page image capture.
 

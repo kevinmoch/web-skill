@@ -29,7 +29,7 @@ Phrase it like the left column:
 | "Upload this screenshot" | After you allow, the system file chooser pops up and you pick by hand | Always asks |
 | "Go back a page" | Goes back to the previous page (browser history) | Always asks |
 
-![The authorization card for clicking the plus on a table row to expand its details](/docs-assets/page-actions/zh/S-actions-08-expand-consent.png)
+![The authorization card for clicking the plus on a table row to expand its details](/docs-assets/page-actions/en/S-actions-08-expand-consent.png)
 
 Every phrasing in the table can be tried as-is in the Demo.
 
@@ -46,7 +46,7 @@ Not every action needs your nod — the rules are graded (using the Demo's confi
 
 Remember it in one sentence: **it can fill out an entire form on its own, but before pressing "submit" it always stops and asks you.**
 
-![An automatically filled form: several fields already have content, and an authorization card pops up before submission](/docs-assets/page-actions/zh/S-actions-07-filled-form-consent.png)
+![An automatically filled form: several fields already have content, and an authorization card pops up before submission](/docs-assets/page-actions/en/S-actions-07-filled-form-consent.png)
 
 The filled form shows filling didn't interrupt you; the authorization card in front of submission shows it always asks before writing into the system. Sample run output — your actual output will differ.
 
@@ -60,19 +60,19 @@ Actions that need your nod pop up an **Authorization required** card — before 
 2. Two buttons: **Allow** and **Deny**.
 3. A "Don’t ask again" option (covered in detail later).
 
-![A complete page-action authorization card, with the action description and the Allow and Deny buttons](/docs-assets/page-actions/zh/S-actions-01-consent-card.png)
+![A complete page-action authorization card, with the action description and the Allow and Deny buttons](/docs-assets/page-actions/en/S-actions-01-consent-card.png)
 
-![The page before and after authorization: after Allow, the form really is changed](/docs-assets/page-actions/zh/S-actions-03-page-changed.png)
+![The page before and after authorization: after Allow, the form really is changed](/docs-assets/page-actions/en/S-actions-03-page-changed.png)
 
 After you click **Allow**, the page change is immediately visible. Sample run output — your actual output will differ.
 
-![The authorization flow: the card pops up, with three outcomes — allow, allow and remember, deny](/docs-assets/page-actions/M-15.svg)
+![The authorization flow: the card pops up, with three outcomes — allow, allow and remember, deny](/docs-assets/page-actions/en/M-15.svg)
 
 It only acts if you allow; allow-and-remember stops future asks and can be revoked in the Console; deny and it doesn't act.
 
 Clicking **Deny** doesn't ruin the whole run: only that one action doesn't happen (the tool call shows **Failed** with a reason attached), the page doesn't change, and the assistant carries on. The denial is also recorded in the Console's audit log (see [Governance and Review](#/docs/console-governance)).
 
-![The conversation after a denied authorization: the assistant explains the action wasn't performed, and the task continues](/docs-assets/page-actions/zh/S-actions-04-declined.png)
+![The conversation after a denied authorization: the assistant explains the action wasn't performed, and the task continues](/docs-assets/page-actions/en/S-actions-04-declined.png)
 
 The assistant says plainly that the step wasn't done, then continues with the rest. Sample run output — your actual output will differ.
 
@@ -93,7 +93,7 @@ Two more things it also does on its own: **going back** (which likewise needs yo
 
 The authorization card has a **Don’t ask again for this kind of action** option. Check it and click **Allow**, and the same kind of action just happens from then on without interrupting you. In the Demo, the option spells out the remembered scope, phrased like `Don’t ask again for “submit” in this page` — what's remembered is "this kind of action in this scope", not just this one button.
 
-![The "Don’t ask again" option on the authorization card](/docs-assets/page-actions/zh/S-actions-02-remember.png)
+![The "Don’t ask again" option on the authorization card](/docs-assets/page-actions/en/S-actions-02-remember.png)
 
 Once checked and allowed, the same kind of action no longer pops a card.
 
@@ -113,7 +113,7 @@ Be clear about the distinction: revoking takes back the "don't ask again" memory
 
 **Readable doesn't mean operable.** Your system marks out an operable scope for the assistant; outside the scope it refuses outright — not even an authorization card pops up. It can read the list data, yet the delete button next to it may be outside the scope. A stopped call shows **Blocked by policy** in the **Run flow** with **Why it was blocked** attached (for the four states, see [Seeing What the Assistant Is Doing](#/docs/transparency)).
 
-![A page action showing the "Blocked by policy" status](/docs-assets/page-actions/zh/S-actions-05-policy-blocked.png)
+![A page action showing the "Blocked by policy" status](/docs-assets/page-actions/en/S-actions-05-policy-blocked.png)
 
 A dialog you opened by hand, it won't touch either — only dialogs opened by its own actions can be operated further, and the authorization card then carries an extra line, "This dialog is outside the usual allowlist; it was opened by this task.". If the system hasn't opened up page actions at all, it simply says it can't be done.
 

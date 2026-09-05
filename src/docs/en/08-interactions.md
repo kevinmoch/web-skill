@@ -16,7 +16,7 @@ The assistant stops to ask you in three situations: it's missing information, it
 
 In a complex task, the card may come from a subtask it sent out: the card carries an extra "From: {label}" badge — just answer it as usual.
 
-![M-08 A recognition tree for the six cards](/docs-assets/interactions/M-08.svg)
+![M-08 A recognition tree for the six cards](/docs-assets/interactions/en/M-08.svg)
 
 "What the assistant needs" decides which card pops up: one more sentence, a nod or a shake, a set of fields, a pick from candidates, a permission, a file — one kind for each.
 
@@ -28,7 +28,7 @@ In a complex task, the card may come from a subtask it sent out: the card carrie
 
 **What you do**: fill it in and click **Submit**. If you don't want to answer, click **Cancel** — the run ends with your cancellation.
 
-![The "Answer needed" card: one question, one input field, Submit and Cancel buttons](/docs-assets/interactions/zh/S-interactions-01-ask.png)
+![The "Answer needed" card: one question, one input field, Submit and Cancel buttons](/docs-assets/interactions/en/S-interactions-01-ask.png)
 
 The question's wording is generated for the task at hand; what doesn't change is the "Answer needed" title and these two buttons. Sample run output; your actual output will differ.
 
@@ -40,7 +40,7 @@ The question's wording is generated for the task at hand; what doesn't change is
 
 **What you do**: if you agree, click **Confirm**. If you don't, click **Cancel** — "Cancel" here doesn't abort the run; it answers "no": the run doesn't fail, the assistant takes that answer and carries on, and the thing doesn't get done.
 
-![The "Confirmation" card: one confirmation question, with Confirm and Cancel buttons](/docs-assets/interactions/zh/S-interactions-02-confirm.png)
+![The "Confirmation" card: one confirmation question, with Confirm and Cancel buttons](/docs-assets/interactions/en/S-interactions-02-confirm.png)
 
 Clicking "Cancel" means shaking your head, not calling off the whole run. Sample run output; your actual output will differ.
 
@@ -52,7 +52,7 @@ Clicking "Cancel" means shaking your head, not calling off the whole run. Sample
 
 **What you do**: fill it in and click **Submit**, and what follows runs on the values you entered. Click **Cancel** and the run ends with your cancellation — it won't hang there waiting, and it won't finish the run for you on default values.
 
-![The "Information needed" card: a multi-field form with dropdowns and required-field checks](/docs-assets/interactions/zh/S-interactions-03-form.png)
+![The "Information needed" card: a multi-field form with dropdowns and required-field checks](/docs-assets/interactions/en/S-interactions-03-form.png)
 
 The fields are decided by the task at hand; what doesn't change is the required-field check and these two buttons. Sample run output; your actual output will differ.
 
@@ -64,7 +64,7 @@ The fields are decided by the task at hand; what doesn't change is the required-
 
 **What you do**: select one and click **Submit** — what follows uses the one you picked; if none of them fits, click **Cancel**.
 
-![The "Choose an option" card: a question and a list of candidates](/docs-assets/interactions/zh/S-interactions-04-select.png)
+![The "Choose an option" card: a question and a list of candidates](/docs-assets/interactions/en/S-interactions-04-select.png)
 
 The candidates are given by the task at hand. Sample run output; your actual output will differ.
 
@@ -92,7 +92,7 @@ This is what a suggested value looks like: if you don't click "Use", the field s
 
 **What you do**: read clearly what it wants to do, then click **Allow**. Clicking **Deny** only cancels the run step that asked — it doesn't mean the whole run fails. Page-action authorization cards may also carry **Don’t ask again for this kind of action**; for which actions ask and which don't, and how to revoke a remembered one, see [Letting the Assistant Act on the Page](#/docs/page-actions).
 
-![The "Authorization required" card: a warning-colored card spelling out the requested capability, with Allow and Deny buttons](/docs-assets/interactions/zh/S-interactions-05-authorize.png)
+![The "Authorization required" card: a warning-colored card spelling out the requested capability, with Allow and Deny buttons](/docs-assets/interactions/en/S-interactions-05-authorize.png)
 
 The authorization card spells out what capability is being requested, clearly readable before you approve. Sample run output; your actual output will differ.
 
@@ -104,7 +104,7 @@ The authorization card spells out what capability is being requested, clearly re
 
 **What you do**: clicking **Choose file** opens the system's own file picker, and you do the picking yourself. Clicking **Decline** doesn't cancel the whole run: what the assistant gets is "not given", and it then takes another route — asking again, for example, or telling you an argument is missing.
 
-![The "File requested" card: an explanation line, with Choose file and Decline buttons](/docs-assets/interactions/zh/S-interactions-06-file-pick.png)
+![The "File requested" card: an explanation line, with Choose file and Decline buttons](/docs-assets/interactions/en/S-interactions-06-file-pick.png)
 
 You pick the file yourself in the system picker; clicking "Decline" doesn't fail the whole run either. Sample run output; your actual output will differ.
 
@@ -117,11 +117,11 @@ While a card waits, two things help you find it:
 - Above the input area there's a waiting indicator, "Waiting for your input: {target}"; when the form is hidden inside some panel, the panel name is written out along with it. If you can't find the card, click **Go to form** next to it and the viewport jumps straight back to the card.
 - The status area at this point still shows **Thinking…**; expand **Run flow** and you'll see this run's phase sitting at **Interact** — it's not stuck, it's waiting for you.
 
-![A submitted card becomes a read-only record, marked "Submitted"](/docs-assets/interactions/zh/S-interactions-07-submitted.png)
+![A submitted card becomes a read-only record, marked "Submitted"](/docs-assets/interactions/en/S-interactions-07-submitted.png)
 
 After submitting, the card becomes a read-only record showing what was filled in at the time; it can't be changed anymore.
 
-![The waiting indicator "Waiting for your input" above the input area, with the "Go to form" button beside it](/docs-assets/interactions/zh/S-interactions-08-waiting.png)
+![The waiting indicator "Waiting for your input" above the input area, with the "Go to form" button beside it](/docs-assets/interactions/en/S-interactions-08-waiting.png)
 
 While a card waits, the status area still shows "Thinking…", and the waiting indicator can bring the viewport back to the card.
 

@@ -13,7 +13,7 @@ The eight pages in the Console's "Settings" group govern the assistant's tempera
 
 ## The eight settings pages
 
-![M-24 What the settings affect: the eight settings pages on the left, the behaviors each of them affects on the right](/docs-assets/console-settings/M-24.svg)
+![M-24 What the settings affect: the eight settings pages on the left, the behaviors each of them affects on the right](/docs-assets/console-settings/en/M-24.svg)
 
 When you want to change a behavior but don't know which page it's on, work backwards from this map: find the behavior on the right, and the left side tells you the page.
 
@@ -41,7 +41,7 @@ Hitting a ceiling stops the run, and the notice states which limit and its curre
 - In the **Multimodal** section, decide whether images may go to the model: **Image attachments** and **Page image capture** are both off at the factory (on by default in the Demo); once on, the conversation shows capture counts — see [Letting the Assistant Read the Page](#/docs/page-perception).
 - The remaining items: **Failure quarantine threshold** — a skill that fails this many times in a row is quarantined automatically (5 by default; one success resets the count); whether answers stream out word by word (**Streaming responses**) and carry **Render result blocks** at the end; three size limits (tool result, document, extracted text, in KB) — over the limit means refusal, not truncation, and the error states the actual size, the limit, and where to change it; **Temperature (optional)** left empty uses the model vendor's default. The **Lifecycle hooks** section is up to your system: when the system has registered no hooks, the section shows the empty state "No lifecycle hooks are registered."; when the system hasn't wired this entry at all, the whole section doesn't appear.
 
-![The Agent Runtime page: sections for limits, interaction, agent capabilities, multimodal, and more](/docs-assets/console-settings/zh/S-console-set-01-runtime.png)
+![The Agent Runtime page: sections for limits, interaction, agent capabilities, multimodal, and more](/docs-assets/console-settings/en/S-console-set-01-runtime.png)
 
 **Typical use**: big tasks keep hitting "the turn limit" — first break the task into smaller pieces and say them separately; if it genuinely needs a long run, then raise **Max turns**.
 
@@ -57,7 +57,7 @@ Hitting a ceiling stops the run, and the notice states which limit and its curre
 - Turn on as needed (all off at the factory): **Skill data sources** (register by name the addresses skills may pull data from; each pull is limited to 1000 KB by default), **TypeScript support**, **Allow opening documents**, **Let skill scripts read uploaded files** (each read still asks you first; one file is limited to 20 MB by default — over the limit means refusal, not truncation. The Demo turns this one on by default). **Allow reading downloaded files** corresponds to an extension-version capability — see the edition differences at the end of the chapter.
 - Set a level for each of the five capabilities: **On** (just do it) / **Require approval** (pop a card asking you) / **Off** (refuse outright) — Read references, Read assets, Write artifacts, and Confirm default to on at the factory; **Fetch data source** defaults to off (on by default in the Demo). **Approval scope** decides how long one approval lasts: **Once per run** (default) or **Every call**.
 
-![The Sandbox & Security page: execution mode, network policy, and per-capability switches](/docs-assets/console-settings/zh/S-console-set-02-sandbox.png)
+![The Sandbox & Security page: execution mode, network policy, and per-capability switches](/docs-assets/console-settings/en/S-console-set-02-sandbox.png)
 
 **Typical use**: a skill's network request was stopped by policy — add its address to the **Whitelist**, confirm it passes with **Test URL**, then go back to the conversation and rerun.
 
@@ -72,7 +72,7 @@ Hitting a ceiling stops the run, and the notice states which limit and its curre
 - Under **Scenario presets**, check which layout presets the assistant may choose from; when the **Generative UI** master switch on the Agent Runtime page is off, everything here is greyed out.
 - Browse the **AI component catalog**: the components the assistant can draw, listed row by row with "When to use it".
 
-![The Generative UI settings page: four rendering frameworks and the interaction-card previews](/docs-assets/console-settings/zh/S-console-set-03-genui.png)
+![The Generative UI settings page: four rendering frameworks and the interaction-card previews](/docs-assets/console-settings/en/S-console-set-03-genui.png)
 
 **Typical use**: a card's style looks wrong — first confirm in this page's preview area that this is indeed how the current framework renders it, then decide whether to switch.
 
@@ -86,13 +86,13 @@ Hitting a ceiling stops the run, and the notice states which limit and its curre
 2. Fill in **Chinese text** and **English text** (at least one; the language you leave empty borrows the one you filled), and optionally pick a built-in icon.
 3. Click **Save**. Back in the conversation, start a new session and it's on the welcome screen; clicking the card sends exactly the text you wrote.
 
-![The edit dialog for adding a quick prompt](/docs-assets/console-settings/zh/S-console-set-09-add-prompt.png)
+![The edit dialog for adding a quick prompt](/docs-assets/console-settings/en/S-console-set-09-add-prompt.png)
 
 - Each prompt can be **Edit**ed or **Remove**d (with confirmation; removing only affects the welcome screen — existing conversations are untouched). There's a craft to writing them: no blanks left to fill in, no hard-coded item numbers — one click and it runs. One of the Demo's built-ins can serve as a model: `Analyze the current sprint’s burndown, judge whether it can land on time, and explain the evidence and risks`.
 - **Prompts shown in the chat** defaults to 8, at most 20; add more than that and the welcome screen shows only the first few — this page warns you.
 - **Restore host defaults**: clears your edited list so your system puts back its own prompts next time — with confirmation, and every prompt you edited here is lost.
 
-![The Quick Prompts page: the prompt list and the display count](/docs-assets/console-settings/zh/S-console-set-04-prompts.png)
+![The Quick Prompts page: the prompt list and the display count](/docs-assets/console-settings/en/S-console-set-04-prompts.png)
 
 **Typical use**: turn the question you ask every week into a prompt — like `Output this sprint’s progress brief using the weekly report template` — and from then on one click sends it.
 
@@ -105,7 +105,7 @@ Hitting a ceiling stops the run, and the notice states which limit and its curre
 - Set the policy for **Unsigned skills**: **Allow** (no notice at all) / **Warn** (default; installs as usual, but with one more confirmation and a recorded warning) / **Deny** (simply won't install). Changes affect the install page's pre-check results on the spot.
 - Add keys under **Trusted signing keys** (fill in a label and the public key); the key ID is computed by the interface — no hand-copying. Two sentences to read carefully: a public key bundled inside a skill package creates no trust by itself; with an empty trust store, choosing **Deny** rejects every skill.
 
-![The Trust & Signing page: the unsigned-skills policy and the trusted-key list](/docs-assets/console-settings/zh/S-console-set-05-trust.png)
+![The Trust & Signing page: the unsigned-skills policy and the trusted-key list](/docs-assets/console-settings/en/S-console-set-05-trust.png)
 
 > **Note**: Page actions you checked "Don't ask again" for on an authorization card are not on this page. They're in the **Remembered page actions** section of the **Page Skills** page in the **Connections** group — **Revoke** entry by entry or **Revoke all**; what the revoke entries look like and the detailed steps are in [Connections](#/docs/console-connections); the rules of the authorization card itself are in [Letting the Assistant Act on the Page](#/docs/page-actions).
 
@@ -119,11 +119,11 @@ The master switch **Learn from how you answer** is **off** at the factory: off m
 
 **See it.** **What the model has been told about you** is no black box: the profile is a list of plain, readable conclusions, each marked **High confidence** or **Low confidence**, and you can read them one by one. These are inferred from past answers — not things you stated.
 
-![The profile entry list: each entry is a readable conclusion with a confidence mark](/docs-assets/console-settings/zh/S-privacy-02-profile-entries.png)
+![The profile entry list: each entry is a readable conclusion with a confidence mark](/docs-assets/console-settings/en/S-privacy-02-profile-entries.png)
 
 **Change it.** Every entry can be deleted individually (with a second confirmation) — it's not wipe-all-or-nothing: delete whichever entry is wrong. This is the two ends of one thing together with the suggested values on interaction cards and the auto-suggestions in forms: over there it makes suggestions based on these entries; over here you take out the ones you don't accept (see [Six Interaction Cards](#/docs/interactions) and [Case: Filling Out a Form with One Sentence](#/docs/case-fill-form)).
 
-![The confirmation when deleting a single profile entry](/docs-assets/console-settings/zh/S-privacy-03-delete-confirm.png)
+![The confirmation when deleting a single profile entry](/docs-assets/console-settings/en/S-privacy-03-delete-confirm.png)
 
 **Take it with you.** **Export** saves the profile to a file, and you can uncheck entries you don't want to take before exporting; **Import** first shows a preview of the changes: how many new, how many overwritten, and which site the profile came from — look before you confirm.
 
@@ -141,7 +141,7 @@ A few more things you can do:
 - **Encrypt stored records** is on by default: the records and the profile on this machine are stored encrypted.
 - Two limits: the profile sent to the model stays under 4 KB by default (older, lower-confidence entries are dropped first); behaviour records are kept to 500 by default (the earliest are dropped).
 
-![The Privacy & User Modeling page: the master switch, the profile list, and the clear buttons](/docs-assets/console-settings/zh/S-console-set-06-privacy.png)
+![The Privacy & User Modeling page: the master switch, the profile list, and the clear buttons](/docs-assets/console-settings/en/S-console-set-06-privacy.png)
 
 **Typical use**: an entry in the profile is wrong — delete that one entry on the spot; no need to wipe the whole profile.
 
@@ -157,7 +157,7 @@ A few more things you can do:
 
 Every switch takes effect on the spot, no refresh needed; refresh or come back the next day and the choice still holds. Theme and language are one and the same setting: whether you arrive at this page from the chat panel or the Console, you're changing the same place.
 
-![The Appearance page: theme, language, and dictation language](/docs-assets/console-settings/zh/S-console-set-07-appearance.png)
+![The Appearance page: theme, language, and dictation language](/docs-assets/console-settings/en/S-console-set-07-appearance.png)
 
 **Typical use**: the interface is in the wrong language — switch it on this page; no need to touch the browser's language settings.
 
@@ -172,9 +172,9 @@ Every switch takes effect on the spot, no refresh needed; refresh or come back t
 - Expand **Wired capabilities**: when an item shows "Not wired", its entry points are hidden — "why don't I have this button" finds its answer here.
 - Click **Export** to download a diagnostics file: version, skill list, and runtime configuration are in it; model keys are stripped. Attach it when reporting problems; the full troubleshooting flow: [FAQ and Troubleshooting](#/docs/faq).
 
-![The diagnostics export button](/docs-assets/console-settings/zh/S-console-set-11-diagnostics.png)
+![The diagnostics export button](/docs-assets/console-settings/en/S-console-set-11-diagnostics.png)
 
-![The About & Diagnostics page: version, storage, wired capabilities, and the danger zone](/docs-assets/console-settings/zh/S-console-set-08-about.png)
+![The About & Diagnostics page: version, storage, wired capabilities, and the danger zone](/docs-assets/console-settings/en/S-console-set-08-about.png)
 
 At the very bottom of the page is the **Danger zone**: **Reset** restores every runtime setting to the factory defaults, and your configured model credentials are cleared along with them — with a second confirmation, and no undo; skills, sessions, the audit log, and trust keys are untouched — it resets settings, not data.
 

@@ -29,13 +29,13 @@ An answer doesn't pop out all at once — it appends section by section, so you 
 
 While it's generating, the **Send** button becomes **Stop**. When the answer finishes, it changes back to **Send** and the input field works again.
 
-![During generation the button shows "Stop" and the body grows piece by piece](/docs-assets/chat-basics/zh/S-chat-basics-01-streaming.png)
+![During generation the button shows "Stop" and the body grows piece by piece](/docs-assets/chat-basics/en/S-chat-basics-01-streaming.png)
 
 You don't have to wait for a generating answer to finish before reading it. Sample run output — your actual output will differ.
 
 Answers aren't just plain text either: headings, lists, and tables are rendered with proper formatting, and code blocks get syntax highlighting.
 
-![Headings, lists, tables, and highlighted code blocks all render with structure](/docs-assets/chat-basics/zh/S-chat-basics-07-markdown.png)
+![Headings, lists, tables, and highlighted code blocks all render with structure](/docs-assets/chat-basics/en/S-chat-basics-07-markdown.png)
 
 One answer can contain text, tables, and code at the same time. Sample run output — your actual output will differ.
 
@@ -46,7 +46,7 @@ One answer can contain text, tables, and code at the same time. Sample run outpu
 
 Stopping doesn't wipe anything: **the body already generated stays exactly as it was**. The answer then has two separate parts — the preserved body on top, and a "Run cancelled by you" notice below. The notice is visible by default; you don't need to expand anything. The preserved body can still be copied, deleted, or inspected with View trace.
 
-![M-05 The lifecycle of a message](/docs-assets/chat-basics/M-05.svg)
+![M-05 The lifecycle of a message](/docs-assets/chat-basics/en/M-05.svg)
 
 Once sent, a message enters "generating" and ends in one of three states: completed, stopped, or failed. Stopped and failed can both go back to generating via "Retry". Note the annotation next to "stopped" in the diagram: content already generated is kept.
 
@@ -63,7 +63,7 @@ If the answer isn't good enough, you don't have to retype the question:
 1. Hover over **the message you sent**. A row of action buttons floats up beneath it.
 2. Click **Retry**, and the assistant answers the same message again. Your original text is unchanged.
 
-![The action buttons that appear when hovering over a message](/docs-assets/chat-basics/zh/S-chat-basics-03-message-actions.png)
+![The action buttons that appear when hovering over a message](/docs-assets/chat-basics/en/S-chat-basics-03-message-actions.png)
 
 The action buttons only appear on hover. On your messages: Copy, Edit message, Retry, Delete message. On the assistant's answers: Copy, Delete message, and **View trace** — which jumps to the detailed record of that run; see [Seeing What the Assistant Is Doing](#/docs/transparency).
 
@@ -75,7 +75,7 @@ Said something wrong, or want to add a sentence? Edit and resend:
 2. The message turns into an input field — change the content directly.
 3. Click **Send**: the conversation shows the edited text and the assistant answers the edited version. Click **Cancel**: it stays as it was and no new answer is produced.
 
-![The editing state of a message, with "Cancel" and "Send"](/docs-assets/chat-basics/zh/S-chat-basics-04-edit-message.png)
+![The editing state of a message, with "Cancel" and "Send"](/docs-assets/chat-basics/en/S-chat-basics-04-edit-message.png)
 
 Only your own messages can be edited; the assistant's answers can't. If you're not happy with an answer, use **Retry**.
 
@@ -97,7 +97,7 @@ Only when the previous run stopped on a **form-style card waiting for you to fil
 
 Click **Resume** and the run continues from where it stopped; the card that was waiting for you reappears. Runs that finished normally don't show this banner.
 
-![The interruption banner at the top of the conversation, with a "Resume" button](/docs-assets/chat-basics/zh/S-chat-basics-06-resume-banner.png)
+![The interruption banner at the top of the conversation, with a "Resume" button](/docs-assets/chat-basics/en/S-chat-basics-06-resume-banner.png)
 
 When you see this banner, click "Resume" to continue where you left off — no need to start over.
 

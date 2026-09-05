@@ -1,7 +1,8 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { defineConfig, type ConfigEnv, type Plugin, type UserConfig } from 'vite';
-import baseConfig from './vite.config';
+import { webskillConfig } from '@webskill/chatbot/vite';
+import baseConfig, { webskillConfigFile } from './vite.config';
 
 /**
  * 独立文档构建（pnpm build:docs → dist-docs/）。
@@ -74,12 +75,22 @@ function docsArtifact(): Plugin {
 
 export default defineConfig((configEnv: ConfigEnv) => {
   const base = (baseConfig as (env: ConfigEnv) => UserConfig)(configEnv);
+  // 本产物只在企业内部分发，所以换掉主配置那个 'omit' 实例，把模型与 apiKey 烘焙进来。
+  // 烘焙是混淆不是加密：拿到 dist-docs 的人都能还原出明文 key。
+  const plugins = (base.plugins ?? []).filter(
+    (plugin) => !(plugin && typeof plugin === 'object' && 'name' in plugin && plugin.name === 'webskill:config')
+  );
   return {
     ...base,
     // 子路径部署时用 DOCS_BASE 指定（如 /docs/）；默认根部署
     base: process.env.DOCS_BASE || './',
     publicDir: false as const,
-    plugins: [...(base.plugins ?? []), stripGtag(), docsArtifact()],
+    plugins: [
+      ...plugins,
+      webskillConfig({ file: webskillConfigFile(true), secrets: 'bake' }),
+      stripGtag(),
+      docsArtifact()
+    ],
     build: {
       ...base.build,
       outDir: OUT_DIR,

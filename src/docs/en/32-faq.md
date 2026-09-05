@@ -2,7 +2,7 @@
 
 Come in with a symptom, leave with the cause and the next step. Every symptom gets an actionable fix, not just a "please contact your administrator".
 
-![M-32 The troubleshooting decision tree: branching from "what went wrong" into error cards, no response, mid-run stops, wrong results, attachments and voice, pages, skills, and connectivity, with the leaves pointing to the matching sections of this chapter](/docs-assets/faq/M-32.svg)
+![M-32 The troubleshooting decision tree: branching from "what went wrong" into error cards, no response, mid-run stops, wrong results, attachments and voice, pages, skills, and connectivity, with the leaves pointing to the matching sections of this chapter](/docs-assets/faq/en/M-32.svg)
 
 ## How to use this chapter
 
@@ -27,7 +27,7 @@ Look things up by **what you see** — no need to first judge which module the p
 
 When a run errors, a card titled "Something went wrong" appears in the conversation: one suggestion tailored to this error, plus two buttons — **Open settings** (jumping straight to the relevant settings page) and **Dismiss**.
 
-![A typical error card: the title "Something went wrong", one suggestion, and the buttons "Open settings" and "Dismiss"](/docs-assets/faq/zh/S-faq-01-error-card.png)
+![A typical error card: the title "Something went wrong", one suggestion, and the buttons "Open settings" and "Dismiss"](/docs-assets/faq/en/S-faq-01-error-card.png)
 
 When in doubt, do the generic thing first: "Dismiss this and try again. Open the run steps above to see how far it got." If resending still errors, follow the sentence on the card to the matching section of this chapter — that sentence is quoted verbatim in the sections below.
 
@@ -131,6 +131,6 @@ Every early stop comes with a one-line reason on the interface. The full list of
 2. **What you saw** — the exact words on the error card, and roughly when it happened.
 3. **The diagnostics file** — on the Console's **About & Diagnostics** page under Settings, click **Export**; versions, the skill list, and the run configuration are all in there, with model keys stripped out.
 
-![Where to export diagnostics: the "Export" button on the Settings › About & Diagnostics page](/docs-assets/faq/zh/S-faq-02-diagnostics-export.png)
+![Where to export diagnostics: the "Export" button on the Settings › About & Diagnostics page](/docs-assets/faq/en/S-faq-02-diagnostics-export.png)
 
 The version number is on the same page — it's usually the first thing you'll be asked when reporting a problem.

@@ -17,7 +17,7 @@ Generate an agile operations report for the current project covering sprint heal
 
 What it triggers: the assistant judges this sentence to be asking for a report, so it activates a skill — a packaged bundle of "instructions for doing something + scripts" that, once installed, lets the assistant do that thing. What gets activated here is agile-ops-dashboard, which specializes in agile operations reports.
 
-![The moment of asking: this quick prompt on the welcome screen](/docs-assets/case-report/zh/S-case-report-01-prompt.png)
+![The moment of asking: this quick prompt on the welcome screen](/docs-assets/case-report/en/S-case-report-01-prompt.png)
 
 ## Step 2: Watch how it works
 
@@ -30,17 +30,17 @@ After sending, expand the **Run flow** — it's the thing most worth watching in
 | `list_bugs` | The defect list with severity |
 | `list_test_suites` | Test suites, coverage, and pass rates |
 
-![With the run flow expanded, a string of data-fetching tool calls is visible](/docs-assets/case-report/zh/S-case-report-02-run-steps.png)
+![With the run flow expanded, a string of data-fetching tool calls is visible](/docs-assets/case-report/en/S-case-report-02-run-steps.png)
 
 Behind one sentence, the assistant queried four kinds of data separately before aggregating. Sample run output — your actual output will differ.
 
 Open any one of the calls to see what arguments it carried and what it brought back:
 
-![A single tool call expanded, showing its arguments and result](/docs-assets/case-report/zh/S-case-report-03-tool-detail.png)
+![A single tool call expanded, showing its arguments and result](/docs-assets/case-report/en/S-case-report-03-tool-detail.png)
 
 So the report isn't something the assistant made up: every number traces back to a real query. Sample run output — your actual output will differ.
 
-![M-25 What happens behind one sentence](/docs-assets/case-report/M-25.svg)
+![M-25 What happens behind one sentence](/docs-assets/case-report/en/M-25.svg)
 
 You say one sentence; the assistant fetches data from the page tools in several rounds, hands it to the report skill to aggregate, and gives the report back to you. For a full explanation of on-screen elements like phase names and tool states, see [Seeing What the Assistant Is Doing](#/docs/transparency).
 
@@ -48,7 +48,7 @@ You say one sentence; the assistant fetches data from the page tools in several 
 
 The report is drawn right into the conversation: sprint health, requirement distribution, defect hotspots, and test quality each get a block, and the assistant adds a headline conclusion or two.
 
-![The agile operations report in the conversation, one block per data area](/docs-assets/case-report/zh/S-case-report-04-report.png)
+![The agile operations report in the conversation, one block per data area](/docs-assets/case-report/en/S-case-report-04-report.png)
 
 The report covers the four areas you named. Sample run output — your actual output will differ.
 

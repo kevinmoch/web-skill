@@ -4,7 +4,7 @@ The requirements and acceptance criteria are already written in a Word file, and
 
 First, let's be clear about where this file goes: a docx is read into text in your own browser, and only the read-out body text is sent to the model — the original file is never sent out in whole. For more on where data goes, see [Privacy and Where Your Data Goes](#/docs/privacy).
 
-![M-29 A file becomes records in the system: pick the file, [on your computer] read into text, the text goes to the assistant, it restates what it's about to enter, you confirm, it fills the form entry by entry, confirms before each submission, entry complete](/docs-assets/case-import-file/M-29.svg)
+![M-29 A file becomes records in the system: pick the file, [on your computer] read into text, the text goes to the assistant, it restates what it's about to enter, you confirm, it fills the form entry by entry, confirms before each submission, entry complete](/docs-assets/case-import-file/en/M-29.svg)
 
 The "on your computer" box spells it out: the reading happens locally, and the original file isn't sent out in whole.
 
@@ -18,7 +18,7 @@ The "on your computer" box spells it out: the reading happens locally, and the o
 1. Drag the docx you just downloaded into the input field, or click **Attach a file** below the input field to pick it.
 2. The chip's type label reads "Doc text", and you can remove it any time before sending.
 
-![Dragging a docx into the input field, the attachment chip's type label showing "Doc text"](/docs-assets/case-import-file/zh/S-case-import-01-docx-chip.png)
+![Dragging a docx into the input field, the attachment chip's type label showing "Doc text"](/docs-assets/case-import-file/en/S-case-import-01-docx-chip.png)
 
 Attached to the input field doesn't mean sent — it only counts once you click **Send**.
 
@@ -27,7 +27,7 @@ Attached to the input field doesn't mean sent — it only counts once you click 
 1. Add your instruction, for example: `Following this document, create the requirements it lists in the backlog`
 2. The assistant first restates what it read and which entries it's about to enter. **Verify it right here** — when a document's tables are complex or the formatting is fancy, the read-out content may be off, and fixing it now is easier than correcting entry by entry afterwards.
 
-![The assistant restating what it read from the document, listing the entries it's about to enter](/docs-assets/case-import-file/zh/S-case-import-02-restate.png)
+![The assistant restating what it read from the document, listing the entries it's about to enter](/docs-assets/case-import-file/en/S-case-import-02-restate.png)
 
 The restating step is there for you to verify. Sample run output — your actual output will differ.
 
@@ -37,15 +37,15 @@ The restating step is there for you to verify. Sample run output — your actual
 2. It fills in the fields one by one — this step doesn't interrupt you. But the same rule as in [Case: Filling Out a Form with One Sentence](#/docs/case-fill-form) applies: **it can fill out an entire form on its own, but before pressing "submit" it always stops and asks you.** Every entry pops an authorization card (titled **Authorization required**) — read the filled content before clicking **Allow**.
 3. If an entry is filled wrong, fix it right on the page, then click Allow; if you don't want an entry, click **Deny** — only that entry isn't written, and the rest carry on as usual.
 
-![The task list showing the progress of multiple entries, with in-progress and completed items](/docs-assets/case-import-file/zh/S-case-import-03-progress.png)
+![The task list showing the progress of multiple entries, with in-progress and completed items](/docs-assets/case-import-file/en/S-case-import-03-progress.png)
 
 The progress number advances entry by entry. Sample run output — your actual output will differ.
 
-![A requirement filled into the form, an authorization card popping up before submission](/docs-assets/case-import-file/zh/S-case-import-04-form-consent.png)
+![A requirement filled into the form, an authorization card popping up before submission](/docs-assets/case-import-file/en/S-case-import-04-form-consent.png)
 
 The form is filled and the authorization card stands in front of submission — every entry written into the system needs your nod. Sample run output — your actual output will differ.
 
-![The requirement list after all entries are entered](/docs-assets/case-import-file/zh/S-case-import-05-list-done.png)
+![The requirement list after all entries are entered](/docs-assets/case-import-file/en/S-case-import-05-list-done.png)
 
 The entered entries really do appear in the list. Sample run output — your actual output will differ.
 
@@ -73,7 +73,7 @@ Both are the same: reading, verifying, entering, and the confirmation before sub
 
 - **The document is long, and it acts like it didn't finish it.** Read-out text beyond 32K characters gets truncated. Send it in segments, or state up front which part you want — "only enter the acceptance criteria in chapter 3", for example.
 
-![The notice shown when the text is truncated for exceeding the limit](/docs-assets/case-import-file/zh/S-case-import-06-truncated.png)
+![The notice shown when the text is truncated for exceeding the limit](/docs-assets/case-import-file/en/S-case-import-06-truncated.png)
 
 - **What it restates doesn't match the document.** Don't let it act; copying that passage straight to it is more reliable.
 - **You've changed your mind about one of the entries.** Click **Deny** on that entry's authorization card — it isn't written into the system, and the other entries are unaffected.

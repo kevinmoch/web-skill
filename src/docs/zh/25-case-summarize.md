@@ -21,7 +21,7 @@
 
 读取的边界与第 13 章完全相同：
 
-![M-14 助手能看到页面的哪些部分](/docs-assets/page-perception/M-14.svg)
+![M-14 助手能看到页面的哪些部分](/docs-assets/page-perception/zh/M-14.svg)
 
 会读的是正文、表格、表单标签；密码框的值不读；页面里的图片由你开关控制。
 

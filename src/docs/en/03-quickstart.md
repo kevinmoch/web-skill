@@ -12,7 +12,7 @@ Follow this chapter once through and you'll complete your first full conversatio
 
 Open this site's [Demo](/demo) in your browser (Agile Studio, a sample project management system), and pick any project in the left sidebar — from here on, the data the assistant pulls is for the "current project".
 
-![The Demo home page, with the assistant entry marked by an arrow on the right edge](/docs-assets/quickstart/zh/S-quickstart-01-demo-entry.png)
+![The Demo home page, with the assistant entry marked by an arrow on the right edge](/docs-assets/quickstart/en/S-quickstart-01-demo-entry.png)
 
 The assistant entry is on the right edge of the page, called **Expand AI copilot**.
 
@@ -20,7 +20,7 @@ The assistant entry is on the right edge of the page, called **Expand AI copilot
 
 Click **Expand AI copilot** and the chat drawer slides out from the right. Before your first conversation, the message area is the welcome screen: under "How can I help you today?", the "Try an example" quick-prompt area lists ready-made prompts — clicking one is the same as sending that sentence.
 
-![The welcome screen in the chat drawer: the greeting and the "Try an example" quick prompts](/docs-assets/quickstart/zh/S-quickstart-02-welcome.png)
+![The welcome screen in the chat drawer: the greeting and the "Try an example" quick prompts](/docs-assets/quickstart/en/S-quickstart-02-welcome.png)
 
 That's the whole welcome screen: one greeting, plus a set of ready-made prompts you can click directly.
 
@@ -40,11 +40,11 @@ After sending, watch for three things in order:
 2. **{count} tool calls** — a tool is one concrete action the system you're in provides to the assistant, like "read the sprint list"; every data fetch counts as one call, and the run area keeps a count.
 3. **Run flow** — expand it to see each step of this run advancing in order.
 
-![M-03 The full flow of one conversation (simplified)](/docs-assets/quickstart/M-03.svg)
+![M-03 The full flow of one conversation (simplified)](/docs-assets/quickstart/en/M-03.svg)
 
 You ask; the assistant understands, picks a skill and tools, pops a card to ask you when necessary, then executes and gives the result — the notices you see on the interface correspond to the parts of this diagram.
 
-![A conversation mid-run: thinking and tool calls both in progress](/docs-assets/quickstart/zh/S-quickstart-03-running.png)
+![A conversation mid-run: thinking and tool calls both in progress](/docs-assets/quickstart/en/S-quickstart-03-running.png)
 
 What it looks like before the run has finished. Sample run output; your actual output will differ.
 
@@ -54,7 +54,7 @@ Recognizing them is enough for now; for a detailed reading, see [Seeing What the
 
 When the run ends, the answer gives a complete judgment: whether the current sprint can wrap up on time, on what grounds, and where the risks are. The answer is laid out with headings and lists — just read it. Not happy with it? Hover over the message you sent and click **Retry** to have it run again.
 
-![The final result of the burndown analysis: the wrap-up judgment, its grounds, and the risks](/docs-assets/quickstart/zh/S-quickstart-04-result.png)
+![The final result of the burndown analysis: the wrap-up judgment, its grounds, and the risks](/docs-assets/quickstart/en/S-quickstart-04-result.png)
 
 Same run as the previous screenshot, at its final result. Sample run output; your actual output will differ.
 

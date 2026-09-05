@@ -25,7 +25,7 @@ Take the Demo (Agile Studio): it ships with 13 built-in skills, which fall into 
 
 What happens after you say something can be summed up in one diagram:
 
-![From one sentence to a skill's output: your request goes through routing, activation, and execution in a sandbox, and the artifact comes back to the conversation. Routing has a fork — ask vaguely and you get a ready-made skill; set a scope or requirements and you get a made-on-the-spot one](/docs-assets/skills-usage/M-07.svg)
+![From one sentence to a skill's output: your request goes through routing, activation, and execution in a sandbox, and the artifact comes back to the conversation. Routing has a fork — ask vaguely and you get a ready-made skill; set a scope or requirements and you get a made-on-the-spot one](/docs-assets/skills-usage/en/M-07.svg)
 
 The assistant first decides which skill to use, activates it, runs it in a sandbox, and finally returns the artifact to the conversation. These stage names (Route, Activate, Execute, Complete) correspond one-to-one with what you see in the run flow. The decision has a fork: ask vaguely and it takes a "ready-made" skill; set a scope or specific requirements and it takes a "made on the spot" one.
 
@@ -39,7 +39,7 @@ The assistant first decides which skill to use, activates it, runs it in a sandb
 
 The first two come verbatim from the "Try an example" quick prompts on the Demo's welcome screen; the third is casual everyday phrasing. The assistant judges your intent, not your wording — rather than memorizing incantations, be specific about what artifact you want and which slice of data to use.
 
-![Two phrasings of the same request both triggered the same skill](/docs-assets/skills-usage/zh/S-skills-04-two-phrasings.png)
+![Two phrasings of the same request both triggered the same skill](/docs-assets/skills-usage/en/S-skills-04-two-phrasings.png)
 
 Two different phrasings activated the same skill — no fixed phrasing to memorize. Sample run output; your actual output will differ.
 
@@ -79,7 +79,7 @@ Only when you vaguely ask for a standard artifact (no scope, no requirements) do
 
 When you ask for changes to a ready-made artifact, the assistant doesn't fine-tune the original — it switches to the made-on-the-spot one and builds a fresh version: you'll see it pull the data again and produce a new copy. It didn't misunderstand you; a fixed template genuinely can't be edited.
 
-![Asking vaguely and asking with a scope activated different skills](/docs-assets/skills-usage/zh/S-skills-06-fixed-vs-authored.png)
+![Asking vaguely and asking with a scope activated different skills](/docs-assets/skills-usage/en/S-skills-06-fixed-vs-authored.png)
 
 Asked twice in the same session: the vague ask activated the ready-made skill, the scoped ask activated the made-on-the-spot one — the two side-by-side skill badges show different names. Sample run output; your actual output will differ.
 
@@ -95,11 +95,11 @@ After you've walked the assistant through getting something complex done, you ca
 
 **Fourth, take a look yourself before saving.** The line "Please check the preview below for anything that must not be stored" is a responsibility note written for you: the conversation may contain things you don't want kept long-term — people's names, internal numbers, one-off passwords. Read it word by word, confirm there's nothing, then click save.
 
-![The "save as skill" confirmation card, with a preview of the skill's content](/docs-assets/skills-usage/zh/S-skills-07-save-skill-confirm.png)
+![The "save as skill" confirmation card, with a preview of the skill's content](/docs-assets/skills-usage/en/S-skills-07-save-skill-confirm.png)
 
 The confirmation card shows the full skill content to be saved, and the responsibility note about checking the preview is written right on the card.
 
-![The "submitted for review" notice after submitting, with the candidate ID and "Go to review"](/docs-assets/skills-usage/zh/S-skills-08-candidate-submitted.png)
+![The "submitted for review" notice after submitting, with the candidate ID and "Go to review"](/docs-assets/skills-usage/en/S-skills-08-candidate-submitted.png)
 
 The notice after submitting states "It cannot be used until a reviewer approves and publishes it", and gives the candidate ID and the "Go to review" entry.
 
@@ -109,23 +109,23 @@ The notice after submitting states "It cannot be used until a reviewer approves 
 
 Assistant messages carry a **Skill** badge showing the name of the skill used this time.
 
-![The skill badge on an assistant message](/docs-assets/skills-usage/zh/S-skills-01-skill-badge.png)
+![The skill badge on an assistant message](/docs-assets/skills-usage/en/S-skills-01-skill-badge.png)
 
 The skill badge sits right on the message, visible at a glance. Sample run output; your actual output will differ.
 
 At the end of the message, the **Skills used in this run** section lists every skill used this turn.
 
-![The "Skills used in this run" section at the end of a message](/docs-assets/skills-usage/zh/S-skills-02-skills-used.png)
+![The "Skills used in this run" section at the end of a message](/docs-assets/skills-usage/en/S-skills-02-skills-used.png)
 
 Expand the **Run flow** card: the "Activate" step shows the skill name and how long it took (for example, "Skill activated: sprint-progress-report", with a duration like 3.9s alongside).
 
-![The "Activate" step in the run flow, with the skill name and duration](/docs-assets/skills-usage/zh/S-skills-03-trace-skill.png)
+![The "Activate" step in the run flow, with the skill name and duration](/docs-assets/skills-usage/en/S-skills-03-trace-skill.png)
 
 ## Which skills are installed
 
 Click **Open Console** in the chat header and go to the Console's **Library** (where skills are managed and run history is reviewed): every installed skill's origin and status is on this page. The Demo ships with exactly those 13 built-in skills; for installation and version management, see [Skill Management](#/docs/console-skills).
 
-![The 13 built-in skills in the Console's Library](/docs-assets/skills-usage/zh/S-skills-05-skill-library.png)
+![The 13 built-in skills in the Console's Library](/docs-assets/skills-usage/en/S-skills-05-skill-library.png)
 
 All 13 built-in skills on one Library page.
 

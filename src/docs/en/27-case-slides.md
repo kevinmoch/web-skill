@@ -16,7 +16,7 @@ Turn delivery quality across all projects into a slide deck, present it in a new
 
 It sets no scope and states no pagination requirements, so it goes with the "ready-made" slides skill: a fixed eight pages, a cross-project analysis of the three demo projects — the fastest and steadiest. From this sentence to the presentation, it passes through these stages:
 
-![How a slide deck is produced and presented: the request → the assistant generates the deck → asks to open a window → you agree → presentation in a new window → turn pages or export to PDF; asking to add or remove pages regenerates a fresh version](/docs-assets/case-slides/M-27.svg)
+![How a slide deck is produced and presented: the request → the assistant generates the deck → asks to open a window → you agree → presentation in a new window → turn pages or export to PDF; asking to add or remove pages regenerates a fresh version](/docs-assets/case-slides/en/M-27.svg)
 
 "You agree" is a required stage: without your nod, the window doesn't open.
 
@@ -28,7 +28,7 @@ Once the deck is ready, an **Open document** button appears in the message. Clic
 
 In the card, `{skillName}` is the name of the skill that wants to open the window, and `{dataSource}` is where the data in the deck came from. The window only opens when you click **Confirm**; click **Cancel** and it doesn't open — the run continues with a "you didn't agree" outcome, the assistant explains the window couldn't be opened, nothing stalls, and the window certainly isn't opened quietly anyway.
 
-![The "Confirmation" card before the window opens, stating which skill wants to open it and where the data comes from](/docs-assets/case-slides/zh/S-case-slides-01-open-confirm.png)
+![The "Confirmation" card before the window opens, stating which skill wants to open it and where the data comes from](/docs-assets/case-slides/en/S-case-slides-01-open-confirm.png)
 
 It always asks before opening a window, and the card says who's opening it and where the data comes from.
 
@@ -41,15 +41,15 @@ Once the new window opens, it's in presentation form:
 - Click the **Print** button in the window's top-right corner: it lays each page out as one sheet before invoking printing; choose "Save as PDF" in the print dialog to export. Dark slides don't lose their background when printed — a dark background doesn't come out as white paper.
 - To exit, just close the window; the conversation is still there, and clicking **Open document** once more restarts the presentation.
 
-![The cover page of the eight-page deck being presented in a separate window, with the page number in the bottom-left corner](/docs-assets/case-slides/zh/S-case-slides-02-deck-cover.png)
+![The cover page of the eight-page deck being presented in a separate window, with the page number in the bottom-left corner](/docs-assets/case-slides/en/S-case-slides-02-deck-cover.png)
 
 The cover page: an overview of the three projects' health scores. Sample run output — your actual output will differ.
 
-![Turning to the next page, the page number in the bottom-left corner changes along](/docs-assets/case-slides/zh/S-case-slides-03-page-turn.png)
+![Turning to the next page, the page number in the bottom-left corner changes along](/docs-assets/case-slides/en/S-case-slides-03-page-turn.png)
 
 Turn pages with the arrow keys; eight pages in total.
 
-![The exported PDF, one sheet per page, the dark background preserved](/docs-assets/case-slides/zh/S-case-slides-04-exported-pdf.png)
+![The exported PDF, one sheet per page, the dark background preserved](/docs-assets/case-slides/en/S-case-slides-04-exported-pdf.png)
 
 The layout and background in the PDF match what you see on screen.
 
@@ -63,17 +63,17 @@ Slides are the artifacts where the "ready-made / made on the spot" difference sh
 
 Mind the third one: asking for changes to a ready-made deck, the assistant doesn't fine-tune the original — it switches to the made-on-the-spot skill, fetches the data again, and produces a fresh copy. It didn't misunderstand you; a fixed template genuinely can't be edited.
 
-![A version generated to the "three pages" requirement, its page count different from the fixed eight](/docs-assets/case-slides/zh/S-case-slides-05-authored-three-pages.png)
+![A version generated to the "three pages" requirement, its page count different from the fixed eight](/docs-assets/case-slides/en/S-case-slides-05-authored-three-pages.png)
 
 In the same session, asked vaguely first and then with a page split — the two versions' skill badges and page counts both differ. Sample run output — your actual output will differ.
 
 ## What this used
 
-| Step | Chapter |
-| --- | --- |
-| Setting a skill in motion with one sentence, telling ready-made from made on the spot | [Skills: Giving the Assistant Expertise](#/docs/skills-usage) |
-| The window-opening confirmation, presenting, printing, and exporting to PDF | [Artifacts: Dashboards, Documents, Slides, and Printing](#/docs/artifacts) |
-| Seeing clearly what the assistant does at each step | [Seeing What the Assistant Is Doing](#/docs/transparency) |
+| Step                                                                                  | Chapter                                                                    |
+| ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Setting a skill in motion with one sentence, telling ready-made from made on the spot | [Skills: Giving the Assistant Expertise](#/docs/skills-usage)              |
+| The window-opening confirmation, presenting, printing, and exporting to PDF           | [Artifacts: Dashboards, Documents, Slides, and Printing](#/docs/artifacts) |
+| Seeing clearly what the assistant does at each step                                   | [Seeing What the Assistant Is Doing](#/docs/transparency)                  |
 
 ## Web version vs. extension version
 

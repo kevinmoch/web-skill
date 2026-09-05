@@ -14,7 +14,7 @@ This chapter walks you through every corner of the assistant's chat panel: what 
 
 Wherever the panel opens, it has the same four areas. The numbers on the overview screenshot are referenced by this chapter and the ones after it.
 
-![Overview of the chat interface with the four areas marked: ① header, ② session list, ③ message area, ④ input area](/docs-assets/chat-tour/zh/S-chat-tour-01-overview.png)
+![Overview of the chat interface with the four areas marked: ① header, ② session list, ③ message area, ④ input area](/docs-assets/chat-tour/en/S-chat-tour-01-overview.png)
 
 ①②③④ correspond one-to-one with the table below; when you see a number, you know which part is meant.
 
@@ -25,7 +25,7 @@ Wherever the panel opens, it has the same four areas. The numbers on the overvie
 | ③ | Message area | Your questions and the assistant's answers in time order; a new session first shows "How can I help you today?" plus a set of "Try an example" prompts — click one to send it |
 | ④ | Input area | Type, add attachments, dictate, take a photo, pick a model, send |
 
-![Structural diagram of the chat interface: header on top, message area in the middle, input area at the bottom, session list on the side](/docs-assets/chat-tour/M-04.svg)
+![Structural diagram of the chat interface: header on top, message area in the middle, input area at the bottom, session list on the side](/docs-assets/chat-tour/en/M-04.svg)
 
 The diagram gives you the structure; the full screenshot gives you the real look. They describe the same thing.
 
@@ -35,7 +35,7 @@ The diagram gives you the structure; the full screenshot gives you the real look
 
 On the far left of the header ① is the **Sessions** button (tooltip "Expand Session List"); it opens the session list in area ②. When your system offers docking, next to it is **Dock to page** (which becomes **Undock from page** once docked). The middle shows the assistant's name (Agile Copilot in the Demo). On the right, in order: **New chat** (the plus sign), **Settings**, and — if your system provides it — **Close chat**. All of these names appear as tooltips in the interface.
 
-![Close-up of the header buttons](/docs-assets/chat-tour/zh/S-chat-tour-02-header.png)
+![Close-up of the header buttons](/docs-assets/chat-tour/en/S-chat-tour-02-header.png)
 
 The button names all come from their tooltips and match the terms used in the text one-to-one.
 
@@ -55,7 +55,7 @@ In the message area ③, move your pointer over a message (or focus it with the 
 
 The detailed usage of these actions is covered in [Asking, Answering, and Interrupting](#/docs/chat-basics) and [Seeing What the Assistant Is Doing](#/docs/transparency); this chapter only points out where things are.
 
-![An assistant message with its action bar](/docs-assets/chat-tour/zh/S-chat-tour-03-message-actions.png)
+![An assistant message with its action bar](/docs-assets/chat-tour/en/S-chat-tour-03-message-actions.png)
 
 These actions aren't hidden in a menu: hover over a message and the action bar appears, as in the screenshot.
 
@@ -68,7 +68,7 @@ In the middle of the input area ④ is the input field (placeholder text "Send a
 - **Take a photo**: use the camera to take a picture. The photo goes into the input field as an attachment and is only sent when you press send.
 - **Model**: switch which model this session uses. When no model is configured yet, the built-in **Demo model** answers instead, and its replies are marked as such.
 
-![All the entries in the input area: attachments, model, voice, camera, send](/docs-assets/chat-tour/zh/S-chat-tour-04-composer.png)
+![All the entries in the input area: attachments, model, voice, camera, send](/docs-assets/chat-tour/en/S-chat-tour-04-composer.png)
 
 This screenshot shows the full row of entries in the input area.
 
@@ -78,7 +78,7 @@ This screenshot shows the full row of entries in the input area.
 - **Closing doesn't lose anything**: whether you use **Close chat** or the Demo's "Collapse AI copilot", your sessions and messages are still there when you reopen.
 - **Narrow screens and narrow panels**: when the panel gets narrow (what matters is the panel's own width, not the window size), the session list ② automatically collapses into an overlay: click the **Sessions** button to expand it; it floats above the message area instead of squeezing it. Press Esc, click the backdrop outside the overlay, or pick a session, and it retracts. On narrow screens like phones, the panel fills the full screen width, and the four areas keep their roles.
 
-![The chat interface on a 375px-wide screen](/docs-assets/chat-tour/zh/S-chat-tour-05-narrow.png)
+![The chat interface on a 375px-wide screen](/docs-assets/chat-tour/en/S-chat-tour-05-narrow.png)
 
 Fully usable on a narrow screen: the session list collapses into an overlay, and the message area isn't squeezed.
 

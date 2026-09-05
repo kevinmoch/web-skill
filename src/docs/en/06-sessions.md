@@ -24,7 +24,7 @@ When should you start a new session? Three situations to judge by:
 2. **The answers are being led astray by what came before.** You just had it analyze project A, then asked about project B, and the answer still speaks in project A's terms — a new session is the cleanest correction.
 3. **The session has dragged on too long.** The longer you chat, the more material piles up behind it, and the more easily it mixes old and new information; rather than working to correct it, start a new session and restate what you need.
 
-![M-06 Sessions and context](/docs-assets/sessions/M-06.svg)
+![M-06 Sessions and context](/docs-assets/sessions/en/M-06.svg)
 
 Each session remembers the conversation inside itself, and nothing crosses between them — switching sessions means starting over.
 
@@ -36,7 +36,7 @@ Each session remembers the conversation inside itself, and nothing crosses betwe
 
 You don't have to title sessions yourself: after you send the first message, the title is taken from that sentence; a session that doesn't have a title yet shows in the list as "New chat". A title you've changed yourself stays as it is — later messages won't overwrite it.
 
-![The session list expanded, with multiple sessions arranged by time](/docs-assets/sessions/zh/S-sessions-01-session-list.png)
+![The session list expanded, with multiple sessions arranged by time](/docs-assets/sessions/en/S-sessions-01-session-list.png)
 
 Older sessions sit above newer ones in the list; click one to switch. The current session is marked.
 
@@ -46,7 +46,7 @@ Older sessions sit above newer ones in the list; click one to switch. The curren
 
 **Load earlier.** When there are many sessions, the list first shows the most recent batch, and **Load earlier sessions** appears at the top; click it and an earlier batch is added above the list — while loading, the button shows "Loading…", and when there's nothing earlier it stops appearing. The same goes for opening a very long session: the earliest messages aren't on the first screen; click **Load earlier messages** at the top of the message area to fill them in above.
 
-![Searching sessions: after typing a keyword, only the matching sessions remain](/docs-assets/sessions/zh/S-sessions-02-search.png)
+![Searching sessions: after typing a keyword, only the matching sessions remain](/docs-assets/sessions/en/S-sessions-02-search.png)
 
 Search filters by title; the regular group and the "Archived" group are filtered together.
 
@@ -60,15 +60,15 @@ Move your pointer over a session in the list and a three-dot menu floats up on t
 - **Archive**: the session moves from the regular list to the "Archived" group at the bottom. Archiving is not deleting — the content is intact; in "Archived", click **Unarchive** on it and it moves back to the regular list.
 - **Delete**: a confirmation box pops up first. Its title reads `Delete “{title}”?` ({title} shows the session's title), and its body reads: **"The conversation and its run history are removed. This cannot be undone."** It only executes when you click **Delete**; **Cancel** doesn't delete.
 
-![The session's three-dot menu: Rename, Archive, Delete](/docs-assets/sessions/zh/S-sessions-03-actions-menu.png)
+![The session's three-dot menu: Rename, Archive, Delete](/docs-assets/sessions/en/S-sessions-03-actions-menu.png)
 
 This menu only appears when you hover over a session row; all three organizing actions are inside.
 
-![Archived sessions move to the "Archived" group at the bottom of the list](/docs-assets/sessions/zh/S-sessions-05-archived.png)
+![Archived sessions move to the "Archived" group at the bottom of the list](/docs-assets/sessions/en/S-sessions-05-archived.png)
 
 Archiving just puts it away — it isn't deletion; unarchiving restores it to its place.
 
-![The confirmation dialog for deleting a session](/docs-assets/sessions/zh/S-sessions-04-delete-confirm.png)
+![The confirmation dialog for deleting a session](/docs-assets/sessions/en/S-sessions-04-delete-confirm.png)
 
 The confirmation dialog spells out "The conversation and its run history are removed. This cannot be undone." — read it carefully before you click.
 

@@ -5,7 +5,7 @@ import '@webskill/chatbot/chatbot.css';
 import { useWebSkillRuntime } from '../webskill/useRuntime';
 import { getAgileHostCapabilities, type NavigateFns } from '../webskill/adapter';
 import { fetchAgileData } from '../webskill/dataSources';
-import { GLOBAL_QUICK_PROMPTS, screenQuickPrompts } from '../webskill/quickPrompts';
+import { screenQuickPrompts } from '../webskill/quickPrompts';
 import { listUserSkillPrompts } from '../webskill/userSkillPrompts';
 import { useAgileData } from '../context/AgileDataContext';
 
@@ -65,8 +65,7 @@ export const ChatDrawer: React.FC<{ width: number; onEngine(e: ChatEngine): void
         chatRoot: '/chat',
         runtimeConfig: runtime.runtimeConfig,
         skillCandidates: runtime.skillCandidates,
-        // 全局条只是种子（装载时写入一次，之后归 console 管）；随屏变的那批必须走动态下发
-        quickPrompts: GLOBAL_QUICK_PROMPTS,
+        // 全局条的出厂种子归 config.json；随屏变的那批必须走动态下发
         dynamicQuickPrompts: [...screenQuickPrompts(currentScreen), ...userPrompts],
         generativeUi: true,
         // 脚本取数通道（模块级稳定引用）

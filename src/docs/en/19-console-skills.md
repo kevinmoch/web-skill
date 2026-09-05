@@ -12,7 +12,7 @@ A skill is a packaged bundle of "instructions for doing something + scripts"; on
 
 ## Where skills come from and where they go
 
-![Where a skill comes from and where it goes: preinstalled, archives, URLs, folders, and temporary page-provided skills enter the library via installation (possibly after review), get used by conversations, and can be exported](/docs-assets/console-skills/M-20.svg)
+![Where a skill comes from and where it goes: preinstalled, archives, URLs, folders, and temporary page-provided skills enter the library via installation (possibly after review), get used by conversations, and can be exported](/docs-assets/console-skills/en/M-20.svg)
 
 Skills have several sources: preinstalled by the system (the Demo's 13 built-in skills), installed by you from an archive, URL, or folder, and provided temporarily by a page. The first two kinds land in the Library once installed, work in conversations, and can be exported; page-provided temporary skills never enter the Library and vanish when you leave the page — see [Connections](#/docs/console-connections). One exception: skills the assistant generates or edits for you don't go straight into the library — they first become skills awaiting approval in the review queue, and take effect only after review and publishing; see [Governance and Review](#/docs/console-governance). What each of the 13 built-in skills does: [Skills: Giving the Assistant Expertise](#/docs/skills-usage).
 
@@ -30,7 +30,7 @@ Skills have several sources: preinstalled by the system (the Demo's 13 built-in 
 - Click a skill name to open the Editor; the row-end menu has "Open in Editor" and "Export", and managed skills additionally have "Verify integrity", "Rename", and "Uninstall"
 - Click "Model context" to see the skill list exactly as the assistant sees it — it matches this page, so when the assistant "doesn't know" a skill, check here first
 
-![The Library showing all 13 of the Demo's built-in skills on one page, with source, contents, and last used](/docs-assets/console-skills/zh/S-console-skills-01-library.png)
+![The Library showing all 13 of the Demo's built-in skills on one page, with source, contents, and last used](/docs-assets/console-skills/en/S-console-skills-01-library.png)
 
 **Typical use**: wondering "what's the dashboard skill called, and when was it last used" — type `screen` in the filter box and a pair of skills shows up: one ready-made, one made on the spot. Which one runs is the assistant's call based on your words; the difference is in [Skills: Giving the Assistant Expertise](#/docs/skills-usage).
 
@@ -57,9 +57,9 @@ description: 用周报模板输出当前迭代的进展简报——结构固定�
 当用户要求迭代周报、迭代小结，或当前迭代的结构化进展汇报时使用。
 ```
 
-![The Editor: the skill's file tree on the left, the SKILL.md content on the right](/docs-assets/console-skills/zh/S-console-skills-02-editor.png)
+![The Editor: the skill's file tree on the left, the SKILL.md content on the right](/docs-assets/console-skills/en/S-console-skills-02-editor.png)
 
-![Validation failed on save: the "Validation issues" are listed one by one, and the file can't be saved until they're fixed](/docs-assets/console-skills/zh/S-console-skills-05-save-validation.png)
+![Validation failed on save: the "Validation issues" are listed one by one, and the file can't be saved until they're fixed](/docs-assets/console-skills/en/S-console-skills-05-save-validation.png)
 
 Sections like "## 何时使用" ("when to use it") are the basis on which the assistant picks skills. If you don't want to edit by hand, hand it to the assistant: a skill it edits becomes a skill awaiting approval — reviewed before use. The full process: [Case: Turning What You Just Did into a Skill](#/docs/case-skill-lifecycle).
 
@@ -73,11 +73,11 @@ There are three install sources — pick one:
 2. **Local .zip file**: drag the archive in, or click "Choose a zip".
 3. **Skill folder upload**: pick a folder and the browser packs it for you.
 
-![The three install sources: URL, local archive, folder](/docs-assets/console-skills/zh/S-console-skills-06-install-sources.png)
+![The three install sources: URL, local archive, folder](/docs-assets/console-skills/en/S-console-skills-06-install-sources.png)
 
 Whichever the source, clicking "Preview & install" first produces an "Install preview": which files the archive contains and how many "Pre-install checks" passed, listed item by item. Nothing is written before you confirm the preview; if any pre-install check fails, the "Install" button is greyed out; a file that isn't even a valid archive never reaches the preview at all.
 
-![The install preview: archive contents and pre-install checks listed item by item](/docs-assets/console-skills/zh/S-console-skills-03-transfer-preview.png)
+![The install preview: archive contents and pre-install checks listed item by item](/docs-assets/console-skills/en/S-console-skills-03-transfer-preview.png)
 
 > **Note**: Installing a skill means bringing in someone else's scripts to run. A signature is the author's seal on the package, proving it wasn't swapped in transit; when the preview shows the warning "Archive is not signed. Install it only if you trust its source.", confirm you trust where it came from before checking the box to continue. Whether unsigned skills are allowed, warned about, or refused, and which signers are trusted, are managed under Settings › Trust & Signing — see [Settings](#/docs/console-settings).
 
@@ -98,7 +98,7 @@ The "Installed skills" list below lets you "Export" or "Uninstall" one by one, o
 - See the signature status: "Signed and verified", "Not signed", "Verification failed" — signed skills also show the signer and the signing time
 - Browse the "Install ledger": when each skill was installed and from where
 
-![Integrity & Manifest: per-file verification results and the install ledger](/docs-assets/console-skills/zh/S-console-skills-04-integrity.png)
+![Integrity & Manifest: per-file verification results and the install ledger](/docs-assets/console-skills/en/S-console-skills-04-integrity.png)
 
 When to come here: a skill suddenly misbehaves, or you recently installed one from a source you don't know well. Two rules to set your mind at ease:
 

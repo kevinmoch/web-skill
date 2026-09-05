@@ -53,7 +53,7 @@
 | 连接（Connections） | 用哪个模型、外部工具服务、当前页面提供的工具与临时技能 | 4 | [连接](#/docs/console-connections) |
 | 设置（Settings） | 助手最多干多久、技能脚本有多大权限、生成的界面长什么样、快捷指令、信任、隐私、外观、关于 | 8 | [设置](#/docs/console-settings) |
 
-![M-19 控制台地图：六个分组与全部 25 个页面](/docs-assets/console-tour/M-19.svg)
+![M-19 控制台地图：六个分组与全部 25 个页面](/docs-assets/console-tour/zh/M-19.svg)
 
 找不到某页时先看这张图：每个节点对应侧栏里的一个页面，节点上的名字与界面一致。
 

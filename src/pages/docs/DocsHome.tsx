@@ -106,7 +106,10 @@ export default function DocsHome({ t, isZh }: DocsHomeProps) {
           <p className="mb-3 text-sm text-text-dim">{t('docs.versionDesc')}</p>
           <ul className="flex flex-wrap gap-2">
             {versions.map((v) => (
-              <li key={v} className="rounded border border-border-color bg-surface px-2 py-1 font-mono text-xs text-accent">
+              <li
+                key={v}
+                className="rounded border border-border-color bg-surface px-2 py-1 font-mono text-xs text-accent"
+              >
                 {v}
               </li>
             ))}
@@ -132,7 +135,7 @@ export default function DocsHome({ t, isZh }: DocsHomeProps) {
           {t('docs.overviewTitle')}
         </h2>
         <DocsImage
-          src="/docs-assets/intro/M-01.svg"
+          src={`/docs-assets/intro/${isZh ? 'zh' : 'en'}/M-01.svg`}
           alt={t('docs.overviewCaption')}
           imgClassName="mx-auto"
         />
