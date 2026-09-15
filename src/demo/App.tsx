@@ -160,9 +160,12 @@ function DashboardContent() {
 
       {/* Resizer Handle Bar：常态 1px 细线（带阴影），悬停/拖动时浮现蓝色长条，光标 col-resize。
           视觉与 ccs-framework ChatbotDrawer 左缘把手一致：命中区透明，条带居中不改变布局。
-          条带中部挂折叠按钮：收起后细线留在原地当唯一的展开入口。 */}
+          条带中部挂折叠按钮：收起后细线留在原地当唯一的展开入口。
+          层级只给 z-[5]：高过两侧 z-auto 的内容面板（细线压在 drawer 左缘阴影上、
+          折叠按钮不被面板背景裁掉），但必须低于 chatbot 的弹窗层（scrim/sheet/dialog
+          等 --webskill-z-* 均 ≥ 10），否则全屏弹窗会被把手竖线横穿。 */}
       <div
-        className={`group relative hidden md:flex w-1.5 select-none h-full shrink-0 z-50 ${
+        className={`group relative hidden md:flex w-1.5 select-none h-full shrink-0 z-[5] ${
           isChatCollapsed ? '' : 'cursor-col-resize'
         }`}
         onMouseDown={isChatCollapsed ? undefined : startResize}
@@ -208,12 +211,16 @@ function DashboardContent() {
 
       {/* 3. Right AI Chat Console Drawer（宽度由内部 aside 携带；wrapper 不能再 w-full，
           否则在桌面 flex-row 里会吃掉主区宽度）。左缘双层柔影营造浮层感：近层勾出
-          面板边缘，远层铺开深度；relative + z-10 保证阴影压在内容卡片之上。
+          面板边缘，远层铺开深度；wrapper 在 DOM 里位于主区之后，relative 不带 z-index
+          就足以让阴影压在内容卡片之上——刻意不开堆叠上下文：chatbot 的弹窗
+          （scrim/sheet/dialog 等 fixed 层）挂在这棵子树里，wrapper 一旦带 z-index，
+          弹窗就会被困在低层级、被把手竖线（z-[5]）横穿；不带 z-index 时弹窗以
+          --webskill-z-*（≥ 10）在根层级排序，自然盖过把手。
           细线本体保持 1px 干净（阴影打在线条上会糊成粗线）。
           收起用 display:none 而不是卸载：卸载会连引擎带会话一起销毁。
           只在 md+ 收起——移动端把手不显示，收了就没法展开回来 */}
       <div
-        className={`h-96 md:h-full border-t md:border-t-0 border-border shrink-0 relative z-10 md:shadow-[-8px_0_16px_-10px_rgba(15,23,42,0.14),-24px_0_48px_-20px_rgba(15,23,42,0.20)] ${
+        className={`h-96 md:h-full border-t md:border-t-0 border-border shrink-0 relative md:shadow-[-8px_0_16px_-10px_rgba(15,23,42,0.14),-24px_0_48px_-20px_rgba(15,23,42,0.20)] ${
           isChatCollapsed ? 'md:hidden' : ''
         }`}
       >

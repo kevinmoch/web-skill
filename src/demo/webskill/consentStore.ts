@@ -52,6 +52,8 @@ const ACTION_LABELS_ZH: Record<PageActionKind, string> = {
   set: '开关',
   attach: '附件上传',
   scroll: '滚动',
+  hover: '鼠标悬停',
+  drag: '拖拽',
   back: '返回上一页'
 };
 

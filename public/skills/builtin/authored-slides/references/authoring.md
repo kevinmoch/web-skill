@@ -1,132 +1,259 @@
-# 文档编写契约（幻灯片）
+# 幻灯数据契约（authored-slides）
 
-文档窗口是一个**受信外壳**：你交给 `publish` 的 HTML 只作为数据写进 DOM，
-里面的 `<script>` 不会执行。放映引擎（reveal.js）由外壳负责启动，
-你只要写出它认得的结构；图表、表格、指标用第二节的预置组件占位。
+`authored-slides__publish` 收的是**结构化数据**，不是 HTML/CSS。
+你只负责说「这一页用两栏，左边这张柱状图，右边这三条要点，结论是这句」，
+版式、字号、配色、留白全部由技能统一渲染。这条规矩换来两件事：
 
-## 一、结构（写错就不成为幻灯片）
+1. 屏幕上放映的那份，和用户另存下来的 PPTX，是同一份数据渲染出来的两张脸；
+2. **字号不可能被写小**——你没有写字号的地方，版面也不可能只有三行字，
+   因为每种版式的槽位数和每个槽位的内容下限都会被当场校验。
 
-```html
-<div class="deck" data-viewer-mode="slides" data-viewer-chart-font="lg">
-  <div class="slides">
-    <section class="deck__cover">…第 1 页…</section>
-    <section>…第 2 页…</section>
-  </div>
-</div>
+不要写 HTML 标签，也不要写 HTML 实体。所有文本按原样给出，技能会替你转义。
+
+## 调用参数
+
+```
+authored-slides__publish({ deck, dataSource })
 ```
 
-- 根节点必须带 `data-viewer-mode="slides"`，外壳看到它才会挂放映引擎；
-  漏了就退化成一张长网页。
-- 根节点下**必须**有且只有一个 `<div class="slides">`，它的直接子元素是
-  一页一个的 `<section>`；至少两页。
-- 建议同时写 `data-viewer-chart-font="lg"`：把图表画布里的字号调大，投影才看得清。
-- 舞台尺寸固定 **1600 × 900**（16:9），CSS 按这个尺寸写，不要用 `vw` / `vh`。
-- 不要用 reveal 的 `fragment` 逐步动画：导出 PDF 时会全部展开，反而更乱。
+- `deck` —— 下面这个对象。
+- `dataSource` —— 数据出处，会显示在文档窗口里给用户看。写你**真正读过**的来源，
+  例如 `"页面：付款管理 / 合同台账"`。没读过的来源一个字都不要写。
 
-## 二、硬约束（违反会被 publish 拒收）
+## deck 对象
 
-1. 只出**片段**：不要 `<!doctype>` / `<html>` / `<head>` / `<body>`。
-2. 禁止 `<script>` `<style>` `<link>` `<meta>` `<base>` `<iframe>` `<object>` `<embed>`。
-   样式全部写进 `css` 参数。
-3. 禁止内联事件属性（`onclick=` `onerror=` …）与 `javascript:` 链接。
-4. **不要引用外链图片**：窗口的 CSP 只放行同源与 `data:`，`https://…` 的图片会被拦成空框。
-   需要图标、徽标时用**内联 `<svg>`** 或纯 CSS 画。
-5. 文本里的 `&` `<` `>` 写成 `&amp;` `&lt;` `&gt;`。
-
-## 三、数据组件（唯一的动态内容）
-
-不要用 `<div>` 拼柱状图。写一个**空**占位，外壳会把真组件挂进去：
-
-```html
-<div
-  class="deck__chart"
-  data-webskill-component="Chart"
-  data-webskill-props='{"type":"bar","labels":["一区","二区","三区"],"series":[{"name":"完成率","values":[67,57,50]}]}'
-></div>
+```json
+{
+  "title": "2024 年第三季度经营分析",
+  "theme": "dark",
+  "slides": []
+}
 ```
 
-- `data-webskill-props` 是 **JSON**，写在**单引号**属性里，JSON 的双引号因此不用转义；
-  值里若出现单引号写成 `&#39;`。数字要写成数字，不要写成字符串。
-- 名字大小写敏感，白名单只有五个；写错或 props 不合 schema，只会在原地显示一行
-  英文降级提示，不会静默留空：
+| 字段     | 必填   | 说明                                                     |
+| -------- | ------ | -------------------------------------------------------- |
+| `title`  | **是** | 整份演示的名字，也是另存文件名的来源                     |
+| `theme`  | 否     | `"dark"`（默认，深色投屏）或 `"light"`（浅色，适合打印） |
+| `slides` | **是** | 页面数组，至少 3 页（封面 + 至少一页正文 + 收尾）        |
 
-| 组件       | props                                                                                                                                                       |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Chart`    | `{ type: "bar" \| "line" \| "area" \| "pie" \| "scatter" \| "stacked-bar" \| "dual-axis", title?, labels: string[], series: [{ name, values: number[] }] }` |
-| `Table`    | `{ title?, columns: string[], rows: (string \| number \| boolean \| null)[][], columnWidths?: number[] }`                                                   |
-| `Metric`   | `{ label, value: string \| number, change?: string, trend?: "up" \| "down" \| "neutral" }`                                                                  |
-| `Gauge`    | `{ label?, value: number, min?: number, max?: number, tone?: "neutral" \| "success" \| "warning" }`                                                         |
-| `KeyValue` | `{ items: [{ label, value }] }`                                                                                                                             |
+## 每一页
 
-- 挂载后生成的结构，CSS 按这些钩子写：
-  - `Metric` → `[data-webskill-metric="label"|"value"|"change"]`
-  - `Gauge` → 外层带 `[data-tone]`，内部 `[data-webskill-gauge="label"|"track"|"fill"|"value"]`
-  - `Table` → 原生 `table / thead / th / td`；`KeyValue` → 原生 `dl / dt / dd`
+```json
+{
+  "layout": "split",
+  "title": "收入结构",
+  "subtitle": "按产品线拆分",
+  "body": [],
+  "takeaway": "支付业务贡献了本季度全部增量，风控业务连续两季度下滑。"
+}
+```
 
-## 四、CSS（三个必须照抄的写法）
+| 字段       | 必填           | 说明                                                                       |
+| ---------- | -------------- | -------------------------------------------------------------------------- |
+| `layout`   | **是**         | 见下表                                                                     |
+| `title`    | **是**         | 每一页都要有标题。封面用大字，正文页在顶栏                                 |
+| `subtitle` | 否             | 标题下一行小字                                                             |
+| `meta`     | 否             | `{label, value}` 数组。只在 `cover` / `section` 上显示，放日期、部门、口径 |
+| `body`     | **是**         | 正文槽位数组，数量必须匹配版式                                             |
+| `takeaway` | 正文页**必填** | 一句结论。它同时是页面底栏，撑住版面                                       |
 
-1. **前缀写 `.deck.reveal`**。技能样式在放映引擎自带样式**之前**注入，
-   只写 `.deck` 压不过它的默认值。（`.deck` 换成你自己的根 class。）
-2. **section 用后代选择器，不能用 `>`**：
+### 六种版式
 
-   ```css
-   .deck.reveal .slides section {
-     height: 100%;
-     flex-direction: column;
-   }
-   ```
+| layout    | body 槽位数 | 用途                           | takeaway |
+| --------- | ----------- | ------------------------------ | -------- |
+| `cover`   | 0 ~ 1       | 封面。大标题 + 副标题 + `meta` | 不要     |
+| `section` | 0 ~ 1       | 章节过渡页                     | 不要     |
+| `single`  | **正好 1**  | 一张大图 / 一张大表独占整页    | **必填** |
+| `split`   | **正好 2**  | 左右两栏：图配要点、表配结论   | **必填** |
+| `grid`    | **3 或 4**  | 三栏并列或 2×2 四格            | **必填** |
+| `closing` | 1 ~ 2       | 收尾：结论、下一步、致谢       | **必填** |
 
-   导出 PDF 时每个 `<section>` 会被引擎包进一层 `.pdf-page`，
-   `.slides > section` 当场失配，屏幕上好好的版式一打印就散。
+槽位数对不上就被挡回。**内容不够就换更少格的版式**，不要让一格里只放一行字。
 
-3. **不要给 section 写 `display`**：引擎会把 `display` 直接写成内联样式，
-   CSS 里写了也无效。版式靠上面那句的 `flex-direction: column` 加子元素的
-   `flex` 分配来搭。
-4. 图表容器要能拿到高度：`.deck__chart { flex: 1 1 auto; min-height: 320px; }`；
-   两栏并排时外层 `display: grid; grid-template-columns: 1fr 1fr; min-height: 0;`，
-   里面的图表写 `height: 100%; min-height: 0;`。
-5. 想让底色出现在 PDF 里，加 `print-color-adjust: exact;`。
-6. 中文字体族：`'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif`。
+`single` 里只放一个 `paragraph` 会被挡回——那正是「一页三行字」的典型形态。
+要么补上它在描述的那张图改用 `split`，要么把话拆成 `bullets` 并写进 `takeaway`。
 
-## 五、配色与对比度（标题和背景分不清，八成是这一节没照做）
+## 六种正文块
 
-1. **每一页的标题都要显式写 `color`，选择器必须带 `.reveal`**：
+每个槽位是一个 `{ "type": "..." }` 对象。文字里唯一的内联样式是 `**加粗**`，
+不要用别的 markdown 记号。
 
-   ```css
-   .deck.reveal .slides section h1,
-   .deck.reveal .slides section h2 {
-     color: #f2f7ff;
-   }
-   ```
+### chart —— 图表
 
-   只写 `.deck__cover h1 { color: … }` 压不过放映引擎自带的默认字色（深灰）。
-   你给封面刷了深色底、标题却仍是引擎的深灰——这就是「首页标题跟背景分不清」的成因。
-   副标题、正文、页码同理，凡是要定字色的选择器都带上 `.reveal`。
+```json
+{
+  "type": "chart",
+  "chartType": "bar",
+  "title": "分产品线收入",
+  "labels": ["支付", "风控", "数据"],
+  "series": [{ "name": "Q3", "values": [1240, 860, 430] }],
+  "caption": "单位：万元"
+}
+```
 
-2. 全篇只用**一种**底色基调，不要每页换底：深底 `#0f1b2e`～`#132340`，或浅底 `#f7f9fc`。
-   封面可以用渐变，但**渐变最亮的那一端也要明显比标题字暗**（深底方案）
-   或明显比标题字亮（浅底方案）。深蓝底配中蓝标题、浅灰底配浅灰标题都是看不清。
+`chartType`：`bar` / `line` / `area` / `pie` / `scatter` / `stacked-bar` / `dual-axis`。
+每条 `series` 的 `values` 长度必须等于 `labels` 的长度，且必须是**数字**不是字符串。
+另存 PPTX 时是**原生可编辑图表**，不是截图。
 
-3. 成套取色，不要临场调：
+### table —— 表格
 
-   |      | 标题      | 副标题 / 正文 | 分隔线 / 边框 | 强调      |
-   | ---- | --------- | ------------- | ------------- | --------- |
-   | 深底 | `#f2f7ff` | `#a8bcd9`     | `#24304a`     | `#4da3ff` |
-   | 浅底 | `#0f2340` | `#41546f`     | `#dde4ee`     | `#1a6fd4` |
+```json
+{
+  "type": "table",
+  "title": "分产品线明细",
+  "columns": ["产品线", "收入", "同比"],
+  "rows": [
+    ["支付", 1240, "+18%"],
+    ["风控", 860, "-4%"]
+  ]
+}
+```
 
-4. **强调色不用来写整行标题**：它只上一个关键数字、一个词或一条下划线。
-   图表的 series 颜色也要与底色拉开——深底上不要用深蓝系柱子。
+一页最多约 8 行，多了就归并或拆成两页。每行单元格数必须等于 `columns` 长度。
 
-5. 封面单独检查一遍：标题、副标题、日期、数据口径四行是不是都定了 `color`，
-   有没有哪一行还在吃继承值。
+### metrics —— 指标卡
 
-## 六、内容密度与页数
+```json
+{
+  "type": "metrics",
+  "items": [
+    { "label": "总收入", "value": "2 530 万", "change": "+12.4%", "trend": "up" },
+    { "label": "毛利率", "value": "41.2%", "change": "+1.8pt", "trend": "up" }
+  ]
+}
+```
 
-- **页数由内容决定**：一个站得住的论点一页，前面封面、后面结论页。
-  不要预设固定页数（不是「一般八页」），也不要为凑页数把一个论点拆成两页或加没数据的「展望」。
-  用户给了页数或大纲就严格照办。
-- 一页一个论点：`<h2>` 写论点本身（「逾期应付集中在两家供应商」），
-  不要写成栏目名（「应付分析」）。
-- 一页最多两个信息块（一图一结论、或两图并排），文字不超过 3 行。
-- 结论句放在页面底部（`margin-top: auto`），用一句话说清「所以怎样」。
-- 首页放标题、副标题、日期与数据口径；末页放结论与下一步建议。
+2 ~ 4 张。只有一个数字时不要用它——把那个数字写进页标题或 `takeaway`。
+
+### keyValue —— 键值清单
+
+```json
+{
+  "type": "keyValue",
+  "title": "统计口径",
+  "items": [
+    { "label": "周期", "value": "2024 Q3" },
+    { "label": "范围", "value": "全部线上业务" },
+    { "label": "币种", "value": "人民币" }
+  ]
+}
+```
+
+至少 3 行，否则这一格看着就是空的。
+
+### bullets —— 要点
+
+```json
+{ "type": "bullets", "title": "三个信号", "items": ["支付业务贡献全部增量", "风控续约率下滑", "数据业务首次盈利"] }
+```
+
+3 ~ 6 条。少于 3 条会被挡回；多于 6 条请拆成两页，而不是指望字变小——字号是固定的。
+
+### paragraph —— 一段话
+
+```json
+{ "type": "paragraph", "title": "背景", "text": "三季度整体承压，但支付业务在渠道扩张的带动下逆势增长。" }
+```
+
+至少要是完整一句。半句话请改用 `bullets`。
+
+## 一份完整的例子
+
+```json
+{
+  "deck": {
+    "title": "2024 年第三季度经营分析",
+    "theme": "dark",
+    "slides": [
+      {
+        "layout": "cover",
+        "title": "2024 年第三季度经营分析",
+        "subtitle": "经营管理部",
+        "body": [],
+        "meta": [
+          { "label": "汇报日期", "value": "2024-10-09" },
+          { "label": "数据范围", "value": "2024 Q3" }
+        ]
+      },
+      {
+        "layout": "split",
+        "title": "总体盘面",
+        "body": [
+          {
+            "type": "metrics",
+            "items": [
+              { "label": "总收入", "value": "2 530 万", "change": "+12.4%", "trend": "up" },
+              { "label": "毛利率", "value": "41.2%", "change": "+1.8pt", "trend": "up" }
+            ]
+          },
+          {
+            "type": "chart",
+            "chartType": "line",
+            "title": "月度收入",
+            "labels": ["7 月", "8 月", "9 月"],
+            "series": [{ "name": "收入", "values": [780, 840, 910] }]
+          }
+        ],
+        "takeaway": "收入连续三个月环比上升，增速在 9 月见顶。"
+      },
+      {
+        "layout": "grid",
+        "title": "分产品线",
+        "body": [
+          {
+            "type": "chart",
+            "chartType": "bar",
+            "title": "收入",
+            "labels": ["支付", "风控", "数据"],
+            "series": [{ "name": "Q3", "values": [1240, 860, 430] }]
+          },
+          {
+            "type": "table",
+            "title": "同比",
+            "columns": ["产品线", "同比"],
+            "rows": [
+              ["支付", "+18%"],
+              ["风控", "-4%"],
+              ["数据", "+62%"]
+            ]
+          },
+          {
+            "type": "bullets",
+            "title": "三个信号",
+            "items": ["支付贡献全部增量", "风控续约率下滑", "数据业务首次盈利"]
+          }
+        ],
+        "takeaway": "增长高度集中在支付一条线上，结构性风险在上升。"
+      },
+      {
+        "layout": "closing",
+        "title": "下一步",
+        "body": [
+          {
+            "type": "bullets",
+            "items": ["10 月完成风控续约专项复盘", "数据业务追加两名交付人力", "四季度收入目标 2 800 万"]
+          }
+        ],
+        "takeaway": "四季度的重点是把增长从一条线扩展到两条线。"
+      }
+    ]
+  },
+  "dataSource": "页面：经营看板 / 产品线明细"
+}
+```
+
+## publish 会挡回什么
+
+`publish` 校验不过就一页都不投放，返回 `PUBLISH_REJECTED: ...` 并逐条说明。
+常见的几条：
+
+- 少于 3 页；
+- 某页的 `body` 数量和 `layout` 对不上；
+- 正文页少了 `takeaway`；
+- 一组要点少于 3 条、指标卡少于 2 张、键值清单少于 3 行；
+- `single` 页里只有一个 `paragraph`；
+- 整份一页数据都没有（全是文字要点）；
+- 图表的 `values` 长度和 `labels` 对不上，或者写成了字符串；
+- 表格某一行的单元格数和 `columns` 对不上。
+
+按提示改完再调一次即可，不必重新取数。

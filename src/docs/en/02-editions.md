@@ -1,6 +1,6 @@
 # Web and Extension Editions
 
-The WebSkill assistant comes in two forms: the **web version** is embedded in a website, its eyes and hands confined to that one site; the **extension version** is installed on your browser and can see and act on any web page you open, even working across several tabs. This chapter helps you tell which one you're using, and what to expect from each.
+The AI Assistant comes in two forms: the **web version** is embedded in a website, its eyes and hands confined to that one site; the **extension version** is installed on your browser and can see and act on any web page you open, even working across several tabs. This chapter helps you tell which one you're using, and what to expect from each.
 
 ## What you can do
 

@@ -1,5 +1,7 @@
 import { startViewerShell, watchBlockedResources } from '@webskill/sdk/browser';
 import { mountViewerComponents, type ViewerComponentsHandle } from '@webskill/sdk/ui';
+import { setupViewerExport } from './viewer/export/index';
+import { createViewerToast } from './viewer/toast';
 import type { SlideDeckHandle, SlideView } from './viewerSlides';
 
 /**
@@ -22,13 +24,51 @@ const blocked = mustFind('viewer-blocked');
 // 必须在文档写入**之前**挂上：CSP 违规事件不补发
 watchBlockedResources(window, blocked);
 
+/**
+ * 界面语言。这一页跑在 opaque origin，读不到站点的 i18n 状态，
+ * 语言只能由投放方随地址带过来——适配器每次投放时现读现拼，
+ * 用户在站点里换了语言，下一份文档就跟着变。
+ */
+const zh = new URLSearchParams(location.search).get('lang') !== 'en';
+document.documentElement.lang = zh ? 'zh-CN' : 'en';
+mustFind('viewer-print-label').textContent = zh ? '打印' : 'Print';
+const exportUi = {
+  button: mustFind('viewer-export') as HTMLButtonElement,
+  label: mustFind('viewer-export-label'),
+  notice: createViewerToast({
+    root: mustFind('viewer-toast'),
+    body: mustFind('viewer-export-note'),
+    close: mustFind('viewer-toast-close') as HTMLButtonElement
+  }),
+  live: content
+};
+for (const [id, label] of [
+  ['viewer-chrome-hide', zh ? '隐藏工具条' : 'Hide the toolbar'],
+  ['viewer-chrome-restore', zh ? '显示打印按钮' : 'Show the print button'],
+  ['viewer-toast-close', zh ? '关闭提示' : 'Dismiss the notice']
+] as const) {
+  const button = mustFind(id);
+  button.setAttribute('aria-label', label);
+  button.title = label;
+}
+
 let components: ViewerComponentsHandle | undefined;
 let deck: SlideDeckHandle | undefined;
+let dwg: { dispose(): void } | undefined;
+/** 投放面下发的结构化数据；DWG 的几何走它而不是 HTML（几万个实体序列化成字符串是几十兆） */
+let payload: unknown;
 /** 投放时的原样 HTML：reveal 的打印版式会不可逆地改写 DOM，还原只能靠整篇重挂 */
 let pristine = '';
 
-startViewerShell(window, { content, style }, () => {
+startViewerShell(window, { content, style }, (data) => {
+  payload = data;
   pristine = content.innerHTML;
+  // 导出读的是这份 `pristine`，不是活 DOM：打印版式与组件挂载都会改写 DOM
+  setupViewerExport(pristine, exportUi, zh);
+  // 投放面自报的窗口标题（FR-31.4）。DWG 走不到上面那条按导出种类改标题的路，
+  // 而「WebSkill document viewer」认不出打开的是哪张图。没自报就不动标题
+  const declared = docPref('viewerTitle');
+  if (declared !== undefined && declared !== '') document.title = declared;
   void mount(null, false);
 });
 
@@ -41,12 +81,24 @@ async function mount(view: SlideView, restore: boolean): Promise<void> {
   components?.dispose();
   deck?.dispose();
   deck = undefined;
+  dwg?.dispose();
+  dwg = undefined;
   if (restore) content.innerHTML = pristine;
   applyDocumentChrome();
   // 图表画布文字（canvas，CSS 够不到）：产物声明 data-viewer-chart-font="lg" 时调大到投屏可读
   const fontSizes = docPref('viewerChartFont') === 'lg' ? { title: 16, axisLabel: 14, legend: 14 } : undefined;
   // 文档 HTML 里 data-webskill-component 占位 → 宿主预置组件（Chart/Table/Metric/Gauge/KeyValue 白名单）
   components = mountViewerComponents(content, fontSizes ? { fontSizes } : undefined);
+
+  // DWG 与 reveal 同理：各自的实现只在对应的文档里加载，互不牵连
+  if (docPref('viewerMode') === 'dwg') {
+    const root = content.querySelector<HTMLElement>('#dwg-root');
+    if (root) {
+      const module = await import('./viewer/viewerDwg');
+      dwg = module.mountDwgViewer(root, payload);
+    }
+    return;
+  }
 
   // reveal 只在幻灯片文档里加载：通报公文 / 监控大屏一个字节都不会拉
   if (docPref('viewerMode') !== 'slides') return;
@@ -67,6 +119,7 @@ function docPref(key: string): string | undefined {
 window.addEventListener('pagehide', () => {
   components?.dispose();
   deck?.dispose();
+  dwg?.dispose();
 });
 
 // 打印入口；allow-modals 保证 window.print() 不被静默吞掉

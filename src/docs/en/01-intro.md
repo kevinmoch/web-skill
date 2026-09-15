@@ -1,4 +1,4 @@
-# Meet the WebSkill Assistant
+# Meet the AI Assistant
 
 Friday afternoon, almost time to leave, and someone asks: can this sprint wrap up on time? Used to be you'd dig through the sprint, count the defects, check the tests, and piece together a conclusion yourself. Now you can send that exact sentence to the assistant on the page, and watch it look up the data and give you a judgment.
 

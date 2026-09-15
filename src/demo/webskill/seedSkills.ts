@@ -35,14 +35,17 @@ const MANIFEST: BuiltinSkillManifest = {
   // 三份「模型自己写版式」的文档技能：脚本只做投放校验，取数与 HTML/CSS 都由模型现场做
   'authored-bulletin': ['SKILL.md', 'references/authoring.md', 'scripts/publish.js'],
   'authored-screen': ['SKILL.md', 'references/authoring.md', 'scripts/publish.js'],
-  'authored-slides': ['SKILL.md', 'references/authoring.md', 'scripts/publish.js']
+  'authored-slides': ['SKILL.md', 'references/authoring.md', 'scripts/publish.js'],
+  // 只有一份 SKILL.md：图纸几何刻意不进模型上下文，脚本也够不着 `view_dwg`，
+  // 所以本技能只管编排与回复纪律（0.22.0 分册 19）
+  'dwg-view': ['SKILL.md']
 };
 
 /**
  * 戳名带版本：清单里新增技能时必须跟着改，否则已经打开过 demo 的浏览器
  * 永远拿不到新技能。改戳名会重抛全部内置技能，用户对它们的改动会被覆盖。
  */
-const SEED_STAMP = '/skills/builtin/.seeded-v6';
+const SEED_STAMP = '/skills/builtin/.seeded-v8';
 
 export async function seedBuiltinSkills(fs: FileSystemProvider): Promise<void> {
   // baseUrl 只作用于 HTTP 取回侧：子路径/相对部署（dist-docs）下 `/skills/builtin/...`

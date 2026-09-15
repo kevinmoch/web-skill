@@ -72,7 +72,7 @@ function keepAuthoredBox(root: HTMLElement): () => void {
  * 取色顺序是根节点、然后第一张有不透明底色的页；封面用渐变时 `backgroundColor`
  * 是透明的，所以要往后找，而不是认死第一页。
  */
-function fillStageBackground(root: HTMLElement): () => void {
+function fillStageBackground(root: HTMLElement): { color?: string; restore: () => void } {
   const opaque = (element: HTMLElement): string | undefined => {
     const color = getComputedStyle(element).backgroundColor;
     // 透明的写法不止一种（关键字，或 alpha 为 0 的函数式记法），一律按末位 alpha 判
@@ -81,14 +81,43 @@ function fillStageBackground(root: HTMLElement): () => void {
   };
   const sections = Array.from(root.querySelectorAll<HTMLElement>('.slides > section'));
   const color = opaque(root) ?? sections.map(opaque).find((value) => value !== undefined);
-  if (color === undefined) return () => undefined;
+  if (color === undefined) return { restore: () => undefined };
 
   // 写 body 而不是某个容器：背景会从 body 提升到画布，连滚动过头的区域也铺得到
   const previous = document.body.style.getPropertyValue('background-color');
   document.body.style.setProperty('background-color', color);
-  return () => {
-    document.body.style.setProperty('background-color', previous);
+  return {
+    color,
+    restore: () => {
+      document.body.style.setProperty('background-color', previous);
+    }
   };
+}
+
+/**
+ * 翻页箭头跟着舞台底色走。
+ *
+ * reveal 的核心 CSS 把 `.controls` 写死成 `color: #000`，而外壳只引了核心 CSS、
+ * 没引任何主题 CSS（版式归技能管），所以深色版式上那两个箭头就是一团看不见的黑。
+ *
+ * 取色依据是**舞台底色**，不是应用主题：这里的深色是技能自己的版式底色，
+ * 用户在控制台选亮色还是暗色改不了它。取不到底色就不动：
+ * 那种情形下舞台是浏览器白底，黑箭头本来就是对的。
+ *
+ * `slide-number` 与 `progress` 不用管——它俩自带半透明底，深浅底上都读得清。
+ */
+export function tintControls(root: HTMLElement, stage: string | undefined): void {
+  if (stage === undefined) return;
+  const channels = stage
+    .match(/\d+(?:\.\d+)?/g)
+    ?.slice(0, 3)
+    .map(Number);
+  if (channels === undefined || channels.length < 3) return;
+  const [r, g, b] = channels as [number, number, number];
+  // 相对亮度：绿色对人眼最亮，等权平均会把深绿底当成浅色而继续用黑箭头
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  // 不用纯白 / 纯黑：箭头是辅助控件，顶满对比度会把视线从正文上拽走
+  root.querySelector<HTMLElement>('.controls')?.style.setProperty('color', luminance < 0.5 ? '#f5f5f5' : '#191919');
 }
 
 export function mountSlideDeck(root: HTMLElement, view: SlideView): Promise<SlideDeckHandle> {
@@ -98,7 +127,7 @@ export function mountSlideDeck(root: HTMLElement, view: SlideView): Promise<Slid
 
   const restoreBox = view === 'print' ? keepAuthoredBox(root) : undefined;
   // 必须在 reveal 接手之前取色：那会儿页面还是技能样式说了算的样子
-  const restoreStage = fillStageBackground(root);
+  const stage = fillStageBackground(root);
 
   const deck = new Reveal(root, { ...DECK, view });
   // 排分页是 reveal 内部的一段异步流程；不等 pdf-ready 就返回，调用方会在版式排完之前开打印
@@ -110,10 +139,12 @@ export function mountSlideDeck(root: HTMLElement, view: SlideView): Promise<Slid
     .then(() => paginated)
     .then(() => {
       restoreBox?.();
+      // 箭头要等 reveal 把控件建出来之后才上得了色
+      tintControls(root, stage.color);
       return {
         dispose: () => {
           deck.destroy();
-          restoreStage();
+          stage.restore();
           document.documentElement.classList.remove('viewer-slides');
           // print 视图是单向的：destroy 不摘这两个类，也不还 body 上的固定尺寸
           document.documentElement.classList.remove('reveal-print', 'print-pdf');

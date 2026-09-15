@@ -18,6 +18,13 @@ const REMOTE_IMG = /<img[^>]+src\s*=\s*["']\s*https?:/i;
 /** 大屏靠这个属性收起窗口右上角的悬浮胶囊；漏了它投屏时会被压住一角 */
 const CHROME_HIDDEN = /data-viewer-chrome\s*=\s*["']hidden["']/i;
 
+/**
+ * 手搭的表格。大屏上最常见的毛病：一块明明是明细表 / 排行榜的区域，
+ * 却是 `<div>`+`<span>` 拼出来的几行文字，列对不齐、没有表头。
+ * 表格必须走 `Table` 组件，所以原生表格标签一律拒收——写了它就是在自己排版。
+ */
+const NATIVE_TABLE = /<\s*(table|thead|tbody|tr|td|th)\b/i;
+
 const COMPONENT_ATTR = /data-webskill-component\s*=\s*(?:'([^']*)'|"([^"]*)")/g;
 const PROPS_ATTR = /data-webskill-props\s*=\s*(?:'([^']*)'|"([^"]*)")/g;
 
@@ -61,6 +68,12 @@ function validate(html, css, dataSource) {
   if (!CHROME_HIDDEN.test(html)) {
     issues.push(
       'the root element must carry data-viewer-chrome="hidden" so the floating window pill does not cover the screen'
+    );
+  }
+  const native = NATIVE_TABLE.exec(html);
+  if (native) {
+    issues.push(
+      `hand-written <${native[1].toLowerCase()}> is not allowed; any row-by-column listing must be a Table placeholder — <div data-webskill-component="Table" data-webskill-props='{"columns":[...],"rows":[[...]]}'></div> — so the columns line up and the header renders. See references/authoring.md`
     );
   }
 

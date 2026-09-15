@@ -52,6 +52,61 @@
   - `Gauge` → 外层带 `[data-tone]`，内部 `[data-webskill-gauge="label"|"track"|"fill"|"value"]`
   - `Table` → 原生 `table / thead / th / td`；`KeyValue` → 原生 `dl / dt / dd`
 
+### 只要是「行 × 列」的清单，就必须用 `Table` 组件
+
+这是本技能被挡回最多的一条，也是大屏上最显眼的毛病：一块看起来明明是排行榜、
+明细表、告警列表的区域，却是用 `<div>` / `<span>` 拼出来的几行文字，
+列对不齐、没有表头、字号还各行不一，远看就是一坨。
+
+**判据很简单**：这块内容里有没有「同一组字段，重复出现在多条记录上」？
+只要有——哪怕只有 3 行 2 列——就写成 `Table` 占位，交给外壳渲染成真表格。
+
+禁止的写法（会被 `publish` 拒收或在评审里被判为缺陷）：
+
+- 用 `<div class="row"><span>一区</span><span>128</span></div>` 手搭行；
+- 用 `<ul><li>一区 128 件</li>…</ul>` 把表格拍扁成文字；
+- 在一个 `<p>` 里用空格、竖线、制表符对齐成「表格的样子」；
+- 自己写 `<table>` / `<tr>` / `<td>` 原生标签——表格由组件渲染，你只给数据。
+
+正确的写法：
+
+```html
+<div class="screen__panel">
+  <h3 class="screen__panel-title">区域完成量排行</h3>
+  <div
+    class="screen__table"
+    data-webskill-component="Table"
+    data-webskill-props='{"columns":["区域","完成量","达成率"],"rows":[["一区",128,"106%"],["二区",96,"92%"],["三区",74,"81%"]]}'
+  ></div>
+</div>
+```
+
+```css
+.screen__table {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.screen__table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.screen__table th,
+.screen__table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #1e2c45;
+}
+.screen__table th {
+  color: #7f93b5;
+  font-weight: 600;
+}
+```
+
+区分一下：讲**同一个对象**的若干条属性（设备编号、投产日期、责任人）用 `KeyValue`；
+讲**若干条可比较的记录**用 `Table`。两者都不要手搭。
+
 ## 三、CSS
 
 - 窗口里没有 Tailwind、没有设计 token，写普通 CSS。
