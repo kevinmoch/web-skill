@@ -32,6 +32,21 @@ body {
   font-size: 1rem;
 }
 
+/* 亮色主题：仅独立文档构建（docs.html → dist-docs）使用，由 docs.html 内联脚本
+ * 与用户切换在 <html> 上写 data-docs-theme。主站永远不设置该属性，保持固定暗色。
+ * 覆盖的是 @theme 里那组全局 token，tailwind 语义类（bg-bg、text-text-main 等）
+ * 全部经 var() 引用，无需逐类改写。 */
+:root[data-docs-theme='light'] {
+  --color-bg: #ffffff;
+  --color-surface: #f6f6f7;
+  --color-surface-hover: #e8e8eb;
+  /* accent 从 sky-400 加深到 sky-600，白底上文字/链接对比度才够 */
+  --color-accent: #0284c7;
+  --color-text-main: #27272a;
+  --color-text-dim: #52525b;
+  --color-border-color: rgba(0, 0, 0, 0.14);
+}
+
 @layer utilities {
   .panel {
     border-bottom: 1px solid var(--color-border-color);
@@ -117,6 +132,10 @@ body {
  *    比 #2e2e32 更暗，不满足调亮的诉求，故未采用。）
  * 2. h3 也带上方分隔线 —— 规范 §2 的 h3 无分隔线是 VitePress 原文，评审明确要求
  *    h3 小节（如 console-settings 的各设置子节）之间也要有区隔。
+ *
+ * 亮色档：规范原文「不引入亮色」是针对主站（固定暗色）的决定；独立文档构建
+ * 自 2026-09 起支持亮/暗切换，覆盖块在本文件下方 [data-docs-theme='light']，
+ * 有 VitePress 亮色列的色相照抄亮色列，orange/purple 两个本站扩展色相按同色阶推。
  * ------------------------------------------------------------------------- */
 .docs-root {
   --docs-text-3: #6a6a71;
@@ -149,6 +168,53 @@ body {
   --docs-purple-2: #a879e6;
   --docs-purple-3: #8e5cd9;
   --docs-purple-soft: rgba(159, 122, 234, 0.16);
+}
+
+/* 亮色档（独立文档构建专用）：-1 文字色全部加深到白底可读的档位，
+ * -soft 保持半透明 alpha（规范 §1 的叠加层次要求两档一致）。
+ * divider 取 zinc-300：与暗色档「明显可见但克制」的评审结论对齐。 */
+:root[data-docs-theme='light'] .docs-root {
+  --docs-text-3: #929295;
+  --docs-divider: #d4d4d8;
+  --docs-gray-1: #dddde3;
+  --docs-gray-2: #e4e4e9;
+  --docs-gray-3: #f6f6f7;
+  --docs-gray-soft: rgba(142, 150, 170, 0.14);
+  --docs-indigo-1: #3451b2;
+  --docs-indigo-2: #3a5ccc;
+  --docs-indigo-3: #5672cd;
+  --docs-indigo-soft: rgba(100, 108, 255, 0.14);
+  --docs-green-1: #18794e;
+  --docs-green-2: #299764;
+  --docs-green-3: #30a46c;
+  --docs-green-soft: rgba(16, 185, 129, 0.14);
+  --docs-yellow-1: #915930;
+  --docs-yellow-2: #946300;
+  --docs-yellow-3: #9f6a00;
+  --docs-yellow-soft: rgba(234, 179, 8, 0.14);
+  --docs-orange-1: #c2410c;
+  --docs-orange-2: #e46a02;
+  --docs-orange-3: #f97316;
+  --docs-orange-soft: rgba(249, 115, 22, 0.14);
+  --docs-red-1: #b8272d;
+  --docs-red-2: #d5393e;
+  --docs-red-3: #e0575b;
+  --docs-red-soft: rgba(244, 63, 94, 0.14);
+  --docs-purple-1: #6d28d9;
+  --docs-purple-2: #7c3aed;
+  --docs-purple-3: #8b5cf6;
+  --docs-purple-soft: rgba(139, 92, 246, 0.14);
+}
+
+/* 亮色下的滚动条：暗色档的白色半透明 thumb 在白底上看不见 */
+:root[data-docs-theme='light'] .code-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+:root[data-docs-theme='light'] .code-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.22);
+}
+:root[data-docs-theme='light'] .code-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(2, 132, 199, 0.35);
 }
 
 /* h2 紧接 h3（中间无正文）时摘掉 h3 的分隔线与上方留白，避免两条线近距离叠在一起 */

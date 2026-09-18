@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneLight, vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import {
   AlertTriangle,
   ArrowUpRight,
@@ -25,6 +25,7 @@ import {
   type LucideIcon
 } from 'lucide-react';
 import DocsImage from './DocsImage';
+import { DocsThemeContext } from '../../docs/theme';
 import { withBase } from '../../base';
 
 /** 当前章 slug，供标题锚点 # 拼出可复制的深链（#/docs/<slug>#<id>） */
@@ -260,6 +261,51 @@ function renderImg({ src, alt }: { src?: string; alt?: string }) {
   return <DocsImage src={src} alt={alt} />;
 }
 
+/**
+ * 代码渲染。高亮主题随文档主题走：暗色 vscDarkPlus（与 Implement/Standards 页一致），
+ * 亮色 oneLight —— 浅色 token 配亮色档的 surface 底；主站无 Provider 时恒为暗色。
+ */
+function renderCode({ className, children }: { className?: string; children?: ReactNode }) {
+  const theme = useContext(DocsThemeContext);
+  const text = String(children ?? '').replace(/\n$/, '');
+  const match = /language-([\w-]+)/.exec(className ?? '');
+  if (match) {
+    // padding 按规范 §4（pre 上下 1.25rem、code 左右 1.5rem）
+    return (
+      <SyntaxHighlighter
+        language={match[1]}
+        style={theme === 'light' ? oneLight : vscDarkPlus}
+        PreTag="div"
+        customStyle={{
+          margin: 0,
+          padding: '1.25rem 1.5rem',
+          background: 'transparent',
+          fontSize: '0.875em',
+          lineHeight: 1.7,
+          minWidth: '100%',
+          width: 'max-content'
+        }}
+      >
+        {text}
+      </SyntaxHighlighter>
+    );
+  }
+  // 无语言标记的围栏块：纯文本块
+  if (text.includes('\n')) {
+    return (
+      <code className="block min-w-full whitespace-pre px-6 py-5 font-mono text-[0.875em] leading-[1.7] text-text-main">
+        {text}
+      </code>
+    );
+  }
+  // 行内代码（规范 §4）：brand-1 文字 + default-soft 半透明底，叠在容器 soft 底上自然加深
+  return (
+    <code className="break-all rounded bg-[var(--docs-gray-soft)] px-[0.375rem] py-[0.1875rem] font-mono text-[0.875em] text-accent">
+      {children}
+    </code>
+  );
+}
+
 const components: Components = {
   h1: ({ children }) => {
     const id = slugifyHeading(textOf(children));
@@ -360,45 +406,7 @@ const components: Components = {
       </CodeBlockShell>
     );
   },
-  code: ({ className, children }) => {
-    const text = String(children ?? '').replace(/\n$/, '');
-    const match = /language-([\w-]+)/.exec(className ?? '');
-    if (match) {
-      // 与 Implement/Standards 页同一高亮主题；padding 按规范 §4（pre 上下 1.25rem、code 左右 1.5rem）
-      return (
-        <SyntaxHighlighter
-          language={match[1]}
-          style={vscDarkPlus}
-          PreTag="div"
-          customStyle={{
-            margin: 0,
-            padding: '1.25rem 1.5rem',
-            background: 'transparent',
-            fontSize: '0.875em',
-            lineHeight: 1.7,
-            minWidth: '100%',
-            width: 'max-content'
-          }}
-        >
-          {text}
-        </SyntaxHighlighter>
-      );
-    }
-    // 无语言标记的围栏块：纯文本块
-    if (text.includes('\n')) {
-      return (
-        <code className="block min-w-full whitespace-pre px-6 py-5 font-mono text-[0.875em] leading-[1.7] text-text-main">
-          {text}
-        </code>
-      );
-    }
-    // 行内代码（规范 §4）：brand-1 文字 + default-soft 半透明底，叠在容器 soft 底上自然加深
-    return (
-      <code className="break-all rounded bg-[var(--docs-gray-soft)] px-[0.375rem] py-[0.1875rem] font-mono text-[0.875em] text-accent">
-        {children}
-      </code>
-    );
-  }
+  code: renderCode
 };
 
 /**

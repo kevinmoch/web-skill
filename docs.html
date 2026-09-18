@@ -1,9 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebSkill Docs - webskill.ai</title>
+    <!-- 首屏前定下亮/暗主题，避免闪烁：用户存过的选择 > 系统偏好 > 亮色兜底。
+         规则必须与 src/docs/theme.ts 的 resolveDocsTheme 保持一致。 -->
+    <script>
+      (function () {
+        var theme = 'light';
+        try {
+          var stored = localStorage.getItem('docs-theme');
+          if (stored === 'light' || stored === 'dark') {
+            theme = stored;
+          } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            theme = 'dark';
+          }
+        } catch (e) {}
+        document.documentElement.setAttribute('data-docs-theme', theme);
+      })();
+    </script>
   </head>
   <!-- 独立文档产物：不带主站的 gtag 统计脚本（需求评审决定） -->
   <body>

@@ -42,14 +42,14 @@ importers:
         specifier: ^5.0.4
         version: 5.2.0(vite@6.4.2(@types/node@22.19.17)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)(yaml@2.9.0))
       '@webskill/chatbot':
-        specifier: ^0.19.0
-        version: 0.19.0(@a2ui/lit@0.10.3(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(signal-polyfill@0.2.2))(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(@a2ui/web_core@0.10.6)(@lit/context@1.1.6)(@openuidev/react-lang@0.2.11(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.4.3))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@webskill/sdk@0.22.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(assistant-cloud@0.1.41)(immer@11.1.18)(mermaid@12.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))(vite@6.4.2(@types/node@22.19.17)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)(yaml@2.9.0))(zod@4.4.3)(zustand@5.0.15(@types/react@19.2.14)(immer@11.1.18)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5)))
+        specifier: ^0.20.0
+        version: 0.20.0(@a2ui/lit@0.10.3(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(signal-polyfill@0.2.2))(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(@a2ui/web_core@0.10.6)(@lit/context@1.1.6)(@openuidev/react-lang@0.2.11(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.4.3))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@webskill/sdk@0.23.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(assistant-cloud@0.1.41)(immer@11.1.18)(mermaid@12.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))(vite@6.4.2(@types/node@22.19.17)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)(yaml@2.9.0))(zod@4.4.3)(zustand@5.0.15(@types/react@19.2.14)(immer@11.1.18)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5)))
       '@webskill/console':
-        specifier: ^0.18.0
-        version: 0.18.0(@a2ui/lit@0.10.3(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(signal-polyfill@0.2.2))(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(@a2ui/web_core@0.10.6)(@monaco-editor/react@4.7.0(monaco-editor@0.56.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@openuidev/react-lang@0.2.11(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.4.3))(@types/react@19.2.14)(@webskill/sdk@0.22.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(mermaid@12.0.0)(monaco-editor@0.56.0)(react-dom@19.2.5(react@19.2.5))(react-is@19.2.8)(react@19.2.5)(redux@5.0.1)
+        specifier: ^0.19.0
+        version: 0.19.0(@a2ui/lit@0.10.3(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(signal-polyfill@0.2.2))(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(@a2ui/web_core@0.10.6)(@monaco-editor/react@4.7.0(monaco-editor@0.56.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@openuidev/react-lang@0.2.11(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.4.3))(@types/react@19.2.14)(@webskill/sdk@0.23.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(mermaid@12.0.0)(monaco-editor@0.56.0)(react-dom@19.2.5(react@19.2.5))(react-is@19.2.8)(react@19.2.5)(redux@5.0.1)
       '@webskill/sdk':
-        specifier: ^0.22.0
-        version: 0.22.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: ^0.23.0
+        version: 0.23.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       docx:
         specifier: ^9.7.1
         version: 9.7.1
@@ -2100,15 +2100,15 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
 
-  '@webskill/chatbot@0.19.0':
-    resolution: {integrity: sha512-JJygcPY++OM03vc2EKvs+N3I4LRPEbnatJROzwLr0jOxSaXRPRwmGeazdpa4iZqDNWKEEfxRVWzHrvx0XVL9AQ==}
+  '@webskill/chatbot@0.20.0':
+    resolution: {integrity: sha512-Z4wxNr5/biTnoVkuk63yriWhbA5yGGAfUVYbF9Wvj674QL5fQ1qqh7V/eRxauxkcMDE1d/L5jpbp7x6kJWbUhg==}
     peerDependencies:
       '@a2ui/lit': ^0.10.2
       '@a2ui/markdown-it': '>=0.1.0 <0.1.2'
       '@a2ui/web_core': ^0.10.5
       '@lit/context': ^1.1.0
       '@openuidev/react-lang': 0.2.8
-      '@webskill/sdk': ^0.22.0
+      '@webskill/sdk': ^0.23.0
       mermaid: ^12.0.0
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
@@ -2132,15 +2132,15 @@ packages:
       zod:
         optional: true
 
-  '@webskill/console@0.18.0':
-    resolution: {integrity: sha512-B14zrpnvoiKGH8zujFJTkuyvFO29wbpYEoL/5frrqt+Deq4VM8vmwgJQ191HrmPmU8XlhHtBk6GHa8ufMzImlA==}
+  '@webskill/console@0.19.0':
+    resolution: {integrity: sha512-hTHnIaRgWXYG9NzNP0jRVtQrD+yJjDFCEX+aUYrYnm3UFJhzGg2wO37tBGGPN8yc+Pyynbv0UzeEyRRGfkbM+g==}
     peerDependencies:
       '@a2ui/lit': ^0.10.2
       '@a2ui/markdown-it': '>=0.1.0 <0.1.2'
       '@a2ui/web_core': ^0.10.5
       '@monaco-editor/react': '>=4.0.0'
       '@openuidev/react-lang': 0.2.8
-      '@webskill/sdk': ^0.22.0
+      '@webskill/sdk': ^0.23.0
       mermaid: ^12.0.0
       monaco-editor: '>=0.52.0'
       react: '>=19.0.0'
@@ -2161,8 +2161,8 @@ packages:
       monaco-editor:
         optional: true
 
-  '@webskill/sdk@0.22.0':
-    resolution: {integrity: sha512-sK0PJcvWQVkclYq/dkxn2kiiu3Pt7p+HYLIHDyvGNiNB+Gmr3ozuvig0ecYG8ASzWDzBUfKkaOWBBsThYpnatg==}
+  '@webskill/sdk@0.23.0':
+    resolution: {integrity: sha512-sN9w55FpyMvTNRrPHx1DL7CZwedX1dffryG3Fwpg6Vix3121wJuhKb/8blbhSp0aqZeVXdgFDgnmhtSNvs8eOw==}
     engines: {node: '>=22.18'}
     peerDependencies:
       '@modelcontextprotocol/sdk': '>=1.29.0'
@@ -5717,13 +5717,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@webskill/chatbot@0.19.0(@a2ui/lit@0.10.3(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(signal-polyfill@0.2.2))(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(@a2ui/web_core@0.10.6)(@lit/context@1.1.6)(@openuidev/react-lang@0.2.11(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.4.3))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@webskill/sdk@0.22.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(assistant-cloud@0.1.41)(immer@11.1.18)(mermaid@12.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))(vite@6.4.2(@types/node@22.19.17)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)(yaml@2.9.0))(zod@4.4.3)(zustand@5.0.15(@types/react@19.2.14)(immer@11.1.18)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5)))':
+  '@webskill/chatbot@0.20.0(@a2ui/lit@0.10.3(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(signal-polyfill@0.2.2))(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(@a2ui/web_core@0.10.6)(@lit/context@1.1.6)(@openuidev/react-lang@0.2.11(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.4.3))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@webskill/sdk@0.23.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(assistant-cloud@0.1.41)(immer@11.1.18)(mermaid@12.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))(vite@6.4.2(@types/node@22.19.17)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)(yaml@2.9.0))(zod@4.4.3)(zustand@5.0.15(@types/react@19.2.14)(immer@11.1.18)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5)))':
     dependencies:
       '@assistant-ui/core': 0.3.1(@assistant-ui/store@0.3.1(@assistant-ui/tap@0.9.7(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@assistant-ui/tap@0.9.7(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(assistant-cloud@0.1.41)(react@19.2.5)(zustand@5.0.15(@types/react@19.2.14)(immer@11.1.18)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5)))
       '@assistant-ui/react': 0.15.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(immer@11.1.18)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
       '@assistant-ui/store': 0.3.1(@assistant-ui/tap@0.9.7(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5)
       '@assistant-ui/tap': 0.9.7(@types/react@19.2.14)(react@19.2.5)
-      '@webskill/sdk': 0.22.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@webskill/sdk': 0.23.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       mdast-util-from-markdown: 2.0.3
       mdast-util-gfm: 3.1.0
       micromark-extension-gfm: 3.0.0
@@ -5749,9 +5749,9 @@ snapshots:
       - use-sync-external-store
       - zustand
 
-  '@webskill/console@0.18.0(@a2ui/lit@0.10.3(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(signal-polyfill@0.2.2))(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(@a2ui/web_core@0.10.6)(@monaco-editor/react@4.7.0(monaco-editor@0.56.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@openuidev/react-lang@0.2.11(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.4.3))(@types/react@19.2.14)(@webskill/sdk@0.22.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(mermaid@12.0.0)(monaco-editor@0.56.0)(react-dom@19.2.5(react@19.2.5))(react-is@19.2.8)(react@19.2.5)(redux@5.0.1)':
+  '@webskill/console@0.19.0(@a2ui/lit@0.10.3(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(signal-polyfill@0.2.2))(@a2ui/markdown-it@0.1.1(@a2ui/web_core@0.10.6))(@a2ui/web_core@0.10.6)(@monaco-editor/react@4.7.0(monaco-editor@0.56.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@openuidev/react-lang@0.2.11(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.4.3))(@types/react@19.2.14)(@webskill/sdk@0.23.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(mermaid@12.0.0)(monaco-editor@0.56.0)(react-dom@19.2.5(react@19.2.5))(react-is@19.2.8)(react@19.2.5)(redux@5.0.1)':
     dependencies:
-      '@webskill/sdk': 0.22.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@webskill/sdk': 0.23.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       fflate: 0.8.3
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
@@ -5769,7 +5769,7 @@ snapshots:
       - react-is
       - redux
 
-  '@webskill/sdk@0.22.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@webskill/sdk@0.23.0(@modelcontextprotocol/sdk@1.30.0(zod@4.4.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       fflate: 0.8.3
       write-excel-file: 4.1.1
