@@ -15,6 +15,7 @@ import {
 } from '../mock/staticData';
 import { Screen, ScreenParams } from '../types';
 import type { RuntimeAppearanceConfig } from '@webskill/chatbot';
+import i18n from '../../i18n';
 import { getWebSkillRuntime, RUNTIME_CONFIG_STORAGE_KEY } from '../webskill/runtime';
 import { setAgileHostStateReader, setAgileNavigator, type AgileHostState } from '../webskill/hostState';
 import { recordFieldValues } from '../webskill/fieldHistory';
@@ -256,6 +257,13 @@ export const AgileDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   useEffect(() => {
     localStorage.setItem('agile_lang', lang);
+  }, [lang]);
+
+  // i18n 默认由检测器（i18nextLng / navigator）决定，与本页的语言开关是两个互不相干的源。
+  // 不接上这一条，读 `i18n.language` 的那几处（授权卡的「不再询问」勾选框、文档投放的
+  // 确认文案与 ?lang、DWG 视图语言）会停在检测器选的语言上——中文界面里冒出英文勾选框
+  useEffect(() => {
+    if (!i18n.language.startsWith(lang)) void i18n.changeLanguage(lang);
   }, [lang]);
 
   useEffect(() => {

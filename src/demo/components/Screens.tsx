@@ -1875,9 +1875,9 @@ export const BugsScreen: React.FC = () => {
                       aria-label={lang === 'zh' ? '严重程度' : 'Severity'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium cursor-pointer"
                     >
-                      <option value="Critical">🔴 Critical (致瘫故障)</option>
-                      <option value="Major">🟡 Major (严重报错)</option>
-                      <option value="Minor">🟢 Minor (微小异常)</option>
+                      <option value="Critical">{lang === 'zh' ? '🔴 Critical (致瘫故障)' : '🔴 Critical (system down)'}</option>
+                      <option value="Major">{lang === 'zh' ? '🟡 Major (严重报错)' : '🟡 Major (breaking error)'}</option>
+                      <option value="Minor">{lang === 'zh' ? '🟢 Minor (微小异常)' : '🟢 Minor (cosmetic)'}</option>
                     </select>
                   </div>
                   <div>
@@ -1889,9 +1889,11 @@ export const BugsScreen: React.FC = () => {
                       aria-label={lang === 'zh' ? '缺陷状态' : 'Bug status'}
                       className="w-full text-xs bg-background px-3 py-2 rounded-lg border border-input text-foreground focus:outline-none focus:border-ring font-medium cursor-pointer"
                     >
-                      <option value="Open">Unresolved (挂起处理中)</option>
-                      <option value="Fixed">Resolved/Fixed (代码已修复)</option>
-                      <option value="Closed">Verified/Closed (经 QA 验收关闭)</option>
+                      <option value="Open">{lang === 'zh' ? 'Unresolved (挂起处理中)' : 'Unresolved (in progress)'}</option>
+                      <option value="Fixed">{lang === 'zh' ? 'Resolved/Fixed (代码已修复)' : 'Resolved/Fixed (code landed)'}</option>
+                      <option value="Closed">
+                        {lang === 'zh' ? 'Verified/Closed (经 QA 验收关闭)' : 'Verified/Closed (QA signed off)'}
+                      </option>
                     </select>
                   </div>
                 </div>

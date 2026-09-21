@@ -43,7 +43,22 @@ Of the two badges, tools decides whether the assistant can work; images only dec
 
 Hover an icon to see its text; when it shows "No tools" a reason comes with it: "Unavailable: the selected model does not support tool calling."
 
-"No images" has a very local effect: image attachments sent to it are blocked with the prompt "the selected model does not accept images" — switch to a model with an **Images** badge. For more on images and attachments, see [Attachments, Images, Voice, and Camera](#/docs/attachments).
+"No images" has a very local effect: image attachments sent to it are blocked with the prompt "the selected model does not accept images" — switch to a model with an **Images** badge. This badge is about whether the model **can take image input** — "No images" only blocks images you upload by hand; the images the assistant runs into while reading documents still have the vision-delegation path (the next section). For more on images and attachments, see [Attachments, Images, Voice, and Camera](#/docs/attachments).
+
+## What to do when the model can't see images (vision delegation)
+
+Picking a "No images" model doesn't mean images inside documents become unreadable. When the assistant runs into an image while reading a document, it hands the image to **the first connection in the model list that supports images**, asking it to describe the image in text, and the recognized text comes back to the current model to keep working with — this hand-off is called vision delegation. While recognition runs, the call in the run area shows progress next to it: "Reading images {done}/{total}".
+
+The first time images are about to be forwarded, a notice card pops up titled "Send images to another model?": the card states which connection the images would go to (name and address both shown) — which means they may go to another model vendor; for where data goes, see [Privacy and Where Your Data Goes](#/docs/privacy). Your choices:
+
+- Click **Allow** and this batch of images goes over for recognition. You can check "Don't ask again in this conversation", after which images met later in this conversation go straight over.
+- Click **Deny** and nothing is sent at all — the assistant treats this turn as if it hadn't seen the images and carries on as usual; and it won't ask again this session.
+
+A few boundaries to know:
+
+- Who it delegates to is decided by the order of the model list in the Console: the first connection that supports images is the recognizer. The order can be adjusted by dragging — the action hint next to an entry reads, verbatim, `Move {label} — drag, or press the up and down arrow keys` — see [Connections](#/docs/console-connections).
+- When recognition fails, it says so — for example that an image wasn't read because image recognition glitched — it won't pretend to have seen it.
+- Vision delegation only covers images the assistant reads. Images you upload by hand don't take this path: when the current model can't see images, the upload entry blocks them outright with the prompt "the selected model does not accept images" — you still have to switch models before sending images; see [Attachments, Images, Voice, and Camera](#/docs/attachments).
 
 ## What happens with no model configured
 

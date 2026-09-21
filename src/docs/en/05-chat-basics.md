@@ -39,6 +39,16 @@ Answers aren't just plain text either: headings, lists, and tables are rendered 
 
 One answer can contain text, tables, and code at the same time. Sample run output — your actual output will differ.
 
+## Diagrams the assistant draws
+
+An answer can also carry diagrams. Diagrams the assistant writes in mermaid (flowcharts, sequence diagrams, and the like) render directly as graphics in the conversation body, not as a block of source code.
+
+When one can't be rendered — the diagram source itself is invalid, for example — that block falls back to showing the raw code: what you see is the source it wrote, with no extra error message.
+
+![A mermaid flowchart in the conversation body rendered as a graphic](/docs-assets/chat-basics/en/S-chat-basics-08-mermaid.png)
+
+Diagram source renders into a graphic; when rendering fails it falls back to the raw code. Sample run output — your actual output will differ.
+
 ## Stopping it midway
 
 1. While the answer is generating, click **Stop** (the same button that was **Send** a moment ago).
@@ -50,7 +60,7 @@ Stopping doesn't wipe anything: **the body already generated stays exactly as it
 
 Once sent, a message enters "generating" and ends in one of three states: completed, stopped, or failed. Stopped and failed can both go back to generating via "Retry". Note the annotation next to "stopped" in the diagram: content already generated is kept.
 
-![After clicking Stop, the generated body is fully preserved, with the cancellation notice shown separately](/docs-assets/chat-basics/zh/S-chat-basics-02-stopped-content-kept.png)
+![After clicking Stop, the generated body is fully preserved, with the cancellation notice shown separately](/docs-assets/chat-basics/en/S-chat-basics-02-stopped-content-kept.png)
 
 The body and the cancellation notice are two separate parts — neither overwrites the other. Sample run output — your actual output will differ.
 
@@ -85,7 +95,7 @@ Only your own messages can be edited; the assistant's answers can't. If you're n
 
 **Delete**: hover over a message and click **Delete message**. The message disappears from the conversation immediately, and a notice pops up at the bottom of the screen titled "Message deleted", with a smaller line below: "It is removed for good once this notice closes." — **click "Undo" before the notice disappears and the message comes back**. The notice only stays for a few seconds; once it's gone, the message can't be recovered. Deletion is real: even if you refresh the page, a deleted message doesn't come back.
 
-![The undo notice that appears after deleting a message](/docs-assets/chat-basics/zh/S-chat-basics-05-undo-toast.png)
+![The undo notice that appears after deleting a message](/docs-assets/chat-basics/en/S-chat-basics-05-undo-toast.png)
 
 The undo window is only a few seconds — click "Undo" before the notice disappears to get the message back.
 
@@ -104,6 +114,10 @@ When you see this banner, click "Resume" to continue where you left off — no n
 > **Note**: If a run was stopped on an **authorization card** (titled "Authorization required") when you refreshed or reopened the page, this banner does not appear — that run is marked as cancelled and can't be resumed from here; to continue that task, send the message again. For how to tell the six kinds of cards apart, see [Six Interaction Cards](#/docs/interactions).
 
 By the way: conversation content is stored on your device. Refresh the page, or even quit the browser entirely and reopen it — your session history is still there.
+
+## When the conversation gets very long
+
+When a session runs especially long, just before it reaches what the model can hold at once, the assistant automatically compresses the earlier chat history into a summary to make room for the rest of the conversation — so a long conversation never silently dead-ends. Compression only happens once "Context window" has been filled in for the model in use; for the mechanism and the usage-percentage display, see [Seeing What the Assistant Is Doing](#/docs/transparency).
 
 ## Web version vs. extension version
 

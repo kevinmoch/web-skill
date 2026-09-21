@@ -72,6 +72,8 @@ In the middle of the input area ④ is the input field (placeholder text "Send a
 
 This screenshot shows the full row of entries in the input area.
 
+While a multi-step task is running, a task progress panel — the **Task list** — is also pinned above the input field: it stays there across turns and doesn't disappear when the work is done. See [Seeing What the Assistant Is Doing](#/docs/transparency).
+
 ## How the panel can be arranged
 
 - **Docking and undocking**: click **Dock to page** and the assistant panel changes from a floating overlay to occupying one side of the page, with the page content making room; click **Undock from page** to restore. Your system decides whether to offer this pair of buttons — the Demo doesn't. In the Demo you drag the panel's left edge to resize it, and click "Collapse AI copilot" in the bottom-right corner to close it.

@@ -80,17 +80,43 @@ The thinking content can be expanded and read. Sample run output; your actual ou
 
 ## Task list: progress on long tasks
 
-Complex tasks get broken down into a **Task list**. Each item has three states: **Pending**, **In progress**, **Completed**. The progress number `{done}/{total}` next to the title tells you how many are done.
+Complex tasks get broken down into a **Task list**. The list doesn't sit in the message stream — it's **a panel pinned above the input field**: it stays across turns, pinned there no matter how many more messages you send.
 
-Some items show "Delegated to {skill}". Don't be surprised when you see this line — three things to remember:
+What you can see on the panel:
 
-1. **It's dividing up the work itself.** In a complex task, the assistant hands a step to a more specialized skill. You don't need to do anything.
-2. **It happens one step at a time, not all at once.** It only continues to the next step once the delegated one is done. So when you see "Delegated to", just wait.
-3. **One side effect to know about.** The delegated part doesn't count as steps performed in this conversation. Because of that, when you "save the conversation as a skill", a conversation with "Delegated to" items may not save (see [Skills: Giving the Assistant Expertise](#/docs/skills-usage)). What to do then: don't let it delegate — redo the key steps yourself, then save.
+- Each item's title and state: **Pending**, **In progress**, **Completed**;
+- The progress number `{done}/{total}` next to the title, telling you how many are done;
+- Some items show "Delegated to {skill}" on the right — for what that means, see "It delegated the task" below.
 
-![A task list with items in progress and completed](/docs-assets/transparency/en/S-transparency-06-todo-list.png)
+The list's behavior is arranged for you too:
 
-Each item's state and the progress number next to the title are directly visible. Sample run output; your actual output will differ.
+- With many items, the list is about six rows tall, scrolls internally, and positions itself at the in-progress item on its own;
+- Once everything is done, it collapses into one row (title plus progress, like 8/8) — it doesn't disappear;
+- You can close it with the close button (the hover tip reads "Hide this task list") — closing hides only this list in the current session; the next list pins out again when it appears.
+
+The panel shows only each item's title and state: items can't be drag-reordered on the panel, nor edited in place. When you scroll back through the history, the list of that moment stays in the message stream as a snapshot — what you see is how it looked then.
+
+![The task list panel pinned above the input field, with items in progress and completed](/docs-assets/transparency/en/S-transparency-06-todo-list.png)
+
+The panel is pinned above the input field; each item's state and the progress number next to the title are directly visible. Sample run output; your actual output will differ.
+
+## It delegated the task (delegation)
+
+An item showing "Delegated to {skill}" means the assistant handed that step to a sub-assistant. No surprise when you see this line — three things to remember:
+
+1. **Several lanes can run at once.** The delegated sub-tasks may have several lanes going at the same time, not one done before the next starts: each lane shows its own state in the list, and you can see several "In progress" side by side; ones beyond the lane count stay "Pending" in queue and start when a slot frees up — no error for that.
+2. **It asks you before the first delegation.** The first time a session is about to delegate, a confirmation card pops up first, spelling out the cost and letting you choose how many lanes in the "Run at most" field; click **Deny** and it does the work itself step by step instead, and won't ask again this session. For the card and how to answer it, see [Six Interaction Cards](#/docs/interactions).
+3. **One side effect to know about.** The delegated part doesn't count as steps performed in this conversation — the confirmation card states "so this conversation can no longer be saved as a new skill". If you want to save this conversation as a skill, click **Deny** on the confirmation card, let it finish the whole thing itself, then save. For the details of saving skills, see [Skills: Giving the Assistant Expertise](#/docs/skills-usage).
+
+## When the conversation gets too long
+
+When a session runs especially long and nears what the model can hold in one go, the assistant automatically compresses the earlier chat history: the compressed content is replaced by a summary for the model, so a long conversation never silently dead-ends. Compression only happens after "Context window" is filled in for the model in use — without it, it never compresses.
+
+Compression itself is invisible, but usage is not: above the input field, the current context usage is shown, looking like "Context 12.4k / 128k (10%)" — the input the most recent send actually consumed, and its share of the limit. The denominator and the percentage only show once "Context window (tokens, optional)" is filled in for the model in use in the Console; without it only the absolute value shows, and before any usage has arrived at all, nothing shows. For how to fill it in, see [Settings](#/docs/console-settings).
+
+![The context-usage display above the input field: consumption, window limit, and percentage](/docs-assets/transparency/en/S-transparency-09-compacted.png)
+
+When usage approaches 100%, compression has already happened in the background. Sample run output; your actual output will differ.
 
 ## Why it stopped
 

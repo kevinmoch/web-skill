@@ -38,13 +38,13 @@ You don't have to title sessions yourself: after you send the first message, the
 
 ![The session list expanded, with multiple sessions arranged by time](/docs-assets/sessions/en/S-sessions-01-session-list.png)
 
-Older sessions sit above newer ones in the list; click one to switch. The current session is marked.
+The most recently active sessions sit at the top of the list; click one to switch. The current session is marked.
 
 ## Finding older conversations
 
 **Search.** The search box at the top of the list (placeholder text "Search sessions…") filters by title as you type, and the regular list and the "Archived" group at the bottom are filtered together. Clear the search box to get back to the full list.
 
-**Load earlier.** When there are many sessions, the list first shows the most recent batch, and **Load earlier sessions** appears at the top; click it and an earlier batch is added above the list — while loading, the button shows "Loading…", and when there's nothing earlier it stops appearing. The same goes for opening a very long session: the earliest messages aren't on the first screen; click **Load earlier messages** at the top of the message area to fill them in above.
+**Load earlier.** When there are many sessions, the list first shows the most recent batch, and **Load earlier sessions** appears at the bottom; click it and an earlier batch is appended below the list — while loading, the button shows "Loading…", and when there's nothing earlier it stops appearing. The session list itself is sorted by most recent activity, with the most recent at the top. Opening a very long session works in the other direction: the earliest messages aren't on the first screen; click **Load earlier messages** at the top of the message area to fill them in above.
 
 ![Searching sessions: after typing a keyword, only the matching sessions remain](/docs-assets/sessions/en/S-sessions-02-search.png)
 
@@ -90,5 +90,5 @@ Session management itself is the same in both: create, switch, search, rename, a
 
 - **The list shows the notice "These session files could not be read and were skipped: …".** A few session files couldn't be read this time and the list skipped them; the rest of your sessions are unaffected. This usually happens when a write was interrupted mid-way (the browser crashed at the moment of saving, for example); if a skipped one is the session you're looking for, reopen the panel or refresh the page and check again; if it keeps happening, contact the people who provide this system.
 - **You deleted the wrong session and want it back.** It can't be recovered — deleting a session has no undo window; confirming means permanent deletion. Next time you're unsure, archive first.
-- **You definitely chatted about it, but it's not in the list.** First check whether it's in the "Archived" group at the bottom; then search for a keyword from its title in the search box; if the list is long, click **Load earlier sessions** to page upward.
+- **You definitely chatted about it, but it's not in the list.** First check whether it's in the "Archived" group at the bottom; then search for a keyword from its title in the search box; if the list is long, go to the bottom and click **Load earlier sessions** to page further down.
 - **You opened an old session and can't see the earliest messages.** Click **Load earlier messages** at the top of the message area, and the earlier content is added above.

@@ -7,6 +7,8 @@ To ask about something on the page, you don't have to copy and paste. Say "take 
 - Have the assistant read the current page with one plain sentence, and answer you based on the page's real data.
 - See from the perception notice which region it read this time, and which it excluded.
 - Decide whether the page's images go along — off by default.
+- In the extension version, WPS online documents open in the page can also be read — read-only, with a consent card first.
+- When it wants an image from another website, see the consent card stating the address and the risk first, then decide whether to allow.
 - Verify every read in the Console afterwards.
 
 ## No more copy-paste
@@ -60,13 +62,33 @@ The answer states content from inside the documents — proof it really followed
 
 Three boundaries:
 
-- **Word and Excel yield the extracted body text** — layout, comments, headers and footers aren't included, same as when you upload an attachment by hand; see [Attachments, Images, Voice, and Camera](#/docs/attachments). A pdf goes to the model in full; when the model doesn't accept documents, it errors and suggests switching models or using a Word link instead.
+- **Word and Excel yield the body text read out of them** — layout, comments, headers and footers aren't included, same as when you upload an attachment by hand; see [Attachments, Images, Voice, and Camera](#/docs/attachments). A pdf goes to the model in full; when the model doesn't accept documents, it errors and suggests switching models or using a Word link instead.
 - **Defect screenshots count as images on the page**: they need **Page image capture** turned on first and a model badge showing "Images"; the switch is in "Images on the page" below.
 - **It reads the links that appear on the page.** Documents on the same website are read directly; when a link points to another website, a "Confirmation" card pops up first every time, with the full address to be fetched written on the card — it fetches only after you agree.
 
 ![The "Confirmation" card that pops up before reading a document from another website, with the full address to be fetched written on the card](/docs-assets/page-perception/en/S-perception-07-cross-origin-confirm.png)
 
 Every cross-website read needs your nod, with the address written out in full on the card.
+
+## Reading online documents open in the page (WPS WebOffice)
+
+> **Extension only**: The online-document reading in this section exists only in the extension version; the web version can't read online documents open in the page.
+
+A WPS online document open in the page — Word, Excel, PPT, or PDF all work — the assistant can also read along the page, without you downloading and uploading it first. Both kinds of asks need your nod first:
+
+- **Ask it which documents this page has open** and the card that pops up is titled **WPS documents on this page**, asking "Allow the assistant to see which WPS documents are open on {origin}?". Even a listing gets asked about, because a document title is itself information.
+- **Ask it to read one of them** and the card is titled **Read this WPS document**, asking "Allow the assistant to read the contents of this WPS document on {origin}?". The card carries one more line — `The page says this document is of type “{type}”.` — the type is what the page claims; it relays that as-is and hasn't verified it for you.
+
+![The consent card that pops up before reading a WPS online document open in the page](/docs-assets/page-perception/en/S-perception-08-weboffice-consent.png)
+
+The card states which site it is and what it would read; it reads only after you agree.
+
+The consent card has a "don't ask again" checkbox whose label spells out the remembered scope directly, phrased like `Don’t ask again to read the WPS documents on this site ({origin})` — what's remembered is **this kind of action on this site**, not the one document in front of you; listing and reading are remembered separately, so allowing the listing doesn't allow reading contents. Revocation lives in the same place as remembered page-action consents (the Console's **Page Skills** page — see [Letting the Assistant Act on the Page](#/docs/page-actions)), and revoking takes effect immediately.
+
+Two boundaries:
+
+- **Read-only, never write.** It can read the online document's content out for you to use, but it can't edit that document for you — to change it, do it yourself, or have it organize the content for you to paste back.
+- A type it can't read, it says so plainly. It can also take screenshots of the document (asking you first, likewise) — note it captures whatever is visible in the current tab, anything shown next to the document included, and the screenshots stay in this conversation until you delete it.
 
 ## What it can't read
 
@@ -97,12 +119,27 @@ Captured, omitted, and failed are counted separately, not merged into one number
 
 Turn the switch back off and text is still read while not a single image is sent. Note that each message has count and size limits for images, and the current model has to accept images — the badge must show "Images", otherwise it can't make sense of images even with the switch on. See [Choosing a Model](#/docs/models).
 
+When the current model can't see images, there's one fallback: images it runs into while reading documents (Word, PDF, and the like) can, with your consent, be handed to a connection that can see images, which describes them first before they're used further. A card pops up before the hand-off, stating how many images and to which connection they'd go; refuse and nothing is sent — it treats this turn as if it hadn't seen the images and carries on as usual. Reading the page itself never triggers this hand-off — having it look at a page doesn't mean one more recognition request sent elsewhere each time.
+
+## It asks before fetching images from other sites
+
+When the assistant works, it sometimes needs an image from another website — putting a diagram from the web into a document it's generating, say. Before fetching, it always pops a card titled **Put a picture into the document?**, with the full image address written on the card, asking "Allow the assistant to download an image from {url} and put it into the document it is building?", and stating "Fetching it tells that server your network address and when you asked for it."
+
+When the address is plain http://, the card marks one more line: "This address is plain http://, so the image can be read or swapped by anyone on the network in between."
+
+![The consent card that pops up before the assistant downloads an image from another website, with the image address and the risk note on the card](/docs-assets/page-perception/en/S-perception-09-remote-image-consent.png)
+
+Which image to fetch and what fetching exposes are both written on the card; http addresses are additionally marked as unsafe.
+
+Click deny and it sends no request to that address at all, carrying on with the turn as usual. The checkbox on the card is "Don't ask again in this conversation before downloading images from the web" — what's remembered is this kind of fetching in this conversation; a new conversation asks again. Taking images from the current page is another kind, and the two checkboxes are remembered separately — one doesn't wave the other through.
+
 ## Web version vs. extension version
 
 |                                         | Web version                           | Extension version                                                               |
 | --------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------- |
 | Pages it can read                       | Only the one page the assistant is on | Any web page you have open                                                      |
 | Third-party frames embedded in the page | Limited                               | Can read cross-origin content nested several frames deep, text and images alike |
+| WPS online documents open in the page   | Can't read them                       | Can read, read-only; both listing them and reading contents need your consent first |
 
 > **Extension only**: On any website you open, the assistant can read the current page — including third-party frames embedded several layers deep, such as cross-origin content inside the body.
 

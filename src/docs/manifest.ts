@@ -16,7 +16,7 @@ export interface DocPart {
 }
 
 export interface DocChapter {
-  /** 1..30，全局连续编号，也是文件名前缀 */
+  /** 1..35，全局连续编号，也是文件名前缀 */
   num: number;
   /** 路由与锚点用标识 */
   slug: string;
@@ -80,73 +80,87 @@ export const DOC_CHAPTERS: DocChapter[] = [
     en: 'Let It Read the File You Just Downloaded (Extension Only)',
     part: 'page'
   },
+  {
+    num: 18,
+    slug: 'dwg-viewer',
+    zh: '看 DWG 图纸：查看、量测与对比',
+    en: 'DWG Drawings: View, Measure, and Compare',
+    part: 'page'
+  },
   // 第四部分 · 控制台
-  { num: 18, slug: 'console-tour', zh: '控制台导览', en: 'A Tour of the Console', part: 'console' },
-  { num: 19, slug: 'console-skills', zh: '技能管理', en: 'Skill Management', part: 'console' },
-  { num: 20, slug: 'console-runs', zh: '运行记录', en: 'Run History', part: 'console' },
-  { num: 21, slug: 'console-governance', zh: '治理与复核', en: 'Governance and Review', part: 'console' },
-  { num: 22, slug: 'console-connections', zh: '连接', en: 'Connections', part: 'console' },
-  { num: 23, slug: 'console-settings', zh: '设置', en: 'Settings', part: 'console' },
+  { num: 19, slug: 'console-tour', zh: '控制台导览', en: 'A Tour of the Console', part: 'console' },
+  { num: 20, slug: 'console-skills', zh: '技能管理', en: 'Skill Management', part: 'console' },
+  { num: 21, slug: 'console-runs', zh: '运行记录', en: 'Run History', part: 'console' },
+  { num: 22, slug: 'console-governance', zh: '治理与复核', en: 'Governance and Review', part: 'console' },
+  { num: 23, slug: 'console-connections', zh: '连接', en: 'Connections', part: 'console' },
+  { num: 24, slug: 'console-settings', zh: '设置', en: 'Settings', part: 'console' },
   // 第五部分 · 场景实战
   {
-    num: 24,
+    num: 25,
     slug: 'case-report',
     zh: '生成一份敏捷运营报告',
     en: 'Case: Generating an Agile Operations Report',
     part: 'cases'
   },
   {
-    num: 25,
+    num: 26,
     slug: 'case-summarize',
     zh: '让助手总结我正在看的页面',
     en: 'Case: Summarizing the Page You Are Viewing',
     part: 'cases'
   },
   {
-    num: 26,
+    num: 27,
     slug: 'case-bulletin',
     zh: '出一份可打印的质量通报',
     en: 'Case: Producing a Printable Quality Bulletin',
     part: 'cases'
   },
   {
-    num: 27,
+    num: 28,
     slug: 'case-slides',
     zh: '做一套幻灯片并放映',
     en: 'Case: Building and Presenting a Slide Deck',
     part: 'cases'
   },
   {
-    num: 28,
+    num: 29,
     slug: 'case-fill-form',
     zh: '说一句话，它替你把表填好',
     en: 'Case: Filling Out a Form with One Sentence',
     part: 'cases'
   },
   {
-    num: 29,
+    num: 30,
     slug: 'case-import-file',
     zh: '把一份文档里的内容录进系统',
     en: 'Case: Importing a Document into the System',
     part: 'cases'
   },
   {
-    num: 30,
+    num: 31,
     slug: 'case-skill-lifecycle',
     zh: '把这次做过的事变成一个技能',
     en: 'Case: Turning What You Just Did into a Skill',
     part: 'cases'
   },
+  {
+    num: 32,
+    slug: 'case-template',
+    zh: '用你现成的模板出文件',
+    en: 'Case: Producing Files from Your Own Template',
+    part: 'cases'
+  },
   // 第六部分 · 参考
   {
-    num: 31,
+    num: 33,
     slug: 'comparison',
     zh: '能力对照表：网页版 vs 扩展版',
     en: 'Capability Comparison: Web vs Extension',
     part: 'reference'
   },
-  { num: 32, slug: 'faq', zh: '常见问题与排错', en: 'FAQ and Troubleshooting', part: 'reference' },
-  { num: 33, slug: 'privacy', zh: '隐私与数据去向', en: 'Privacy and Where Your Data Goes', part: 'reference' }
+  { num: 34, slug: 'faq', zh: '常见问题与排错', en: 'FAQ and Troubleshooting', part: 'reference' },
+  { num: 35, slug: 'privacy', zh: '隐私与数据去向', en: 'Privacy and Where Your Data Goes', part: 'reference' }
 ];
 
 // ---------------------------------------------------------------------------

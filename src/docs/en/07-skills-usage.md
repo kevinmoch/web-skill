@@ -13,7 +13,7 @@ When you ask the assistant to produce a weekly report or a monitoring dashboard,
 
 A skill is a packaged bundle of "instructions for doing something + scripts". Once installed, the assistant knows how to do that thing. Which skills your system has installed determines what specialized work the assistant can do.
 
-Take the Demo (Agile Studio): it ships with 13 built-in skills, which fall into five categories by the kind of artifact they produce. An artifact is the finished product of a run — a report, a dashboard page, and so on.
+Take the Demo (Agile Studio): it ships with 14 built-in skills, which fall into six categories by the kind of artifact they produce. An artifact is the finished product of a run — a report, a dashboard page, and so on.
 
 | Category | Built-in skills | Artifact |
 | --- | --- | --- |
@@ -22,6 +22,7 @@ Take the Demo (Agile Studio): it ships with 13 built-in skills, which fall into 
 | Documents | `quality-bulletin`, `authored-bulletin` | Printable bulletin documents |
 | Slides | `agile-slide-deck`, `authored-slides` | Slide decks you can present and export to PDF |
 | Analysis | `requirement-doc-digest`, `bug-screenshot-triage`, `sprint-closeout` | Findings about the current page or project |
+| Drawings | `dwg-view` | A drawing viewer window where you can measure dimensions and overlay two drawings for comparison |
 
 What happens after you say something can be summed up in one diagram:
 
@@ -83,6 +84,20 @@ When you ask for changes to a ready-made artifact, the assistant doesn't fine-tu
 
 Asked twice in the same session: the vague ask activated the ready-made skill, the scoped ask activated the made-on-the-spot one — the two side-by-side skill badges show different names. Sample run output; your actual output will differ.
 
+## It can delegate sub-tasks to run in parallel
+
+In a complex task, the assistant can **hand the independent sub-tasks to several sub-agents at the same time**, instead of finishing one before starting the next. Sub-tasks beyond that lane count wait in a queue and start when a slot frees up — this doesn't cause an error.
+
+The first time it wants to delegate in a session, it pops up a confirmation card before acting:
+
+- The title asks: "Run parts of this task in parallel?"
+- The body spells out the cost: "Sub-agents can work on independent parts of this task at the same time. What they do is not recorded in this conversation, so this conversation can no longer be saved as a new skill."
+- The card has you pick on the spot how many can "Run at most", with a note beside it saying the suggested number is the assistant's: "The assistant suggested {count}."
+
+Click **Allow** and it starts as many lanes as you picked at the same time; click **Deny** and it switches to doing the work itself, one step at a time — the card says it plainly: "If you decline, the assistant does the work itself in this conversation and will not ask again." It asks only once per session. For the card's elements and how to answer in detail, see [Six Interaction Cards](#/docs/interactions).
+
+Once delegation is running, each lane's status shows in the **Task list**. For what you can see while a run is in progress, see [Seeing What the Assistant Is Doing](#/docs/transparency).
+
 ## Turning this conversation into a skill
 
 After you've walked the assistant through getting something complex done, you can save the process, and next time one sentence reruns it. Four things to know when saving.
@@ -93,7 +108,9 @@ After you've walked the assistant through getting something complex done, you ca
 
 **Third, you can jump straight to it.** After submitting, the card shows a candidate ID: click **Copy candidate ID** to copy it, or click **Go to review** to jump straight to the Console's Review Queue. For how review works, see [Governance and Review](#/docs/console-governance).
 
-**Fourth, take a look yourself before saving.** The line "Please check the preview below for anything that must not be stored" is a responsibility note written for you: the conversation may contain things you don't want kept long-term — people's names, internal numbers, one-off passwords. Read it word by word, confirm there's nothing, then click save.
+**Fourth, take a look yourself before saving.** The line "Please check the preview below for anything that must not be stored" is a responsibility note written for you: the conversation may contain things you don't want kept long-term — people's names, internal numbers, one-off passwords. Read it word by word, confirm there's nothing, then click **Allow**.
+
+Also, template files you've uploaded in this session (Excel, Word) can be stored in the skill package as-is — when you later use this skill to produce files, you won't need to upload the template again. For how, see [Case: Producing Files from Your Own Template](#/docs/case-template).
 
 ![The "save as skill" confirmation card, with a preview of the skill's content](/docs-assets/skills-usage/en/S-skills-07-save-skill-confirm.png)
 
@@ -123,11 +140,11 @@ Expand the **Run flow** card: the "Activate" step shows the skill name and how l
 
 ## Which skills are installed
 
-Click **Open Console** in the chat header and go to the Console's **Library** (where skills are managed and run history is reviewed): every installed skill's origin and status is on this page. The Demo ships with exactly those 13 built-in skills; for installation and version management, see [Skill Management](#/docs/console-skills).
+Click **Settings** in the chat header and go to the Console's **Library** (where skills are managed and run history is reviewed): every installed skill's origin and status is on this page. The Demo ships with exactly those 14 built-in skills; for installation and version management, see [Skill Management](#/docs/console-skills).
 
-![The 13 built-in skills in the Console's Library](/docs-assets/skills-usage/en/S-skills-05-skill-library.png)
+![The 14 built-in skills in the Console's Library](/docs-assets/skills-usage/en/S-skills-05-skill-library.png)
 
-All 13 built-in skills on one Library page.
+All 14 built-in skills on one Library page.
 
 ## Where skills run
 

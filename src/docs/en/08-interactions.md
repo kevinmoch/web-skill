@@ -78,7 +78,7 @@ When you see it, remember three things:
 2. **It tells you what the guess is based on.** Beside the suggestion there's a reason, like "you've picked this the last few times". The reason is there for you to judge whether to take it — if it's talking about something from three months ago, skip it and fill in your own.
 3. **When it can't guess, it doesn't.** With no basis to back one, the field stays empty — it won't make up a plausible-looking value to fill the gap.
 
-![A card with a suggested value: "Suggested:" followed by a value, with a reason and a "Use" entry beside it](/docs-assets/interactions/zh/S-interactions-09-suggestion.png)
+![A card with a suggested value: "Suggested:" followed by a value, with a reason and a "Use" entry beside it](/docs-assets/interactions/en/S-interactions-09-suggestion.png)
 
 This is what a suggested value looks like: if you don't click "Use", the field stays empty. Sample run output; your actual output will differ.
 
@@ -107,6 +107,20 @@ The authorization card spells out what capability is being requested, clearly re
 ![The "File requested" card: an explanation line, with Choose file and Decline buttons](/docs-assets/interactions/en/S-interactions-06-file-pick.png)
 
 You pick the file yourself in the system picker; clicking "Decline" doesn't fail the whole run either. Sample run output; your actual output will differ.
+
+## A few more specialized confirmation cards
+
+Beyond the six cards, a few confirmation cards only appear in specific situations; you answer them with Allow or Deny all the same.
+
+**The vision delegation notice card: "Send images to another model?".** When the model you picked can't read images, pictures the assistant comes across while reading a document get forwarded to the first connection in the model list that can read images, and the text read out of them goes back to the current model. The first time it's about to forward, this card pops up: it spells out `The model you selected cannot read images. Send the {images} image(s) produced by “{source}” to “{label}” at {host} to be described?` — in other words, the images go to another model provider, with its name and address right on the card. You can tick "Don’t ask again in this conversation"; click **Deny** and nothing is sent — "the assistant simply continues this turn without seeing the images" — and it won't ask again in this conversation. Note that it only governs the images the assistant reads: pictures you upload yourself don't go down this path — when the current model can't read images, the upload entry blocks them directly. For details, see [Choosing a Model](#/docs/models).
+
+**The parallel delegation confirmation card: "Run parts of this task in parallel?".** In a complex task, when the assistant wants to hand sub-tasks to several sub-agents at the same time, this card pops up before the first delegation in a session. It spells out the cost: "Sub-agents can work on independent parts of this task at the same time. What they do is not recorded in this conversation, so this conversation can no longer be saved as a new skill." It also has you pick on the spot how many can "Run at most", and the note beside it — "The assistant suggested {count}." — tells you the suggested number came from the assistant. Click **Allow** and it starts as many lanes as you picked at the same time; click **Deny** and it does the work itself, one step at a time, and won't ask again. For background, see [Skills: Giving the Assistant Expertise](#/docs/skills-usage).
+
+![The "Run parts of this task in parallel?" confirmation card, with the "Run at most" choice and the Allow and Deny buttons](/docs-assets/interactions/en/S-interactions-10-delegation-confirm.png)
+
+Answering this card means answering two questions: whether it may split the work out, and how many may run at the same time. Sample run output; your actual output will differ.
+
+**Authorization cards before reading an online document or fetching an off-site image.** When the assistant is about to read an online document, or download an image from another site to put into the document it's building, the cards that pop up belong to the "Authorization required" family — same look, same way to answer. Both are covered in [Letting the Assistant Read the Page](#/docs/page-perception).
 
 ## What happens if you ignore it
 

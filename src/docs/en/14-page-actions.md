@@ -4,7 +4,7 @@ The assistant can do more than read pages — it can act for you: fill forms, cl
 
 ## What you can do
 
-- Have the assistant fill forms, click buttons, and switch pages with one sentence
+- Have the assistant fill forms, click buttons, and scroll the page with one sentence — and hover to open menus and drag to reorder
 - Tell apart which actions it does directly and which it asks about first
 - Check "Don’t ask again" to stop repeated interruptions
 - Revoke remembered authorizations in the Console
@@ -28,12 +28,49 @@ Phrase it like the left column:
 | "Done filling — submit it" | Submits the form | Always asks |
 | "Upload this screenshot" | After you allow, the system file chooser pops up and you pick by hand | Always asks |
 | "Go back a page" | Goes back to the previous page (browser history) | Always asks |
+| "Hover the mouse over that menu" | Hovers, opening what only appears on hover | Always asks |
+| "Drag this row to the second position" | Drags from the start point to the end point | Always asks |
+| "Scroll the table right and check the columns on the right" | Scrolls horizontally, stopping at the end on its own | Always asks |
 
 ![The authorization card for clicking the plus on a table row to expand its details](/docs-assets/page-actions/en/S-actions-08-expand-consent.png)
 
 Every phrasing in the table can be tried as-is in the Demo.
 
-**What it can't do**: **dragging** (dragging a card to another column, drag-and-drop file upload, slider captchas) and **horizontal scrolling** (the columns off to the right of a wide table) are both beyond it; between pages it can only go back to the previous page — it won't type a new URL for you.
+## Three new moves: hover, drag, and horizontal scroll
+
+**Hover.** Some content only appears when the mouse hovers over it: dropdown menus that open on hover, filter icons on table column headers that surface only on hover. Have it hover the mouse over; once the overlay opens, it goes on to click the items inside. The consent card reads `Allow the assistant to hover over “{target}”?`.
+
+![The assistant hovering over a table column header, the hover-only filter icon surfacing](/docs-assets/page-actions/en/S-actions-09-hover.png)
+
+What only appears on hover is now within its reach. Sample run output — your actual output will differ.
+
+**Drag.** Lists that support drag-to-reorder — "drag this row to the second position", say — it can drag: from the start point to the end point, in one go. The consent card reads `Allow the assistant to drag “{target}” onto another element?`.
+
+![The assistant dragging a list item to change the order](/docs-assets/page-actions/en/S-actions-10-drag.png)
+
+From the start point to the end point. Sample run output — your actual output will differ.
+
+**Horizontal scrolling.** A very wide table keeps its right-hand columns outside the viewport. When it reads the page, it notes which container can still scroll in which direction, so it knows this table can scroll right — it scrolls over, finishes reading the columns outside the viewport, and only then answers, instead of taking a table showing only its first few columns as the whole table.
+
+![On a very wide table, the assistant scrolled horizontally and read the columns outside the viewport](/docs-assets/page-actions/en/S-actions-11-hscroll.png)
+
+Which region can scroll which way, it already knows when reading the page; it stops at the end. Sample run output — your actual output will differ.
+
+These three moves follow the same rules as clicking buttons: it asks each time, you can check "don't ask again", you can revoke in the Console, and a refusal is only ever reported honestly.
+
+**What it can't do** is spelled out just as clearly:
+
+- **Dragging along an arbitrary path is beyond it.** A drag has a start point and an end point only — no route in between, no pauses, no speed — so it can't get past slider captchas. That's deliberate design, not a defect: the assistant doesn't offer the ability to bypass human verification.
+- **Pure-CSS hover overlays can't be woken.** One kind of overlay relies on no scripts at all, only on the browser's judgment of the real pointer position — that kind it can't wake. If a try gets no reaction, it reports back honestly that "the page didn't react", instead of retrying in vain; those menus you can only open by hand.
+- **Drag-and-drop file upload is beyond it.** Files still enter the page the old way: it clicks the upload control, the system file chooser pops up, and you pick by hand.
+- **Submit-type actions never happen without your consent** (covered in detail below); between pages it only goes back to the previous page — it won't type a new URL for you.
+
+## When a click does nothing, it says so
+
+When a click changes nothing on the page, it reports back honestly that "the page didn't react", then tries another approach or tells you this path doesn't work — rather than trying every clickable thing on the page one by one. Two easily misread situations it tells apart:
+
+- **Already in the target state is not misreported as "no reaction".** If the calendar panel is already open, say, clicking that input field again of course changes nothing — it knows that isn't a miss.
+- **Controls written with standard accessibility roles are now within reach.** Date cells in a calendar, dropdown options, menu items, tabs, tree nodes — controls given roles per the spec — it can get hold of and click: the kind of date picker in a travel system, it can now open and pick a date on its own; a cell of an ordinary data table won't be mistaken for a button.
 
 ## What it asks you about first
 
@@ -103,7 +140,7 @@ There's one hard exception: **password fields are never remembered**. For any pa
 
 Open the Console (where skills are managed and settings adjusted), go to the **Remembered page actions** section on the **Page Skills** page (the interface text reads: "Actions you told the assistant not to ask about again. Revoking one brings back the confirmation prompt."), and click **Revoke** entry by entry, or **Revoke all** to clear everything. Revoking takes effect immediately — no reload needed — and the next action of the same kind pops the card again. For the rest of this page, see [Connections](#/docs/console-connections).
 
-![The Console's "Remembered page actions" section, with Revoke and Revoke all buttons](/docs-assets/page-actions/zh/S-actions-06-revoke.png)
+![The Console's "Remembered page actions" section, with Revoke and Revoke all buttons](/docs-assets/page-actions/en/S-actions-06-revoke.png)
 
 Remembered authorizations are listed one by one; revoke singly or clear all at once.
 
@@ -111,9 +148,9 @@ Be clear about the distinction: revoking takes back the "don't ask again" memory
 
 ## Some things it won't do
 
-**Readable doesn't mean operable.** Your system marks out an operable scope for the assistant; outside the scope it refuses outright — not even an authorization card pops up. It can read the list data, yet the delete button next to it may be outside the scope. A stopped call shows **Blocked by policy** in the **Run flow** with **Why it was blocked** attached (for the four states, see [Seeing What the Assistant Is Doing](#/docs/transparency)).
+**Readable doesn't mean operable.** Your system marks out an operable scope for the assistant; outside the scope it refuses outright — not even an authorization card pops up. It can read the list data, yet the delete button next to it may be outside the scope. An out-of-scope page action ends in failure, and it tells you so honestly; a call that hits a security policy (a skill trying to reach the network or read files, for example) shows **Blocked by policy** in the **Run flow** with **Why it was blocked** attached (for the four states, see [Seeing What the Assistant Is Doing](#/docs/transparency)).
 
-![A page action showing the "Blocked by policy" status](/docs-assets/page-actions/en/S-actions-05-policy-blocked.png)
+![A call stopped by the network policy, showing "Blocked by policy" with the reason attached](/docs-assets/page-actions/en/S-actions-05-policy-blocked.png)
 
 A dialog you opened by hand, it won't touch either — only dialogs opened by its own actions can be operated further, and the authorization card then carries an extra line, "This dialog is outside the usual allowlist; it was opened by this task.". If the system hasn't opened up page actions at all, it simply says it can't be done.
 

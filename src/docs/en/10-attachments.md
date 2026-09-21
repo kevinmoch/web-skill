@@ -17,9 +17,11 @@ Click **Attach a file** below the input field to pick files, or drag files strai
 | Image      | png, jpeg, webp, gif               |
 | Text       | txt, md, csv, json, log, yaml, yml |
 | File       | pdf                                |
-| Doc text   | docx, xlsx                         |
+| Doc text   | docx, xlsx, pptx                   |
 
-**Word (docx) and Excel (xlsx) can be sent directly** — they fall under the "Doc text" kind. Formats not in the table (like zip) can't be sent.
+**Word (docx), Excel (xlsx), and PowerPoint (pptx) can all be sent directly** — they fall under the "Doc text" kind. Formats not in the table (like zip) can't be sent.
+
+There's no size limit on attachments: files are written straight into this device's storage. When the device can't hold one, a prompt pops up titled "Not enough space on this device", with a body naming which file couldn't be saved and asking you to free up space and try again — that file isn't attached; the other attachments are unaffected.
 
 ![Multiple attachment chips in the input field, each with a type label](/docs-assets/attachments/en/S-attachments-01-chips.png)
 
@@ -29,24 +31,34 @@ An attachment chip shows the file name, size, and type label; you can remove it 
 
 Once an Excel file is attached, its type label is "Doc text", not "File".
 
+![An input field with a pptx attached, the type label likewise showing "Doc text"](/docs-assets/attachments/en/S-attachments-09-pptx-chip.png)
+
+A PowerPoint file attached is also "Doc text": it reads the text out of the file, and long documents can be read in batches page by page.
+
 ## What happens after they're attached
 
 The four kinds of attachments aren't sent the same way, and the differences are ones you can observe:
 
-| Type                 | What actually goes out        | What you should know                                                   |
-| -------------------- | ----------------------------- | ---------------------------------------------------------------------- |
-| Image                | The image itself              | Oversized ones are compressed first; there's a per-message count limit |
-| Text                 | The text in the file          | Anything beyond 32K characters is truncated                            |
-| File (pdf)           | The whole file                | Requires a model that supports document input                          |
-| Doc text (docx/xlsx) | The text read out of the file | The original file is not sent in whole                                 |
+| Type                      | What actually goes out        | What you should know                                                                                  |
+| ------------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Image                     | The image itself              | Oversized ones are compressed first; there's a per-message count limit                                |
+| Text                      | The text in the file          | Anything beyond 32K characters is truncated                                                           |
+| File (pdf)                | The whole file                | Requires a model that supports document input; past the reading limit, the text read out of it goes instead |
+| Doc text (docx/xlsx/pptx) | The text read out of the file | The original stays on this device, so the assistant can finish reading it in batches                  |
 
-The last kind deserves one more word: Word and Excel files are **read into text in your own browser** before sending, and only the read-out body text goes out — images and layout in the document are not included — the original file never leaves your machine. For who each kind of content goes to and what you control, see [Privacy and Where Your Data Goes](#/docs/privacy).
+The last kind deserves one more word: Word, Excel, and PowerPoint files are **read into text in your own browser** before sending, and only the read-out body text goes out; the original stays on this device and never leaves your machine. For who each kind of content goes to and what you control, see [Privacy and Where Your Data Goes](#/docs/privacy).
 
 ![M-10 The path of a file into the conversation](/docs-assets/attachments/en/M-10.svg)
 
 Wherever a file comes from — picking, pasting, taking a photo — it first becomes an attachment in the input field, then goes its own way by type; it's only really sent after you click **Send**.
 
 How big is 32K characters: everyday meeting notes and requirement summaries come nowhere near; a complete log accumulated over months easily exceeds it. An over-long file doesn't have to go in whole — excerpting the relevant passages and sending those works better.
+
+## Long documents get read in batches
+
+A long document is no problem either. Formats it can read get finished over several passes: PDF and PowerPoint page by page, Word block by block, Excel row by row. The originals of docx and xlsx now stay on this device (not just the one passage read out of them), so the assistant can keep reading on, page by page and block by block, instead of seeing only the opening stretch. Images inside a document are handed to a connection that can see images, and the recognized text comes back into the conversation — this hand-off is called vision delegation; see [Choosing a Model](#/docs/models).
+
+A PDF sent in whole has a reading limit one request can carry. Past the limit doesn't mean it can't be sent: at send time it automatically switches to sending the text read out of the file, with the message noting "its extracted text was sent instead of the original file. Layout, figures and scanned pages are not included." Only when no text can be read out at all (usually a scan) is it not sent — and the prompt names workarounds then.
 
 ## Images get compressed
 
@@ -100,13 +112,13 @@ When the photo button is greyed out, hovering over it spells out which prerequis
 When sending an image is blocked, there are only two prompts, each with its own fix:
 
 1. **"images are off in Settings → Multimodal".** The image channel is off by default (on by default in the Demo), because once it's on, the images you pick are uploaded to your configured model provider. Turn on **Image attachments** in settings — see [Settings](#/docs/console-settings).
-2. **"the selected model does not accept images".** The model you're using doesn't take images. Switch to a model whose capability badges include "Images" — see [Choosing a Model](#/docs/models).
+2. **"the selected model does not accept images".** The model you're using doesn't take images. Switch to a model whose capability badges include "Images" — see [Choosing a Model](#/docs/models). Images you upload by hand have only this one path — when the current model can't see images, the image button is disabled outright. The images the assistant **runs into while reading documents** have another path, though: they can be handed to the first connection in the model list that can see images for recognition (vision delegation), so reading carries on without switching models — see "What to do when the model can't see images" in [Choosing a Model](#/docs/models).
 
-![The "the selected model does not accept images" prompt](/docs-assets/attachments/en/S-attachments-05-model-no-images.png)
+![With a model that doesn't take images selected, the image button is disabled; hover it to see why](/docs-assets/attachments/en/S-attachments-05-model-no-images.png)
 
-The prompt spells out which of the two causes it is; follow the direction it points.
+Hover the disabled button and you'll see "the selected model does not accept images"; follow the direction it points.
 
-PDF has a corresponding situation: it goes to the model in whole, and when the model side refuses, the error card carries a line of explanation — this turn included a document, and the current model may not accept document input. Switch to a model that supports documents, or save the content as Word or plain text and send that.
+PDF has a corresponding situation: it goes to the model in whole, and when the model side refuses, the error card carries a line of explanation — "This turn attached a document; the selected model may not accept document input." Switch to a model that supports documents, or save the content as Word or plain text and send that.
 
 ## Web version vs. extension version
 
@@ -121,7 +133,7 @@ The web version has no such step: the browser pops the permission box right on t
 ## When something goes wrong
 
 - **Sending an image is refused, with a prompt saying images are off.** Turn on **Image attachments** in "Settings → Multimodal" (see [Settings](#/docs/console-settings)); if you're on the Demo, it's on by default.
-- **The prompt says "the selected model does not accept images".** Switch to a model whose badges include "Images" — see [Choosing a Model](#/docs/models). A greyed-out photo button is usually the same cause.
+- **The prompt says "the selected model does not accept images".** Switch to a model whose badges include "Images" — see [Choosing a Model](#/docs/models). A greyed-out photo button is usually the same cause. When you'd rather not switch models for images inside documents, vision delegation can hand them to a connection that can see images for recognition — see [Choosing a Model](#/docs/models).
 - **You sent a long text file and the answer reads like it didn't finish it.** Most likely it went past 32K characters and was truncated — excerpt the relevant passages and send those.
 - **Voice or camera prompts that the browser denied it.** Follow the prompt to allow the microphone or camera in the browser's site permission settings and retry; on the extension version, first finish the grant in the regular tab that opened automatically.
 - **The model errors after a PDF is sent.** The current model may not accept document input: switch models, or convert the content to Word or plain text and send that.

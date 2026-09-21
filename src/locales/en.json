@@ -282,7 +282,7 @@
     "translationPending": "This chapter is not available in your language yet; showing the other language's version.",
     "backHome": "Back to the docs home",
     "homeTitle": "AI Assistant User Guide",
-    "homeSubtitle": "33 chapters, from a five-minute quickstart to console governance. Pick a path that matches your goal instead of reading cover to cover.",
+    "homeSubtitle": "35 chapters, from a five-minute quickstart to console governance. Pick a path that matches your goal instead of reading cover to cover.",
     "pathsTitle": "Choose a reading path",
     "paths": [
       {
@@ -292,24 +292,24 @@
       },
       {
         "title": "I want every capability",
-        "desc": "Read all 33 chapters in order for the complete capability map.",
+        "desc": "Read all 35 chapters in order for the complete capability map.",
         "chapters": []
       },
       {
         "title": "I manage and configure",
         "desc": "For admins: pick your edition first, then work through the console navigation.",
-        "chapters": [2, 18, 19, 22, 23]
+        "chapters": [2, 19, 20, 23, 24]
       },
       {
         "title": "Something went wrong",
         "desc": "Start from the troubleshooting index, then jump to the chapter you need.",
-        "chapters": [32]
+        "chapters": [34]
       }
     ],
     "readAll": "Read in order from Chapter 1 →",
     "versionTitle": "Version baseline",
     "versionDesc": "This guide is written against these versions; screens and copy match them:",
-    "versions": ["@webskill/sdk 0.20.0", "@webskill/chatbot 0.17.0", "@webskill/console 0.16.1"],
+    "versions": ["@webskill/sdk 0.23.0", "@webskill/chatbot 0.20.0", "@webskill/console 0.19.0"],
     "editionsTitle": "Check which edition you are on",
     "editionsDesc": "WebSkill ships as a web app and as a browser extension. The capability differences concentrate in Part III (Page Capabilities). Not sure which one you use? Read Chapter 2, Web and Extension Editions.",
     "overviewTitle": "Capability overview",

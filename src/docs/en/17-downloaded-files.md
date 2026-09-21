@@ -76,6 +76,8 @@ Exactly the same as what you can upload by hand:
 
 Word and Excel files are read into text in your browser before going to the model — what goes out is the text, not the original file — the same path as uploading by hand.
 
+A very large PDF takes the same path as a manual upload too: when it's too big for a single request to carry, it isn't force-fed whole — instead it's read in page batches, and the assistant reads it stretch by stretch before summarizing for you. The interface states: "The assistant will read it page by page instead, which takes several passes over a long document." This paged reading works exactly like an uploaded attachment — see [Attachments, Images, Voice, and Camera](#/docs/attachments).
+
 Formats it can't read (zip, for example) are already marked unreadable during listing — you don't get an error only after clicking. Images have one exception: if the current model doesn't take images, they're marked during listing with a note that switching models fixes it (see [Choosing a Model](#/docs/models)), instead of a wasted attempt that fails.
 
 ## First use: two switches to turn on

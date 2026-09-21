@@ -6,6 +6,7 @@ After the assistant produces a report, a dashboard, or a slide deck — where to
 
 - View report-type artifacts right in the conversation, with tables and charts unfolding in place.
 - Click **Open document** to view documents, dashboards, and slides in a separate window — you're asked before the window opens.
+- Save slides and documents as editable PPTX / DOCX files, and keep editing them in Office or WPS.
 - Download artifacts to your machine, for the record or to share.
 - Print an artifact from the document window, or save it as a PDF.
 
@@ -56,15 +57,39 @@ Slides in the window take presentation form: turn pages with the arrow keys, and
 
 Sample run output — your actual output will differ.
 
+An artifact window holds far more than before: a single artifact may now be up to 128 MB, so even a document carrying many images opens. When one is genuinely large, the confirmation before opening adds a note along the lines of "This document is large (about {x} MB); opening and scrolling may be slow and it will use more memory." — but it opens as usual, with no extra gate in your way; only when it's bigger than the browser itself can bear is it refused, with the actual size, the limit, and what you can do spelled out. The judgment watches two lines — the content's byte count and the total pixels of its images — and crossing either one gets a clear statement.
+
+## Saving as editable PPTX / DOCX
+
+Both the web version and the extension version have this button: the slides window's toolbar carries an **Export PPTX** button, and the document window's toolbar an **Export DOCX** button. One click gives you a file that opens in Office or WPS for further editing — to adjust two pages of a presentation or reword a few lines of a bulletin, you no longer need the assistant to redo a version.
+
+What you get is native editable objects, not pasted images: text is text you can retype, charts are charts whose data you can change, and the colors match what you saw on screen. The content is identical to what you saw; the layout is decided by the export template, so the arrangement may differ from what's on screen — the difference is in arrangement only, never in content.
+
+The monitoring dashboard window has no such button: it's a live panel for casting, not a file meant for editing.
+
+![The "Export PPTX" button on the slides window's toolbar](/docs-assets/artifacts/en/S-artifacts-06-export-editable.png)
+
+Slides save as editable PPTX; documents save as editable DOCX.
+
+Exported Word, PowerPoint, and Excel files can now carry images. Images you uploaded, images on your page, and images from other websites — all three sources flow into the export; before fetching images from other websites, an authorization card pops up stating the address and the risks (the wording is in "It asks before fetching images from other sites" in [Letting the Assistant Read the Page](#/docs/page-perception)).
+
+> **Note**: On the web version, linked images from other websites keep only their links and can't make it into the export — a browser doesn't let a web page fetch another site's image bytes, and that's a structural limit. Whatever couldn't be included is listed honestly, as in "It is an external link, so the export could not fetch its bytes."; when there's only text and data, it likewise states what wasn't included. The extension version is not subject to this limit.
+
 ## Downloading to your machine
 
-The built-in skills' dashboards, documents, and slides don't produce download cards — the finished product lives in the viewer window, and to keep a copy you use printing or save-as-PDF from the next section. To actually get a file, there are two paths:
+The built-in skills' dashboards, documents, and slides don't produce download cards — the finished product lives in the viewer window, and to keep a copy you use printing or save-as-PDF from the next section, or the export buttons from the previous section to save slides and documents as editable files. To actually get a file, there are two places:
 
 **Files produced by a custom skill are downloaded in the conversation.** When a skill writes its product out as a file, the end of the message lists artifact cards: each card shows the file name, type, and size, with a **Download** button on the right. Clicking it saves the file into the browser's download folder — this step needs no authorization, since it's something you asked for.
 
 ![Artifact cards at the end of a message, with file name, type, size, and a download button](/docs-assets/artifacts/en/S-artifacts-01-artifact-cards.png)
 
 The picture shows an artifact card from a custom skill; the Demo's built-in skills don't use this kind of card.
+
+**Ask it to organize the data into an Excel table, and a file card likewise appears in the conversation.** Say "organize this data into a table", and once it's done, the end of the message carries an Excel file card: clicking **Download** gets you a real xlsx file that opens in Excel or WPS as an editable table — and the table can even embed images.
+
+![An Excel file card in the conversation — clicking download gets you a real xlsx file](/docs-assets/artifacts/en/S-artifacts-07-xlsx-card.png)
+
+What you get for "organize into a table" is a real file, not a screenshot of a table.
 
 **Every run's artifact files are downloaded in the Console.** All files a run produced — including the dashboard, document, and slide source files written by the built-in skills — stay in that run's details in the Console, where you can preview them or click **Download**. Copy the run ID and locate the run in [Run History](#/docs/console-runs).
 
@@ -87,7 +112,7 @@ In the print preview each page is one sheet, and the layout and background match
 
 ## Web version vs. extension version
 
-The four destinations are the same in both: view in the conversation, open a window after confirming, download, print — the confirmation card before window-opening is always there. The difference is how much data an artifact can hold: web-version artifacts only draw data from the system you're currently in; the extension version can read your other open tabs before producing, so artifacts that aggregate across sites can only be made there (see [Working Across Tabs (Extension Only)](#/docs/tabs)).
+The four destinations are the same in both: view in the conversation, open a window after confirming, download, print — the confirmation card before window-opening is always there, and both have the buttons that save slides and documents as editable PPTX / DOCX. There are two differences. One is how much data an artifact can hold: web-version artifacts only draw data from the system you're currently in; the extension version can read your other open tabs before producing, so artifacts that aggregate across sites can only be made there (see [Working Across Tabs (Extension Only)](#/docs/tabs)). The other is that when exported Word, PowerPoint, and Excel files carry images, on the web version linked images from other websites keep only their links and can't enter the file, while the extension version is not subject to this limit (the export section above has the full story).
 
 ## When something goes wrong
 

@@ -4,6 +4,7 @@ import type { ChatEngine, ChatbotConfig, QuickPrompt, SettingsSectionId } from '
 import '@webskill/chatbot/chatbot.css';
 import { useWebSkillRuntime } from '../webskill/useRuntime';
 import { getAgileHostCapabilities, type NavigateFns } from '../webskill/adapter';
+import { createAgileMissHook } from '../webskill/missHook';
 import { fetchAgileData } from '../webskill/dataSources';
 import { screenQuickPrompts } from '../webskill/quickPrompts';
 import { listUserSkillPrompts } from '../webskill/userSkillPrompts';
@@ -65,6 +66,9 @@ export const ChatDrawer: React.FC<{ width: number; onEngine(e: ChatEngine): void
         chatRoot: '/chat',
         runtimeConfig: runtime.runtimeConfig,
         skillCandidates: runtime.skillCandidates,
+        // 未命中生成候选：开关在治理侧（console Versions 页），chatbot 读不到，
+        // 传的因此必须是一个「每次触发才去读开关」的闭包
+        governance: { onSkillMiss: createAgileMissHook(runtime) },
         // 全局条的出厂种子归 config.json；随屏变的那批必须走动态下发
         dynamicQuickPrompts: [...screenQuickPrompts(currentScreen), ...userPrompts],
         generativeUi: true,
