@@ -7,7 +7,7 @@ To ask about something on the page, you don't have to copy and paste. Say "take 
 - Have the assistant read the current page with one plain sentence, and answer you based on the page's real data.
 - See from the perception notice which region it read this time, and which it excluded.
 - Decide whether the page's images go along — off by default.
-- In the extension version, WPS online documents open in the page can also be read — read-only, with a consent card first.
+- In the extension version, online office documents open in the page can also be read — read-only, with a consent card first.
 - When it wants an image from another website, see the consent card stating the address and the risk first, then decide whether to allow.
 - Verify every read in the Console afterwards.
 
@@ -70,20 +70,20 @@ Three boundaries:
 
 Every cross-website read needs your nod, with the address written out in full on the card.
 
-## Reading online documents open in the page (WPS WebOffice)
+## Reading online documents open in the page (WPS WebOffice, KooTable)
 
 > **Extension only**: The online-document reading in this section exists only in the extension version; the web version can't read online documents open in the page.
 
-A WPS online document open in the page — Word, Excel, PPT, or PDF all work — the assistant can also read along the page, without you downloading and uploading it first. Both kinds of asks need your nod first:
+An online office document open in the page — Word, Excel, PPT, or PDF all work — the assistant can also read along the page, without you downloading and uploading it first. Both kinds of asks need your nod first:
 
-- **Ask it which documents this page has open** and the card that pops up is titled **WPS documents on this page**, asking "Allow the assistant to see which WPS documents are open on {origin}?". Even a listing gets asked about, because a document title is itself information.
-- **Ask it to read one of them** and the card is titled **Read this WPS document**, asking "Allow the assistant to read the contents of this WPS document on {origin}?". The card carries one more line — `The page says this document is of type “{type}”.` — the type is what the page claims; it relays that as-is and hasn't verified it for you.
+- **Ask it which documents this page has open** and the card that pops up is titled **Office documents on this page**, asking "Allow the assistant to see which documents are open on {origin}?". Even a listing gets asked about, because a document title is itself information.
+- **Ask it to read one of them** and the card is titled **Read this document**, asking "Allow the assistant to read the contents of this document on {origin}?". The card carries two more lines — `The page says it is rendered by {source}.` and `The page says this document is of type “{type}”.` — both the product name and the type are what the page claims; it relays them as-is and hasn't verified them for you.
 
-![The consent card that pops up before reading a WPS online document open in the page](/docs-assets/page-perception/en/S-perception-08-weboffice-consent.png)
+![The consent card that pops up before reading an online office document open in the page](/docs-assets/page-perception/en/S-perception-08-weboffice-consent.png)
 
 The card states which site it is and what it would read; it reads only after you agree.
 
-The consent card has a "don't ask again" checkbox whose label spells out the remembered scope directly, phrased like `Don’t ask again to read the WPS documents on this site ({origin})` — what's remembered is **this kind of action on this site**, not the one document in front of you; listing and reading are remembered separately, so allowing the listing doesn't allow reading contents. Revocation lives in the same place as remembered page-action consents (the Console's **Page Skills** page — see [Letting the Assistant Act on the Page](#/docs/page-actions)), and revoking takes effect immediately.
+The consent card has a "don't ask again" checkbox whose label spells out the remembered scope directly, phrased like `Don’t ask again to read the office documents on this site ({origin})` — what's remembered is **this kind of action on this site**, not the one document in front of you; listing and reading are remembered separately, so allowing the listing doesn't allow reading contents. Revocation lives in the same place as remembered page-action consents (the Console's **Page Skills** page — see [Letting the Assistant Act on the Page](#/docs/page-actions)), and revoking takes effect immediately.
 
 Two boundaries:
 
@@ -135,11 +135,11 @@ Click deny and it sends no request to that address at all, carrying on with the 
 
 ## Web version vs. extension version
 
-|                                         | Web version                           | Extension version                                                               |
-| --------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------- |
-| Pages it can read                       | Only the one page the assistant is on | Any web page you have open                                                      |
-| Third-party frames embedded in the page | Limited                               | Can read cross-origin content nested several frames deep, text and images alike |
-| WPS online documents open in the page   | Can't read them                       | Can read, read-only; both listing them and reading contents need your consent first |
+|                                          | Web version                           | Extension version                                                                   |
+| ---------------------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------- |
+| Pages it can read                        | Only the one page the assistant is on | Any web page you have open                                                          |
+| Third-party frames embedded in the page  | Limited                               | Can read cross-origin content nested several frames deep, text and images alike     |
+| Online office documents open in the page | Can't read them                       | Can read, read-only; both listing them and reading contents need your consent first |
 
 > **Extension only**: On any website you open, the assistant can read the current page — including third-party frames embedded several layers deep, such as cross-origin content inside the body.
 
