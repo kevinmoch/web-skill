@@ -121,18 +121,31 @@ export default function Home({ t, lang }: { t: any; lang: string }) {
               </div>
             </div>
           </motion.div>
-          <motion.a
-            href="/demo"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex items-center gap-2.5 px-6 py-3 bg-accent/10 border border-accent/30 text-accent rounded-full font-medium hover:bg-accent hover:text-black transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] text-[15px]"
+            className="flex flex-wrap items-center justify-center gap-3"
           >
-            {t('home.heroDemoBtn')}
-            <ArrowRight className="w-4 h-4" />
-          </motion.a>
+            <a
+              href="/demo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 px-6 py-3 bg-accent/10 border border-accent/30 text-accent rounded-full font-medium hover:bg-accent hover:text-black transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] text-[15px]"
+            >
+              {t('home.heroDemoBtn')}
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="#/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 px-6 py-3 bg-surface border border-border-color text-text-main rounded-full font-medium hover:border-accent/50 hover:text-accent transition-all hover:scale-105 active:scale-95 text-[15px]"
+            >
+              {t('home.heroDocsBtn')}
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </motion.div>
         </div>
       </section>
 
