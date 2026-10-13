@@ -9,6 +9,7 @@ import {
   createPptxBlockReader,
   createRemoteImageHost,
   createXlsxBlockReader,
+  createXlsxTableReader,
   extractDocxText,
   extractPptxText,
   extractXlsxText,
@@ -115,6 +116,8 @@ export function createAgileHostCapabilities(
     docxExtractor: extractDocxText,
     // 不注入则 .xlsx 连附件选择框都进不去（SDK 分册 12）
     xlsxExtractor: extractXlsxText,
+    // SDK 0.26.0 分册 10：大表格不整份进上下文，走画像 + `query_table` 在本机对全表精确计算
+    xlsxTableReader: createXlsxTableReader(),
     // 0.22.0 分册 18：.pptx 与上面两个同级，缺席即该格式明确报不支持
     pptxExtractor: extractPptxText,
     // PDF 默认原件直传；只有端点以 4xx 拒收时运行时才回头用它抽文本重发（SDK 分册 22）
