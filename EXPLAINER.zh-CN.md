@@ -629,8 +629,6 @@ SDK 提供参考实现、API 快照、单元与集成测试以及浏览器 E2E �
 - [Writing Assistance APIs](https://github.com/webmachinelearning/writing-assistance-apis)。
 - [W3C TAG：Writing Effective Explainers](https://tag.w3.org/explainers/) 及 [Explainer 模板](https://github.com/w3ctag/explainer-explainer/blob/main/template.md)。
 - [Origin Private File System](https://fs.spec.whatwg.org/#origin-private-file-system)、[Web Workers](https://html.spec.whatwg.org/multipage/workers.html)、[Permissions Policy](https://www.w3.org/TR/permissions-policy/) 和 [Web Crypto](https://www.w3.org/TR/WebCryptoAPI/)。
-- [WebSkill SDK 概览](README.md)、[SDK 包文档](packages/sdk/README.md)和[公开 API 快照](api-snapshots/)。
-- 早期提案：[WebSkill](https://github.com/kevinmoch/web-skill) 和 [Web API for Hybrid AI](https://github.com/kevinmoch/web-hybrid-ai)。
 
 ### 致谢
 

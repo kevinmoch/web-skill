@@ -629,8 +629,6 @@ Related work, including WebMCP discussions about higher-level skills, is relevan
 - [Writing Assistance APIs](https://github.com/webmachinelearning/writing-assistance-apis).
 - [W3C TAG: Writing Effective Explainers](https://tag.w3.org/explainers/) and the [explainer template](https://github.com/w3ctag/explainer-explainer/blob/main/template.md).
 - [Origin Private File System](https://fs.spec.whatwg.org/#origin-private-file-system), [Web Workers](https://html.spec.whatwg.org/multipage/workers.html), [Permissions Policy](https://www.w3.org/TR/permissions-policy/), and [Web Crypto](https://www.w3.org/TR/WebCryptoAPI/).
-- [WebSkill SDK overview](README.md), [SDK package documentation](packages/sdk/README.md), and [public API snapshots](api-snapshots/).
-- Earlier proposals: [WebSkill](https://github.com/kevinmoch/web-skill) and [Web API for Hybrid AI](https://github.com/kevinmoch/web-hybrid-ai).
 
 ### Acknowledgements
 
