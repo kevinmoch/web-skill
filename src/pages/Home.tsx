@@ -316,6 +316,38 @@ export default function Home({ t, lang }: { t: any; lang: string }) {
         </div>
       </section>
 
+      {/* Polyfill bridge: use navigator.webskill before native support */}
+      <section aria-labelledby="home-polyfill-teaser" className="rounded-3xl border border-border-color bg-surface p-6 sm:p-8 md:p-10">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <FadeIn className="max-w-2xl">
+            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent">
+              <Layers className="h-5 w-5" />
+            </div>
+            <h2 id="home-polyfill-teaser" className="text-[24px] font-medium tracking-tight text-text-main sm:text-[28px]">
+              {t('home.polyfillTeaserTitle')}
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-text-dim">{t('home.polyfillTeaserDesc')}</p>
+          </FadeIn>
+          <FadeIn delay={0.12} className="flex flex-col gap-4 lg:w-[24rem]">
+            <ul className="grid gap-3">
+              {(t('home.polyfillTeaserPoints', { returnObjects: true }) as string[]).map((point) => (
+                <li key={point} className="flex items-center gap-3 rounded-xl border border-border-color bg-bg px-4 py-3 text-[14px] text-text-dim">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#/polyfill"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-[14px] font-semibold text-bg transition-transform hover:scale-[1.02] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+            >
+              {t('home.polyfillTeaserCta')}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* Screen 5: WebSkill vs Backend Skill Table */}
       <section className="flex flex-col gap-6 md:gap-8">
         <div className="px-2 text-center max-w-3xl mx-auto mb-2 md:mb-4">

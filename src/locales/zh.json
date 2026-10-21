@@ -5,6 +5,7 @@
     "architecture": "架构创新",
     "standardization": "标准化",
     "implement": "实现",
+    "polyfill": "兼容层",
     "docs": "文档"
   },
   "panel": {
@@ -18,167 +19,171 @@
     "title2": "基于 Web 的 Agent 技能",
     "titleLine1": "运行在浏览器的",
     "titleAccent": "Agent 技能",
-    "description": "WebSkill 让浏览器本身成为智能的 Agent 运行环境。它彻底解决了大模型上下文臃肿的难题，通过 OPFS 和 Worker 沙箱做到绝对隔离的隐私安全闭环，把 Agent 能力变成了轻量级、可动态分发的 SaaS。",
-    "tags": ["草案建议", "前端原生"]
+    "description": "WebSkill 让浏览器本身成为智能的 Agent 运行环境。它解决了大模型上下文臃肿的难题，通过 OPFS 和 Worker 沙箱实现完全隔离，敏感数据不出本地，并把 Agent 能力变成轻量级、可动态分发的 SaaS。",
+    "tags": ["草案提案", "前端原生"]
   },
   "home": {
     "demoTitle": "在线演示",
     "demoDesc": "WebSkill 概念与特性演示",
     "agentSkillTitle": "什么是 Agent 技能？",
-    "agentSkillDesc": "Agent Skill 是一个模块化的、可以反复使用的标准化能力单元。它由指令说明、任务脚本、资源依赖组成，赋予大语言模型特定领域的专业知识和规范约束。",
+    "agentSkillDesc": "Agent Skill 是一种模块化、可复用的标准化能力单元，由指令说明、任务脚本和资源依赖组成，为大型语言模型提供特定领域的专业知识与规范约束。",
     "agentSkillScenariosTitle": "典型使用场景",
     "agentSkillScenarios": [
       {
         "title": "开发与代码",
-        "desc": "自动化代码审查规范、测试驱动开发（TDD）流程控制，以及处理复杂的 Git 分支合并任务。"
+        "desc": "自动化代码审查，规范测试驱动开发（TDD）流程，处理复杂的 Git 分支合并任务。"
       },
       {
         "title": "业务与文档",
-        "desc": "严格套用公司固定模板生成多格式报告（Word, PPT 等），执行标准化财务审计差异分析。"
+        "desc": "严格套用公司模板生成 Word、PPT 等多格式报告，按标准流程完成财务审计与差异分析。"
       },
       {
         "title": "安全与合规",
-        "desc": "将合规性检查、渗透测试规则和漏洞扫描流程标准化，让 AI 自动化执行。"
+        "desc": "把合规检查、渗透测试规则和漏洞扫描流程固化下来，交给 AI 自动执行。"
       }
     ],
     "problemsSolvedTitle": "解决的核心问题",
     "problemsSolved": [
       {
         "title": "解决上下文臃肿",
-        "desc": "按需读取特定技能包，避免一次性塞入过载背景资料导致幻觉和 API 成本飙升。"
+        "desc": "按需加载所需技能，避免把过量背景资料一次性塞进上下文，从而减少幻觉、控制 API 成本。"
       },
       {
         "title": "补齐领域专家经验",
-        "desc": "将公司的内部规范、定价策略和审批流程等人类经验固化，使通用大模型变为专业专家。"
+        "desc": "把内部规范、定价策略、审批流程等团队经验固化下来，让通用大模型变成领域专家。"
       },
       {
         "title": "避免重复提示",
-        "desc": "提示词一次创建终身复用，真正实现业务工作流的自动化、标准化以及行动一致性。"
+        "desc": "提示词一次编写、长期复用，让业务工作流真正实现自动化、标准化与行为一致。"
       }
     ],
     "webskillTitle": "什么是 WebSkill？",
-    "webskillDesc": "Web-Based Agent Skill (WebSkill) 也是一种模块化、可复用的标准化能力单元，最独特的地方在于：它完全在浏览器端闭环运行，不依赖传统的后端服务。",
+    "webskillDesc": "WebSkill（Web-Based Agent Skill）同样是一种模块化、可复用的标准化能力单元，其独特之处在于：完全在浏览器端闭环运行，不依赖任何后端服务。",
     "webskillFeaturesTitle": "独特优势",
     "webskillFeatures": [
       {
         "title": "前端原生闭环运行",
-        "desc": "干掉了前后端之间庞大的数据传输开销，在一个轻量的目录下直接在前端赋予 Agent 专家的能力。"
+        "desc": "消除了前后端之间的大量数据传输，一个轻量目录即可让 Agent 在前端直接获得专家能力。"
       },
       {
-        "title": "绝对隔离的隐私保护",
-        "desc": "基于 OPFS 存储和 Web Worker 沙箱运行，脚本绝对隔离，敏感数据和机密自始至终在本地不外泄。"
+        "title": "完全隔离的隐私保护",
+        "desc": "基于 OPFS 存储与 Web Worker 沙箱运行，脚本完全隔离，敏感数据与机密信息始终留在本地。"
       },
       {
         "title": "个性化动态演进资产",
-        "desc": "作为用户的私有资产存储本地，可根据用户操作步骤主动分析需求并生成新技能，越来越懂用户。"
+        "desc": "技能作为私有资产保存在本地，可根据用户操作分析需求、生成新技能，越用越贴合用户。"
       }
     ],
     "trinityTitle": "以 LLM 为中心的三位一体架构",
-    "trinityDesc": "WebSkill 构建了一个从“自然语言意图”到“前端交互响应”的完整执行闭环，极大降低了系统架构复杂度。",
-    "trinityLLM": "端侧 LLM 作为中心枢纽负责思考推理和技能调度。",
-    "trinityWebSkill": "WebSkill 解决大模型何时调用工具的问题，避免加载 MCP 工具数量多时导致上下文爆炸，实现前端任务闭环。",
-    "trinityGenerativeUI": "生成式 UI 解决 WebSkill 参数缺失的人机交互问题，以及任务完成时的结果可视化渲染展示。",
-    "trinityWebMCP": "WebMCP 作为前端原生执行器，负责直接操作页面 DOM 节点或向后端发送服务请求。",
+    "trinityDesc": "WebSkill 构建了从“自然语言意图”到“前端交互响应”的完整执行闭环，大幅降低了系统架构的复杂度。",
+    "trinityLLM": "端侧 LLM 作为中枢，负责思考推理与技能调度。",
+    "trinityWebSkill": "WebSkill 解决大模型“何时调用工具”的问题，避免一次性加载大量 MCP 工具导致上下文膨胀，让任务在前端闭环完成。",
+    "trinityGenerativeUI": "生成式 UI 负责两件事：参数缺失时的人机交互，以及任务完成后的结果可视化。",
+    "trinityWebMCP": "WebMCP 是前端原生执行器，直接操作页面 DOM 或向后端发起服务请求。",
     "comparisonTitle": "WebSkill 与传统后端 Skill 对比",
-    "comparisonDesc": "相比传统部署在服务器的后端 Skill，WebSkill 在安全性、响应速度以及个性化体验上展现出压倒性优势。",
+    "comparisonDesc": "相比部署在服务器上的传统后端 Skill，WebSkill 在安全性、响应速度和个性化体验上都更具优势。",
     "compTableHeaders": ["特性维度", "传统后端 Skill", "WebSkill"],
     "compRows": [
       {
         "feature": "运行环境",
         "backend": "运行在 Node.js 或云服务器上",
-        "webskill": "运行在浏览器 Worker 并利用 OPFS 存储"
+        "webskill": "运行在浏览器 Worker 中，数据存于 OPFS"
       },
       {
         "feature": "执行载体",
-        "backend": "依赖传统的 Docker 等容器沙箱",
-        "webskill": "利用前端 Web Worker 自带的安全沙箱"
+        "backend": "依赖 Docker 等传统容器沙箱",
+        "webskill": "直接使用 Web Worker 自带的安全沙箱"
       },
       {
         "feature": "数据流向",
-        "backend": "浏览器通过互联网发到后端，再传给 LLM",
-        "webskill": "直接在浏览器内闭环，零数据传出，既快又安全"
+        "backend": "数据经互联网发往后端，再转发给 LLM",
+        "webskill": "全程在浏览器内闭环，数据不出本地，既快又安全"
       },
       {
         "feature": "状态管理",
-        "backend": "前后端分离，需写大量代码同步状态",
-        "webskill": "就在前端，直接操作 DOM 获取当前会话状态"
+        "backend": "前后端分离，需要大量代码同步状态",
+        "webskill": "状态就在前端，直接操作 DOM 即可获取当前会话状态"
       },
       {
         "feature": "部署方式",
-        "backend": "需要单独部署到服务器并由专人运维",
-        "webskill": "跟随 Web 应用下发，打开网页即开即用"
+        "backend": "需要单独部署到服务器并专人运维",
+        "webskill": "随 Web 应用一同下发，打开网页即可使用"
       },
       {
         "feature": "演进能力",
-        "backend": "服务器版本更新，所有用户技能都被动改变",
-        "webskill": "端侧私有资产，可根据每个用户实现个性化独立演进"
+        "backend": "服务器统一更新版本，所有用户的技能被动改变",
+        "webskill": "技能是端侧私有资产，可随每个用户独立演进"
       }
     ],
-    "diagramAnnotation1": "WebSkill 解决大模型“何时调用工具“的问题，实现前端 Agent 任务闭环",
-    "diagramAnnotation2": "WebSkill 解决加载 MCP 工具数量多时，导致大模型上下文爆炸的问题",
-    "diagramAnnotation3": "生成式 UI 解决 WebSkill 参数缺失的人机交互问题，以及任务完成时的结果渲染",
+    "diagramAnnotation1": "WebSkill 解决大模型“何时调用工具”的问题，让任务在前端闭环完成",
+    "diagramAnnotation2": "WebSkill 避免一次性加载大量 MCP 工具，导致大模型上下文膨胀",
+    "diagramAnnotation3": "生成式 UI 负责参数缺失时的人机交互，以及任务完成后的结果可视化",
     "heroDemoBtn": "访问在线演示",
     "heroDocsBtn": "查看使用文档",
     "heroDemoAlt": "WebSkill 在线演示（Agile Studio）界面截图",
     "architectureExplanationTitle": "Web AI 架构通俗解析",
-    "architectureExplanationIntro": "这是一个以大模型为中枢、“输入、思考、调度、执行、反馈”五位一体的前端原生闭环架构：",
+    "architectureExplanationIntro": "这是一个以大模型为中枢，“输入、思考、调度、执行、反馈”五位一体的前端原生闭环架构：",
     "architectureExplanationSteps": [
       {
         "title": "对话入口（最上方）",
-        "desc": "用户在 AI 对话框中输入自然语言需求，作为整个智能决策链条的始发站。"
+        "desc": "用户在 AI 对话框中输入自然语言需求，是整个智能决策链的起点。"
       },
       {
         "title": "端侧大模型（中心枢纽）",
-        "desc": "充当大脑进行深度思考与推理，并根据输入，匹配并调度最合适的技能或工具。"
+        "desc": "相当于大脑，进行深度思考与推理，并根据输入匹配、调度最合适的技能或工具。"
       },
       {
         "title": "技能层（左侧 WebSkill）",
-        "desc": "大模型在做决策时，会连线到此。它提供契约规范（Schema），定义了任务执行所需的全部规则与约束条件。"
+        "desc": "大模型决策时会调用到这一层。它以 Schema 契约定义任务执行所需的全部规则与约束。"
       },
       {
         "title": "交互层（右侧 Generative UI）",
-        "desc": "一旦发现必填参数缺失，会在前端对话流中原地唤醒一套表单让用户填写；任务结束后，它又会将枯燥的原始数据可视化渲染为直观图表。"
+        "desc": "缺少必填参数时，在对话流中原地生成表单请用户填写；任务完成后，再把原始数据渲染成直观的可视化图表。"
       },
       {
         "title": "执行层（下方 WebMCP）",
-        "desc": "前端原生执行器，是勤劳的“实干家”，负责直接操作页面 DOM、提取页面数据或向后端发起服务请求，完成具体任务。"
+        "desc": "前端原生的“实干家”，直接操作页面 DOM、提取页面数据或向后端发起服务请求，完成具体任务。"
       }
-    ]
+    ],
+    "polyfillTeaserTitle": "在原生支持之前，先用 navigator.webskill",
+    "polyfillTeaserDesc": "浏览器还没有原生提供 navigator.webskill 时，WebSkill 兼容层会先装上同一套 API；如果原生实现已经存在——哪怕只有部分——它一律原样保留。",
+    "polyfillTeaserPoints": ["原生实现永远优先", "重复安装幂等", "接口只读，不可篡改"],
+    "polyfillTeaserCta": "了解兼容层"
   },
   "origin": {
     "splitTitle": "1.1 Web AI 领域的架构分裂：Cloud AI vs Local AI",
-    "splitDesc": "Cloud AI（如 ChatGPT）无法与用户本地环境（本地文件、局域网）进行密切交互。Local AI（本地运行模型）受限于硬件算力。我们需要一种架构，既能利用 Cloud AI 的强大推理能力，又能在本地浏览器环境中安全地执行各种动作。",
+    "splitDesc": "Cloud AI（如 ChatGPT）无法深入用户的本地环境（本地文件、局域网）；Local AI（本地运行模型）又受限于硬件算力。我们需要一种新的架构：既利用 Cloud AI 强大的推理能力，又能在本地浏览器中安全地执行各种操作。",
     "mcpTitle": "1.2 MCP 协议的突破与遗留痛点",
-    "mcpDesc": "Anthropic 提出的 MCP（模型上下文协议）统一了 LLM 调用外部工具的标准。但是，传统的 MCP 架构都是基于本地 stdio 或 SSE 运行的，需要用户安装桌面客户端并配置复杂的脚本，这对普通用户来说门槛太高。",
+    "mcpDesc": "Anthropic 提出的 MCP（模型上下文协议）统一了大模型调用外部工具的标准。但传统 MCP 架构大多基于本地 stdio 或 SSE 运行，用户需要安装桌面客户端并配置复杂脚本，对普通用户来说门槛太高。",
     "contextTitle": "1.3 LLM 的核心痛点：上下文爆炸",
-    "contextDesc": "如果把 100 个工具全都交给 LLM，描述这些工具的 System Prompt 会消耗海量的 Context Tokens。这不仅导致成本飙升、响应变慢，还会引发“Lost in the middle”幻觉，导致大模型无法准确识别应该使用哪个工具。"
+    "contextDesc": "如果把 100 个工具全部塞给大模型，仅描述这些工具的 System Prompt 就会消耗大量上下文 Token：成本飙升、响应变慢，还会引发 “Lost in the middle” 式幻觉，让大模型选错工具。"
   },
   "architecture": {
     "opfsTitle": "2.1 基于 OPFS 的轻量级技能容器（技能即文件）",
-    "opfsDesc": "我们将 Agent 工具打包成“技能”（包含 SKILL.md, index.js, package.json）。从云端下载技能包，解压到浏览器的 OPFS（源私有文件系统）中。技能在隔离的 Web Worker 沙箱里运行，做到了绝对的安全和隐私保护。",
+    "opfsDesc": "把 Agent 工具打包成“技能”（包含 SKILL.md、index.js、package.json），从云端下载后解压到浏览器的 OPFS（源私有文件系统）中，并在隔离的 Web Worker 沙箱里运行，实现可靠的安全与隐私保护。",
     "routingTitle": "2.2 多层路由架构：自然语言到技能沙箱的精准匹配",
-    "routingDesc": "不要把所有技能一把梭哈给大模型。我们引入了一个轻量级的路由 Agent。用户输入自然语言后，路由 Agent 在 OPFS 目录里检索匹配的技能，只将相关的 SKILL.md 注入上下文。",
+    "routingDesc": "不能把所有技能一股脑塞给大模型。为此我们引入轻量级的路由 Agent：用户输入自然语言后，路由 Agent 在 OPFS 目录中检索匹配的技能，只把相关的 SKILL.md 注入上下文。",
     "progressiveTitle": "2.3 渐进式技能披露 (Progressive Skill Disclosure)",
-    "progressiveDesc": "即使是一个复杂的技能，里面也可能有多个工具。WebSkill 采用“渐进式披露”。LLM 先阅读 SKILL.md，只有当它决定调用某个具体的工具时，才去动态获取该工具的详细参数 Schema。这极大节省了 Token。",
+    "progressiveDesc": "一个复杂技能往往包含多个工具。WebSkill 采用“渐进式披露”：LLM 先读 SKILL.md，只有当它决定调用某个具体工具时，才动态获取该工具的详细参数 Schema，从而大幅节省 Token。",
     "dynamicTitle": "2.4 利用 MCP 标准协议动态声明页面级 WebSkill",
-    "dynamicDesc": "针对动态上下文（比如电商的商品详情页），Web 页面本身通过 MessageChannel 充当 MCP Server，注册页面级工具。当页面关闭时，技能也随之销毁，有效缓解上下文爆炸。",
+    "dynamicDesc": "针对动态场景（如电商商品详情页），Web 页面本身可以通过 MessageChannel 充当 MCP Server，注册页面级工具；页面关闭时，技能随之销毁，有效缓解上下文膨胀。",
     "generativeTitle": "2.5 生成式 UI 实现交互闭环",
-    "generativeDesc": "当工具执行缺少参数时，WebSkill 输出 JSON Schema，UIBridge 拦截后渲染出 Generative UI 表单供用户填写，实现了 WebSkill 工作流中完美的人机交互闭环。"
+    "generativeDesc": "当工具执行缺少参数时，WebSkill 输出 JSON Schema，UIBridge 拦截后渲染出生成式 UI 表单供用户填写，让工作流中的人机交互形成闭环。"
   },
   "standards": {
     "idlTitle": "3.1 Web IDL 基础定义",
-    "idlDesc": "我们提出 WebSkill 的 Web IDL 草案，在浏览器 Navigator 上原生增加 `navigator.webskill` 属性。分为 SkillDiscovery（发现、读取、校验）、MinimalRuntime（运行）和 SkillManager（安装、卸载）。",
+    "idlDesc": "我们为 WebSkill 提出 Web IDL 草案：在浏览器 Navigator 上原生新增 `navigator.webskill` 属性，接口分为 SkillDiscovery（发现、读取、校验）、MinimalRuntime（运行）和 SkillManager（安装、卸载）三部分。",
     "exampleTitle": "3.2 WebSkill 使用示例",
-    "exampleDesc": "在 Web 应用里使用 WebSkill，只需短短几行 JavaScript 代码即可完成技能发现、校验与运行。",
+    "exampleDesc": "在 Web 应用中使用 WebSkill，只需几行 JavaScript 就能完成技能的发现、校验与运行。",
     "runPrompt": "用 calculator 计算 2+3",
     "sec31Title": "WebSkill 的 Web IDL 基础定义",
-    "sec31Desc": "在浏览器 Navigator 上原生增加 `navigator.webskill` 属性。分为 SkillDiscovery（发现、读取、校验）、MinimalRuntime（运行）和 SkillManager（安装、卸载），并规范了 Skill 目录与元数据格式。",
+    "sec31Desc": "在浏览器 Navigator 上原生新增 `navigator.webskill` 属性，接口分为 SkillDiscovery（发现、读取、校验）、MinimalRuntime（运行）和 SkillManager（安装、卸载）三部分，并规范了 Skill 目录与元数据格式。",
     "sec32Title": "WebSkill 的校验与运行返回值",
-    "sec32Desc": "为了在沙箱中进行严格的参数完整性校验，并支撑完整的运行追踪（Tracing）能力，草案定义了 `ValidationReport`、`RuntimeRun`、`Artifact` 和 `TraceEvent` 的完整接口。",
+    "sec32Desc": "为了在沙箱中严格校验参数完整性，并支持运行全程的追踪（Tracing），草案定义了 `ValidationReport`、`RuntimeRun`、`Artifact` 和 `TraceEvent` 的完整接口。",
     "sec33Title": "WebSkill 的安装返回值与使用示例",
-    "sec33Desc": "草案定义了安装新技能时返回的 数据格式，包括算法和哈希完整性校验（Integrity），以及简明易懂的 Web API 调用示例。",
+    "sec33Desc": "草案定义了安装新技能时的返回数据格式（含算法与哈希的完整性校验 Integrity），并附简明的 Web API 调用示例。",
     "readmeTitle": "3.4 README 完整代码与使用示例",
-    "readmeDesc": "此示例展示了如何在 Web 页面主线程中注册自定义的 WebMCP 工具，通过 MessageChannel 标准传输通道与 Worker 子线程通信，以及进行本地测试和全生命周期调用的完整方法。",
+    "readmeDesc": "示例展示了如何在页面主线程注册自定义 WebMCP 工具，如何通过 MessageChannel 与 Worker 子线程通信，以及如何在本地测试并完成全生命周期调用。",
     "pageHeading": "WebSkill 的 W3C 标准化建议"
   },
   "footer": {
@@ -190,7 +195,7 @@
   },
   "implement": {
     "s1Title": "遵循标准的 Agent Skills 协议",
-    "s1Desc": "WebSkill 严格按照标准的 Agent Skills 协议实现。目录包含 SKILL.md 用于元数据和指令，scripts/ 用于可执行代码，references/ 用于依赖资源，assets/ 用于静态资源和中间产物。",
+    "s1Desc": "WebSkill 严格遵循标准 Agent Skills 协议。目录中：SKILL.md 承载元数据与指令，scripts/ 存放可执行代码，references/ 存放依赖资源，assets/ 存放静态资源与中间产物。",
     "s1DirRoot": "webskill-package/",
     "s1DirSkill": "SKILL.md",
     "s1DirSkillDesc": "元数据 (YAML) 与指令 (Markdown)",
@@ -200,31 +205,31 @@
     "s1DirRefsDesc": "执行所需资源 (模板、配置)",
     "s1DirAssets": "assets/",
     "s1DirAssetsDesc": "静态资源与运行中间产物",
-    "s2Title": "可用技能渐进式暴露",
-    "s2Desc": "为了防止上下文爆炸，WebSkill 采用按需加载。首先加载 SKILL.md 元数据以发现可用技能，然后在选择技能时加载完整指令内容，最后仅在执行时加载脚本和资源。",
+    "s2Title": "可用技能的渐进式披露",
+    "s2Desc": "为避免上下文膨胀，WebSkill 按需加载：先加载 SKILL.md 元数据以发现可用技能，选中技能后再加载完整指令，仅在执行时才加载脚本与资源。",
     "s2L1": "顶层（SKILL.md 元数据）：",
-    "s2L1Desc": "LLM 仅加载技能名称和描述（如同目录）",
+    "s2L1Desc": "LLM 只加载技能名称与描述，如同翻阅目录",
     "s2L2": "中间层（指令层）：",
     "s2L2Desc": "LLM 选中特定技能后加载 SKILL.md 全文",
     "s2L3": "最底层（资源层）：",
     "s2L3Desc": "仅在需要执行或读取时加载 scripts 和 assets 文件",
     "s3Title": "WebSkill 执行单元：scripts/ 脚本规范",
-    "s3Desc": "脚本文件必须为 .ts/.js，导出一个 run 执行函数，并提供 inputSchema（通过显式 JSON Schema、TS 类型推导或 JSDoc 注释）。执行完毕后的返回值严格遵循 MCP 标准格式。",
+    "s3Desc": "脚本必须是 .ts/.js 文件，导出名为 run 的执行函数，并提供 inputSchema（显式 JSON Schema、TS 类型推导或 JSDoc 注释三种方式之一）；返回值严格遵循 MCP 标准格式。",
     "s3Req1": "Web 原生类型",
     "s3Req1Desc": "仅允许 .ts 和 .js 文件",
     "s3Req2": "导出 run()",
     "s3Req2Desc": "必须导出一个名为 run 的执行函数",
     "s3Req3": "提供 inputSchema",
-    "s3Req3Desc": "三种推断方式，以便 AI 知晓调用参数",
+    "s3Req3Desc": "三种方式声明参数，让 AI 知道如何调用",
     "s4Title": "通过标准 MCP 协议动态暴露页面级 WebSkill",
-    "s4Desc": "为了更好地控制上下文，页面级技能会被动态暴露。Web 页面主线程作为 MCP Server 注册指令和工具，通过 MessageChannel 传输层与作为 MCP Client 的 Worker 子线程通信。关闭页面技能即销毁。",
+    "s4Desc": "页面级技能按需动态暴露，以精确控制上下文：页面主线程作为 MCP Server 注册指令与工具，通过 MessageChannel 与作为 MCP Client 的 Worker 子线程通信；页面关闭，技能即刻销毁。",
     "s4Main": "Web 页面主线程 (MCP Server)",
     "s4MainDesc": "注册 Prompt、Tool 和 Resource",
     "s4Channel": "MessageChannel 传输层",
     "s4Worker": "Worker 子线程 (MCP Client)",
     "s4WorkerDesc": "使用 Client SDK 发现并调用技能",
     "s5Title": "生成式 UI 闭环 WebSkill 交互",
-    "s5Desc": "当检测到缺少参数时，WebSkill 会输出 JSON Schema。生成式 UI 渲染器（通过 UIBridge）呈现交互式表单。状态机从 IDLE 转换到 PARAMS_COLLECTED、AWAITING_USER，再回到 EXECUTING。",
+    "s5Desc": "检测到参数缺失时，WebSkill 输出 JSON Schema，生成式 UI 渲染器（经 UIBridge）呈现交互式表单；状态机从 IDLE 流转到 PARAMS_COLLECTED、AWAITING_USER，再回到 EXECUTING。",
     "s5State1": "IDLE (空闲)",
     "s5State2": "PARAMS_COLLECTED (参数收集)",
     "s5State3": "AWAITING_USER (等待用户)",
@@ -232,35 +237,35 @@
     "s5State5": "COMPLETED (已完成)",
     "s5Bridge": "UIBridge (适配器)",
     "s5BridgeDesc": "解耦 WebSkill 与各类 UI 框架 (React, Vercel AI SDK, OpenUI 等)",
-    "s1Exp1": "核心指令 (SKILL.md)：技能的中枢，通过 YAML 元数据进行技能声明，使用 Markdown 详述操作规范，指引 LLM 执行。",
-    "s1Exp2": "执行脚本 (scripts/)：放置干活的具体脚本。在 Web 沙箱中运行，原生支持标准的 .ts 与 .js 代码文件。",
+    "s1Exp1": "核心指令 (SKILL.md)：技能的中枢，以 YAML 元数据声明技能，用 Markdown 详述操作规范，指引 LLM 执行。",
+    "s1Exp2": "执行脚本 (scripts/)：存放具体干活的脚本，在 Web 沙箱中运行，原生支持标准 .ts 与 .js 文件。",
     "s1Exp3": "静态依赖 (references/)：提供脚本运行所需的模板或配置文件，如 HTML 报告模板或看板描述文件。",
-    "s1Exp4": "资产/产物 (assets/)：存放 Logo 等静态图标，并自动归档 Agent 在任务执行中生成的临时文件或中间报告。",
-    "s2Exp1": "顶层（SKILL.md 元数据）：初始时 LLM 仅按需加载技能清单的名称与简介，如同索引目录，全局掌控当前能力版图。",
-    "s2Exp2": "中间层（指令层）：当确定调用特定技能时，才按需将该技能完整的 SKILL.md 提示词装载入 LLM 上下文。",
-    "s2Exp3": "最底层（资源层）：只有在触发运行或数据读取时，系统才会精确载入 scripts 逻辑或 references 资产。",
-    "s2Exp4": "分层渐进式披露极大缩减了冗余上下文，从根本上降低了 Token 损耗，使 LLM 的响应速度与准确性得到质的飞跃。",
-    "s3Exp1": "环境纯正：纯 Web 原生支持，严格限制为标准的 .ts 与 .js 脚本。",
+    "s1Exp4": "资产/产物 (assets/)：存放 Logo 等静态素材，并自动归档 Agent 在任务执行中生成的临时文件或中间报告。",
+    "s2Exp1": "顶层（SKILL.md 元数据）：初始阶段 LLM 只加载技能清单中的名称与简介，如同翻阅索引目录，全局掌握当前能力版图。",
+    "s2Exp2": "中间层（指令层）：确定调用某个技能时，才把它完整的 SKILL.md 提示词载入 LLM 上下文。",
+    "s2Exp3": "最底层（资源层）：只有真正执行或读取数据时，系统才精确载入 scripts 逻辑或 references 资产。",
+    "s2Exp4": "分层渐进式披露大幅压缩了冗余上下文，从根源上降低 Token 消耗，让 LLM 的响应速度与准确性显著提升。",
+    "s3Exp1": "环境纯正：纯 Web 原生环境，仅限标准 .ts 与 .js 脚本。",
     "s3Exp2": "标准导出：必须对外暴露名为 run 的主执行入口。",
-    "s3Exp3": "自述参数：必须附带 inputSchema 以供 AI 精准解析和参数化装填。",
+    "s3Exp3": "自述参数：必须附带 inputSchema，供 AI 准确理解并填充参数。",
     "s3Method1Title": "显式声明",
-    "s3Method1Desc": "直接书写标准 JSON Schema，契合复杂、高精度的多级参数校验。",
+    "s3Method1Desc": "直接编写标准 JSON Schema，适合复杂、高精度的多级参数校验。",
     "s3Method2Title": "TS 类型推导",
-    "s3Method2Desc": "声明 TypeScript Interface 即可，系统自动将其编译转化为底层 Schema 契约。",
+    "s3Method2Desc": "只需声明 TypeScript Interface，系统自动将其转换为底层 Schema 契约。",
     "s3Method3Title": "JSDoc 提取",
-    "s3Method3Desc": "适用于纯 JavaScript 文件，通过标准注释快速提取出参数类型及约束。",
-    "s3Ret1": "MCP 输出规约：运行结果严格遵循标准的 MCP 数据返回格式（如 Content 数组），以确保链式调用的管道式组合，并完美对接自动资产保存等后续生命周期。",
+    "s3Method3Desc": "适用于纯 JavaScript 文件，通过标准注释快速提取参数类型及约束。",
+    "s3Ret1": "MCP 输出规约：运行结果严格遵循标准 MCP 数据返回格式（如 Content 数组），保证链式调用可以管道式组合，并顺畅衔接自动资产保存等后续生命周期。",
     "s3Ret2": "混合 MCP 工具支持：支持通过标准 TypeScript SDK 构建的自定义 MCP 节点（使用 endpoint:tool），以及谷歌实验性的 WebMCP 内置通道（使用 mcp#tool）。",
-    "s4Exp1": "动态声明页面级 Skill：当 OPFS 中沉淀的持久化技能日益庞大，即便使用渐进式披露，也难免遭遇大模型上下文饱和的瓶颈。引入“生命周期与当前页面绑定”的动态技能是绝佳解法。比如，当用户打开特定商品详情时，AI 获得查询该商品实时库存的临时特权；页面一旦卸载或跳转，该项技能随之销毁，实现无感、零负担的上下文流转。",
+    "s4Exp1": "动态声明页面级 Skill：当 OPFS 中沉淀的持久化技能越来越多，即使使用渐进式披露，也难免触及上下文容量的瓶颈。引入“生命周期与当前页面绑定”的动态技能是一个自然的解法：例如用户打开某个商品详情页时，AI 便获得查询该商品实时库存的临时能力；页面一旦卸载或跳转，这项技能随之销毁，上下文流转无感、零负担。",
     "s4Exp2": "基于 MCP 构建的页面级生态：",
-    "s4Exp3": "主线程 (MCP Server)：页面担当 MCP Server 角色。借由 registerPrompt 发布页面相关的系统级意图，利用 registerTool 注入页面专有的逻辑脚本，并用 registerResource 暴露专属的数据视图。",
-    "s4Exp4": "轻量管道 (MessageChannel)：利用浏览器原生的 MessageChannel 建立安全、高带宽的双向通信链路，打通主页面与执行子线程（Worker）的数据交换屏障。",
-    "s4Exp5": "子线程 (MCP Client)：运行于 Sandbox Worker 的 AI Client 发现主线程上报的能力，并执行精准的命令。",
-    "s4Exp6": "当用户关闭该 Web 页面时，这些动态技能就会随着页面的销毁而立刻消失。",
-    "s5Exp1": "生成式 UI (Generative UI)：补齐 WebSkill 工作流中人机交互的最后一块拼图。当 WebSkill 侦测到必要的入参不足时，大模型不再依靠干瘪的对话追问，而是直接吐出交互契约（JSON Schema）。",
-    "s5Exp2": "动态渲染表单：界面渲染引擎截获 Schema 后，在当前的对话流中以一套结构化的交互表单，使用户输入变为简单明了的点击、拖拽或直观录入。",
-    "s5Exp3": "交互状态机切换：WebSkill 在执行态下历经：IDLE (就绪) ➔ 侦测缺少参数进入 PARAMS_COLLECTED (发现) ➔ 瞬间捕获并切换至 AWAITING_USER (挂起，等待用户填单) ➔ 提交后状态扭转，重归 EXECUTING (继续执行) 直至最终产出。",
-    "s5Exp4": "适配桥接 (UIBridge)：我们通过 UIBridge 定义了独立于具体 UI 系统的抽象适配层。无论是 Vercel AI SDK、React Schema 渲染器，还是 OpenUI 等交互组件库，皆可充当底座插槽，实现“交互框架无关”的健壮高复用架构。",
+    "s4Exp3": "主线程 (MCP Server)：页面充当 MCP Server——通过 registerPrompt 发布页面相关的意图，通过 registerTool 注入页面专有逻辑，通过 registerResource 暴露专属数据视图。",
+    "s4Exp4": "轻量管道 (MessageChannel)：借助浏览器原生 MessageChannel 建立安全、高带宽的双向通道，打通主页面与 Worker 子线程之间的数据通路。",
+    "s4Exp5": "子线程 (MCP Client)：运行在沙箱 Worker 中的 AI Client 负责发现主线程上报的能力，并精确执行调用。",
+    "s4Exp6": "用户关闭页面时，这些动态技能随页面一同销毁。",
+    "s5Exp1": "生成式 UI (Generative UI)：补齐 WebSkill 工作流中人机交互的最后一块拼图。当 WebSkill 发现必要入参不足时，大模型不再靠干巴巴的对话追问，而是直接给出交互契约（JSON Schema）。",
+    "s5Exp2": "动态渲染表单：渲染引擎截获 Schema 后，在当前对话流中生成结构化的交互表单，用户只需点击、选择或简单录入即可完成输入。",
+    "s5Exp3": "交互状态机切换：执行过程中的状态流转——IDLE（就绪）→ 发现参数缺失，进入 PARAMS_COLLECTED → 随即切换至 AWAITING_USER（挂起，等待用户填写）→ 用户提交后回到 EXECUTING 继续执行，直至产出结果。",
+    "s5Exp4": "适配桥接 (UIBridge)：UIBridge 定义了独立于具体 UI 系统的抽象适配层——无论 Vercel AI SDK、React Schema 渲染器还是 OpenUI 等组件库，都可以作为底层插槽接入，实现与交互框架无关、可高复用的健壮架构。",
     "s3SchemaMethodsTitle": "InputSchema 的三种声明方式",
     "s3McpReturnFormat": "遵循 MCP 标准的返回格式"
   },
@@ -313,5 +318,135 @@
     "lightbox": {
       "close": "关闭图片预览"
     }
+  },
+  "polyfill": {
+    "badge": "@webskill/polyfill · 实验特性",
+    "title": "WebSkill 兼容层",
+    "subtitle": "浏览器还没有原生提供 navigator.webskill 时，可以先用它装上同一套 API。它复用现有 SDK，六个方法与 SDK 完全一致——是兼容层，不是另一套运行时。",
+    "explainerCta": "阅读 API Explainer",
+    "explainerUrl": "https://github.com/kevinmoch/web-skill/blob/main/EXPLAINER.zh-CN.md",
+    "whatKicker": "它是什么",
+    "whatTitle": "一套 SDK、一套接口",
+    "whatDesc": "兼容层直接复用现有的浏览器宿主，把同一套 API 挂到 navigator.webskill 上。",
+    "whatCards": [
+      {
+        "title": "兼容安装层",
+        "desc": "只在浏览器没有自带实现时才安装 WebSkill API，装完即退场，不干预已有实现。"
+      },
+      {
+        "title": "同一组六个方法",
+        "desc": "discover、read、validate、run、install、uninstall 的返回结构和结构化错误都与 SDK 完全一致。"
+      },
+      {
+        "title": "显式配置",
+        "desc": "模型、文件系统、技能根目录和沙箱选项全部由宿主显式指定，不存在静默的自动安装。"
+      }
+    ],
+    "lifecycleKicker": "安装流程",
+    "lifecycleTitle": "原生优先，只有真正安装时才校验模型",
+    "lifecycleDesc": "顺序很重要：先确认并保留浏览器已有的实现，再去动模型、存储和沙箱。",
+    "lifecycle": [
+      {
+        "title": "确定安装目标",
+        "desc": "默认使用当前 navigator；宿主也可以注入一个测试对象，API 只会挂到那个对象上。"
+      },
+      {
+        "title": "保留原生实现",
+        "desc": "无论已有实现是普通对象、函数还是 accessor，也不论属性是否只读、可配置，一律原样保留；accessor 返回 undefined 也不例外。"
+      },
+      {
+        "title": "复用已安装的兼容层",
+        "desc": "再次调用只会返回同一个实例，而不会拿另一组配置重新组装一套运行时。"
+      },
+      {
+        "title": "检查运行环境",
+        "desc": "默认要求安全上下文中的 Window、Worker 和 OPFS；仅当宿主显式提供文件系统时才允许替换。"
+      },
+      {
+        "title": "校验模型客户端",
+        "desc": "LlmClient 只在真正组装 SDK 之前才校验；走原生实现或环境不支持的路径时，完全不校验。"
+      },
+      {
+        "title": "暴露只读接口",
+        "desc": "SDK 先在临时对象上装配完成，getter 定义成功后才落到真实 navigator 上，不会留下装了一半的状态。"
+      }
+    ],
+    "guaranteesKicker": "设计保证",
+    "guaranteesTitle": "接口面小，行为明确",
+    "guaranteesDesc": "这些保证只针对当前的 JavaScript 安装实现，不代表对未来浏览器原生 API 的承诺。",
+    "guarantees": [
+      {
+        "title": "原生优先",
+        "desc": "只要 navigator.webskill 已经存在——哪怕只是部分实现——都以它为准；兼容层不会对单个方法打补丁。"
+      },
+      {
+        "title": "仅安装时校验",
+        "desc": "模型配置缺失或无效的问题，只在真正组装 SDK 时才抛出。"
+      },
+      {
+        "title": "安装幂等",
+        "desc": "在同一个 navigator 上，首次成功的配置即生效；重复安装只会得到同一个实例。"
+      },
+      {
+        "title": "不留半安装",
+        "desc": "如果只读 getter 定义失败，调用直接返回 undefined，真实 navigator 不会被改动。"
+      },
+      {
+        "title": "只读接口",
+        "desc": "webskill 以 getter 形式暴露，不是可写属性。"
+      },
+      {
+        "title": "SSR 安全、不静默降级",
+        "desc": "SSR 下导入没有任何副作用；OPFS 不可用时也不会被悄悄换成 MemoryFS 或 localStorage。"
+      }
+    ],
+    "examplesKicker": "示例代码",
+    "examplesTitle": "通过 ESM 或独立脚本安装",
+    "examplesDesc": "两种分发形式提供的是同一个安装器，原生优先的行为完全一致。",
+    "esmExampleTitle": "ESM 用法",
+    "esmExampleDesc": "只在 navigator.webskill 缺失时安装，并由宿主显式提供模型客户端；随后以 ws 使用同一套 API。",
+    "esmExampleScroll": "可横向滚动的 ESM 安装示例",
+    "iifeExampleTitle": "独立脚本",
+    "iifeExampleDesc": "独立脚本版只定义全局 WebSkillPolyfill；需显式安装，之后以 navigator.webskill（ws）使用。",
+    "iifeExampleScroll": "可横向滚动的独立脚本安装示例",
+    "examplesCredentialNote": "示例刻意不写生产环境的 API key。请改用端侧模型、宿主可控的代理或其他凭据方案，不要把密钥打进公开发布的浏览器包里。",
+    "localKicker": "本地执行",
+    "localTitle": "不依赖 MCP，本地脚本也能独立运行",
+    "localDesc": "技能包内的 scripts/ 本身就是完整的执行单元；MCP 和 WebMCP 可以增强它，但不是运行它的前提。",
+    "methodsTitle": "同一组接口",
+    "localScriptTitle": "最小本地脚本",
+    "localScriptDesc": "一个 JSON Schema 加 run(input, context) 即可提供行为确定的工具；context.writeArtifact 负责保存产物。",
+    "localScriptScroll": "可横向滚动的本地技能脚本示例",
+    "supportKicker": "支持矩阵",
+    "supportTitle": "目前已验证的环境",
+    "supportDesc": "矩阵如实区分已验证支持与明确不支持的环境。",
+    "supportCaption": "兼容层在不同环境与分发方式下的验证状态",
+    "supportHeaders": ["环境", "ESM", "独立 IIFE", "说明"],
+    "supportRows": [
+      {
+        "env": "Chromium（Window）",
+        "esm": "已验证",
+        "iife": "已验证",
+        "notes": "本地脚本、Artifact、ZIP 安装与卸载、原生实现保留等全流程均已通过。"
+      },
+      {
+        "env": "WebKit（Window）",
+        "esm": "已验证",
+        "iife": "已验证",
+        "notes": "OPFS 需要 persistent context，并要求 @webskill/sdk 0.27.0 或更高版本。"
+      },
+      {
+        "env": "Firefox（Window）",
+        "esm": "已验证",
+        "iife": "已验证",
+        "notes": "本地脚本、Artifact、ZIP 安装与卸载、原生实现保留等全流程均已通过。"
+      },
+      {
+        "env": "Worker / frame / 非浏览器",
+        "esm": "不支持",
+        "iife": "不支持",
+        "notes": "target 只是为测试和宿主注入预留的口子，不代表支持这些环境。"
+      }
+    ]
   }
 }

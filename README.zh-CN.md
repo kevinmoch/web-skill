@@ -261,7 +261,7 @@ WebSkill 原本在 **IDLE（等待）**状态。接收到任务后，发现参�
 在 Web 应用里使用 WebSkill，只需要以下几行代码：
 
 ```ts
-const ws = navigator.webskills;
+const ws = navigator.webskill;
 
 // discover → SkillCatalog
 const catalog = await ws.discover('/skills');

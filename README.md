@@ -261,7 +261,7 @@ Simultaneously, we defined data structure dictionaries such as `SkillCatalog`, `
 Using WebSkill in a Web application requires just a few lines of code:
 
 ```ts
-const ws = navigator.webskills;
+const ws = navigator.webskill;
 
 // discover → SkillCatalog
 const catalog = await ws.discover('/skills');

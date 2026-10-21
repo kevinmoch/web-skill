@@ -1,23 +1,60 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageToggle from './components/LanguageToggle';
 import { Terminal, ArrowUp } from 'lucide-react';
 import Home from './pages/Home';
 import Implement from './pages/Implement';
+import Polyfill from './pages/Polyfill';
 import Standards from './pages/Standards';
 import DocsPage from './pages/docs/DocsPage';
 import { chapterBySlug, chapterTitle } from './docs/manifest';
 import { docsRouteFromHash, type DocsRoute } from './docs/router';
 
+// 顶层页面与 hash 路由一一对应；docs 另有内部章节路由（#/docs/<slug>）
+const TAB_HASHES: Record<string, string> = {
+  home: '#/home',
+  implement: '#/implement',
+  polyfill: '#/polyfill',
+  standards: '#/standardization',
+  docs: '#/docs'
+};
+
+const tabFromHash = (hash: string): string | null => {
+  if (docsRouteFromHash(hash)) return 'docs';
+  for (const [tab, tabHash] of Object.entries(TAB_HASHES)) {
+    if (hash === tabHash) return tab;
+  }
+  return null;
+};
+
+const initialTab = (): string => tabFromHash(window.location.hash) ?? 'home';
+
 export default function App() {
   const { t, i18n } = useTranslation();
-  const [activeTab, setActiveTab] = useState(() =>
-    docsRouteFromHash(window.location.hash) ? 'docs' : 'home'
-  );
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [docsRoute, setDocsRoute] = useState<DocsRoute>(
     () => docsRouteFromHash(window.location.hash) ?? { slug: null, anchor: null }
   );
   const [showScroll, setShowScroll] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const [navCanScroll, setNavCanScroll] = useState(false);
+
+  // 移动端导航溢出提示：内容超出可视宽度且未滚到底时，在右侧显示淡出遮罩
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const update = () => {
+      setNavCanScroll(nav.scrollWidth - nav.clientWidth - nav.scrollLeft > 1);
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(nav);
+    nav.addEventListener('scroll', update, { passive: true });
+    return () => {
+      observer.disconnect();
+      nav.removeEventListener('scroll', update);
+    };
+  }, [i18n.resolvedLanguage, i18n.language]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +69,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // hash 路由监听：只接管 #/docs 系；home/implement/standards 保持无 hash 的现有行为。
+  // hash 路由监听：#/docs 交给文档路由，其余顶层页按 TAB_HASHES 映射；
   // 浏览器前进/后退回到无 hash 状态时落回首页。
   useEffect(() => {
     const onHashChange = () => {
@@ -40,6 +77,11 @@ export default function App() {
       if (route) {
         setDocsRoute(route);
         setActiveTab('docs');
+        return;
+      }
+      const tab = tabFromHash(window.location.hash);
+      if (tab) {
+        setActiveTab(tab);
       } else if (window.location.hash === '') {
         setActiveTab('home');
       }
@@ -61,6 +103,8 @@ export default function App() {
         document.title = chapter
           ? `${chapter.num}. ${chapterTitle(chapter, isZh)} - ${docsName} - webskill.ai`
           : `${docsName} - webskill.ai`;
+      } else if (activeTab === 'polyfill') {
+        document.title = `${t('polyfill.title')} - webskill.ai`;
       } else {
         document.title = isZh ? 'webskill.ai - 运行在浏览器的基于 Web 的 Agent 技能' : 'webskill.ai - Web-Based Agent Skill - Running in the Browser';
       }
@@ -70,20 +114,23 @@ export default function App() {
     }
   }, [t, i18n.language, i18n.resolvedLanguage, activeTab, docsRoute]);
 
+  // 所有顶层页统一经 hash 切换，浏览器前进/后退由此自然可用；
+  // 重复点击当前页不新增历史记录。
   const switchTab = (tab: string) => {
+    const hash = TAB_HASHES[tab] ?? '#/home';
     if (tab === 'docs') {
       // 经 hash 进入文档，深链与浏览器前进/后退才可用；已在文档内则原地不动
       if (!/^#\/docs(\/|$)/.test(window.location.hash)) {
-        window.location.hash = '#/docs';
+        window.location.hash = hash;
       } else {
         setActiveTab('docs');
       }
+      return;
+    }
+    if (window.location.hash !== hash) {
+      window.location.hash = hash;
     } else {
       setActiveTab(tab);
-      // 离开文档时静默清掉 hash：replaceState 不触发 hashchange、不新增历史记录
-      if (window.location.hash) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
-      }
     }
   };
 
@@ -91,6 +138,8 @@ export default function App() {
     switch (activeTab) {
       case 'implement':
         return <Implement t={t} />;
+      case 'polyfill':
+        return <Polyfill t={t} />;
       case 'standards':
         return <Standards t={t} />;
       case 'docs':
@@ -104,6 +153,7 @@ export default function App() {
   const navItems = [
     { id: 'home', label: t('nav.home') },
     { id: 'implement', label: t('nav.implement') },
+    { id: 'polyfill', label: t('nav.polyfill') },
     { id: 'standards', label: t('nav.standardization') },
     { id: 'docs', label: t('nav.docs') },
   ];
@@ -128,19 +178,26 @@ export default function App() {
             <LanguageToggle />
           </div>
         </div>
-        <nav className="flex w-full md:w-auto justify-between md:justify-center gap-4 sm:gap-6 md:gap-8 overflow-x-auto pb-1 md:pb-0 hide-scrollbar">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => switchTab(item.id)}
-              className={`${
-                activeTab === item.id ? 'text-accent font-semibold' : 'text-text-dim'
-              } text-[14px] uppercase tracking-[1px] hover:text-text-main cursor-pointer transition-colors whitespace-nowrap`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
+        <div className="relative w-full md:w-auto">
+          <nav ref={navRef} className="flex w-full md:w-auto justify-between md:justify-center gap-2 sm:gap-6 md:gap-8 overflow-x-auto pb-1 md:pb-0 hide-scrollbar">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => switchTab(item.id)}
+                className={`${
+                  activeTab === item.id ? 'text-accent font-semibold' : 'text-text-dim'
+                } text-[12px] sm:text-[14px] uppercase tracking-[1px] hover:text-text-main cursor-pointer transition-colors whitespace-nowrap`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+          <div
+            className={`pointer-events-none absolute right-0 top-0 bottom-1 w-8 bg-gradient-to-l from-bg to-transparent transition-opacity md:hidden ${
+              navCanScroll ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        </div>
         <div className="font-mono text-[14px] opacity-70 hidden md:block">
           <LanguageToggle />
         </div>

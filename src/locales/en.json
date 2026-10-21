@@ -5,6 +5,7 @@
     "architecture": "Architecture",
     "standardization": "Standardization",
     "implement": "Implement",
+    "polyfill": "Polyfill",
     "docs": "Docs"
   },
   "panel": {
@@ -143,7 +144,11 @@
         "title": "Execution Layer (Bottom WebMCP)",
         "desc": "The frontend-native executor that interacts with page DOM elements or issues backend network requests to do the heavy lifting."
       }
-    ]
+    ],
+    "polyfillTeaserTitle": "Use navigator.webskill before it is native",
+    "polyfillTeaserDesc": "The WebSkill Polyfill installs the same six-method facade in a browser that does not provide it yet, while preserving any native implementation that already exists.",
+    "polyfillTeaserPoints": ["Native implementation always wins", "Idempotent installation", "Read-only facade"],
+    "polyfillTeaserCta": "Explore the Polyfill"
   },
   "origin": {
     "splitTitle": "1.1 Web AI Architecture Split: Cloud AI vs Local AI",
@@ -321,5 +326,135 @@
     "lightbox": {
       "close": "Close image preview"
     }
+  },
+  "polyfill": {
+    "badge": "@webskill/polyfill · experimental",
+    "title": "WebSkill Polyfill",
+    "subtitle": "Install navigator.webskill in browsers before native support lands. It reuses the same SDK and exposes the same six-method API; it is a compatibility layer, not another runtime.",
+    "explainerCta": "Read the API explainer",
+    "explainerUrl": "https://github.com/kevinmoch/web-skill/blob/main/EXPLAINER.md",
+    "whatKicker": "What it is",
+    "whatTitle": "One SDK, one facade, zero duplicated runtimes",
+    "whatDesc": "The polyfill assembles the existing browser host and places the same API behind navigator.webskill.",
+    "whatCards": [
+      {
+        "title": "Compatibility layer",
+        "desc": "It installs the WebSkill facade only where the browser does not already provide one, then gets out of the way."
+      },
+      {
+        "title": "Same six methods",
+        "desc": "discover, read, validate, run, install, and uninstall keep the SDK's current shapes and structured errors."
+      },
+      {
+        "title": "Explicit configuration",
+        "desc": "The host chooses the model, filesystem, roots, and sandbox options. There is no hidden auto-install."
+      }
+    ],
+    "lifecycleKicker": "Install lifecycle",
+    "lifecycleTitle": "Native first, validate only when a real install is needed",
+    "lifecycleDesc": "The order matters: an existing implementation is preserved before the model, storage, or sandbox is touched.",
+    "lifecycle": [
+      {
+        "title": "Resolve the target navigator",
+        "desc": "Use the current Navigator, or a host-provided test target that only receives the facade."
+      },
+      {
+        "title": "Preserve native implementations",
+        "desc": "Objects, functions, accessors, and read-only descriptors are returned unchanged, even if an accessor returns undefined."
+      },
+      {
+        "title": "Reuse an existing polyfill",
+        "desc": "A repeated call returns the same instance instead of assembling a second runtime with different configuration."
+      },
+      {
+        "title": "Check the browser boundary",
+        "desc": "A secure Window, Workers, and OPFS are required unless the host explicitly supplies a filesystem."
+      },
+      {
+        "title": "Validate the model client",
+        "desc": "The LlmClient is checked only immediately before assembling the SDK, never while preserving native or unsupported paths."
+      },
+      {
+        "title": "Expose a read-only facade",
+        "desc": "The SDK is staged first; only a successful getter definition lands on the real Navigator, so no half-install remains."
+      }
+    ],
+    "guaranteesKicker": "Design guarantees",
+    "guaranteesTitle": "Small surface, explicit behavior",
+    "guaranteesDesc": "These guarantees describe the current JavaScript installer, not an aspirational native browser API.",
+    "guarantees": [
+      {
+        "title": "Native first",
+        "desc": "Any existing navigator.webskill wins, including a partial implementation. The polyfill never patches individual native methods."
+      },
+      {
+        "title": "Validate only on install",
+        "desc": "Missing or invalid model configuration is reported only when the polyfill actually has to build the SDK."
+      },
+      {
+        "title": "Idempotent",
+        "desc": "The first successful configuration wins for the lifetime of that Navigator. Repeated calls return the same facade."
+      },
+      {
+        "title": "No half-install",
+        "desc": "If the read-only getter cannot be defined, the call returns undefined and leaves the Navigator untouched."
+      },
+      {
+        "title": "Read-only facade",
+        "desc": "webskill is exposed through a getter rather than a writable assignment."
+      },
+      {
+        "title": "SSR-safe, no silent fallback",
+        "desc": "Imports are inert during SSR. OPFS is not silently replaced by MemoryFS or localStorage."
+      }
+    ],
+    "examplesKicker": "Examples",
+    "examplesTitle": "Install it from ESM or a standalone script",
+    "examplesDesc": "The two distributions expose the same installer and preserve the same native-first behavior.",
+    "esmExampleTitle": "ESM usage",
+    "esmExampleDesc": "Install only when navigator.webskill is absent, with an explicit host-provided model client; the same API is then available as ws.",
+    "esmExampleScroll": "Scrollable ESM installation example",
+    "iifeExampleTitle": "Standalone script",
+    "iifeExampleDesc": "The standalone build defines WebSkillPolyfill; install explicitly, then use navigator.webskill as the ws handle.",
+    "iifeExampleScroll": "Scrollable standalone script installation example",
+    "examplesCredentialNote": "The examples intentionally omit production API keys. Use an on-device model, a host-controlled proxy, or another credential flow that does not embed secrets in the public browser bundle.",
+    "localKicker": "Local execution",
+    "localTitle": "A local script can do the work without MCP",
+    "localDesc": "Scripts bundled with a skill are first-class execution units. MCP and WebMCP can extend a workflow, but they are not prerequisites for running it.",
+    "methodsTitle": "The same facade",
+    "localScriptTitle": "Minimal local script",
+    "localScriptDesc": "A JSON Schema plus run(input, context) exposes a deterministic tool; context.writeArtifact stores its output after the skill is activated.",
+    "localScriptScroll": "Scrollable local skill script example",
+    "supportKicker": "Support matrix",
+    "supportTitle": "What is verified today",
+    "supportDesc": "The matrix distinguishes verified support from unsupported environments and reflects the current validation state.",
+    "supportCaption": "Polyfill verification status by environment and distribution",
+    "supportHeaders": ["Environment", "ESM", "Standalone IIFE", "Notes"],
+    "supportRows": [
+      {
+        "env": "Chromium (Window)",
+        "esm": "Verified",
+        "iife": "Verified",
+        "notes": "Full local-script, artifact, ZIP install/uninstall, and native-preservation lifecycle."
+      },
+      {
+        "env": "WebKit (Window)",
+        "esm": "Verified",
+        "iife": "Verified",
+        "notes": "Requires a persistent context for OPFS and @webskill/sdk 0.27.0 or later."
+      },
+      {
+        "env": "Firefox (Window)",
+        "esm": "Verified",
+        "iife": "Verified",
+        "notes": "Full local-script, artifact, ZIP install/uninstall, and native-preservation lifecycle."
+      },
+      {
+        "env": "Worker / frame / non-browser",
+        "esm": "Not supported",
+        "iife": "Not supported",
+        "notes": "The target option is a test and host-injection seam, not support for these environments."
+      }
+    ]
   }
 }
