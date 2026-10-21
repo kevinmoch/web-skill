@@ -72,6 +72,10 @@ When a click changes nothing on the page, it reports back honestly that "the pag
 - **Already in the target state is not misreported as "no reaction".** If the calendar panel is already open, say, clicking that input field again of course changes nothing — it knows that isn't a miss.
 - **Controls written with standard accessibility roles are now within reach.** Date cells in a calendar, dropdown options, menu items, tabs, tree nodes — controls given roles per the spec — it can get hold of and click: the kind of date picker in a travel system, it can now open and pick a date on its own; a cell of an ordinary data table won't be mistaken for a button.
 
+## It notices when the address changes
+
+Some sites change pages without reloading the document (the usual SPA routing). If the address changes within an action's wait window, the result reports that a navigation happened and returns the new address; the next page read sees it too. It doesn't need a full page reload to know which page it is on.
+
 ## What it asks you about first
 
 Not every action needs your nod — the rules are graded (using the Demo's configuration as the example):

@@ -48,6 +48,14 @@ Two boundaries to know up front:
 - It reads what's actually displayed on the page — collapsed panels and in-page tabs you haven't switched to aren't included. Expand them first, then ask.
 - When the page is large it reads in segments, so waiting a beat longer is normal.
 
+## It knows which page you are on
+
+Every page read also carries the **current document's address** — the full URL, including the query string and `#fragment` — so you don't have to copy it into the chat first. When you want it to fill a link field or share a page as a link post, just say "use the current page's address".
+
+- The address follows the page: after an in-site click or an SPA route change, the next read sees the new address; a document navigation likewise returns the new one.
+- When no address is available (`about:blank`, say), the field is absent rather than an empty string.
+- The address is **read out**, not a destination the assistant can navigate to; the existing page-action boundaries are unchanged.
+
 ## Documents and screenshots on the page
 
 Attachments hanging on table rows don't need downloading or opening one by one: Word documents on requirement rows, screenshots on defect rows — the assistant reads them one after another along the page, then gathers the results for you. In the [Demo](/demo)'s requirement pool, send:
