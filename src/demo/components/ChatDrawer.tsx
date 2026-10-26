@@ -59,6 +59,11 @@ export const ChatDrawer: React.FC<{ width: number; onEngine(e: ChatEngine): void
     };
   }, [runtime, currentScreen]);
 
+  const governance = useMemo(
+    () => (runtime ? { onSkillMiss: createAgileMissHook(runtime) } : undefined),
+    [runtime]
+  );
+
   const config = useMemo<ChatbotConfig | undefined>(
     () =>
       runtime && {
@@ -68,14 +73,14 @@ export const ChatDrawer: React.FC<{ width: number; onEngine(e: ChatEngine): void
         skillCandidates: runtime.skillCandidates,
         // 未命中生成候选：开关在治理侧（console Versions 页），chatbot 读不到，
         // 传的因此必须是一个「每次触发才去读开关」的闭包
-        governance: { onSkillMiss: createAgileMissHook(runtime) },
+        ...(governance ? { governance } : {}),
         // 全局条的出厂种子归 config.json；随屏变的那批必须走动态下发
         dynamicQuickPrompts: [...screenQuickPrompts(currentScreen), ...userPrompts],
         generativeUi: true,
         // 脚本取数通道（模块级稳定引用）
         fetchData: fetchAgileData
       },
-    [runtime, currentScreen, userPrompts]
+    [runtime, governance, currentScreen, userPrompts]
   );
 
   const openSettings = useCallback((section?: SettingsSectionId) => navigate.toSettings(section), [navigate]);
