@@ -122,6 +122,9 @@ A user installs a reviewed skill archive, inspects validation and integrity info
 - Standardize Node.js-only host APIs as web platform APIs.
 - Standardize the SDK's complete Chatbot, Console, UI component, sub-agent, evaluation, and governance products in the initial proposal.
 - Require every implementation to support the optional MCP binding for page-scoped skills.
+- Define agent identity, delegation, authentication, or authorization mechanisms. Run and session data exist for observability; identity and authorization can build on existing mechanisms.
+- Define performance or outcome measurement APIs, or DOM event attribution. Traces and artifacts are observability data, not a measurement standard.
+- Specify hand-offs and state migration between agentic interaction modes, such as headless and visible sessions or remote and local execution.
 
 ## 6. User Research and Implementation Evidence
 
@@ -144,6 +147,7 @@ The reference implementation also exposes areas where a standard needs sharper b
 - **Artifact**: a file or other durable output associated with a run.
 - **Interaction**: a form, confirmation, selection, file choice, or authorization request presented to a user.
 - **Page-scoped temporary skill**: a skill projected through a live page endpoint and removed when that endpoint disappears.
+- **Source**: the origin of a skill or tool — the declaring endpoint, page, or channel. Source metadata lets catalog entries and runs be attributed to the capability provider rather than only to the page being acted on.
 
 ### 7.2 Three Layers
 
@@ -153,7 +157,7 @@ This explainer distinguishes:
 2. The proposed browser API, script contract, and runtime semantics.
 3. SDK-specific hosts, user interfaces, governance features, and integrations.
 
-Only the second layer is the direct subject of this API proposal. The first is an external dependency, and the third provides implementation evidence and possible future work.
+Only the second layer is the direct subject of this API proposal. The first is an external dependency, and the third provides implementation evidence and possible future work. Reusing the Agent Skills format is deliberate: this proposal does not redefine or compete with that format; it specifies how a browser exposes and executes skills written in it.
 
 ### 7.3 Initial Core API Scope
 
@@ -213,6 +217,8 @@ Validation covers items such as missing or malformed `SKILL.md`, invalid names, 
 ### 8.5 Running Skills
 
 `run()` starts an agent loop. The runtime routes the user task, activates relevant skills, exposes the appropriate tools, and iterates with a model until completion or a defined terminal condition.
+
+`run()` orchestrates skills, tools, and interactions; it is not a model interface. The model is a replaceable dependency supplied by the host, and an unavailable model is reported as a normal capability failure (see §8.1), not as an error in the skill itself.
 
 Tool failures become structured results that can be fed back to the model for correction. Timeouts, excessive turns, cancellation, unavailable capabilities, and authorization denial remain distinguishable from model output.
 
@@ -275,6 +281,8 @@ A page can act as an MCP server and project a temporary skill through three MCP 
 - references and assets as MCP resources.
 
 The runtime acts as an MCP client, merges the temporary entries into its catalog with source information, reads the prompt and resources on demand, and calls the tools through the endpoint. Unregistering the endpoint removes the skills; they are not added to persistent skill storage.
+
+Page-scoped temporary skills are a distinct source of skills rather than merely a transport option. A page's skills enter the catalog when the page mounts and leave it when the page unmounts, they require no installation, and they coexist with installed skills without ever entering persistent skill storage. Their source metadata identifies the declaring page and channel, so capabilities can be attributed to the provider that declared them.
 
 MCP does not itself define a “page-scoped skill.” This mapping is a WebSkill application-layer profile. Likewise, the SDK's `MessageChannelTransport` is a web-oriented transport adapter, not a transport required by this proposal or by MCP. The entire binding is optional.
 
@@ -493,6 +501,8 @@ The context exposes narrow capabilities such as `readReference`, `readAsset`, `w
 
 The SDK has isolation-grade and weaker capability-tier executors. A standard must make the chosen boundary auditable and must not describe every Worker-based executor as an equivalent security boundary.
 
+Standardization should specify required behavior and auditable boundaries rather than mandate a single sandbox implementation. Network blocking implemented by a host runtime — for example, the SDK or the polyfill — is policy enforcement in userland, not a platform security boundary; the guarantees of the platform itself are for implementations and security review to determine.
+
 ### 10.6 Installation and Supply-Chain Semantics
 
 Installers need defenses against path traversal, absolute paths, decompression bombs, oversized files, and unsupported content. Manifests can record per-file hashes and a package digest. Signatures, trusted keys, unsigned-skill policy, activation-time verification, quarantine, and rollback provide additional supply-chain controls.
@@ -586,6 +596,8 @@ Page-scoped skills add requirements for origin validation, endpoint registration
 
 Deterministic behavior is suitable for specification and web-platform tests: package parsing, catalog construction, validation, script export handling, schema mapping, result normalization, manifests, lifecycle transitions, permissions, and errors. Mock models can make end-to-end run behavior deterministic.
 
+Testing agent-initiated behavior also benefits from automation hooks aligned with existing browser automation facilities, so that catalog construction, validation, script contracts, and run lifecycle transitions can be verified across implementations.
+
 Natural-language quality, model reasoning, and skill-selection quality are not realistic cross-browser invariants. Conformance tests should not require identical generated prose or identical model choices.
 
 The SDK provides a reference implementation, API snapshots, unit and integration tests, and browser E2E coverage. Separate tests exercise local scripts without MCP and hybrid paths with MCP/WebMCP. These tests can inform future WPT, but they are not themselves evidence of independent browser implementations.
@@ -617,6 +629,8 @@ Related work, including WebMCP discussions about higher-level skills, is relevan
 12. Should page-scoped skill mapping remain an SDK binding, or become a formal MCP profile?
 13. Should page actuation, generative UI, governance, and sub-agent delegation be separate later proposals?
 14. Should the API be exposed in Workers and cross-origin iframes, and under which Permissions Policy rules?
+15. What should a page-scoped skill profile over MCP define in detail: skill identity, prompt naming, resource URI conventions, tool ownership, endpoint lifecycle, source metadata, and result mapping?
+16. How should a WebSkill runtime consume existing identity, delegation, and measurement mechanisms as a client, rather than redefining them?
 
 ## 17. References & Acknowledgements
 
