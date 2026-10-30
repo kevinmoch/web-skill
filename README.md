@@ -1,6 +1,6 @@
 # WebSkill - The Agentic Web's Evolution into SaaS (Skill as a Service)
 
-Draft Proposal, July 2026
+Draft Proposal, 2026 (updated October 2026)
 
 **Editors:** Chunhui Mo (Huawei)
 
@@ -8,7 +8,7 @@ Draft Proposal, July 2026
 
 This article is based on the presentation script for **"WebSkill - The Agentic Web's Evolution into SaaS"** Here, SaaS does not refer to the familiar Software as a Service, but rather **Skill as a Service**.
 
-This article breaks down WebSkill into three main parts: First, we'll clarify what WebSkill actually is and the value it delivers. Next, we'll dive into how its foundational capabilities and core features operate. Finally, we'll share some proposals for pushing it toward Web standardization.
+The article has four parts: what WebSkill is and the value it delivers, how its foundational capabilities work, where the standardization effort stands, and what already runs in production-like use today.
 
 ---
 
@@ -28,9 +28,9 @@ Where are Agent Skills used? Anywhere that requires professional standards, busi
 - **Business & Documentation:** This is a highly common scenario. When drafting a document with a corresponding Skill, the AI will strictly apply your company's fixed templates, brand colors, and typography guidelines instead of generating poorly formatted text every time. You can also have it perform variance analysis for financial audits or generate reports in multiple formats (Word, PDF, PPT) with a single click.
 - **Security & Compliance:** We can convert compliance checks, penetration testing rules, and vulnerability scanning workflows into Skills, enabling the AI to execute them in an automated and standardized manner.
 
-Why are Agent Skills so crucial? Because traditional AI faces three major pain points that Agent Skills perfectly resolve:
+Why are Agent Skills so crucial? Because traditional AI faces three major pain points that Agent Skills directly address:
 
-1.  **Solving Context Bloat:** In the past, to make AI understand your business, you had to cram dozens of pages of background information into the prompt. This not only causes context overload and skyrocketing API costs but also leads to AI hallucinations and the forgetting of key information. With Agent Skills, the AI only reads specific skill packages when needed, significantly reducing the context burden.
+1.  **Mitigating Context Bloat:** In the past, to make AI understand your business, you had to cram dozens of pages of background information into the prompt. This not only causes context overload and skyrocketing API costs but also leads to AI hallucinations and the forgetting of key information. With Agent Skills, the AI only reads specific skill packages when needed, significantly reducing the context burden.
 2.  **Bridging the Domain Expertise Gap:** No matter how smart a general model is, it doesn't intuitively know your company's pricing strategies or approval workflows. Agent Skills solidify human expert knowledge, turning a general model into a specialized one.
 3.  **Eliminating Repetitive Prompting:** Without Agent Skills, you have to copy and paste the same prompts every time you want the AI to perform a task. With them, prompts are created once and reused infinitely, truly achieving workflow automation, standardization, and behavioral consistency.
 
@@ -45,11 +45,11 @@ Simply put, WebSkill is a **frontend-native skill running directly in the browse
 **1. Browser-Based Self-Contained Loop**
 Traditional Skills are usually deployed on Node.js or cloud servers. WebSkill breaks this rule by completing the entire workflow directly in the browser. This means we eliminate the massive data transmission overhead between the frontend and backend. Furthermore, through a lightweight directory (containing instructions, scripts, and templates), it directly grants Agent expert capabilities on the frontend. Tasks like filling out complex forms, running multi-step workflows, or performing enterprise data analysis can all be completed locally on the user's machine.
 
-**2. Absolute Privacy and Isolation**
-This is extremely important for enterprises. WebSkill files are stored in the browser's OPFS (Origin Private File System). Unlike LocalStorage, OPFS has nearly unlimited capacity (generally limited only by the user's local storage space) and enforces stricter same-origin policy isolation. Moreover, WebSkill scripts run in a Web Worker security sandbox, completely isolated from the browser's main thread. Therefore, WebSkill scripts cannot overstep permissions to access global variables of the main Web application. Consequently, users' sensitive data, login credentials, and corporate trade secrets remain locally stored from start to finish (assuming an on-device model is used), inherently eliminating the risk of cloud data abuse or interception.
+**2. User Privacy Protected by Design**
+WebSkill files are stored in the browser's OPFS (Origin Private File System), which is private to each origin. Scripts execute in isolated Web Workers or opaque-origin iframes, with isolation strength that must be auditable rather than assumed. Network access is governed by an explicit policy (deny-all by default, with allow-all and whitelist options). When a host pairs an on-device model with a denied network policy, data can stay on the user's machine; when a hosted model is used, the relevant content goes to that provider, as it would anywhere else. Local processing is a supported configuration, not an unconditional guarantee of "zero outward data transmission".
 
 **3. Dynamic Evolution and User-Level Personalized Assets**
-Traditional backend skills are rigid and shared uniformly across all users. WebSkill, however, is a living entity. It is your personal, private asset stored locally, growing and evolving based on your usage habits. If the current skill cannot complete your task, the on-device model can proactively analyze your needs, record your operation steps, and—with your consent—automatically write a new SKILL file to your local storage. As a result, Web applications adopting WebSkill technology become increasingly attuned to you over time. This is the true experience accumulation we want from AI Agents.
+Traditional backend skills are rigid and shared uniformly across all users. WebSkill skills are personal assets stored in the user's own browser. You can teach the agent a task in an ordinary multi-turn conversation, ask it to save the flow as a skill, and it drafts the skill document for you. The draft goes to a review queue and only becomes usable after you approve and publish it. From then on, a quick prompt reruns the skill — including in another project. Skills can be edited in natural language or in an editor with validation on save, rolled back to any of the last five versions, and exported for sharing. As a result, Web applications adopting WebSkill technology become increasingly attuned to you over time.
 
 ---
 
@@ -77,24 +77,24 @@ In this architecture, WebSkill first solves the challenge of the model not knowi
 Here is a comparison between traditional backend Skills and WebSkill:
 
 - **Runtime Environment:** Traditional Skills run on Node.js or cloud servers; WebSkill runs in the browser's Web Worker and leverages OPFS for storage.
-- **Execution Carrier:** Traditional Skills rely on container sandboxes; WebSkill utilizes the frontend Worker's native security sandbox.
-- **Data Flow:** The traditional approach sends browser data over the internet to the backend, which then passes it to the LLM. WebSkill operates in a closed loop entirely within the browser, with zero outward data transmission, making it both faster and more secure.
+- **Execution Carrier:** Traditional Skills rely on container sandboxes; WebSkill uses isolated Web Workers or opaque-origin iframes, with isolation strength that must be auditable rather than assumed equivalent to a full security boundary.
+- **Data Flow:** The traditional approach sends browser data over the internet to the backend, which then passes it to the LLM. With an on-device model and a denied network policy, WebSkill can keep processing entirely within the browser; with a hosted model, the relevant content goes to that provider, as it would anywhere else.
 - **State Management:** Traditional Skills decouple the frontend and backend, requiring extensive code to synchronize state. WebSkill operates directly on the frontend, allowing it to manipulate the DOM and instantly access current session states.
 - **Deployment:** Traditional Skills must be deployed on servers and require dedicated maintenance. WebSkill is distributed alongside the Web application—open the webpage and it's ready to use.
-- **Evolutionary Capability:** When a server version of a traditional Skill is updated, it changes for everyone, making it very rigid. WebSkill is an asset on the user's local device; each person's skills can be distinct, enabling genuine, independent, and personalized evolution.
+- **Evolutionary Capability:** When a server version of a traditional Skill is updated, it changes for everyone, making it very rigid. WebSkill is an asset on the user's local device; each person's skills can be distinct, enabling genuine, independent, and personalized evolution — always with human review before a skill goes live.
 
 ---
 
-### [Slide 1.5: WebSkill's Unique Feature: A Privacy-First, Sandboxed Agent Loop]
+### [Slide 1.5: WebSkill's Security Model: Isolation, Policy, and Human Consent]
 
 ![](public/images/en/5.png)
 
-Within the browser, we rely on two main security and privacy infrastructures: OPFS and Workers:
+Within the browser, WebSkill relies on several security and privacy mechanisms, and it is careful not to overstate any single one of them:
 
-- **OPFS (Origin Private File System)** acts like a private safe within the browser. Skill files stored here are strictly protected by the same-origin policy, rendering them untouchable by other websites and inherently guarding against malicious remote control from the cloud.
-- **Preventing Intent Collision:** What is intent collision? When an AI reads a malicious operational description in a `Skill.md` file, it might be misled into performing destructive actions, such as reading, modifying, or deleting local files. OPFS establishes a security boundary at the code level, stripping away sensitive access rights like local `file://` protocols and blocking all unauthorized network requests.
-- **Worker Security Sandbox:** WebSkill's scripts can only run within this independent thread. They cannot overstep their bounds to directly access the DOM in the main Web thread or retrieve global variables on the page.
-- **Human-in-the-Loop:** For any operation involving sensitive DOM manipulations or file read/writes, the system is mandated to trigger a native UI authorization popup—meaning human consent via a click is required. Humans remain in the loop at all times to appropriately limit the Agent's autonomy.
+- **OPFS (Origin Private File System)** acts like a private safe within the browser. Skill files stored here are protected by the same-origin policy, so other websites cannot touch them. Note that OPFS is origin-private _storage_, not automatic confidentiality from other scripts in the same origin, a malicious installed skill, or a remote service you authorized.
+- **Network policy:** OPFS itself does not block network requests — a Worker can call `fetch`. WebSkill's runtime enforces a network policy (`deny-all` by default, with `allow-all` and whitelist options) by replacing `fetch`, `XMLHttpRequest`, `WebSocket`, and `EventSource` inside the sandboxed Worker. This is policy enforcement in userland, not a platform security boundary, and it should be evaluated as such.
+- **Worker and iframe isolation:** WebSkill's scripts can only run within an isolated thread or an opaque-origin iframe. They cannot directly access the DOM in the main Web thread or retrieve global variables on the page. Isolation strength must be auditable; no one should claim every Worker is an equivalent security boundary.
+- **Human-in-the-loop:** For operations involving sensitive DOM manipulations or file reads and writes, the system requires an authorization confirmation — a human clicks to approve. Humans remain in the loop at all times to appropriately limit the Agent's autonomy.
 
 ---
 
@@ -102,10 +102,10 @@ Within the browser, we rely on two main security and privacy infrastructures: OP
 
 ![](public/images/en/6.png)
 
-WebSkill is implemented strictly in accordance with the standard Agent Skills protocol using TypeScript. The directory structure is as follows:
+WebSkill reuses the open Agent Skills format rather than redefining it. The directory structure is as follows:
 
 - First is the **`SKILL.md`** file in the root directory. This is the core of the entire skill, containing YAML-formatted metadata (telling the LLM who it is) and Markdown-formatted instructions (telling the LLM what to do).
-- Next is the **`scripts/`** directory. This houses the actual executable script code. Since we are in a Web environment, it only supports `.ts` and `.js` scripts.
+- Next is the **`scripts/`** directory. This houses the actual executable script code. JavaScript is the interoperability baseline; TypeScript can be supported through host-provided transpilation.
 - Then comes the **`references/`** directory, which stores the resources required during execution. Examples include `report-template.html` (an HTML report template) or `dashboard.json` (configuration data for an analytics dashboard).
 - Finally, there is the **`assets/`** directory. This holds static resources like `logo.png` icons, as well as intermediate outputs generated by the Agent during execution (placed in `intermediate/`).
 
@@ -141,72 +141,9 @@ To alleviate the burden on developers, we support providing the `inputSchema` in
 - **Method 2: TypeScript Type Inference.** By simply writing a standard TypeScript `interface`, the system automatically infers the Schema.
 - **Method 3: JSDoc Annotation Inference.** By adding JSDoc comments above the function to describe the parameter types, standard JavaScript files can also have their Schema inferred.
 
-After the script finishes executing, the return value must strictly adhere to the **MCP standard format** (including a `content` array, etc.). This ensures output format consistency with other MCP tool calls and makes it easier to encapsulate unified operations later, such as saving output results to the assets directory.
+After the script finishes executing, it returns an MCP-compatible `content` array, or a value that the runtime normalizes into one. The runtime then wraps that content in a structured `ToolResult` with a success flag, structured error information, and artifact metadata. This outer result is related to, but not identical to, MCP's complete `CallToolResult` and wire protocol. This ensures output format consistency with other tool calls and makes it easier to encapsulate unified operations later, such as saving output results to the assets directory.
 
-The MCP tools mentioned here come in two types: one uses the standard MCP TypeScript SDK, and the other uses Google's experimental Chrome MCP API, `navigator.modelContext`. We differentiate them using `endpoint:toolName` and `mcp#toolName`, respectively. Here are the code examples:
-
-```ts
-import { McpServer } from '@modelcontextprotocol/server';
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { MessageChannelServerTransport, MessageChannelClientTransport } from './channel.ts';
-import * as z from 'zod/v4';
-
-const server = new McpServer({ name: 'greeting-server', version: '1.0.0' });
-
-server.registerTool({
-  'greet',
-  {
-    description: 'Greet someone by name',
-    inputSchema: z.object({ name: z.string() }),
-    async ({ name }) => {
-    content: [{ type: 'text', text: `Hello, ${name}!` }],
-    },
-  },
-});
-
-const serverTransport = new MessageChannelServerTransport('endpoint');
-const clientTransport = new MessageChannelClientTransport('endpoint');
-const client = new Client({ name: 'greeting-client', version: '1.0.0' });
-
-await serverTransport.listen();
-await server.connect(serverTransport);
-await client.connect(clientTransport);
-
-const result = await client.listTools();
-const response = await client.callTool({ name: 'greet', arguments: { name: 'Jack' } });
-```
-
-The above shows the MCP Server and Client defined by the standard MCP TypeScript SDK. In the `Skill.md` document, `endpoint:toolName` is used to declare calling this tool. Below is the experimental Chrome MCP API, where `navigator.modelContext` acts as the MCP Server, and `navigator.modelContextTesting` acts as the MCP Client. In the `Skill.md` document, `mcp#toolName` is used:
-
-```ts
-const controller = new AbortController();
-
-navigator.modelContext.registerTool({
-  name: 'fetch_page_summary',
-  description: 'Fetches the title and a partial body summary of the current page for content analysis.',
-  inputSchema: {
-    type: 'object',
-    properties: {
-      maxLength: { type: 'integer', description: 'Maximum number of characters for the returned summary', default: 100 }
-    }
-  },
-  execute: async ({ maxLength }) => {
-    const title = document.title;
-    const bodyText = document.body.innerHTML.slice(0, maxLength);
-
-    return {
-      content: [{ type: 'text', text: `Title: ${title}\nSummary: ${bodyText}` }]
-    };
-  }
-});
-
-const availableTools = await navigator.modelContextTesting.listTools();
-console.log('Registered WebMCP tools on the current page:', availableTools);
-
-const targetTool = 'fetch_page_summary';
-const toolArguments = JSON.stringify({ maxLength: 150 });
-const response = await navigator.modelContextTesting.executeTool(targetTool, toolArguments);
-```
+The MCP tools mentioned here come in two types: one uses the standard MCP TypeScript SDK, and the other uses the browser's evolving WebMCP API. We differentiate them using `endpoint:toolName` and `mcp#toolName`, respectively. For current API shapes and examples, see the documentation at https://webskill.ai .
 
 ---
 
@@ -221,6 +158,12 @@ How do we implement page-level dynamic skills? We utilize the standard MCP proto
 - First, we make the **Web page main thread** act as the **MCP Server**. Using the standard MCP TypeScript SDK in the Web page, we register the contents of the `SKILL.md` instructions via the `registerPrompt` method, the skill's scripts via `registerTool`, and various page resources (mapping to the skill's references/assets directory) via `registerResource`.
 - Next, we build a **MessageChannel Transport** via the standard MCP transmission protocol to facilitate communication between the Web page main thread and the Worker sub-thread.
 - In the **Worker sub-thread**, we also use the standard MCP TypeScript SDK to create an **MCP Client**. It discovers the skills declared by the main thread using methods like `client.listTools` and executes them using `client.callTool`.
+
+A few things to be precise about:
+
+- Page-scoped skills are a **distinct source of skills**, not just a transport option. They enter the catalog when the page mounts and leave it when the page unmounts, they require **no installation**, and they coexist with installed skills without ever entering persistent skill storage.
+- Their **source metadata** identifies the declaring page and channel, so capabilities can be attributed to the provider that declared them.
+- MCP itself does not define a "page-scoped skill". This mapping is a **WebSkill application-layer profile** and is optional. A formal profile would need to define skill identity, prompt naming, resource URI conventions, tool ownership, endpoint lifecycle, source metadata, and result mapping.
 
 When the user closes the Web page, these dynamic skills vanish instantly along with the page's destruction. We are effectively inventing a method to make Web applications intelligent page by page. The potential here is massive, and it's easy to envision practical applications for both B2B and B2C scenarios.
 
@@ -252,7 +195,7 @@ The APIs for this webskill property fall into three major categories:
 2.  **MinimalRuntime:** Provides a minimalistic `run(prompt)` method that accepts natural language directly from the user and returns a `RuntimeRun` object to track execution status.
 3.  **SkillManager:** Provides `install` (install new skills) and `uninstall` (remove skills) capabilities.
 
-Simultaneously, we defined data structure dictionaries such as `SkillCatalog`, `SkillDocument`, and `SkillMetadata`. If a `SKILL.md` is incorrectly formatted or missing files, the `ValidationReport` clearly identifies the issues.
+Simultaneously, we defined data structure dictionaries such as `SkillCatalog`, `SkillDocument`, and `SkillMetadata`. If a `SKILL.md` is incorrectly formatted or missing files, the `ValidationReport` clearly identifies the issues. This IDL is a **draft**, not a W3C standard, and no browser-engine positions have been recorded yet.
 
 ---
 
@@ -331,10 +274,44 @@ A single command pulls the skill package, verifies its integrity, and stores it 
 
 ---
 
+### [Part 4: From proposal to working runtime]
+
+The pieces above are not only a proposal. The runtime is implemented in TypeScript and used in production-like settings, and the public site hosts a live demo, documentation, and the polyfill.
+
+**Packages.** `@webskill/sdk` implements the runtime: parsing, catalog, routing, local script execution, installation, runs, and artifacts. `@webskill/polyfill` installs the same six-method facade on `navigator.webskill` where the browser does not provide it natively — a compatibility layer, not a second runtime. `@webskill/chatbot` provides the assistant UI and `@webskill/console` the administration console. The Demo's source on GitHub shows how these packages assemble the whole runtime.
+
+**A complete skill lifecycle, not just a saved prompt.** In the Demo or the browser extension, you can walk the agent through a task in a normal multi-turn conversation, then ask it to save the flow as a skill. The agent drafts the skill and shows the full preview before anything is stored; the candidate then waits in a review queue and becomes usable only after a human approves and publishes it. A quick prompt created for that skill reruns it immediately — including after switching to another project. Skills can be edited in natural language or in the editor (with validation on save), rolled back to any of the last five versions, and shared through import/export.
+
+**A console that proves the runtime is complete.** The Console covers the skill library and editor, run history and traces, the review queue, versions and rollback, connections to MCP endpoints and page skills, and six settings areas: Agent Runtime, Sandbox & Security, Generative UI, Quick Prompts, Trust & Signing, and Privacy & User Modeling. The Page Skills page lists the temporary skills each screen declares, with source and channel badges — which is why the assistant's quick prompts change as you switch screens.
+
+**Two forms.** The web Demo at https://webskill.ai/demo embeds the assistant inside Agile Studio, a sample project-management app. The browser extension puts the same assistant in the browser sidebar, with the Console on the extension's options page. Each side keeps its own skill library and review records, and both use the same lifecycle.
+
+**How to try it.**
+
+- Open the Demo at https://webskill.ai and run a quick prompt, then open the run trace in the Console. Note that script-backed skills need a tool-capable model; the experimental built-in browser model cannot call tools.
+- Install the polyfill: `npm install @webskill/polyfill @webskill/sdk`. The SDK is a peer dependency (npm installs peers automatically; pnpm does not by default). Then use the native-first pattern:
+
+  ```js
+  import { createLlmClient, installWebSkillPolyfill } from '@webskill/polyfill';
+
+  const llm = createLlmClient(config);
+  const ws = navigator.webskill ?? installWebSkillPolyfill({ roots: ['/skills'], llm });
+  ```
+
+- Walk through `examples/quickstart-polyfill` in the SDK repository for a complete local-script example. Requirements: a secure context (HTTPS or localhost), OPFS, Web Workers with ES modules, and a host-supplied `LlmClient`.
+
+---
+
 ### [Conclusion & Outlook]
 
-Currently, the WebSkill concept is still in its infancy, but its technical value is undeniably clear. First, it completely resolves the context bloat dilemma of large models. Second, it achieves a truly isolated and secure privacy loop via OPFS and Worker sandboxes. Finally, it transforms Agent capabilities into a lightweight, dynamically distributable, and highly personalized SaaS (Skill as a Service). We believe the future of Web AI isn't just about Agents manipulating Web pages; it's about the browser itself becoming an intelligent runtime environment equipped with various Agent skills.
+WebSkill is still a draft proposal, but its technical value is already concrete. Progressive disclosure keeps the model's context small even as skills and tools grow. Local processing is a supported, configurable option — not an absolute privacy promise. And skills become personal, evolving assets: taught once, reviewed once, and reused anywhere, which is what we mean by Skill as a Service. We believe the future of Web AI isn't just about Agents manipulating Web pages; it's about the browser itself becoming an intelligent runtime environment equipped with various Agent skills.
 
-We have built a website for WebSkill at https://webskill.ai . To give everyone a more intuitive feel, the site features a Live Demo (https://webskill.ai/demo). Although this Demo is purely static and doesn't involve real AI execution, it perfectly illustrates the concepts and features of WebSkill. We look forward to your feedback. Thank you!
+Next, we plan to open the work in phases: first the polyfill, then `@webskill/sdk`, then `@webskill/chatbot` and `@webskill/console`. The SDK is at 0.x and the API is a draft, so expect change and tell us where it hurts.
 
-![](public/images/en/12.gif)
+Resources:
+
+- Site, docs & live demo: https://webskill.ai and https://webskill.ai/demo
+- Explainer (incl. draft Web IDL): https://github.com/kevinmoch/web-skill/blob/main/EXPLAINER.md
+- Polyfill guide: https://webskill.ai (Polyfill page)
+- TPAC 2026 SEED session slides: https://www.w3.org/2026/Talks/TPAC/capadisli-selvaraj-mo-seed/webskill-chunhui-mo.pdf
+- Feedback: https://github.com/kevinmoch/web-skill/issues

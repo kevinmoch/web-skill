@@ -19,12 +19,12 @@
     "title2": "Running in the Browser",
     "titleLine1": "Browser-Native",
     "titleAccent": "Agent Skills",
-    "description": "WebSkill turns the browser into a smart Agent execution environment. It completely solves the LLM context bloating issue, ensures absolute privacy through OPFS and Worker sandboxes, and transforms Agent capabilities into lightweight, dynamically distributed SaaS.",
+    "description": "WebSkill turns the browser into a smart Agent execution environment. Progressive disclosure keeps the model's context small as skills and tools grow, and a configurable, auditable security model supports local processing when you choose it — turning Agent capabilities into lightweight, dynamically distributed SaaS.",
     "tags": ["Draft Proposal", "Frontend-Native"]
   },
   "home": {
     "demoTitle": "Live Demo Presentation",
-    "demoDesc": "WebSkill Concept & Feature Demonstration",
+    "demoDesc": "A live demo with real runs: configure a model, watch the assistant call skills and tools, and inspect runs, skills, and settings in the Console.",
     "agentSkillTitle": "What is Agent Skill?",
     "agentSkillDesc": "An Agent Skill is a modular, reusable, standardized capability unit. It provides domain-specific knowledge and strict execution workflows to the Large Language Model.",
     "agentSkillScenariosTitle": "Use Cases",
@@ -66,12 +66,12 @@
         "desc": "Completes the workflow directly in the browser, eliminating large data transmission overhead to the backend."
       },
       {
-        "title": "Absolute Privacy Isolation",
-        "desc": "Stores files in OPFS and runs scripts in Web Worker sandboxes, ensuring local data never leaves the device."
+        "title": "Privacy by Design",
+        "desc": "Stores skills in origin-private OPFS and runs scripts in isolated workers or iframes with auditable isolation. An on-device model plus a deny-all network policy keeps data local; local processing is a choice, not a guarantee."
       },
       {
         "title": "Dynamic Personal Assets",
-        "desc": "Evolves based on user habits, creating new SKILL files locally to personalize the AI experience."
+        "desc": "Teach the agent in chat, review and publish generated skills, then reuse them with quick prompts. Skills live in your browser's OPFS and evolve with use — editable, versioned, and shareable."
       }
     ],
     "trinityTitle": "Trinity Web AI Architecture",
@@ -92,12 +92,12 @@
       {
         "feature": "Execution Container",
         "backend": "Server/Container Sandbox",
-        "webskill": "Frontend Worker Security Sandbox"
+        "webskill": "Isolated Worker / opaque-origin iframe sandbox (auditable, not a blanket security boundary)"
       },
       {
         "feature": "Data Flow",
         "backend": "Internet -> Backend -> LLM",
-        "webskill": "Closed loop in browser, zero data egress"
+        "webskill": "On-device model + denied network: processing stays in the browser; hosted models send content to the provider"
       },
       {
         "feature": "State Management",
@@ -160,7 +160,7 @@
   },
   "architecture": {
     "opfsTitle": "2.1 OPFS-based Lightweight Skill Container",
-    "opfsDesc": "We propose packaging Agent tools into 'Skills' (folders containing SKILL.md, index.js, package.json). We download these skills from the cloud and store them in the browser's OPFS (Origin Private File System). They run in isolated Web Workers, ensuring absolute security and privacy.",
+    "opfsDesc": "We package Agent tools as 'Skills' (a directory with SKILL.md plus optional scripts/, references/, and assets/). Skills are stored in the browser's OPFS (Origin Private File System) and run in isolated Web Workers or opaque-origin iframes, with auditable isolation and an explicit network policy.",
     "routingTitle": "2.2 Multi-layer Routing Architecture",
     "routingDesc": "Instead of giving all skills to the LLM at once, we use a lightweight routing agent. When a user sends a prompt, the router searches the OPFS catalog and only loads the relevant SKILL.md into the context.",
     "progressiveTitle": "2.3 Progressive Skill Disclosure",
@@ -177,7 +177,7 @@
     "exampleDesc": "Using WebSkill in a web app will be as simple as a few lines of JavaScript.",
     "runPrompt": "Calculate 2+3 using calculator",
     "sec31Title": "Web IDL Base Definitions",
-    "sec31Desc": "Adding `navigator.webskill` to Navigator. It is partitioned into SkillDiscovery, MinimalRuntime, and SkillManager, establishing clear contracts for directory and metadata structures.",
+    "sec31Desc": "Adding `navigator.webskill` to Navigator. It is partitioned into SkillDiscovery, MinimalRuntime, and SkillManager, establishing clear contracts for directory and metadata structures. This IDL is a draft, not a W3C standard; no browser-engine positions have been recorded, and the SDK is at 0.x.",
     "sec32Title": "Validation & Runtime Returns",
     "sec32Desc": "To enforce strict schema validation inside sandboxes and power tracing across the execution lifecycle, the draft specifies interfaces like `ValidationReport`, `RuntimeRun`, `Artifact`, and `TraceEvent`.",
     "sec33Title": "Installation Returns & Examples",
@@ -195,7 +195,7 @@
   },
   "implement": {
     "s1Title": "Following the standard Agent Skills protocol",
-    "s1Desc": "WebSkill is implemented strictly according to the standard Agent Skills protocol. The directory contains SKILL.md for metadata and instructions, scripts/ for executable code, references/ for required resources, and assets/ for static resources and intermediate outputs.",
+    "s1Desc": "WebSkill reuses the open Agent Skills format rather than redefining it. The directory contains SKILL.md for metadata and instructions, scripts/ for executable code, references/ for required resources, and assets/ for static resources and intermediate outputs.",
     "s1DirRoot": "webskill-package/",
     "s1DirSkill": "SKILL.md",
     "s1DirSkillDesc": "Metadata (YAML) & Instructions (Markdown)",
@@ -214,15 +214,15 @@
     "s2L3": "Bottom Layer (Resource Layer):",
     "s2L3Desc": "Loads scripts and assets only during execution",
     "s3Title": "Execution Units: scripts/ Files",
-    "s3Desc": "Script files must be .ts/.js, export a 'run' function, and provide an 'inputSchema' (via explicit JSON Schema, TS type inference, or JSDoc). The return value strictly adheres to the MCP standard format.",
+    "s3Desc": "Script files must be .ts/.js, export a 'run' function, and provide an 'inputSchema' (via explicit JSON Schema, TS type inference, or JSDoc). The return value is an MCP-compatible content array, or a value the runtime normalizes into one, wrapped in a structured ToolResult (related to, but not identical to, MCP's full CallToolResult).",
     "s3Req1": "Standard Web Types",
-    "s3Req1Desc": "Only .ts and .js files are allowed",
+    "s3Req1Desc": "JavaScript is the interoperability baseline; TypeScript via host transpilation",
     "s3Req2": "Export run()",
     "s3Req2Desc": "Must export an execution function named 'run'",
     "s3Req3": "inputSchema",
     "s3Req3Desc": "Required for LLM parameter generation",
     "s4Title": "Page-Level Dynamic Skills via MCP",
-    "s4Desc": "For context control, page-level skills are dynamically exposed. The Web page main thread acts as an MCP Server registering prompts and tools, communicating via MessageChannel to a Worker sub-thread acting as an MCP Client. Skills expire when the page is closed.",
+    "s4Desc": "Page-scoped skills are a distinct source of skills: the page main thread acts as an MCP Server registering prompts, tools, and resources, communicating via MessageChannel to a Worker sub-thread acting as an MCP Client. Skills enter the catalog when the page mounts and leave it when the page unmounts — no installation, and they coexist with installed skills. This mapping is an optional application-layer profile, not a native MCP concept.",
     "s4Main": "Web Page Main Thread (MCP Server)",
     "s4MainDesc": "Registers Prompts, Tools, and Resources",
     "s4Channel": "MessageChannel Transport",
@@ -255,7 +255,7 @@
     "s3Method3Title": "JSDoc-Based Extraction",
     "s3Method3Desc": "Use standard JSDoc comments to document parameter types, allowing JavaScript scripts to also output typed schemas.",
     "s3Ret1": "MCP Output Specification: Execution results must strictly follow the standard MCP response data return format (containing the content array). This ensures pipeline-style composability and fits seamlessly into post-execution lifecycles.",
-    "s3Ret2": "Hybrid MCP tools support: WebSkill supports dual-nature MCP runtimes: custom TypeScript-based servers mapped as 'endpoint:toolName', and experimental built-in browser APIs exposed as 'mcp#toolName'.",
+    "s3Ret2": "Hybrid tool sources: tools served through the standard MCP TypeScript SDK (endpoint:toolName), and tools registered through the browser's evolving WebMCP API (mcp#toolName).",
     "s4Exp1": "Dynamic Page-Level Skill Declaration: Persistent skills stored in OPFS are powerful, but as their numbers grow, even progressive disclosure can saturate the LLM's context. Page-Level Dynamic Skills offer the ultimate remedy. For instance, when a user lands on a product detail page, the AI instantly gains a transient skill to query that specific inventory. Once the page is closed, the skill evaporates automatically, keeping the context lightweight and perfectly scoped.",
     "s4Exp2": "An elegant orchestration powered by standard MCP protocols:",
     "s4Exp3": "Main Thread (MCP Server): The Main Thread acts as an MCP Server. Using standard MCP SDKs, it registers dynamic prompts via registerPrompt, script actions via registerTool, and page states via registerResource.",

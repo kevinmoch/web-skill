@@ -19,12 +19,12 @@
     "title2": "基于 Web 的 Agent 技能",
     "titleLine1": "运行在浏览器的",
     "titleAccent": "Agent 技能",
-    "description": "WebSkill 让浏览器本身成为智能的 Agent 运行环境。它解决了大模型上下文臃肿的难题，通过 OPFS 和 Worker 沙箱实现完全隔离，敏感数据不出本地，并把 Agent 能力变成轻量级、可动态分发的 SaaS。",
+    "description": "WebSkill 让浏览器本身成为智能的 Agent 运行环境。它通过渐进式披露控制上下文占用，并提供可配置、可审计的安全模型，让本地处理成为一种可选能力，同时把 Agent 能力变成轻量级、可动态分发的 SaaS。",
     "tags": ["草案提案", "前端原生"]
   },
   "home": {
     "demoTitle": "在线演示",
-    "demoDesc": "WebSkill 概念与特性演示",
+    "demoDesc": "可真实运行的在线演示：配置模型后，助手会真实调用技能与工具，你可以在 Console 中查看运行回溯、技能库与各项设置。",
     "agentSkillTitle": "什么是 Agent 技能？",
     "agentSkillDesc": "Agent Skill 是一种模块化、可复用的标准化能力单元，由指令说明、任务脚本和资源依赖组成，为大型语言模型提供特定领域的专业知识与规范约束。",
     "agentSkillScenariosTitle": "典型使用场景",
@@ -66,12 +66,12 @@
         "desc": "消除了前后端之间的大量数据传输，一个轻量目录即可让 Agent 在前端直接获得专家能力。"
       },
       {
-        "title": "完全隔离的隐私保护",
-        "desc": "基于 OPFS 存储与 Web Worker 沙箱运行，脚本完全隔离，敏感数据与机密信息始终留在本地。"
+        "title": "用户隐私保护设计",
+        "desc": "技能存储在源私有的 OPFS 中，脚本在隔离的 Worker 或 iframe 中运行，隔离强度可审计。端侧模型配合拒绝联网的策略，数据可以留在本地；本地处理是一种选择，而不是保证。"
       },
       {
         "title": "个性化动态演进资产",
-        "desc": "技能作为私有资产保存在本地，可根据用户操作分析需求、生成新技能，越用越贴合用户。"
+        "desc": "在对话中教会 Agent，再由它生成技能草稿，经审核发布后通过快捷指令复用。技能保存在你自己浏览器的 OPFS 中，可编辑、可回滚，也可导出分享。"
       }
     ],
     "trinityTitle": "以 LLM 为中心的三位一体架构",
@@ -92,12 +92,12 @@
       {
         "feature": "执行载体",
         "backend": "依赖 Docker 等传统容器沙箱",
-        "webskill": "直接使用 Web Worker 自带的安全沙箱"
+        "webskill": "隔离的 Worker / opaque-origin iframe 沙箱（强度可审计，并非天然等价于完整安全边界）"
       },
       {
         "feature": "数据流向",
         "backend": "数据经互联网发往后端，再转发给 LLM",
-        "webskill": "全程在浏览器内闭环，数据不出本地，既快又安全"
+        "webskill": "使用端侧模型并拒绝联网时，处理全程留在浏览器内；使用托管模型时，相关内容会发送给服务商"
       },
       {
         "feature": "状态管理",
@@ -160,7 +160,7 @@
   },
   "architecture": {
     "opfsTitle": "2.1 基于 OPFS 的轻量级技能容器（技能即文件）",
-    "opfsDesc": "把 Agent 工具打包成“技能”（包含 SKILL.md、index.js、package.json），从云端下载后解压到浏览器的 OPFS（源私有文件系统）中，并在隔离的 Web Worker 沙箱里运行，实现可靠的安全与隐私保护。",
+    "opfsDesc": "我们把 Agent 工具打包成「技能」：一个包含 SKILL.md 以及可选 scripts/、references/、assets/ 的目录。技能存储在浏览器的 OPFS（源私有文件系统）中，并在隔离的 Web Worker 或 opaque-origin iframe 中运行，隔离强度可审计，网络访问由明确的策略控制。",
     "routingTitle": "2.2 多层路由架构：自然语言到技能沙箱的精准匹配",
     "routingDesc": "不能把所有技能一股脑塞给大模型。为此我们引入轻量级的路由 Agent：用户输入自然语言后，路由 Agent 在 OPFS 目录中检索匹配的技能，只把相关的 SKILL.md 注入上下文。",
     "progressiveTitle": "2.3 渐进式技能披露 (Progressive Skill Disclosure)",
@@ -177,7 +177,7 @@
     "exampleDesc": "在 Web 应用中使用 WebSkill，只需几行 JavaScript 就能完成技能的发现、校验与运行。",
     "runPrompt": "用 calculator 计算 2+3",
     "sec31Title": "WebSkill 的 Web IDL 基础定义",
-    "sec31Desc": "在浏览器 Navigator 上原生新增 `navigator.webskill` 属性，接口分为 SkillDiscovery（发现、读取、校验）、MinimalRuntime（运行）和 SkillManager（安装、卸载）三部分，并规范了 Skill 目录与元数据格式。",
+    "sec31Desc": "在浏览器 Navigator 上原生新增 `navigator.webskill` 属性，接口分为 SkillDiscovery（发现、读取、校验）、MinimalRuntime（运行）和 SkillManager（安装、卸载）三部分，并规范了 Skill 目录与元数据格式。这份 IDL 目前仍是草案，不是 W3C 标准，也还没有任何浏览器厂商公开表态；SDK 处于 0.x 阶段。",
     "sec32Title": "WebSkill 的校验与运行返回值",
     "sec32Desc": "为了在沙箱中严格校验参数完整性，并支持运行全程的追踪（Tracing），草案定义了 `ValidationReport`、`RuntimeRun`、`Artifact` 和 `TraceEvent` 的完整接口。",
     "sec33Title": "WebSkill 的安装返回值与使用示例",
@@ -195,7 +195,7 @@
   },
   "implement": {
     "s1Title": "遵循标准的 Agent Skills 协议",
-    "s1Desc": "WebSkill 严格遵循标准 Agent Skills 协议。目录中：SKILL.md 承载元数据与指令，scripts/ 存放可执行代码，references/ 存放依赖资源，assets/ 存放静态资源与中间产物。",
+    "s1Desc": "WebSkill 复用开放的 Agent Skills 格式，而不是重新定义一套。目录中：SKILL.md 承载元数据与指令，scripts/ 存放可执行代码，references/ 存放依赖资源，assets/ 存放静态资源与中间产物。",
     "s1DirRoot": "webskill-package/",
     "s1DirSkill": "SKILL.md",
     "s1DirSkillDesc": "元数据 (YAML) 与指令 (Markdown)",
@@ -214,15 +214,15 @@
     "s2L3": "最底层（资源层）：",
     "s2L3Desc": "仅在需要执行或读取时加载 scripts 和 assets 文件",
     "s3Title": "WebSkill 执行单元：scripts/ 脚本规范",
-    "s3Desc": "脚本必须是 .ts/.js 文件，导出名为 run 的执行函数，并提供 inputSchema（显式 JSON Schema、TS 类型推导或 JSDoc 注释三种方式之一）；返回值严格遵循 MCP 标准格式。",
+    "s3Desc": "脚本必须是 .ts/.js 文件，导出名为 run 的执行函数，并提供 inputSchema（显式 JSON Schema、TS 类型推导或 JSDoc 注释三种方式之一）；返回值是与 MCP 兼容的 content 数组（或可由运行时统一转换的值），外层再包装为结构化 ToolResult（与 MCP 完整 CallToolResult 相关但不相同）。",
     "s3Req1": "Web 原生类型",
-    "s3Req1Desc": "仅允许 .ts 和 .js 文件",
+    "s3Req1Desc": "JavaScript 为互操作基线，TypeScript 由宿主转译支持",
     "s3Req2": "导出 run()",
     "s3Req2Desc": "必须导出一个名为 run 的执行函数",
     "s3Req3": "提供 inputSchema",
     "s3Req3Desc": "三种方式声明参数，让 AI 知道如何调用",
     "s4Title": "通过标准 MCP 协议动态暴露页面级 WebSkill",
-    "s4Desc": "页面级技能按需动态暴露，以精确控制上下文：页面主线程作为 MCP Server 注册指令与工具，通过 MessageChannel 与作为 MCP Client 的 Worker 子线程通信；页面关闭，技能即刻销毁。",
+    "s4Desc": "页面级技能是一类独立的技能来源：页面主线程作为 MCP Server 注册指令、工具和资源，通过 MessageChannel 与作为 MCP Client 的 Worker 子线程通信。页面挂载时技能进入 Catalog，卸载时退出；无需安装，与已安装技能共存。这个映射是 MCP 应用层 profile（可选绑定），不是 MCP 原生概念。",
     "s4Main": "Web 页面主线程 (MCP Server)",
     "s4MainDesc": "注册 Prompt、Tool 和 Resource",
     "s4Channel": "MessageChannel 传输层",
@@ -255,7 +255,7 @@
     "s3Method3Title": "JSDoc 提取",
     "s3Method3Desc": "适用于纯 JavaScript 文件，通过标准注释快速提取参数类型及约束。",
     "s3Ret1": "MCP 输出规约：运行结果严格遵循标准 MCP 数据返回格式（如 Content 数组），保证链式调用可以管道式组合，并顺畅衔接自动资产保存等后续生命周期。",
-    "s3Ret2": "混合 MCP 工具支持：支持通过标准 TypeScript SDK 构建的自定义 MCP 节点（使用 endpoint:tool），以及谷歌实验性的 WebMCP 内置通道（使用 mcp#tool）。",
+    "s3Ret2": "混合工具来源：通过标准 TypeScript SDK 提供的工具（endpoint:toolName），以及通过浏览器中不断演进的 WebMCP API 注册的工具（mcp#toolName）。",
     "s4Exp1": "动态声明页面级 Skill：当 OPFS 中沉淀的持久化技能越来越多，即使使用渐进式披露，也难免触及上下文容量的瓶颈。引入“生命周期与当前页面绑定”的动态技能是一个自然的解法：例如用户打开某个商品详情页时，AI 便获得查询该商品实时库存的临时能力；页面一旦卸载或跳转，这项技能随之销毁，上下文流转无感、零负担。",
     "s4Exp2": "基于 MCP 构建的页面级生态：",
     "s4Exp3": "主线程 (MCP Server)：页面充当 MCP Server——通过 registerPrompt 发布页面相关的意图，通过 registerTool 注入页面专有逻辑，通过 registerResource 暴露专属数据视图。",
