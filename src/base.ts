@@ -13,7 +13,8 @@
  * 改为从本模块自身的 chunk 地址（恒为 <产物根>/assets/*.js）反推产物根，与页面 URL 无关。
  */
 export const APP_BASE = import.meta.env.BASE_URL.startsWith('.')
-  ? new URL('../', import.meta.url).href
+  ? // `../` 构建期没有对应文件，故意留给运行时按 chunk 地址解析；vite-ignore 只用来关掉该告警
+    new URL(/* @vite-ignore */ '../', import.meta.url).href
   : import.meta.env.BASE_URL;
 
 export function withBase(path: string): string {

@@ -270,6 +270,10 @@ export default defineConfig(({ command }) => {
           main: path.resolve(__dirname, 'index.html'),
           demo: path.resolve(__dirname, 'demo.html'),
           viewer: path.resolve(__dirname, 'viewer.html')
+        },
+        onwarn(warning, defaultWarn) {
+          if (warning.code === 'INVALID_ANNOTATION' && warning.id?.includes('/node_modules/')) return;
+          defaultWarn(warning);
         }
       }
     },

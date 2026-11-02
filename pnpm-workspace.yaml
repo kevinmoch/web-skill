@@ -1,0 +1,7 @@
+allowBuilds:
+  '@openuidev/lang-core': false
+  esbuild: false
+minimumReleaseAgeExclude:
+  - '@webskill/chatbot@0.25.1'
+  - '@webskill/console@0.22.4'
+  - '@webskill/sdk@0.28.1'
