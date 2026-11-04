@@ -315,7 +315,7 @@
     "readAll": "Read in order from Chapter 1 →",
     "versionTitle": "Version baseline",
     "versionDesc": "This guide is written against these versions; screens and copy match them:",
-    "versions": ["@webskill/sdk 0.28.1", "@webskill/chatbot 0.25.1", "@webskill/console 0.22.4"],
+    "versions": ["@webskill/sdk 0.29.0", "@webskill/chatbot 0.26.0", "@webskill/console 0.22.5"],
     "editionsTitle": "Check which edition you are on",
     "editionsDesc": "WebSkill ships as a web app and as a browser extension. The capability differences concentrate in Part III (Page Capabilities). Not sure which one you use? Read Chapter 2, Web and Extension Editions.",
     "overviewTitle": "Capability overview",
