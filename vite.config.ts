@@ -217,6 +217,8 @@ export default defineConfig(({ command }) => {
         // 发布产物（dist）里的 rolldown CJS runtime 顶层调用 createRequire，浏览器无此 API；
         // 同时 vfile 等 CJS 依赖需要 node:path / node:url / node:process 的少量函数。
         // 用 shim 让 T0/T2 能构建。详见各 shim 文件注释。
+        { find: /^buffer$/, replacement: path.resolve(__dirname, 'node_modules/buffer/index.js') },
+        { find: /^string_decoder$/, replacement: path.resolve(__dirname, 'node_modules/string_decoder/lib/string_decoder.js') },
         { find: 'node:module', replacement: path.resolve(__dirname, 'src/demo/webskill/shims/nodeModule.ts') },
         { find: 'node:path', replacement: path.resolve(__dirname, 'src/demo/webskill/shims/nodePath.ts') },
         { find: 'node:url', replacement: path.resolve(__dirname, 'src/demo/webskill/shims/nodeUrl.ts') },

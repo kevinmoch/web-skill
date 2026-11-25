@@ -11,6 +11,7 @@ import {
   createXlsxBlockReader,
   createXlsxTableReader,
   extractDocxText,
+  extractMsgText,
   extractPptxText,
   extractXlsxText,
   fillDocxTemplate,
@@ -120,6 +121,7 @@ export function createAgileHostCapabilities(
     xlsxTableReader: createXlsxTableReader(),
     // 0.22.0 分册 18：.pptx 与上面两个同级，缺席即该格式明确报不支持
     pptxExtractor: extractPptxText,
+    msgExtractor: extractMsgText,
     // PDF 默认原件直传；只有端点以 4xx 拒收时运行时才回头用它抽文本重发（SDK 分册 22）
     pdfExtractor: extractPdfText,
     // 逐单元读取（SDK 0.21.0 分册 22 / 0.22.0 分册 18）：上面四个抽取器回答「整份是什么」，
