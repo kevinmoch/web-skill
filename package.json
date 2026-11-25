@@ -17,7 +17,8 @@
     "clean": "rimraf dist",
     "lint": "tsc --noEmit",
     "lint:sdk": "tsc --noEmit -p tsconfig.sdk.json",
-    "doctor": "node scripts/doctor.mjs"
+    "doctor": "node scripts/doctor.mjs",
+    "check:release": "node scripts/doctor.mjs"
   },
   "dependencies": {
     "@a2ui/lit": "^0.10.3",
