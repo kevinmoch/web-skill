@@ -17,7 +17,10 @@ export const AGILE_PAGE_SCOPE = {
 
 /** 同一个 reader 实例：感知发 ref，操作按 ref 执行，句柄表必须共享 */
 export function createAgilePageReader(): DomPerceptionReader {
-  return createDomPerceptionReader({ actionScope: AGILE_PAGE_SCOPE });
+  return createDomPerceptionReader({
+    actionScope: AGILE_PAGE_SCOPE,
+    promoteRoles: true
+  });
 }
 
 export function createAgilePerception(runtime: AgileWebSkillRuntime, reader: DomPerceptionReader): PagePerceptionPolicy {
