@@ -1,5 +1,7 @@
 /// <reference types="@webskill/chatbot/virtual" />
-import { createConfigDefaultsStore } from '@webskill/chatbot/config';
+import { applyConfigDefaults, createConfigDefaultsStore } from '@webskill/chatbot/config';
+import { createLocalStorageRemoteEndpoints } from '@webskill/sdk/mcp';
+import type { RemoteEndpointStore } from '@webskill/sdk/mcp';
 import type { WebSkillConfigDefaults } from '@webskill/chatbot/config';
 import type { RuntimeConfigStore } from '@webskill/chatbot';
 import { loadWebSkillSecrets, WEBSKILL_CONFIG } from 'virtual:webskill-config';
@@ -40,6 +42,52 @@ const snapshot = {
     }
   }
 };
+
+/** MCP 端点与运行时配置共用一份存储；旧 localStorage 清单只补充尚未迁移的条目。 */
+export function createConfiguredRemoteEndpoints(namespace: string, storageKey: string): RemoteEndpointStore {
+  const legacy = createLocalStorageRemoteEndpoints(namespace);
+  const readRaw = (): unknown => {
+    try {
+      const raw = globalThis.localStorage?.getItem(storageKey);
+      return raw ? JSON.parse(raw) : undefined;
+    } catch {
+      return undefined;
+    }
+  };
+  const save = (endpoints: Parameters<RemoteEndpointStore['save']>[0]): void => {
+    const stored = readRaw();
+    const base =
+      typeof stored === 'object' && stored !== null && !Array.isArray(stored)
+        ? (stored as Record<string, unknown>)
+        : {};
+    const currentMcp = base['mcp'];
+    const mcp =
+      typeof currentMcp === 'object' && currentMcp !== null && !Array.isArray(currentMcp)
+        ? (currentMcp as Record<string, unknown>)
+        : {};
+    globalThis.localStorage?.setItem(storageKey, JSON.stringify({ ...base, mcp: { ...mcp, endpoints } }));
+  };
+  return {
+    load: () => {
+      const config = applyConfigDefaults({
+        stored: readRaw(),
+        defaults: WEBSKILL_CONFIG,
+        lastApplied: snapshot.read()
+      }).config;
+      const previous = legacy.load();
+      const endpoints = [
+        ...config.mcp.endpoints,
+        ...previous.filter((entry) => !config.mcp.endpoints.some((endpoint) => endpoint.name === entry.name))
+      ];
+      if (previous.length > 0) {
+        save(endpoints);
+        legacy.save([]);
+      }
+      return endpoints;
+    },
+    save
+  };
+}
 
 /** 把 config.json 的缺省值与烘焙凭据接进本应用的 localStorage store */
 export function withConfigDefaults(inner: RuntimeConfigStore, readRaw: () => unknown): RuntimeConfigStore {

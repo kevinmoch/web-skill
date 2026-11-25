@@ -1,5 +1,7 @@
 import type { ConnectFacade, ConnectPerceptionView } from '@webskill/console';
-import { createConnectFacade, createLocalStorageRemoteEndpoints } from '@webskill/sdk/mcp';
+import { createConnectFacade } from '@webskill/sdk/mcp';
+import { createConfiguredRemoteEndpoints } from './configDefaults';
+import { RUNTIME_CONFIG_STORAGE_KEY } from './runtime';
 import type { PageMcpEndpoint } from '@webskill/sdk/mcp';
 import type { PagePerceptionPolicy } from '@webskill/sdk/agent';
 import { toFrameScopes } from '@webskill/sdk/agent';
@@ -23,7 +25,7 @@ export function createAgileConnectFacade(
   const facade = createConnectFacade({
     host,
     builtinEndpointUrl: 'in-process://agile-page (page tools & temporary skills)',
-    remoteEndpoints: createLocalStorageRemoteEndpoints('agile'),
+    remoteEndpoints: createConfiguredRemoteEndpoints('agile', RUNTIME_CONFIG_STORAGE_KEY),
 
     // 页面技能按屏生灭：console 的检查视图要看到**全部**已声明技能。
     // 若只反映当前屏的服务状态，一进技能中心屏列表就恒空——用户会以为技能丢了。
